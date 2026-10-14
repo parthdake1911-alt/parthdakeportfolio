@@ -1,0 +1,321 @@
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="portfolio-hero.html" aria-label="Parth Dake, home"><img src="{{LOGO}}" alt="Parth Dake logo"></a>
+    <nav class="nav" aria-label="Main">
+      <a href="portfolio-hero.html#work" class="on">Work</a>
+      <a href="portfolio-hero.html#about">About</a>
+      <a href="portfolio-hero.html#contact">Contact</a>
+    </nav>
+  </div>
+  <span class="progress" id="progress" aria-hidden="true"></span>
+</header>
+
+<main>
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="hero">
+    <div class="wrap">
+      <a href="portfolio-hero.html#work" class="kicker" style="text-decoration:none">Website redesign · UX audit · Pitch project</a>
+      <h1 data-split>Ellenbarrie <span class="soft sub">Rethinking the homepage experience</span></h1>
+      <p class="hero-headline rv">A clearer first impression for an industrial brand.</p>
+      <p class="lead rv">I audited Ellenbarrie’s current homepage and redesigned it as a pitch, exploring how clearer messaging, stronger information hierarchy and a more purposeful flow of content could help visitors understand the company faster.</p>
+
+      <div class="meta meta5 rv d1">
+        <div><b>Client</b><span>Ellenbarrie Industrial Gases</span></div>
+        <div><b>Project type</b><span>Homepage redesign pitch</span></div>
+        <div><b>My role</b><span>UX/UI designer</span></div>
+        <div><b>Scope</b><span>Homepage</span></div>
+      </div>
+      <div class="caps rv d2" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:22px" aria-label="Deliverables">
+        <span class="chip dark"><i></i>Basic UX audit</span><span class="chip"><i></i>Homepage redesign</span><span class="chip"><i></i>Interactive HTML prototype</span>
+      </div>
+      <div class="ctas rv d2">
+        <a class="btn dark" href="prototype.html" data-proto="ellenProto" target="_blank" rel="noopener">Explore the redesigned homepage
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        <a class="btn light" href="#audit">Start with the audit
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+      </div>
+
+      <figure class="hero-shot rv d3">
+        <button class="shot browser" data-cap="The redesigned homepage hero, from my prototype."><img src="{{r_hero}}" alt="Redesigned hero: the headline 'India’s Trusted Industrial Gas Partner' and a Contact Us button over a refinery at dusk." loading="eager"></button>
+        <figcaption>The redesigned hero, captured from my HTML prototype. This is a pitch proposal, not the live Ellenbarrie website.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ================= OVERVIEW ================= -->
+  <section id="overview">
+    <div class="wrap">
+      <span class="kicker rv">Project overview</span>
+      <h2 class="rv">Improving how the homepage communicates and guides</h2>
+      <p class="lead rv">A homepage has to tell visitors who a company is, what it offers and where to go next. For an industrial gases company, that means getting complex services across quickly to very different visitors: plant buyers, hospitals, partners and investors.</p>
+      <p class="lead rv">I reviewed a screenshot of the existing homepage, identified where it could communicate more clearly, and turned those observations into a redesigned homepage built as an interactive HTML prototype.</p>
+    </div>
+  </section>
+
+  <!-- ================= CHALLENGE ================= -->
+  <section id="challenge">
+    <div class="wrap">
+      <span class="kicker rv">The challenge</span>
+      <h2 class="rv">Making the homepage easier to understand and navigate</h2>
+      <p class="lead rv">I looked at the existing homepage through six questions, answering only what the screenshot could show.</p>
+      <div class="questions">
+        <div class="q rv"><span class="n">01</span><h4>Information hierarchy</h4><p>Is there a clear order between the main message, key content and the next step?</p></div>
+        <div class="q rv d1"><span class="n">02</span><h4>Navigation and discoverability</h4><p>Are the main destinations easy to identify, and do labels say where they lead?</p></div>
+        <div class="q rv d2"><span class="n">03</span><h4>Homepage messaging</h4><p>Does the first screen say who Ellenbarrie is and what the site is for?</p></div>
+        <div class="q rv"><span class="n">04</span><h4>Calls to action</h4><p>Are the important next steps clear, and is emphasis given to the right ones?</p></div>
+        <div class="q rv d1"><span class="n">05</span><h4>Content structure and scanning</h4><p>Is content grouped logically, and can a visitor scan it without effort?</p></div>
+        <div class="q rv d2"><span class="n">06</span><h4>Visual consistency</h4><p>Do type, spacing, imagery and components support a clear, professional experience?</p></div>
+      </div>
+      <p class="note rv">I only had a desktop screenshot of the current site, so I didn’t audit its mobile experience. My redesign prototype was also designed for desktop.</p>
+    </div>
+  </section>
+
+  <!-- ================= AUDIT ================= -->
+  <section id="audit">
+    <div class="wrap">
+      <span class="kicker rv">The UX audit</span>
+      <h2 class="rv">Identifying opportunities before redesigning</h2>
+      <p class="lead rv">Five observations from the current homepage, each linked to what the redesign does about it.</p>
+      <div class="audit">
+        <div class="pin rv">
+          <div class="frame" tabindex="0" aria-label="Current homepage with five numbered audit markers. Scroll to see the whole page."><img src="{{o_annotated}}" alt="The current Ellenbarrie homepage, annotated: 1 the top contact bar and navigation, 2 the hero button, 3 the About paragraph, 4 the services cards, 5 the customer logos." loading="lazy"></div>
+          <p class="hint-s">The current homepage, annotated. Scroll inside the frame to see it all.</p>
+        </div>
+        <div class="obsv">
+          <article class="ob rv" id="o1">
+            <div class="ob-head"><span class="ob-num">1</span><h4>Top of the page</h4><span class="sev opp">Opportunity</span></div>
+            <dl>
+              <dt>Observation</dt><dd>Above the navigation sits a dark bar with an email address, three phone numbers, social links and a welcome line. Below it are the logo, five menu items (Home, About Us, Our Business, Investors, Career), search and a red Contact Us button.</dd>
+              <dt>UX implication</dt><dd>Many small items of similar weight compete for attention before the visitor reaches any content. The same phone numbers appear again in the About section and the footer.</dd>
+              <dt>Opportunity</dt><dd>Give contact one clear, prominent route rather than many repeated ones.</dd>
+              <dt>Redesign response</dt><dd class="resp">The redesign puts a single Contact Us button in the hero. My prototype covers the homepage content only, so the navigation bar itself isn’t redesigned here.</dd>
+            </dl>
+            <div class="crop"><img src="{{o_top}}" alt="Crop of the current top bar and navigation." loading="lazy"></div>
+          </article>
+          <article class="ob rv" id="o2">
+            <div class="ob-head"><span class="ob-num">2</span><h4>The hero</h4><span class="sev need">Needs improvement</span></div>
+            <dl>
+              <dt>Observation</dt><dd>In the screenshot, the hero is an aerial photo of a gas plant with one centred “Our Services” button, and no headline.</dd>
+              <dt>UX implication</dt><dd>The first screen doesn’t say who Ellenbarrie is or what it does; a visitor has to scroll to find out.</dd>
+              <dt>Opportunity</dt><dd>Lead with a short positioning statement and one clear next step.</dd>
+              <dt>Redesign response</dt><dd class="resp">A headline, “India’s Trusted Industrial Gas Partner”, with a Contact Us button.</dd>
+            </dl>
+          </article>
+          <article class="ob rv" id="o3">
+            <div class="ob-head"><span class="ob-num">3</span><h4>The About section</h4><span class="sev need">Needs improvement</span></div>
+            <dl>
+              <dt>Observation</dt><dd>The strongest facts (over 50 years of legacy, the largest 100% Indian-owned firm by capacity, revenue and profitability in Fiscal 2024, India’s largest oxygen plants at 1250 TPD) sit inside one dense paragraph of small grey text.</dd>
+              <dt>UX implication</dt><dd>Visitors who scan rather than read are likely to miss the company’s best proof points.</dd>
+              <dt>Opportunity</dt><dd>Pull the key facts out of the paragraph and make them visible at a glance.</dd>
+              <dt>Redesign response</dt><dd class="resp">A “Why Ellenbarrie?” section with four large figures in place of the paragraph.</dd>
+            </dl>
+            <div class="crop"><img src="{{o_about}}" alt="Crop of the current About section with a photo collage and a long paragraph." loading="lazy"></div>
+          </article>
+          <article class="ob rv" id="o4">
+            <div class="ob-head"><span class="ob-num">4</span><h4>The services</h4><span class="sev need">Needs improvement</span></div>
+            <dl>
+              <dt>Observation</dt><dd>Six service cards are staggered left and right around a central photo. Each has an icon, a small grey label and the same “Read More” link.</dd>
+              <dt>UX implication</dt><dd>The zigzag layout has no obvious reading order, the labels are small and low in contrast, and six identical links don’t help visitors tell the services apart.</dd>
+              <dt>Opportunity</dt><dd>Present the services as one clear, scannable sequence with names that stand out.</dd>
+              <dt>Redesign response</dt><dd class="resp">“What can we help you with?”: the services in one row, each with a bold name, a one-line description and an illustration.</dd>
+            </dl>
+          </article>
+          <article class="ob rv" id="o5">
+            <div class="ob-head"><span class="ob-num">5</span><h4>Customers and footer</h4><span class="sev pos">Positive observation</span></div>
+            <dl>
+              <dt>Observation</dt><dd>A row of six customer logos, and a footer with the registered office, CIN and contact details.</dd>
+              <dt>UX implication</dt><dd>These are useful trust signals for a B2B and infrastructure audience.</dd>
+              <dt>Opportunity</dt><dd>Keep them. They are worth carrying into any redesign.</dd>
+              <dt>Redesign response</dt><dd class="resp">My prototype focuses on the hero, services and proof points, so the customers section and footer aren’t part of it. A full build would keep them.</dd>
+            </dl>
+            <div class="crop"><img src="{{o_customers}}" alt="Crop of the current customer logos." loading="lazy"></div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= STRATEGY ================= -->
+  <section id="strategy">
+    <div class="wrap">
+      <span class="kicker rv">Redesign strategy</span>
+      <h2 class="rv">Moving from observations to design decisions</h2>
+      <div class="principles">
+        <div class="principle rv"><span class="n">01</span><h4>Lead with a clear message</h4><p>Say who Ellenbarrie is in the first screen, in one line.</p></div>
+        <div class="principle rv d1"><span class="n">02</span><h4>Simplify the first impression</h4><p>One message and one action in the hero, instead of many small competing items.</p></div>
+        <div class="principle rv d2"><span class="n">03</span><h4>A purposeful content flow</h4><p>Who we are → what we can help with → why trust us, in that order.</p></div>
+        <div class="principle rv d3"><span class="n">04</span><h4>Turn facts into proof points</h4><p>Lift the strongest figures out of paragraphs and show them large.</p></div>
+        <div class="principle rv"><span class="n">05</span><h4>A consistent visual system</h4><p>One typeface, bold headings, high contrast, and red used only for emphasis.</p></div>
+      </div>
+      <p class="note rv">I didn’t redesign the main navigation in this pitch; my prototype concentrates on the homepage content.</p>
+    </div>
+  </section>
+
+  <!-- ================= DECISIONS ================= -->
+  <section id="decisions">
+    <div class="wrap">
+      <span class="kicker rv">Key design decisions</span>
+      <h2 class="rv">Five changes, and why I made them</h2>
+      <nav class="index" id="index" aria-label="Design decisions">
+        <a href="#d1">01 Hero</a><a href="#d2">02 Services</a><a href="#d3">03 Proof points</a><a href="#d4">04 Calls to action</a><a href="#d5">05 Visual system</a>
+      </nav>
+
+      <article class="decision" id="d1">
+        <div class="dhead rv"><span class="dnum">01</span><span class="dlabel">Hero and first impression</span></div>
+        <h3 class="rv">Say who Ellenbarrie is before anything else</h3>
+        <div class="flow rv">
+          <div><b>Original</b><p>An aerial plant photo with a single “Our Services” button and no headline.</p></div>
+          <div><b>Observation</b><p>The first screen shows a facility but not what the company is or does.</p></div>
+          <div><b>Decision</b><p>I added the headline “India’s Trusted Industrial Gas Partner” and a Contact Us button over a refinery image.</p></div>
+          <div><b>Rationale</b><p>A one-line positioning statement answers the visitor’s first question straight away. A dark gradient behind the text keeps the headline readable over the photo.</p></div>
+        </div>
+        <div class="pairs">
+          <figure class="before rv"><div class="lbl"><i></i>Original</div><button class="shot" data-cap="Current hero."><img src="{{o_hero}}" alt="Current hero: aerial plant photo with an Our Services button." loading="lazy"></button></figure>
+          <figure class="after rv d1"><div class="lbl"><i></i>Redesign</div><button class="shot" data-cap="Redesigned hero."><img src="{{r_hero}}" alt="Redesigned hero with the headline and Contact Us button." loading="lazy"></button></figure>
+        </div>
+      </article>
+
+      <article class="decision" id="d2">
+        <div class="dhead rv"><span class="dnum">02</span><span class="dlabel">Services and content structure</span></div>
+        <h3 class="rv">From six scattered cards to one story about what Ellenbarrie does</h3>
+        <div class="flow rv">
+          <div><b>Original</b><p>Six cards staggered around a photo, each with a small grey label and a “Read More” link.</p></div>
+          <div><b>Observation</b><p>No clear reading order, and names too small to compare at a glance.</p></div>
+          <div><b>Decision</b><p>I framed the section as a question, “What can we help you with?”, and showed the services in one row with names, short descriptions and illustrations, revealed as the visitor scrolls.</p></div>
+          <div><b>Rationale</b><p>One row reads left to right in a fixed order, and each service gets a plain one-line description, for example “Cylinders and Bulk tankers”.</p></div>
+        </div>
+        <div class="pairs">
+          <figure class="before rv"><div class="lbl"><i></i>Original</div><button class="shot" data-cap="Current services section."><img src="{{o_services}}" alt="Current services: six cards around a central photo." loading="lazy"></button></figure>
+          <figure class="after rv d1"><div class="lbl"><i></i>Redesign</div>
+            <div class="stack2">
+              <button class="shot" data-cap="As the visitor scrolls, a tanker drives in across “OUR SERVICES”."><img src="{{r_intro}}" alt="Redesign: 'What can we help you with?' with a tanker truck driving across large 'OUR SERVICES' text." loading="lazy"></button>
+              <button class="shot" data-cap="Services in one row; the active service is highlighted as you scroll."><img src="{{r_services}}" alt="Redesign: 'We bring the gas to your gate.' and a row of services, with Gas pipeline services highlighted." loading="lazy"></button>
+            </div>
+          </figure>
+        </div>
+        <ul class="chg rv" style="margin-top:20px">
+          <li><b>A scroll-led sequence:</b> an Ellenbarrie tanker drives across large “OUR SERVICES” type, then the line “We bring the gas to your gate.” introduces the six services. It literally shows what the company does.</li>
+          <li><b>One service in focus at a time:</b> as the visitor scrolls, each service brightens in turn while the others dim. The six services are industrial gas supply, medical gases, medical equipment, gas pipeline services, cryogenic technology plants and EPC solutions.</li>
+          <li><b>Trade-off:</b> in the prototype the services aren’t links yet. A full build would connect each one to its detail page.</li>
+        </ul>
+      </article>
+
+      <article class="decision" id="d3">
+        <div class="dhead rv"><span class="dnum">03</span><span class="dlabel">Proof points and hierarchy</span></div>
+        <h3 class="rv">Turning a paragraph into four figures you can’t miss</h3>
+        <div class="flow rv">
+          <div><b>Original</b><p>“Welcome To Ellenbarrie Industrial Gases Limited” and one long paragraph of small grey text.</p></div>
+          <div><b>Observation</b><p>The most persuasive facts are buried mid-paragraph.</p></div>
+          <div><b>Decision</b><p>I replaced it with “Why Ellenbarrie?”, the line “Mission critical operations depend on reliable partners.” and four figures that count up as they appear: 50+, 1000+, 10+, 12+.</p></div>
+          <div><b>Rationale</b><p>Large figures can be read in a second. The headline answers why a buyer should trust the company, not just who it is.</p></div>
+        </div>
+        <div class="pairs">
+          <figure class="before rv"><div class="lbl"><i></i>Original</div><button class="shot" data-cap="Current About section."><img src="{{o_about}}" alt="Current About section with a photo collage and a dense paragraph." loading="lazy"></button></figure>
+          <figure class="after rv d1"><div class="lbl"><i></i>Redesign</div><button class="shot" data-cap="Redesigned proof points."><img src="{{r_why}}" alt="Redesign: 'Why Ellenbarrie?' with 50+ years in industrial gases, 1000+ customers served, 10+ manufacturing facilities and 12+ industries served, over a photo of the plant." loading="lazy"></button></figure>
+        </div>
+      </article>
+
+      <article class="decision" id="d4">
+        <div class="dhead rv"><span class="dnum">04</span><span class="dlabel">Calls to action</span></div>
+        <h3 class="rv">One clear next step instead of many equal ones</h3>
+        <div class="flow rv">
+          <div><b>Original</b><p>Contact Us, Our Services and More About Us as red pill buttons, plus a phone link and six identical “Read More” links.</p></div>
+          <div><b>Observation</b><p>Many actions at the same visual weight make it unclear which one matters most.</p></div>
+          <div><b>Decision</b><p>I gave the hero a single Contact Us button and let scrolling carry the visitor through the rest of the page.</p></div>
+          <div><b>Rationale</b><p>For an industrial supplier, getting in touch is the most important action, so it gets the one prominent button.</p></div>
+        </div>
+        <div class="cta-count rv">
+          <div><b>10</b><span>visible calls to action in the current homepage screenshot, not counting the top bar, menu and footer</span></div>
+          <div><b>1</b><span>call to action in the redesigned prototype: Contact Us in the hero</span></div>
+        </div>
+      </article>
+
+      <article class="decision" id="d5">
+        <div class="dhead rv"><span class="dnum">05</span><span class="dlabel">Visual design and readability</span></div>
+        <h3 class="rv">Bolder type, more contrast, and red only where it matters</h3>
+        <div class="flow rv">
+          <div><b>Original</b><p>Small grey body text, faint watermark words (“About”, “Services”) behind headings, and pill buttons with a “+” on most actions.</p></div>
+          <div><b>Observation</b><p>Low-contrast text and decorative layers make the page harder to read and scan.</p></div>
+          <div><b>Decision</b><p>I used one typeface (Inter), large bold headings, solid red, black and white blocks, and dark text on light backgrounds.</p></div>
+          <div><b>Rationale</b><p>Higher contrast and a clear type scale make headings easy to spot and text easier to read, while keeping Ellenbarrie’s red.</p></div>
+        </div>
+        <div class="pairs">
+          <figure class="before rv"><div class="lbl"><i></i>Original</div><button class="shot" data-cap="Current: small grey text and watermark headings."><img src="{{o_about}}" alt="Current About section showing small grey text and a faint watermark word behind the heading." loading="lazy"></button></figure>
+          <figure class="after rv d1"><div class="lbl"><i></i>Redesign</div><button class="shot" data-cap="Redesign: bold type and strong contrast."><img src="{{r_services2}}" alt="Redesign services section in red, black and white with large bold type." loading="lazy"></button></figure>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= BEFORE / AFTER ================= -->
+  <section id="compare">
+    <div class="wrap">
+      <span class="kicker rv">Before and after</span>
+      <h2 class="rv">Seeing the redesign in context</h2>
+      <div class="ba2">
+        <div class="rv"><div class="col-label"><span class="dot" style="background:var(--ph)"></span>Current homepage <small>Screenshot</small></div>
+          <div class="scroller-box" tabindex="0" aria-label="Current homepage, scrollable"><img src="{{o_annotated}}" alt="The full current homepage with audit markers." loading="lazy"></div></div>
+        <div class="rv d1"><div class="col-label"><span class="dot" style="background:var(--ink)"></span>Redesigned homepage <small>Key moments from the prototype</small></div>
+          <div class="scroller-box" tabindex="0" aria-label="Redesigned homepage, scrollable"><img src="{{r_hero}}" alt="Redesign hero." loading="lazy"><img src="{{r_intro}}" alt="Redesign services intro." loading="lazy"><img src="{{r_services}}" alt="Redesign services row." loading="lazy"><img src="{{r_why}}" alt="Redesign proof points." loading="lazy"></div></div>
+      </div>
+      <p class="hint-s rv">Scroll inside each frame. The redesign is scroll-animated, so its column shows four moments from the prototype rather than one static page.</p>
+      <div class="changed">
+        <div class="rv"><b>A headline first</b>The first screen now says who Ellenbarrie is.</div>
+        <div class="rv d1"><b>One action</b>A single Contact Us button replaces many competing buttons and links.</div>
+        <div class="rv d2"><b>Services as a sequence</b>One ordered row with clear names, instead of scattered cards.</div>
+        <div class="rv d3"><b>Proof at a glance</b>Key facts as four large figures instead of a paragraph.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROCESS ================= -->
+  <section id="process">
+    <div class="wrap">
+      <span class="kicker rv">From audit to prototype</span>
+      <h2 class="rv">Turning UX observations into a tangible proposal</h2>
+      <div class="steps steps4">
+        <div class="step rv"><h4>Review</h4><p>I examined the current homepage’s structure, messaging, hierarchy and navigation from a full-page screenshot.</p></div>
+        <div class="step rv d1"><h4>Identify</h4><p>I picked the observations that most affect clarity and could be tied to a concrete change.</p></div>
+        <div class="step rv d2"><h4>Redesign</h4><p>I redesigned the hero, services and proof points around those observations.</p></div>
+        <div class="step rv d3"><h4>Prototype</h4><p>I built the redesign as an interactive HTML prototype, with its scroll animations, so it could be reviewed as a real page.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= OUTCOME + REFLECTION ================= -->
+  <section id="outcome">
+    <div class="wrap">
+      <span class="kicker rv">Design outcome</span>
+      <h2 class="rv">A proposed homepage grounded in UX observations</h2>
+      <p class="lead rv">The outcome is a redesigned homepage prototype that connects a focused audit to specific design decisions, so the current page and the proposal can be compared directly. This was a pitch: the prototype is a proposal, and it hasn’t been approved, launched or measured.</p>
+      <div class="two">
+        <div class="card rv"><h4>Deliverables</h4><ul>
+          <li><b>Homepage UX audit:</b> five observations on the current homepage</li>
+          <li><b>Homepage redesign:</b> a hero, services and proof points shaped by the audit</li>
+          <li><b>Interactive HTML prototype:</b> the redesign with its scroll animations, for presentation and review</li>
+        </ul></div>
+        <div class="card rv d1"><h4>Reflection</h4><p>This project reinforced that a redesign should start with the current experience, not a blank canvas. Tying each change to something I could point to on the current page made the pitch a reasoned UX proposal rather than a visual refresh. Next, I’d carry the redesign through the navigation, customers section, footer and mobile layout.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span class="kicker">Thanks for reading</span>
+    <h2>A better homepage starts with a clearer experience.</h2>
+    <p class="lead">This pitch explored how a focused UX audit and a considered homepage redesign could give Ellenbarrie a clearer, more structured digital experience.</p>
+    <div class="row2">
+      <a class="btn dark" href="portfolio-hero.html#work">Explore more projects
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></a>
+      <a class="btn light" href="prototype.html" data-proto="ellenProto" target="_blank" rel="noopener">Explore the redesigned homepage
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+    </div>
+    <div class="base"><span>© 2026 Parth Dake · parthdake1911@gmail.com</span><a href="#top" style="text-decoration:none">Back to top ↑</a></div>
+  </div>
+</footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Enlarged screenshot">
+  <button type="button" id="lbClose" aria-label="Close">×</button>
+  <figure><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure>
+</div>

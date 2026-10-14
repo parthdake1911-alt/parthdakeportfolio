@@ -1,0 +1,374 @@
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="portfolio-hero.html" aria-label="Parth Dake, home"><img src="{{LOGO}}" alt="Parth Dake logo"></a>
+    <nav class="nav" aria-label="Main">
+      <a href="portfolio-hero.html#work" class="on">Work</a>
+      <a href="portfolio-hero.html#about">About</a>
+      <a href="portfolio-hero.html#contact">Contact</a>
+    </nav>
+  </div>
+  <span class="progress" id="progress" aria-hidden="true"></span>
+</header>
+
+<main>
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="hero">
+    <div class="wrap">
+      <a href="portfolio-hero.html#work" class="kicker" style="text-decoration:none">Graduation project · Desktop product design</a>
+      <h1 data-split>Anchor <span class="soft sub">Bringing trading data into focus</span></h1>
+      <p class="lead rv">A desktop trading data management system designed to help traders organise their trading information, track performance and understand their trading activity more clearly. I designed it in Figma, then used Claude to build it into a working prototype you can click through.</p>
+
+      <div class="meta rv d1">
+        <div><b>Project type</b><span>Graduation project</span></div>
+        <div><b>My role</b><span>UX/UI designer</span></div>
+        <div><b>Platform</b><span>Desktop</span></div>
+        <div><b>Tools</b><span>Figma for design; Claude to build the prototype</span></div>
+      </div>
+      <div class="caps rv d2" aria-label="Deliverables">
+        <span class="chip dark"><i></i>UX design</span><span class="chip"><i></i>Information architecture</span><span class="chip"><i></i>Wireframes</span><span class="chip"><i></i>UI design</span><span class="chip"><i></i>Interactive prototype</span>
+      </div>
+
+      <div class="ctas rv d2">
+        <a class="btn dark" href="anchor-prototype.html" data-proto="anchorProto" target="_blank" rel="noopener">Explore the working prototype
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        <a class="btn light" href="#decisions">Jump to the design decisions
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+      </div>
+
+      <div class="hero-stage">
+        <button class="shot browser main" data-cap="Anchor’s dashboard, from my working prototype."><img src="{{a_dash}}" alt="Anchor dashboard: a sidebar with Dashboard, Strategy, Reports, Journal and Trades; a review queue; five headline figures; recent trades; a progress tracker; and a cumulative P&amp;L chart." loading="eager"></button>
+        <div class="float f1" aria-hidden="true"><img src="{{a_trade}}" alt=""></div>
+        <div class="float f2" aria-hidden="true"><img src="{{c_rulecheck}}" alt=""></div>
+      </div>
+      <p class="demo-note rv"><b>Note</b> Every figure in these screens is the prototype’s built-in demo account: 110 sample intraday trades from June to October 2026. None of it is real trading data or a real result.</p>
+    </div>
+  </section>
+
+  <!-- ================= OVERVIEW ================= -->
+  <section id="overview">
+    <div class="wrap">
+      <span class="kicker rv">Project overview</span>
+      <h2 class="rv">Making trading data easier to understand</h2>
+      <p class="lead rv">Trading involves more than placing trades. Understanding your trading also means keeping records, reviewing past decisions and spotting patterns in how you perform.</p>
+      <p class="lead rv">Anchor explores how a dedicated desktop experience could bring that information into one organised place. In the prototype, a trader can:</p>
+      <ul class="points rv" style="margin-top:22px;max-width:820px">
+        <li><b>Connect a broker with read-only access</b> and import their trades, or continue with a journal-only account.</li>
+        <li><b>See their trading at a glance</b> on a dashboard, then drill into any single trade.</li>
+        <li><b>Review each trade</b> against a price chart, its executions and the rules of the strategy it was tagged with.</li>
+        <li><b>Keep a daily journal</b> with notes and reusable templates.</li>
+        <li><b>Analyse performance</b> by day and time, strategy, symbol, risk, tags, and wins versus losses.</li>
+        <li><b>Define strategies as rules</b>, so Anchor can check every trade against them.</li>
+      </ul>
+      <p class="quote rv" style="font-size:clamp(22px,2.8vw,34px);margin-top:44px">The goal was to explore how thoughtful UX and information design could make trading data <em>more accessible and more useful to the trader.</em></p>
+    </div>
+  </section>
+
+  <!-- ================= PROBLEM SPACE ================= -->
+  <section id="problem">
+    <div class="wrap">
+      <span class="kicker rv">The problem space</span>
+      <h2 class="rv">Trading data is only useful when it is easy to work with</h2>
+      <p class="lead rv">Traders may need to review many sides of their activity, from a single trade to patterns across months. When that information is hard to organise, find or interpret, reviewing it takes extra effort. I framed the project around four themes.</p>
+      <div class="challenges">
+        <div class="challenge rv"><span class="n">01</span><h4>Organising trading information</h4><p>Grouping trades, notes and strategies into a clear structure instead of disconnected data points.</p></div>
+        <div class="challenge rv d1"><span class="n">02</span><h4>Understanding performance</h4><p>Helping traders review their activity through clear summaries, readable tables and suitable charts.</p></div>
+        <div class="challenge rv d2"><span class="n">03</span><h4>Navigating complex information</h4><p>Using navigation, filters, tables and page hierarchy to move between different views of the same data.</p></div>
+        <div class="challenge rv d3"><span class="n">04</span><h4>Supporting review and reflection</h4><p>Making a deliberate review of past trades and trading days part of the routine.</p></div>
+      </div>
+      <div class="opportunity rv"><b>Design opportunity</b>Create a desktop experience that brings trading information into a coherent structure and makes reviewing it more approachable.</div>
+      <p class="note rv">These are the themes I designed around. They are not findings from a formal user study.</p>
+    </div>
+  </section>
+
+  <!-- ================= APPROACH ================= -->
+  <section id="approach">
+    <div class="wrap">
+      <span class="kicker rv">My design approach</span>
+      <h2 class="rv">From product concept to working prototype</h2>
+      <div class="steps steps4">
+        <div class="step rv"><h4>Understand the problem space</h4><p>I defined who Anchor is for: disciplined intraday traders who want to review how they trade, not a tool for placing trades.</p><span class="who">My work</span></div>
+        <div class="step rv d1"><h4>Define the product structure</h4><p>I organised the product around five areas: Dashboard, Trades, Journal, Reports and Strategy.</p><span class="who">My work</span></div>
+        <div class="step rv d2"><h4>Wireframe and design in Figma</h4><p>I designed the layout, hierarchy, data presentation and interaction patterns for each screen as desktop wireframes and UI in Figma.</p><span class="who">My work</span></div>
+        <div class="step rv d3"><h4>Build the working prototype</h4><p>I used Claude to build my Figma designs into a working HTML prototype with real navigation, filtering and interactions on a demo dataset.</p><span class="who tool">Built with Claude</span></div>
+      </div>
+      <p class="note rv">Claude was my prototyping tool. The product structure, the screens and the design decisions below are mine.</p>
+    </div>
+  </section>
+
+  <!-- ================= IA ================= -->
+  <section id="ia">
+    <div class="wrap">
+      <span class="kicker rv">Information architecture</span>
+      <h2 class="rv">Structuring information around the trading workflow</h2>
+      <p class="lead rv">Five destinations, each answering one question a trader asks. This map shows every screen implemented in the prototype.</p>
+
+      <div class="ia rv" role="img" aria-label="Sitemap. Sign-in flow: Welcome, broker login or Google, connecting and import, then the Dashboard. Five main areas: Dashboard; Trades with Trade review; Journal; Reports with Performance, Overview and six breakdowns; Strategy with My strategies, Templates, strategy detail and a five-step New strategy wizard.">
+        <div class="ia-flow" aria-hidden="true">
+          <span class="ia-node">Welcome</span><span class="ia-arrow">→</span>
+          <span class="ia-node">Log in with your broker<small>Zerodha · Upstox · Angel One · ICICI Direct, or Google (journal only)</small></span><span class="ia-arrow">→</span>
+          <span class="ia-node">Connecting &amp; importing<small>Read-only access</small></span><span class="ia-arrow">→</span>
+          <span class="ia-node dark">Dashboard</span>
+        </div>
+        <div class="ia-tree" aria-hidden="true">
+          <div class="ia-col"><h4>Dashboard</h4><p class="role">How am I doing, and what needs my attention?</p><ul><li>Review queue</li><li>Headline figures</li><li>Recent trades · open positions</li><li>Progress tracker · most broken rules</li><li>Charts and Anchor Score</li><li>Monthly calendar</li></ul></div>
+          <div class="ia-col"><h4>Trades</h4><p class="role">What exactly did I trade?</p><ul><li>Searchable trade table</li><li>Trade review: stats, strategy rules, executions</li><li>Price chart · running P&amp;L · replay</li><li>Notes with templates</li></ul></div>
+          <div class="ia-col"><h4>Journal</h4><p class="role">How did each day go?</p><ul><li>One card per trading day</li><li>Intraday P&amp;L curve and day stats</li><li>Day notes</li><li>Month calendar</li></ul></div>
+          <div class="ia-col"><h4>Reports</h4><p class="role">What patterns are in my results?</p><ul><li>Performance</li><li>Overview</li><li>Breakdowns: Day &amp; Time, Strategy, Symbols, Risk, Tags, Wins vs Losses</li></ul></div>
+          <div class="ia-col"><h4>Strategy</h4><p class="role">What are my rules, and do I keep them?</p><ul><li>My strategies · shared with me</li><li>Templates</li><li>Strategy detail</li><li>New strategy: Basics → Context → Direction → Risk → Review</li></ul></div>
+        </div>
+        <div class="ia-shared" aria-hidden="true">
+          <div><b>Shared across Dashboard, Trades, Journal and Reports:</b> one set of filters (symbol, tags, side, result, strategy) and one date range, so every view looks at the same slice of trades.</div>
+          <div><b>Connected throughout:</b> a chart bar opens that day in the Journal, a row opens the Trade review, and breadcrumbs lead back to the parent page.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DECISIONS ================= -->
+  <section id="decisions">
+    <div class="wrap">
+      <span class="kicker rv">Key design decisions</span>
+      <h2 class="rv">Six decisions that shape Anchor</h2>
+      <p class="lead rv">Each follows the same path: context, decision, rationale, the evidence in the interface, and the benefit I intended.</p>
+
+      <nav class="index" id="index" aria-label="Design decisions">
+        <a href="#d1">01 Overview</a><a href="#d2">02 Trade data</a><a href="#d3">03 Performance</a><a href="#d4">04 Strategy rules</a><a href="#d5">05 Trade review</a><a href="#d6">06 Navigation</a>
+      </nav>
+
+      <!-- D1 -->
+      <article class="decision" id="d1">
+        <div class="dhead rv"><span class="dnum">01</span><span class="dlabel">Creating a clear overview</span></div>
+        <h3 class="rv">The dashboard starts with what needs doing, then what happened</h3>
+        <div class="flow rv">
+          <div><b>Context</b><p>A dashboard can show a lot of numbers without telling the trader where to start.</p></div>
+          <div><b>Decision</b><p>I put a review queue at the very top, followed by five headline figures, with deeper charts further down.</p></div>
+          <div><b>Rationale</b><p>Reviewing is the habit Anchor is built around, so the first thing on screen is the trader’s unfinished review work.</p></div>
+          <div><b>Intended benefit</b><p>Opening Anchor answers “what should I do now?” before “how am I doing?”</p></div>
+        </div>
+        <div class="evidence">
+          <button class="shot rv" data-cap="The review queue: trades to review, trades to tag and sessions to journal."><img src="{{c_queue}}" alt="Review queue for the last five sessions: Review 12 trades, Tag 12 trades (needed for rule checks), Journal 3 sessions (2 of 5 have a note)." loading="lazy"></button>
+          <button class="shot rv" data-cap="Five headline figures, each paired with a small visual."><img src="{{c_kpis}}" alt="Headline tiles: Net P&amp;L, Trade win % with a gauge, Profit factor with a ring, Day win % with a gauge, and Avg win/loss with a bar." loading="lazy"></button>
+        </div>
+        <ul class="points rv" style="margin-top:22px">
+          <li><b>Each queue item is specific and actionable:</b> “Review 12 trades”, “Tag 12 trades, needed for rule checks”, “Journal 3 sessions”. When everything is done, the queue changes to “You are all caught up”.</li>
+          <li><b>Each headline figure pairs a number with a simple visual</b> (a gauge, a ring or a bar), plus a line of context such as “34 won · 73 lost”.</li>
+          <li><b>Every figure has a plain-language explanation.</b> Profit factor, for example, reads “Gross profit divided by gross loss. Above 1 means winners paid for losers.”</li>
+        </ul>
+      </article>
+
+      <!-- D2 -->
+      <article class="decision" id="d2">
+        <div class="dhead rv"><span class="dnum">02</span><span class="dlabel">Presenting trading data clearly</span></div>
+        <h3 class="rv">A trade table built to be scanned row by row</h3>
+        <div class="flow rv">
+          <div><b>Context</b><p>A trade has a lot of attributes: symbol, side, result, times, prices, quantity, P&amp;L, return and strategy.</p></div>
+          <div><b>Decision</b><p>I designed one dense, consistent table with a summary strip above it and search across symbol, strategy and trade ID.</p></div>
+          <div><b>Rationale</b><p>On a desktop screen, a well-aligned table is the fastest way to compare many trades side by side.</p></div>
+          <div><b>Intended benefit</b><p>The trader can find a trade, or spot a bad run, without opening each one.</p></div>
+        </div>
+        <div class="evidence">
+          <button class="shot browser rv" data-cap="The Trades table."><img src="{{a_trades}}" alt="Trades page: four summary tiles, a search box, and a table with date, symbol, side, status, open-to-close time, entry, exit, quantity, net P&amp;L, net ROI and strategy." loading="lazy"></button>
+        </div>
+        <ul class="points rv" style="margin-top:22px">
+          <li><b>Columns follow the life of a trade:</b> when and what (date, symbol), which way and how it ended (side, status), then the numbers (open → close, entry, exit, quantity, net P&amp;L, net ROI) and finally the strategy.</li>
+          <li><b>Side and result read at a glance:</b> LONG and SHORT have their own coloured markers, WIN and LOSS are badges, and P&amp;L is green or red.</li>
+          <li><b>Numbers are right-aligned</b> so they can be compared down a column. The table shows 15 trades a page with clear paging (“Showing 1–15 of 110”).</li>
+          <li><b>A review checkbox on every row</b> and a running count (“110 trades · 0 reviewed”) tie the table back to the review habit.</li>
+        </ul>
+      </article>
+
+      <!-- D3 -->
+      <article class="decision" id="d3">
+        <div class="dhead rv"><span class="dnum">03</span><span class="dlabel">Making performance easier to review</span></div>
+        <h3 class="rv">Charts that explain themselves, and one score with its working shown</h3>
+        <div class="flow rv">
+          <div><b>Context</b><p>Trading metrics such as profit factor, drawdown and R-multiples are easy to misread.</p></div>
+          <div><b>Decision</b><p>I matched each question to a chart type and attached a short explanation to every chart. I also designed a single Anchor Score that shows how it is calculated.</p></div>
+          <div><b>Rationale</b><p>A chart is only useful if the trader knows what it measures, so the explanation sits right next to the title.</p></div>
+          <div><b>Intended benefit</b><p>Numbers become something the trader can act on, not just something to look at.</p></div>
+        </div>
+        <div class="evidence ev3">
+          <button class="shot rv" data-cap="Net daily P&amp;L: click a bar to open that day in the Journal."><img src="{{c_daily}}" alt="Bar chart of net daily P&amp;L, with green bars for winning days and red for losing days." loading="lazy"></button>
+          <button class="shot rv d1" data-cap="The Anchor Score, with its five parts on a radar chart."><img src="{{c_score}}" alt="Anchor Score of 77.14 out of 100 on a red-to-green scale, with a radar chart of Consistency, Profit factor, Avg win/loss, Recovery and Max drawdown." loading="lazy"></button>
+          <button class="shot rv d2" data-cap="Wins vs Losses compares the two groups side by side."><img src="{{a_rep_winloss}}" alt="Wins vs Losses report: time in trade, rules kept, losers that were green first, average result, a histogram of results and a hold-time scatter." loading="lazy"></button>
+        </div>
+        <ul class="points rv" style="margin-top:22px">
+          <li><b>Each chart answers one question:</b> bars for daily P&amp;L, a running line for cumulative P&amp;L, an area for drawdown with its maximum labelled, and bubbles for trade time (placed at entry time, sized by position value).</li>
+          <li><b>Charts lead somewhere.</b> Clicking a daily bar opens that day in the Journal.</li>
+          <li><b>The Anchor Score shows its working:</b> it averages five parts, and hovering each point explains its formula (for example, “Green days ÷ trading days” for Consistency).</li>
+          <li><b>Reports turn patterns into plain sentences,</b> such as “Winners are held 11m longer than losers” and “59 of 73 losers were in profit before closing at a loss”.</li>
+        </ul>
+      </article>
+
+      <!-- D4 -->
+      <article class="decision" id="d4">
+        <div class="dhead rv"><span class="dnum">04</span><span class="dlabel">Turning strategies into rules</span></div>
+        <h3 class="rv">Every trade is checked against the rules the trader set for themselves</h3>
+        <div class="flow rv">
+          <div><b>Context</b><p>Anchor is for traders who “trade with intent”. Results alone don’t show whether a trader followed their own plan.</p></div>
+          <div><b>Decision</b><p>I made a strategy a set of checkable rules (time window, direction, trades per day, risk, reward to risk, stop loss) and checked every tagged trade against them.</p></div>
+          <div><b>Rationale</b><p>Discipline becomes visible and measurable, not just a feeling at the end of the day.</p></div>
+          <div><b>Intended benefit</b><p>The trader can see which rules they keep, which they break, and how often.</p></div>
+        </div>
+        <div class="evidence ev2">
+          <button class="shot browser rv" data-cap="Creating a strategy: a five-step wizard."><img src="{{a_wizard2}}" alt="New strategy wizard at step 2 of 5, Strategy context, with time window options such as Morning session 9:15–11:00am and a segment choice." loading="lazy"></button>
+          <div class="stack">
+            <button class="shot rv d1" data-cap="On each trade, its strategy’s rules are marked KEPT or broken."><img src="{{c_rulecheck}}" alt="Trade review Strategy tab for Trend break: time window, direction, max trades a day, stop loss respected and planned reward to risk, each marked KEPT." loading="lazy"></button>
+          </div>
+        </div>
+        <div class="evidence ev2 rev">
+          <button class="shot rv" data-cap="The progress tracker: darker days followed more rules."><img src="{{c_progress}}" alt="Progress tracker heatmap from June to October with 84% overall rules followed, and a list of most broken rules." loading="lazy"></button>
+          <button class="shot browser rv d1" data-cap="A strategy’s page: its results and its rules."><img src="{{a_strategy_detail}}" alt="Strategy detail for Trend break with trades, net P&amp;L, win rate, profit factor, expectancy, rules kept, a cumulative P&amp;L chart and a Block trade toggle." loading="lazy"></button>
+        </div>
+        <ul class="points rv" style="margin-top:22px">
+          <li><b>A guided five-step wizard</b> (Basics, Context, Direction, Risk, Review) with inline validation. For example, it won’t accept more than 5% risk per trade: “Most traders risk 0.5% to 2%.”</li>
+          <li><b>Rule checks appear where the trader looks:</b> on each trade (KEPT per rule), on the dashboard as a heatmap and a “Most broken rules” list, and per strategy as “Rules kept”.</li>
+          <li><b>Templates</b> such as “Opening range breakout” give new traders a starting point, and every field can be changed.</li>
+          <li><b>“Block trade” is a proposed concept</b><span class="tag-proto sim">Simulated</span>: with supported brokers, Anchor would ask the broker to reject orders that break the strategy’s rules. The toggle is only a mock-up in the prototype.</li>
+        </ul>
+      </article>
+
+      <!-- D5 -->
+      <article class="decision" id="d5">
+        <div class="dhead rv"><span class="dnum">05</span><span class="dlabel">Supporting review and reflection</span></div>
+        <h3 class="rv">One page to review a trade, and a journal to review the day</h3>
+        <div class="flow rv">
+          <div><b>Context</b><p>Reviewing a trade properly means seeing the numbers, the chart, the plan and your own notes together.</p></div>
+          <div><b>Decision</b><p>I designed a trade review page with the stats on the left and the chart and notes on the right, plus a Journal with one card per trading day.</p></div>
+          <div><b>Rationale</b><p>Keeping everything about one trade on one screen avoids jumping between tools.</p></div>
+          <div><b>Intended benefit</b><p>Review becomes quick enough to do after every session.</p></div>
+        </div>
+        <div class="evidence">
+          <button class="shot browser rv" data-cap="Trade review: stats, a price chart with entry, exit, stop and target, and notes."><img src="{{a_trade}}" alt="Trade review for a HAL short: a stats column on the left and a 5-minute candlestick chart with entry, exit, stop and target markers, plus notes with templates." loading="lazy"></button>
+          <div class="ev2 rev">
+            <button class="shot rv" data-cap="The trade’s full stats, from P&amp;L to planned and realised R-multiple."><img src="{{c_tradeside}}" alt="Stats column: net P&amp;L, side, quantity, charges, gross P&amp;L, ROI, strategy picker, tags, MAE/MFE, rating, target, stop, initial risk, R-multiples, entry and exit." loading="lazy"></button>
+            <button class="shot browser rv d1" data-cap="The Journal: one card per day, with its intraday P&amp;L and notes."><img src="{{a_journal}}" alt="Journal with day cards showing an intraday P&amp;L curve, day stats including rules kept, symbols traded and the day’s note, beside a month calendar." loading="lazy"></button>
+          </div>
+        </div>
+        <ul class="points rv" style="margin-top:22px">
+          <li><b>The chart shows the plan against what happened:</b> entry, exit, stop and target on a candlestick chart (1m to 1h), a Running P&amp;L view, and a <b>Replay</b> that plays the trade back.</li>
+          <li><b>Reflection is structured:</b> star rating, tags such as “Followed plan” or “FOMO entry”, and note templates for a pre-trade checklist, a post-trade review and a mistake log.</li>
+          <li><b>Built for a routine:</b> “Mark as reviewed”, then press <b>n</b> to jump to the next unreviewed trade. Days without a note are easy to find in the Journal.</li>
+        </ul>
+      </article>
+
+      <!-- D6 -->
+      <article class="decision" id="d6">
+        <div class="dhead rv"><span class="dnum">06</span><span class="dlabel">Navigation and useful interactions</span></div>
+        <h3 class="rv">A focused workspace that stays oriented as you dig in</h3>
+        <div class="flow rv">
+          <div><b>Context</b><p>The same trades are viewed from five different angles, and a trader often wants to narrow them down.</p></div>
+          <div><b>Decision</b><p>I used a fixed sidebar of five areas, one shared set of filters and date range, breadcrumbs on deeper pages, and keyboard shortcuts.</p></div>
+          <div><b>Rationale</b><p>A filter set once should follow the trader, so every view shows the same slice of data.</p></div>
+          <div><b>Intended benefit</b><p>Less re-filtering and fewer clicks, with the trader always knowing where they are.</p></div>
+        </div>
+        <div class="evidence ev3">
+          <button class="shot browser rv" data-cap="Filters: symbol, tags, side, result and strategy."><img src="{{a_filters}}" alt="Filters panel with symbol and tag chips, side and result toggles, a strategy menu, and Clear all and Apply filters buttons." loading="lazy"></button>
+          <button class="shot browser rv d1" data-cap="Reports: Performance, Overview and six breakdowns."><img src="{{a_rep_menu}}" alt="Reports menu listing Day &amp; Time, Strategy, Symbols, Risk, Tags and Wins vs Losses." loading="lazy"></button>
+          <button class="shot browser rv d2" data-cap="Keyboard shortcuts for moving and reviewing without the mouse."><img src="{{a_shortcuts}}" alt="Keyboard shortcuts dialog: g then d, t, j, r or s to move between areas, / to search, arrows to move between trades, r to mark reviewed, n for the next unreviewed trade, 1–5 to rate and e to write a note." loading="lazy"></button>
+        </div>
+        <ul class="points rv" style="margin-top:22px">
+          <li><b>Five areas in a fixed sidebar,</b> with the current one highlighted and the broker’s sync status (“Zerodha connected · Last synced…”) always visible at the bottom.</li>
+          <li><b>One filter set and date range</b> (All time, This month, Last 30 or 90 days, or a custom range) apply across Dashboard, Trades, Journal and Reports.</li>
+          <li><b>Breadcrumbs</b> such as “Trades / Trade review” and “Strategy / New strategy” lead back up.</li>
+          <li><b>Density with restraint:</b> white cards on a light grey background, with figures given the most visual weight. The prototype also includes a dark theme.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= INTERFACE GALLERY ================= -->
+  <section id="interface">
+    <div class="wrap">
+      <span class="kicker rv">The interface</span>
+      <h2 class="rv">Designing for clarity in a data-heavy environment</h2>
+      <div class="gallery">
+        <figure class="rv"><button class="shot" data-cap="Welcome screen."><img src="{{a_welcome}}" alt="Welcome screen: the Anchor logo, 'Welcome to Anchor!', a Get started button and the line 'Designed for those who trade with intent'." loading="lazy"></button>
+          <h4>Welcome</h4><figcaption>Sets the tone and the audience in one line: a trading journal for disciplined intraday traders.</figcaption></figure>
+        <figure class="rv d1"><button class="shot" data-cap="Broker login with a safety FAQ."><img src="{{a_faq}}" alt="Log in with your broker screen with the 'Is it safe to log in with my broker?' FAQ open." loading="lazy"></button>
+          <h4>Broker login and trust</h4><figcaption>Connecting a broker is a sensitive moment, so a short FAQ answers the trader’s worry up front: Anchor is read-only and can’t place trades or move money.</figcaption></figure>
+        <figure class="rv"><button class="shot" data-cap="Connecting and importing."><img src="{{a_connecting}}" alt="Connecting to Zerodha dialog with steps: redirecting with read-only access, authorising Anchor, importing 110 trades, calculating stats." loading="lazy"></button>
+          <h4>Import progress</h4><figcaption>Each step of the connection is spelled out, so the wait feels predictable rather than opaque.</figcaption></figure>
+        <figure class="rv d1"><button class="shot" data-cap="Reports: Overview."><img src="{{a_rep_overview}}" alt="Reports Overview with best month, lowest month, monthly average and a long list of statistics in two columns." loading="lazy"></button>
+          <h4>Reports overview</h4><figcaption>Every statistic in one calm, two-column list, with a single choice at the top between net and gross P&amp;L.</figcaption></figure>
+        <figure class="rv"><button class="shot" data-cap="Reports: Tags."><img src="{{a_rep_tags}}" alt="Tags report with best, least and most active tags, a win-rate bar chart, a combined chart and a summary table." loading="lazy"></button>
+          <h4>Breakdown reports</h4><figcaption>All six breakdowns share one layout: four highlight cards, two configurable charts and a summary table. Learning one teaches them all.</figcaption></figure>
+        <figure class="rv d1"><button class="shot" data-cap="Strategy templates."><img src="{{a_templates}}" alt="Strategy templates: Opening range breakout, VWAP pullback, Closing momentum and Swing breakout, each with a summary of its risk rules." loading="lazy"></button>
+          <h4>Strategy templates</h4><figcaption>Common setups as editable starting points, each with its risk, reward-to-risk and trades-per-day limits summarised on the card.</figcaption></figure>
+        <figure class="wide rv"><button class="shot" data-cap="Dashboard monthly calendar."><img src="{{c_calendar}}" alt="Monthly calendar for October 2026 with weekly totals and a highlighted trading day." loading="lazy"></button>
+          <h4>Monthly calendar</h4><figcaption>The bottom of the dashboard turns the month into a familiar calendar, with weekly totals down the side and each trading day’s result in its cell.</figcaption></figure>
+        <figure class="wide rv"><button class="shot" data-cap="Dashboard in the dark theme."><img src="{{a_dark}}" alt="The Anchor dashboard in a dark theme." loading="lazy"></button>
+          <h4>Dark theme</h4><figcaption>The same dashboard in the dark theme, which the trader can switch to from the account menu.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FIGMA → PROTOTYPE ================= -->
+  <section id="prototype">
+    <div class="wrap">
+      <span class="kicker rv">From Figma to a working prototype</span>
+      <h2 class="rv">Making the design experience tangible</h2>
+      <p class="lead rv">Figma let me define Anchor’s structure, visual hierarchy and intended behaviour. I then used Claude to turn those designs into a working prototype, so the screens connect and the interactions can be tried rather than imagined.</p>
+      <div class="status">
+        <div class="card rv"><h4>Works in the prototype</h4><ul>
+          <li>Navigation between all five areas, breadcrumbs and keyboard shortcuts</li>
+          <li>Filters and date ranges that update every view</li>
+          <li>Trade search, paging, trade review tabs, chart timeframes, Running P&amp;L and Replay</li>
+          <li>Tags, ratings, notes and note templates, mark as reviewed</li>
+          <li>Reports with switchable metrics and charts that link to the Journal</li>
+          <li>The five-step strategy wizard with validation, plus light and dark themes</li>
+        </ul></div>
+        <div class="card rv d1"><h4>Simulated or proposed</h4><ul>
+          <li>The broker connection and import are simulated, and run on a demo account of 110 sample trades</li>
+          <li>Block trade is a concept only; it doesn’t talk to any broker</li>
+          <li>Notes and changes are kept in the browser, not in an account</li>
+          <li>Real broker integrations, sync and data security would need full development</li>
+        </ul></div>
+      </div>
+      <div class="ctas rv" style="margin-top:28px">
+        <a class="btn dark" href="anchor-prototype.html" data-proto="anchorProto" target="_blank" rel="noopener">Explore the working prototype
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= REFLECTION + OUTCOME ================= -->
+  <section id="reflection">
+    <div class="wrap">
+      <span class="kicker rv">Reflection</span>
+      <h2 class="rv">Designing for understanding, not just information density</h2>
+      <p class="lead rv">Anchor pushed me to think about how a desktop product can present a lot of numbers and still feel organised. The charts mattered less than the structure around them: a clear map of five areas, one way of filtering that follows you, and the same layout repeated across reports.</p>
+      <p class="lead rv">The most important decision was treating a strategy as a set of rules. It gave the product a point of view: Anchor is about whether you traded your plan, not just whether you made money. Building the prototype also let me test whether the screens hold together as one connected product rather than a set of static frames.</p>
+
+      <div class="two">
+        <div class="card rv"><h4>Outcome</h4><p>A designed desktop experience and a working prototype that demonstrate the product concept. Anchor is a graduation project: it hasn’t launched, and I have no usability test results or measured outcomes to report.</p></div>
+        <div class="card rv d1"><h4>Deliverables</h4><ul>
+          <li><b>UX and product design:</b> the trading data management experience</li>
+          <li><b>Information architecture:</b> five areas and how they connect</li>
+          <li><b>Figma designs:</b> wireframes and UI for every screen</li>
+          <li><b>Working HTML prototype:</b> built from my designs using Claude</li>
+        </ul></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span class="kicker">Thanks for reading</span>
+    <h2>Clarity changes how we work with data.</h2>
+    <p class="lead">Anchor explores how thoughtful product design can bring trading information into a more structured desktop experience, making it easier to review and understand.</p>
+    <div class="row2">
+      <a class="btn dark" href="anchor-prototype.html" data-proto="anchorProto" target="_blank" rel="noopener">Explore the working prototype
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+      <a class="btn light" href="portfolio-hero.html#work">View more projects
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></a>
+    </div>
+    <div class="base"><span>© 2026 Parth Dake · parthdake1911@gmail.com</span><a href="#top" style="text-decoration:none">Back to top ↑</a></div>
+  </div>
+</footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Enlarged screenshot">
+  <button type="button" id="lbClose" aria-label="Close">×</button>
+  <figure><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure>
+</div>
