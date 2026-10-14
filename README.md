@@ -9,7 +9,11 @@ UI/UX design portfolio: animated homepage plus case studies for Tata Power (Cust
 - **`cards/`, `logos/`, `resume/`** — homepage images, client logos, résumé.
 - **`build_all.py`** — rebuilds `site/` from the sources (see `README-SOURCE.txt`).
 
-## Publishing on Netlify
+## Publishing
+
+**Vercel:** `vercel.json` tells Vercel to publish the `site` folder with no build step. Every push to `main` redeploys.
+
+**Netlify:**
 `netlify.toml` tells Netlify to publish the `site` folder with no build step.
 In Netlify: **Add new project → Import an existing project → GitHub → this repository**. Every push to `main` then updates the live site.
 (Drag-and-drop of the `site` folder still works too — see `README.txt`.)

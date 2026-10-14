@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "echo skip install",
+  "buildCommand": "echo pre-built site, nothing to build",
+  "outputDirectory": "site",
+  "headers": [
+    { "source": "/(images|media|assets)/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }] },
+    { "source": "/(amin|anchor|ultratech|ellenbarrie|ica|tatapower)/img/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }] }
+  ]
+}
