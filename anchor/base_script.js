@@ -25,8 +25,11 @@
   requestAnimationFrame(() => setTimeout(() => document.getElementById('hero').classList.add('go'), 80));
 
   // Reveal on scroll
-  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: matchMedia('(max-width: 760px)').matches ? '0px 0px 12% 0px' : '0px 0px -8% 0px' });
   document.querySelectorAll('.rv').forEach(el => reduce ? el.classList.add('in') : io.observe(el));
+
+  // Screens: once the page has loaded, fetch the remaining images in the background so they're ready before you scroll to them
+  addEventListener('load', () => setTimeout(() => document.querySelectorAll('img[loading="lazy"]').forEach(i => { i.loading = 'eager'; }), 300));
 
   // Top bar: shadow + reading progress
   const top = document.getElementById('top'), prog = document.getElementById('progress');

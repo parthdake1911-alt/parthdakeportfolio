@@ -451,3 +451,18 @@
   <button type="button" id="lbClose" aria-label="Close">×</button>
   <figure><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure>
 </div>
+<script>
+  // Phones: each design decision shows the decision and its benefit; context, rationale and evidence open on tap
+  document.querySelectorAll('.trace').forEach(dl => {
+    let n = 0;
+    dl.querySelectorAll('dt').forEach(dt => {
+      if (/^(Design decision|Intended benefit)$/i.test(dt.textContent.trim())) return;
+      dt.classList.add('more'); const dd = dt.nextElementSibling; if (dd && dd.tagName === 'DD') dd.classList.add('more'); n++;
+    });
+    if (!n) return;
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'trace-more'; b.setAttribute('aria-expanded', 'false');
+    b.textContent = 'Context, rationale & evidence +';
+    b.onclick = () => { const o = dl.classList.toggle('open'); b.setAttribute('aria-expanded', o); b.textContent = o ? 'Show less −' : 'Context, rationale & evidence +'; };
+    dl.after(b);
+  });
+</script>
