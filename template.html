@@ -161,7 +161,7 @@
   picture { display: contents; }
   .card:hover .frame, .card:focus-visible .frame { transform: scale(1.05) translateY(calc(-6*var(--u))); box-shadow: 0 calc(22*var(--u)) calc(44*var(--u)) rgba(0,0,0,.26); }
   .card:focus-visible .frame { outline: calc(3*var(--u)) solid var(--ink); outline-offset: calc(4*var(--u)); }
-  .wip-badge { position: absolute; z-index: 2; top: calc(14*var(--u)); left: calc(14*var(--u)); display: inline-flex; align-items: center; gap: calc(7*var(--u));
+  .wip-badge { position: absolute; z-index: 2; top: calc(14*var(--u)); right: calc(14*var(--u)); display: inline-flex; align-items: center; gap: calc(7*var(--u));
                padding: calc(7*var(--u)) calc(12*var(--u)); border-radius: 999px; background: rgba(10,10,10,.82); color: #fff;
                font-size: calc(14*var(--u)); font-weight: 600; letter-spacing: .02em; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
   .wip-badge i { width: calc(8*var(--u)); height: calc(8*var(--u)); border-radius: 50%; background: #F5B400; animation: wipPulse 1.6s ease-in-out infinite; }
@@ -422,7 +422,7 @@
     .card .open .txt { display: inline; }
     .card .open .arr { width: 26px; height: 26px; box-shadow: none; }
     .card .open.soon { display: flex; padding: 7px 10px; font-size: 12.5px; }
-    .wip-badge { top: 8px; left: 8px; font-size: 11px; padding: 5px 9px; gap: 6px; }
+    .wip-badge { top: 8px; right: 8px; font-size: 11px; padding: 5px 9px; gap: 6px; }
     .wip-badge i { width: 6px; height: 6px; }
 
     /* about + contact: centred column */
