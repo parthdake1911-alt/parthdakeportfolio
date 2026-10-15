@@ -10,6 +10,7 @@ def uri(path):
 def inline(html, base):
     def sub(m):
         q, ref = m.group(1), m.group(2)
+        ref = ref.split('?')[0]
         p = os.path.normpath(os.path.join(base, ref))
         if os.path.splitext(ref)[1] in MIME and os.path.isfile(p) and 'walkthrough' not in ref:
             return q + uri(p) + q

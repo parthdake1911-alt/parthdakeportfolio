@@ -169,6 +169,32 @@ case_page(f'{H}/ica/case.html', 'ica', f'{H}/ica/out', logo=f'{L}/ica.png', alt=
 cp(f'{PROTO}/tatapower.html', 'tatapower/prototype.html')
 case_page(f'{H}/tata/case.html', 'tatapower', f'{H}/tata/out', logo=f'{L}/tata.png', alt='Tata Power logo', h=84)
 
+# ---------- cache-busting: every local asset link gets ?v=<fingerprint> ----------
+# Images/media are cached by browsers for a week; a changed file gets a new link, so visitors always see the latest.
+import hashlib
+_fp = {}
+def fingerprint(path):
+    if path not in _fp:
+        h = hashlib.md5(open(path, 'rb').read())
+        base, ext = os.path.splitext(path)
+        if ext in ('.webp', '.avif'):                      # WebP/AVIF twins share one token (the cards swap .webp -> .avif in JS)
+            twin = base + ('.avif' if ext == '.webp' else '.webp')
+            if os.path.exists(twin):
+                h = hashlib.md5(open(min(path, twin), 'rb').read() + open(max(path, twin), 'rb').read())
+        _fp[path] = h.hexdigest()[:8]
+    return _fp[path]
+ASSET = re.compile(r'(["\'])((?:\.\./)?(?:images|media|assets|img|resume)/[^"\'?#\s]+)\1')
+def bust_page(rel):
+    path = f'{OUT}/{rel}'; base = os.path.dirname(path)
+    def f(m):
+        q, ref = m.group(1), m.group(2)
+        target = os.path.normpath(os.path.join(base, ref))
+        return f'{q}{ref}?v={fingerprint(target)}{q}' if os.path.isfile(target) else m.group(0)
+    p = open(path).read()
+    open(path, 'w').write(ASSET.sub(f, p))
+for rel in ['index.html'] + [f'{d}/index.html' for d in ['amin', 'anchor', 'ultratech', 'ellenbarrie', 'ica', 'tatapower']]:
+    bust_page(rel)
+
 # ---------- 404 page + Netlify caching ----------
 open(f'{OUT}/404.html', 'w').write("""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">

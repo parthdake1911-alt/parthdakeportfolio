@@ -383,6 +383,10 @@
 
     /* nav */
     .navlayer { left: 0; width: 100%; transform: none; }
+    /* solid header bar so the page scrolls cleanly underneath the logo and menu */
+    .navlayer::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 68px; z-index: -1; pointer-events: none;
+                        background: rgba(255,255,255,.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+                        box-shadow: 0 1px 0 rgba(0,0,0,.06); }
     .brand { left: 16px; top: 13px; height: 40px; }
     .nav { left: auto; right: 14px; top: 10px; width: auto; height: 48px; padding: 0 5px; gap: 2px; border-radius: 14px; }
     .nav a.lnk { flex: none; height: 38px; padding: 0 13px; font-size: 14.5px; border-radius: 10px; }
@@ -822,7 +826,7 @@
     const a = document.createElement('a');
     a.className = 'card'; a.href = c.href || '#' + c.id; a.style.setProperty('--w', W); a.style.zIndex = 2 + i;
     a.setAttribute('aria-label', c.wip || !c.href ? `${c.name}, ${c.type}: case study coming soon` : `${c.name}, ${c.type}: view case study`);
-    a.innerHTML = `<div class="card-in" style="--d:${reduce ? 0 : 3000 + i * 110}ms"><div class="frame">${c.wip ? '<span class="wip-badge"><i></i>Work in progress</span>' : ''}${c.wip || !c.href ? '<span class="open soon" aria-hidden="true">Coming soon</span>' : '<span class="open" aria-hidden="true"><span class="txt">View case study</span><span class="arr"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span></span>'}<picture><source srcset="${IMG[c.id].replace(/\.webp$/, '.avif')}" type="image/avif"><img src="${IMG[c.id]}" alt="${c.name}" width="720" height="814" decoding="async"></picture></div><span class="label">${c.name}<span class="type">${c.type}</span></span></div>`;
+    a.innerHTML = `<div class="card-in" style="--d:${reduce ? 0 : 3000 + i * 110}ms"><div class="frame">${c.wip ? '<span class="wip-badge"><i></i>Work in progress</span>' : ''}${c.wip || !c.href ? '<span class="open soon" aria-hidden="true">Coming soon</span>' : '<span class="open" aria-hidden="true"><span class="txt">View case study</span><span class="arr"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span></span>'}<picture><source srcset="${IMG[c.id].replace('.webp', '.avif')}" type="image/avif"><img src="${IMG[c.id]}" alt="${c.name}" width="720" height="814" decoding="async"></picture></div><span class="label">${c.name}<span class="type">${c.type}</span></span></div>`;
     const tag = names.querySelector(`[data-id="${c.id}"]`);
     if (c.href) a.addEventListener('click', e => { if (window.__openPage) { e.preventDefault(); window.__openPage(c.page); } });
     // warm up the case study while the visitor is hovering or focusing the card
