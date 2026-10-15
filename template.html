@@ -392,7 +392,8 @@
 
     /* hero: stacked, centred */
     .scroller { height: auto; }
-    .pin { position: relative; height: auto; overflow: visible; display: block; }
+    .pin { position: relative; height: auto; overflow: visible; overflow-x: clip; display: block; }
+    html, body { overflow-x: clip; }
     #stage { width: 100%; height: auto; }
     .hero { position: relative !important; inset: auto !important; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; align-items: center;
             gap: 16px; padding: 86px 16px 76px; }
@@ -414,7 +415,7 @@
     .tapcue { margin-top: 16px !important; font-size: 13px !important; padding: 8px 14px 8px 10px !important; gap: 7px !important; }
     .tapcue svg { width: 16px !important; height: 16px !important; }
     #cards { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 14px; padding: 20px 16px 48px; max-width: 820px; margin: 0 auto; }
-    .card { position: relative; width: auto; transform: none !important; }
+    .card { position: relative; width: auto; will-change: transform, opacity; }
     .card:has(.open.soon) { order: 2; grid-column: 1 / -1; justify-self: center; width: calc((100% - 14px) / 2); }
     .card .frame { border-radius: 18px; box-shadow: 0 8px 22px rgba(0,0,0,.16); }
     .card .open { left: 8px; right: 8px; bottom: 8px; padding: 5px 5px 5px 11px; gap: 6px; font-size: 12.5px;
@@ -869,25 +870,46 @@
   function frame(now) {
     if (window.__layerOpen) { requestAnimationFrame(frame); return; }
     if (window.__MOB.matches) {
-      // stacked layout: no scroll-driven explode/fly; clear anything left from a desktop-sized window
-      if (!frame.mob) {
-        frame.mob = true;
-        document.getElementById('hero').style.opacity = '';
-        heroLetters.concat(headLetters).forEach(l => { l.cw.style.transform = ''; l.cw.style.opacity = ''; });
-        shapes.forEach(s => s.face.style.transform = '');
-        chips.forEach(c => c.face.style.transform = '');
-        CARDS.forEach(c => c.el.style.transform = '');
-      }
+      // Stacked layout: the same scroll-linked effects, tuned for a narrow screen
+      const um = Math.min(innerWidth / 709, 1.05);
+      const heroEl = document.getElementById('hero');
+      // 1. hero letters, shapes and chips drift apart and fade as you scroll past
+      const hm = reduce ? 0 : ease(clamp(scrollY / (heroEl.offsetHeight * .8)));
+      heroEl.style.opacity = Math.pow(1 - hm * .85, 1.2);
+      heroLetters.forEach(l => {
+        l.cw.style.transform = hm ? `translate(${l.ex * hm * um * .55}px, ${l.ey * hm * um * .55}px) rotate(${l.er * hm}deg)` : '';
+      });
+      shapes.forEach(s => s.face.style.transform = hm ? `translate(${s.ex * hm * um * .5}px, ${s.ey * hm * um * .5}px) rotate(${s.er * hm}deg)` : '');
+      chips.forEach(c => c.face.style.transform = hm ? `translate(${c.ex * hm * um * .5}px, ${c.ey * hm * um * .5}px) rotate(${c.er * hm}deg)` : '');
+      // 2. "Selected Work" letters fly together as the heading scrolls in
+      const headTop = head.getBoundingClientRect().top;
+      const qm = reduce ? 1 : ease(clamp((innerHeight * .95 - headTop) / (innerHeight * .45)));
+      headLetters.forEach((l, k) => {
+        const qq = clamp(qm * 1.25 - (k / headLetters.length) * .25), o = 1 - qq;
+        l.cw.style.transform = o ? `translate(${l.ax * o * um * .45}px, ${l.ay * o * um * .45}px) rotate(${l.ar * o}deg) scale(${lerp(.3, 1, qq)})` : '';
+        l.cw.style.opacity = qq;
+      });
+      // 3. cards rise, straighten and fade in as each one enters the screen
+      const gridTop = document.getElementById('cards').getBoundingClientRect().top;
+      CARDS.forEach(c => {
+        const top = gridTop + c.el.offsetTop;
+        const tc = reduce ? 1 : ease(clamp((innerHeight * 1.04 - top) / (innerHeight * .42)));
+        const o = 1 - tc;
+        c.el.style.transform = o > .001 ? `translateY(${o * 110}px) rotate(${o * c.tr * .9}deg) scale(${.86 + .14 * tc})` : '';
+        c.el.style.opacity = .15 + .85 * tc;
+      });
       const half = innerHeight * .5;
-      head.classList.toggle('in', head.getBoundingClientRect().top < innerHeight * .9);
+      head.classList.toggle('in', headTop < innerHeight * .9);
       hint.style.opacity = scrollY > 40 ? 0 : '';
       const contactIn = document.getElementById('contact').getBoundingClientRect().top < half;
       const aboutIn = document.getElementById('about').getBoundingClientRect().top < half;
-      const workIn = head.getBoundingClientRect().top < half;
+      const workIn = headTop < half;
       setActive(navLinks[contactIn ? 3 : aboutIn ? 2 : workIn ? 1 : 0]);
       nav.classList.toggle('scrolled', scrollY > 8);
+      frame.mob = true;
       requestAnimationFrame(frame); return;
     }
+    if (frame.mob) CARDS.forEach(c => c.el.style.opacity = '');
     frame.mob = false;
     const sr = scroller.getBoundingClientRect();
     if (sr.bottom < -40) {   // pinned section scrolled away: only keep the nav in sync
