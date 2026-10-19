@@ -950,6 +950,50 @@
     if (!still) requestAnimationFrame(loop);
   })();
 
+
+  /* ---------- Hero: spatial scene (layers at different depths follow the cursor or the phone's tilt) ---------- */
+  (() => {
+    const hero = document.getElementById('hero');
+    if (!hero || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // depth: how far each layer moves (px at full tilt). Negative = far away, moves against you.
+    const layers = [
+      ['.hbg', -14, 1.1], ['.hbg .orbits', -30], ['.hrow.r0', 10], ['.hrow.r1', 16], ['.hrow.r2', 20],
+      ['.hrow.r3', 24], ['.hrow.r4', 28], ['.pc1', 40], ['.pc2', 52], ['.pc3', 46], ['.pc4', 58], ['.mini.m1', 62], ['.mini.m2', 78]
+    ].map(([sel, d, sc]) => ({ els: [...hero.querySelectorAll(sel)], d, sc })).filter(l => l.els.length);
+    let tx = 0, ty = 0, x = 0, y = 0, input = 0, tilt = null;
+    addEventListener('pointermove', e => {
+      if (e.pointerType !== 'mouse') return;
+      tx = (e.clientX / innerWidth) * 2 - 1; ty = (e.clientY / innerHeight) * 2 - 1; input = performance.now();
+    }, { passive: true });
+    const onTilt = e => {
+      if (e.gamma == null) return;
+      if (!tilt) tilt = { b: e.beta, g: e.gamma };            // whatever angle the phone is held at is "centre"
+      tx = Math.max(-1, Math.min(1, (e.gamma - tilt.g) / 18)); ty = Math.max(-1, Math.min(1, (e.beta - tilt.b) / 18)); input = performance.now();
+    };
+    if (window.DeviceOrientationEvent) {
+      if (typeof DeviceOrientationEvent.requestPermission === 'function') {      // iPhone: ask on the first tap
+        addEventListener('touchend', function ask() {
+          removeEventListener('touchend', ask);
+          DeviceOrientationEvent.requestPermission().then(r => { if (r === 'granted') addEventListener('deviceorientation', onTilt); }).catch(() => {});
+        }, { once: true });
+      } else addEventListener('deviceorientation', onTilt);
+    }
+    function loop(now) {
+      requestAnimationFrame(loop);
+      if (window.__layerOpen) return;
+      // no input for a while: drift slowly on its own, so the depth is always visible
+      const idle = now - input > 2500;
+      const gx = idle ? Math.sin(now / 2600) * .55 : tx, gy = idle ? Math.sin(now / 3700 + 1) * .4 : ty;
+      x += (gx - x) * .06; y += (gy - y) * .06;
+      layers.forEach(l => l.els.forEach(el => {
+        el.style.translate = `${(x * l.d).toFixed(2)}px ${(y * l.d * .6).toFixed(2)}px`;
+        if (l.sc) el.style.scale = l.sc;
+      }));
+      hero.style.transform = window.__MOB && window.__MOB.matches ? '' : `perspective(1600px) rotateX(${(-y * 1.6).toFixed(3)}deg) rotateY(${(x * 2.2).toFixed(3)}deg)`;
+    }
+    requestAnimationFrame(loop);
+  })();
+
   /* ---------- Intro timeline ---------- */
   document.querySelectorAll('[data-at]').forEach(el => setTimeout(() => el.classList.add('in'), reduce ? 0 : +el.dataset.at));
   setTimeout(() => { const sc = document.querySelector('.scribble'); sc && sc.classList.add('drawn'); }, reduce ? 0 : 2000);
