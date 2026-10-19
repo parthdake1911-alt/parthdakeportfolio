@@ -583,9 +583,9 @@
     .names .dot { margin: 0 6px; }
     .tapcue { margin-top: 16px !important; font-size: 13px !important; padding: 8px 14px 8px 10px !important; gap: 7px !important; }
     .tapcue svg { width: 16px !important; height: 16px !important; }
-    #cards { position: relative; display: flex; gap: 14px; overflow-x: auto; overflow-y: visible; scroll-snap-type: x mandatory; padding: 22px max(11vw, calc(50vw - 170px)) 52px; scrollbar-width: none; }
-    #cards::-webkit-scrollbar { display: none; }
-    .card { position: relative; width: auto; flex: 0 0 min(78vw, 340px); scroll-snap-align: center; will-change: transform, opacity; }
+    #cards { position: relative; height: calc(100svh + 8 * 62svh); }
+    #deckPin { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+    .card { position: absolute; left: 0; top: 0; width: min(66vw, 300px); will-change: transform, opacity; }
     .card .frame { border-radius: 26px; }
     .card .badge { top: 14px; font-size: 12px; padding: 4px 10px; border-radius: 7px; } .card .ttl { top: 44px; font-size: 24px; }
     .card .foot { left: 14px; right: 14px; bottom: 14px; gap: 9px; } .card .lg { width: 36px; height: 36px; }
@@ -784,7 +784,7 @@
         <p><span class="tapcue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-1.5a1.5 1.5 0 0 1 3 0V11m0-1a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1-6 6h-.6a6 6 0 0 1-4.9-2.6L4.3 14a1.6 1.6 0 0 1 2.5-2L9 14"/></svg><span class="t-mouse">Click any card to view the case study</span><span class="t-touch">Tap any card to view the case study</span></span></p>
       </div>
 
-      <div id="cards"></div>
+      <div id="cards"><div id="deckPin"></div></div>
       <div class="abs hint" id="hint" data-split data-fx="bob" data-at="2400">Scroll</div>
     </main>
   </div>
@@ -1160,9 +1160,13 @@
   names.innerHTML = GROUPS.map(([g, ids]) => `<span class="grp" style="--i:${k++}">${g}</span>` +
       ids.map(id => `<span data-id="${id}" style="--i:${k++}">${short[id]}</span>`).join('<span class="dot">·</span>')).join('<span class="sep">/</span>');
 
-  const wrap = document.getElementById('cards');
+  const wrap = document.getElementById('cards'), deckPin = document.getElementById('deckPin');
   // scroll position at which card i is the one in focus (desktop deck)
-  window.__deckTop = i => (document.getElementById('scroller').offsetHeight - innerHeight) * (.16 + (i / (CARDS.length - 1)) * (.95 - .16));
+  window.__deckTop = i => {
+    const f = i / (CARDS.length - 1);
+    if (window.__MOB.matches) { const c = document.getElementById('cards'); return c.getBoundingClientRect().top + scrollY + (c.offsetHeight - innerHeight) * (.04 + f * .92); }
+    return (document.getElementById('scroller').offsetHeight - innerHeight) * (.16 + f * (.95 - .16));
+  };
   const deckN = document.getElementById('deckN'), deckName = document.getElementById('deckName'), deckType = document.getElementById('deckType');
   document.querySelector('#deckInfo .of').textContent = '/ ' + String(CARDS.length).padStart(2, '0');
   CARDS.forEach((c, i) => {
@@ -1189,7 +1193,7 @@
     if (c.wip || !c.href) a.addEventListener('click', e => { e.preventDefault(); window.__toast && window.__toast(c.name + ': case study in progress, coming soon'); });
     a.addEventListener('mouseenter', () => tag.classList.add('hl'));
     a.addEventListener('mouseleave', () => tag.classList.remove('hl'));
-    wrap.appendChild(a); c.el = a;
+    deckPin.appendChild(a); c.el = a;
   });
   requestAnimationFrame(() => document.body.classList.add('ready'));
 
@@ -1248,14 +1252,35 @@
         l.cw.style.opacity = qq;
       });
       // 3. cards rise, straighten and fade in as each one enters the screen
-      const gridTop = document.getElementById('cards').getBoundingClientRect().top;
-      const tc = reduce ? 1 : ease(clamp((innerHeight * 1.04 - gridTop) / (innerHeight * .5)));
+      // 3. the deck: vertical scroll moves the cards along the diagonal, like the desktop
+      const cr = document.getElementById('cards').getBoundingClientRect();
+      const run = cr.height - innerHeight;
+      const prog = clamp(-cr.top / (run || 1));
+      const enterM = reduce ? 1 : ease(clamp((innerHeight - cr.top) / (innerHeight * .7)));
+      const NM = CARDS.length, posM = clamp((prog - .04) / .92) * (NM - 1);
+      const spreadM = ease(clamp(posM * 1.6));
+      const vw = innerWidth, vh = innerHeight, cw = Math.min(vw * .66, 300), chh = cw * 4 / 3;
+      const cX = vw * .5, cY = vh * .55, nX = vw * .84, nY = vh * .9, pX = vw * .2, pY = vh * .2, sm = .5;
       CARDS.forEach((c, i) => {
-        const r = c.el.getBoundingClientRect();
-        const f = clamp(1 - Math.abs(r.left + r.width / 2 - innerWidth / 2) / (innerWidth * .75));   // 1 = centred in the carousel
-        const rise = clamp(tc * 1.3 - i * .08), o = 1 - rise;
-        c.el.style.transform = `translateY(${(o * 90).toFixed(1)}px) scale(${(.88 + .12 * f).toFixed(3)})`;
-        c.el.style.opacity = (.2 + .8 * rise) * (.55 + .45 * f);
+        const d = i - posM;
+        let x, y, s, z, o = 1;
+        if (d >= 0) {
+          const tx = cX + Math.min(d, 5) * 10, ty = cY + Math.min(d, 5) * 12, ts = 1 - Math.min(d, 5) * .04;
+          let lx, ly, ls;
+          if (d <= 1) { lx = lerp(cX, nX, d); ly = lerp(cY, nY, d); ls = lerp(1, sm, d); }
+          else { lx = nX + (d - 1) * 14; ly = nY + (d - 1) * 12; ls = sm - Math.min(d - 1, 5) * .02; }
+          x = lerp(tx, lx, spreadM); y = lerp(ty, ly, spreadM); s = lerp(ts, ls, spreadM); z = 100 - Math.round(d * 10);
+        } else {
+          const e = -d;
+          if (e <= 1) { x = lerp(cX, pX, e); y = lerp(cY, pY, e); s = lerp(1, sm, e); }
+          else { x = pX - (e - 1) * 12; y = pY - (e - 1) * 10; s = sm - Math.min(e - 1, 5) * .02; }
+          z = 100 - Math.round(e * 10); o = 1 - clamp((e - 2.6) / 1);
+        }
+        const k = clamp(enterM * 1.3 - i * .05);
+        y += (1 - ease(k)) * vh * .5; o *= k;
+        c.el.style.transform = `translate(${(x - cw / 2).toFixed(1)}px, ${(y - chh / 2).toFixed(1)}px) scale(${s.toFixed(3)})`;
+        c.el.style.zIndex = z; c.el.style.opacity = o.toFixed(3); c.el.style.filter = '';
+        c.el.style.pointerEvents = o < .2 ? 'none' : '';
       });
       const half = innerHeight * .5;
       head.classList.toggle('in', headTop < innerHeight * .9);
