@@ -357,7 +357,7 @@
   .hbg { position: absolute; inset: -60vh -60vw; z-index: -1; pointer-events: none; background: #ececee; overflow: hidden; }
   .hbg .satin { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
   .hbg::after { content: ""; position: absolute; inset: 0;
-                background: radial-gradient(ellipse 26% 30% at 50% 44%, rgba(255,255,255,.78) 0%, rgba(255,255,255,.35) 55%, rgba(255,255,255,0) 100%); }
+                background: radial-gradient(ellipse 24% 26% at 50% 44%, rgba(255,255,255,.62) 0%, rgba(255,255,255,.28) 55%, rgba(255,255,255,0) 100%); }
   .hbg .orbits { z-index: 1; }
   .hbg .orbits { position: absolute; left: 60vw; top: 60vh; width: calc(1920*var(--u)); height: calc(1080*var(--u)); overflow: visible; }
   .orb circle { fill: none; stroke: #d5d5d9; stroke-width: 1.2; }
@@ -587,7 +587,7 @@
           </div></div>
         </div>
         <div class="hrow r1">
-          <span class="big hl" data-split data-fx="drop" data-at="520">Designing</span>
+          <span class="big hl" data-split data-fx="drop" data-at="520">Making the</span>
           <div class="ph ph2 pop" data-at="1250" aria-hidden="true"><div class="face">
             <svg class="canvas" viewBox="0 0 200 140">
               <defs><pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="1" fill="#c3c3c3"/></pattern>
@@ -665,10 +665,10 @@
               </g>
             </svg>
           </div></div>
-          <span class="big hl" data-split data-fx="flip" data-at="900">interfaces</span>
+          <span class="big hl" data-split data-fx="flip" data-at="900">complex</span>
         </div>
         <div class="hrow r2">
-          <h1 class="big hl" data-split data-fx="blur" data-at="1200">people love to use.</h1>
+          <h1 class="big hl" data-split data-fx="blur" data-at="1200" data-mark="effortless.">feel effortless.</h1>
         </div>
         <div class="hrow r3">
           <span class="big sub" data-split data-fx="blur" data-at="1600">A</span>
@@ -816,7 +816,7 @@
     words.forEach((word, wi) => {
       const w = document.createElement('span'); w.className = 'w'; w.setAttribute('aria-hidden', 'true');
       if (word === 'India') w.classList.add('india');
-      if (/^love\b/.test(word)) w.classList.add('love');
+      if (el.dataset.mark === word) w.classList.add('love');
       [...word].forEach((c, j) => {
         const cw = document.createElement('span'); cw.className = 'cw';
         const s = document.createElement('span'); s.className = 'ch'; s.textContent = c;
@@ -908,45 +908,80 @@
   document.querySelector('.chip2').addEventListener('mouseenter', () => { if (roleEl._typed && !roleEl._busy) scramble(roleEl, ROLES[roleIdx], 650); });
 
 
-  /* ---------- Hero backdrop: soft satin folds, slowly swaying ---------- */
+  /* ---------- Hero backdrop: a satin curtain, lit from the top left, gently swaying (WebGL; 2D fallback) ---------- */
   (() => {
     const cv = document.querySelector('.hbg .satin'); if (!cv) return;
-    const W = 220, H = 124, ctx = cv.getContext('2d');
-    cv.width = W; cv.height = H;
-    const img = ctx.createImageData(W, H), d = img.data;
     const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let folds = 8;
-    const size = () => { folds = Math.max(3, cv.clientWidth / 260); };
-    size(); addEventListener('resize', size);
-    const TAU = Math.PI * 2;
-    function paint(t) {
-      const k = folds * TAU;
-      let p = 0;
-      for (let y = 0; y < H; y++) {
-        const v = y / H;
-        // the cloth hangs from the top: folds sway a little more lower down
-        const sway = Math.sin(v * 2.6 + t * .42) * (.35 + v * .9);
-        for (let x = 0; x < W; x++) {
-          const u = x / W;
-          const a = u * k + sway + Math.sin(u * 7.3 - t * .23) * .9 + t * .16;
-          let f = Math.sin(a) * .62 + Math.sin(a * .47 + 1.9 + t * .19) * .38;    // -1..1
-          f = (f + 1) / 2;
-          const sheen = Math.pow(f, 2.4);                                        // narrow bright highlights, broad soft shadows
-          const val = 214 + f * 22 + sheen * 19 - v * 6;
-          d[p++] = val; d[p++] = val; d[p++] = val + 2; d[p++] = 255;
+    const hero = document.getElementById('hero');
+    let draw = null, sc = 10;
+    const gl = cv.getContext('webgl', { antialias: false, alpha: false, preserveDrawingBuffer: false, powerPreference: 'low-power' });
+    if (gl) {
+      const VS = 'attribute vec2 a; void main(){ gl_Position = vec4(a, 0., 1.); }';
+      const FS = `precision highp float;
+        uniform vec2 res; uniform float t; uniform float sc;
+        float H(vec2 p){
+          float sway = sin(p.y * .32 + t * .28) * (.18 + .22 * p.y / sc);
+          float w = p.x + sway + .22 * sin(p.y * .21 - t * .16 + p.x * .29);
+          return .66 * sin(w * 2.2 + t * .15)
+               + .34 * sin(w * 3.3 - .18 * p.y + 1.7 + t * .09);
+        }
+        void main(){
+          vec2 uv = gl_FragCoord.xy / res; uv.y = 1. - uv.y;
+          vec2 p = vec2(uv.x * sc, uv.y * sc * res.y / res.x);
+          float e = .02;
+          float hx = (H(p + vec2(e, 0.)) - H(p - vec2(e, 0.))) / (2. * e);
+          float hy = (H(p + vec2(0., e)) - H(p - vec2(0., e))) / (2. * e);
+          vec3 n = normalize(vec3(-hx * .36, -hy * .36, 1.));
+          vec3 L = normalize(vec3(-.5, -.45, .74));
+          vec3 Hh = normalize(L + vec3(0., 0., 1.));
+          float diff = clamp(dot(n, L), 0., 1.);
+          float spec = pow(clamp(dot(n, Hh), 0., 1.), 22.);
+          float sheen = pow(clamp(dot(n, Hh), 0., 1.), 6.);
+          vec3 shade = vec3(.82, .822, .838), base = vec3(.94, .94, .948);
+          vec3 col = mix(shade, base, smoothstep(.55, .99, diff));
+          col += vec3(.13) * spec + vec3(.03) * sheen;
+          float vg = smoothstep(1.2, .25, length((uv - vec2(.5, .45)) * vec2(1., 1.25)));
+          col = mix(col * .95, col, vg);
+          gl_FragColor = vec4(min(col, vec3(1.)), 1.);
+        }`;
+      const sh = (type, src) => { const o = gl.createShader(type); gl.shaderSource(o, src); gl.compileShader(o); return gl.getShaderParameter(o, gl.COMPILE_STATUS) ? o : null; };
+      const vs = sh(gl.VERTEX_SHADER, VS), fs = sh(gl.FRAGMENT_SHADER, FS);
+      if (vs && fs) {
+        const pr = gl.createProgram(); gl.attachShader(pr, vs); gl.attachShader(pr, fs); gl.linkProgram(pr);
+        if (gl.getProgramParameter(pr, gl.LINK_STATUS)) {
+          gl.useProgram(pr);
+          const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+          gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+          const loc = gl.getAttribLocation(pr, 'a'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+          const uRes = gl.getUniformLocation(pr, 'res'), uT = gl.getUniformLocation(pr, 't'), uSc = gl.getUniformLocation(pr, 'sc');
+          draw = t => { gl.viewport(0, 0, cv.width, cv.height); gl.uniform2f(uRes, cv.width, cv.height); gl.uniform1f(uT, t); gl.uniform1f(uSc, sc); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); };
         }
       }
-      ctx.putImageData(img, 0, 0);
     }
-    const hero = document.getElementById('hero');
+    const size = () => {
+      const w = cv.clientWidth || innerWidth, h = cv.clientHeight || innerHeight;
+      const k = Math.min(1, 1500 / w, .6);                         // the cloth is smooth: a lighter canvas, scaled up, looks the same
+      cv.width = Math.max(2, Math.round(w * k)); cv.height = Math.max(2, Math.round(h * k));
+      sc = Math.max(4.5, w / 190);                                  // one wide fold every ~540 px on screen
+      draw && draw(performance.now() / 1000);
+    };
+    if (!draw) {                                                    // no WebGL: a simple 2D version of the folds
+      const ctx = cv.getContext('2d');
+      draw = t => {
+        const W = cv.width, Hh = cv.height, g = ctx.createLinearGradient(0, 0, W, 0), n = Math.round(sc / 2.85);
+        for (let i = 0; i <= n * 4; i++) { const f = .5 + .5 * Math.sin(i / 4 * Math.PI * 2 + t * .2); g.addColorStop(i / (n * 4), `rgb(${208 + f * 30},${208 + f * 30},${211 + f * 30})`); }
+        ctx.fillStyle = g; ctx.fillRect(0, 0, W, Hh);
+      };
+    }
+    size(); addEventListener('resize', size);
     let last = 0;
     function loop(now) {
       requestAnimationFrame(loop);
-      if (now - last < 40 || document.hidden || window.__layerOpen) return;       // ~25 fps is plenty for slow cloth
+      if (now - last < 33 || document.hidden || window.__layerOpen) return;
       if (parseFloat(getComputedStyle(hero).opacity) < .02) return;
-      last = now; paint(now / 1000);
+      last = now; draw(now / 1000);
     }
-    paint(8);
+    draw(6);
     if (!still) requestAnimationFrame(loop);
   })();
 
