@@ -41,9 +41,10 @@ for k in ['amin', 'ultratech', 'tata', 'ica', 'ellenbarrie', 'anchor', 'casagran
 for k in ['convo_crop', 'convo_full', 'bcw']:
     cp(f'{H}/cards/{k}.webp', f'images/{k}.webp')
     cp(f'{OPT}/images/{k}.avif', f'images/{k}.avif')
-cp(f'{H}/intro.mp4', 'media/intro.mp4')
-cp(f'{H}/intro.webm', 'media/intro.webm')
-cp(f'{OPT}/media/intro-poster.webp', 'media/intro-poster.webp')
+# hero: small client logos for the "Hi, I'm" pill
+HL = {}
+for k, f in [('TATA', 'tata.png'), ('ICA', 'ica.png'), ('CASA', 'casagrand.png'), ('ULTRA', 'ultratech.png')]:
+    HL[k] = save_webp(f'{H}/logos/{f}', f'images/hl-{k.lower()}.webp', max_h=96, q=90)
 cp(f'{OPT}/resume/Parth-Dake-Resume.pdf', 'resume/Parth-Dake-Resume.pdf')
 cp(f'{OPT}/jquery-3.7.1.min.js', 'assets/jquery-3.7.1.min.js')
 
@@ -54,7 +55,8 @@ pages = {'case': 'amin/', 'proto': 'amin/prototype.html', 'anchorCase': 'anchor/
          'icaCase': 'ica/', 'icaProto': 'ica/prototype.html', 'tataCase': 'tatapower/', 'tataProto': 'tatapower/prototype.html',
          'casaCase': 'casagrand/', 'casaProto': 'casagrand/prototype.html'}
 rep = {
-    '{{IMAGES}}': json.dumps(covers), '{{VIDEOWEBM}}': 'media/intro.webm', '{{VIDEOPOSTER}}': 'media/intro-poster.webp', '{{VIDEO}}': 'media/intro.mp4',
+    '{{IMAGES}}': json.dumps(covers), '{{HM_TATA}}': covers['tata'], '{{HM_CASA}}': covers['casagrand'],
+    **{'{{HL_%s}}' % k: v for k, v in HL.items()},
     '{{CONVOFULL_AVIF}}': 'images/convo_full.avif', '{{CONVOFULL}}': 'images/convo_full.webp',
     '{{CONVO_AVIF}}': 'images/convo_crop.avif', '{{CONVO}}': 'images/convo_crop.webp',
     '{{BCW_AVIF}}': 'images/bcw.avif', '{{BCW}}': 'images/bcw.webp',

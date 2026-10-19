@@ -352,6 +352,71 @@
   .canvas { display: block; width: 100%; height: 100%; }
   .ph2:hover .canvas .cur path { fill: #FF5A1F; }
 
+  /* ---------- Hero v3: minimal, centred, soft backdrop with orbits ---------- */
+  .hero { isolation: isolate; }
+  .hbg { position: absolute; inset: -60vh -60vw; z-index: -1; pointer-events: none;
+         background: radial-gradient(ellipse 48% 52% at 50% 46%, #ffffff 0%, #f5f5f6 42%, #e9e9eb 78%, #e2e2e5 100%); }
+  .hbg .orbits { position: absolute; left: 60vw; top: 60vh; width: calc(1920*var(--u)); height: calc(1080*var(--u)); overflow: visible; }
+  .orb circle { fill: none; stroke: #d5d5d9; stroke-width: 1.2; }
+  .orb circle.dot { fill: var(--accent); stroke: none; }
+  .orb { transform-box: view-box; animation: orbit 46s linear infinite; }
+  .orb.o1 { transform-origin: 260px 790px; }
+  .orb.o2 { transform-origin: 1650px 760px; animation-duration: 34s; animation-direction: reverse; }
+  .orb.o3 { transform-origin: 1650px 760px; animation-duration: 64s; }
+  .orb.o3 circle:not(.dot) { stroke-dasharray: 3 7; }
+  @keyframes orbit { to { transform: rotate(360deg); } }
+
+  .hrow.r0 { top: calc(176*var(--u)); }
+  .hrow.r1 { top: calc(268*var(--u)); align-items: center; gap: calc(22*var(--u)); }
+  .hrow.r2 { top: calc(402*var(--u)); }
+  .hrow.r3 { top: calc(572*var(--u)); align-items: center; gap: calc(12*var(--u)); }
+  .hrow.r4 { top: calc(668*var(--u)); align-items: center; gap: calc(14*var(--u)); }
+  .hero .hl { font-size: calc(112*var(--u)); font-weight: 400; letter-spacing: -0.045em; line-height: 1.04; color: #0A0A0A; }
+  .hero .hrow .hl { margin-bottom: 0; }
+  .hero .sub { font-size: calc(28*var(--u)); font-weight: 400; color: #6a6a6a; letter-spacing: -0.01em; }
+  .hero .ph2 { width: calc(210*var(--u)); height: calc(124*var(--u)); }
+  .hero .ph2 .face { border-radius: calc(62*var(--u)); background: #fff; box-shadow: 0 calc(10*var(--u)) calc(30*var(--u)) rgba(0,0,0,.08); }
+
+  .hero .chip1 { height: calc(62*var(--u)); width: auto; left: auto; top: auto; align-self: center; margin-top: 0; }
+  .hero .chip1 .face { border-radius: 999px; padding: 0 calc(22*var(--u)) 0 calc(8*var(--u)); gap: calc(14*var(--u)); font-size: calc(20*var(--u)); font-weight: 500; color: #4a4a4a; white-space: nowrap; }
+  .hero .chip1 b { color: #0A0A0A; font-weight: 600; }
+  .stack { display: flex; }
+  .stack i { width: calc(46*var(--u)); height: calc(46*var(--u)); border-radius: 50%; background: #fff; border: calc(2*var(--u)) solid #fff; box-shadow: 0 0 0 calc(1*var(--u)) #e4e4e4;
+             display: grid; place-items: center; overflow: hidden; margin-left: calc(-12*var(--u)); }
+  .stack i:first-child { margin-left: 0; }
+  .stack img { width: 78%; height: 78%; object-fit: contain; }
+  .hero .chip2 { height: calc(50*var(--u)); width: auto; min-width: calc(232*var(--u)); left: auto; top: auto; align-self: center; margin-top: 0; }
+  .hero .chip2 .face { border-radius: 999px; padding: 0 calc(18*var(--u)); font-size: calc(22*var(--u)); font-weight: 600; }
+  .hero .hb { height: calc(60*var(--u)); border-radius: 999px; padding: 0 calc(28*var(--u)); font-size: calc(19*var(--u)); }
+  .hero .btn.light { background: #fff; color: var(--ink); box-shadow: 0 calc(2*var(--u)) calc(12*var(--u)) rgba(0,0,0,.08); }
+  .hero .btn.light:hover { transform: translateY(calc(-3*var(--u))); }
+  .hero .btn.dark:hover svg { transform: translateY(calc(3*var(--u))); }
+
+  /* process chips on the left orbit */
+  .pc { height: calc(54*var(--u)); }
+  .pc .face { border-radius: 999px; padding: 0 calc(20*var(--u)) 0 calc(8*var(--u)); gap: calc(10*var(--u)); font-size: calc(18*var(--u)); font-weight: 500; white-space: nowrap;
+              box-shadow: 0 calc(8*var(--u)) calc(24*var(--u)) rgba(0,0,0,.07); }
+  .pc i { font-style: normal; width: calc(38*var(--u)); height: calc(38*var(--u)); border-radius: 50%; background: #f1f1f2; display: grid; place-items: center; font-size: calc(13*var(--u)); font-weight: 700; color: #8a8a8a; }
+  .pc1 { left: calc(318*var(--u)); top: calc(590*var(--u)); }
+  .pc2 { left: calc(420*var(--u)); top: calc(690*var(--u)); }
+  .pc3 { left: calc(436*var(--u)); top: calc(796*var(--u)); }
+  .pc4 { left: calc(334*var(--u)); top: calc(896*var(--u)); }
+  .pc3 .face { background: #0A0A0A; color: #fff; } .pc3 i { background: #333; color: #fff; }
+
+  /* project cards on the right orbit */
+  .mini { width: calc(196*var(--u)); height: calc(222*var(--u)); border: 0; padding: 0; background: none; cursor: pointer; }
+  .mini .face { background: none; }
+  .mini .fl { width: 100%; height: 100%; border-radius: calc(22*var(--u)); overflow: hidden; background: #fff; position: relative;
+              box-shadow: 0 calc(18*var(--u)) calc(44*var(--u)) rgba(20,20,40,.16); animation: floaty 6s ease-in-out infinite; transition: box-shadow .4s; }
+  .mini img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .mini .tag { position: absolute; left: calc(12*var(--u)); bottom: calc(12*var(--u)); background: rgba(255,255,255,.92); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+               border-radius: 999px; padding: calc(6*var(--u)) calc(12*var(--u)); font-size: calc(14*var(--u)); font-weight: 600; }
+  .mini:hover .fl { box-shadow: 0 calc(26*var(--u)) calc(56*var(--u)) rgba(20,20,40,.24); }
+  .mini:focus-visible { outline: calc(3*var(--u)) solid var(--ink); outline-offset: calc(4*var(--u)); border-radius: calc(24*var(--u)); }
+  .m1 { left: calc(1470*var(--u)); top: calc(560*var(--u)); } .m1 .fl { --r: -8deg; }
+  .m2 { left: calc(1640*var(--u)); top: calc(700*var(--u)); } .m2 .fl { --r: 7deg; animation-delay: -3s; animation-duration: 7s; }
+  @keyframes floaty { 0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); } 50% { transform: translateY(calc(-14*var(--u))) rotate(calc(var(--r, 0deg) * .6)); } }
+
   /* ---------- Full-screen page layer (case study, prototype) ---------- */
   .page-layer { position: fixed; inset: 0; z-index: 300; background: #fff; transform: translateY(100%); visibility: hidden;
                 transition: transform .7s var(--out), visibility 0s linear .7s; }
@@ -410,6 +475,22 @@
     .t-tag { white-space: normal; text-align: center; font-size: calc(58*var(--u)); line-height: 1.15; max-width: 92vw; }
     .hint { top: calc(100svh - 52px); bottom: auto; }
 
+    /* hero v3 on phones */
+    .hero { gap: 14px; padding: 96px 16px 80px; }
+    .hbg { inset: 0; }
+    .hbg .orbits { left: 50%; top: 0; width: 1400px; height: 100%; transform: translateX(-50%); }
+    .hero .hl { font-size: calc(80*var(--u)); line-height: 1.06; white-space: normal; text-align: center; }
+    .hero .chip1, .hero .chip2 { width: auto; }
+    .hero .hrow.r1 { gap: 10px; }
+    .hero .ph2 { width: calc(160*var(--u)); height: calc(96*var(--u)); }
+    .hero .sub { font-size: max(15px, calc(30*var(--u))); white-space: normal; text-align: center; }
+    .hero .chip1 { height: 46px; } .hero .chip1 .face { font-size: 15px; gap: 10px; padding: 0 16px 0 6px; }
+    .stack i { width: 32px; height: 32px; margin-left: -9px; }
+    .hero .chip2 { height: 38px; } .hero .chip2 .face { font-size: 15px; padding: 0 14px; }
+    .hero .hb { height: 48px; font-size: 15px; padding: 0 20px; }
+    .hero .hrow.r4 { margin-top: 6px; }
+    .pc, .mini { display: none; }
+
     /* work: a simple grid */
     .work-head { position: relative !important; left: auto; right: auto; top: auto !important; padding: 34px 16px 4px; pointer-events: auto; }
     .work-head h2 { font-size: clamp(34px, 9vw, 60px); white-space: normal; }
@@ -462,6 +543,7 @@
     .ab-giant .ch, .ab-kicker { transition: none !important; }
     [data-fx] .ch { animation: none !important; opacity: 1 !important; }
     .pop, .names span, .scribble path { transition: none !important; }
+    .orb, .mini .fl { animation: none !important; }
     .card-in, .nav, .caret { animation: none !important; }
   }
 </style>
@@ -485,13 +567,23 @@
 
 
       <div class="abs hero" id="hero" style="inset:0">
-        <div class="hrow r1">
-          <span class="big t-hi" data-split data-fx="drop" data-at="250">Hi, I’m</span>
-          <div class="ph ph1 pop" data-at="620"><div class="face"><video autoplay muted loop playsinline preload="auto" poster="{{VIDEOPOSTER}}" aria-label="Parth walking in and sitting down at his desk"><source src="{{VIDEO}}" type="video/mp4"><source src="{{VIDEOWEBM}}" type="video/webm"></video></div></div>
-          <div class="chip chip1 pop" data-at="820"><div class="face"><span id="name">Parth Dake</span></div></div>
+        <!-- soft backdrop + slow orbits (decorative) -->
+        <div class="hbg" aria-hidden="true">
+          <svg class="orbits" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+            <g class="orb o1"><circle cx="300" cy="610" r="250"/><circle class="dot" cx="300" cy="360" r="5"/></g>
+            <g class="orb o2"><circle cx="1600" cy="600" r="210"/><circle class="dot" cx="1810" cy="600" r="5"/></g>
+            <g class="orb o3"><circle cx="1600" cy="600" r="300"/><circle class="dot" cx="1600" cy="300" r="4"/></g>
+          </svg>
         </div>
-        <div class="hrow r2">
-          <span class="big t-a" data-split data-fx="spin" data-at="1150">a</span>
+
+        <div class="hrow r0">
+          <div class="chip chip1 pop" data-at="250"><div class="face">
+            <span class="stack" aria-hidden="true"><i><img src="{{HL_TATA}}" alt=""></i><i><img src="{{HL_ICA}}" alt=""></i><i><img src="{{HL_CASA}}" alt=""></i><i><img src="{{HL_ULTRA}}" alt=""></i></span>
+            <span class="hi">Hi, I’m <b id="name">Parth Dake</b></span>
+          </div></div>
+        </div>
+        <div class="hrow r1">
+          <span class="big hl" data-split data-fx="drop" data-at="520">Designing</span>
           <div class="ph ph2 pop" data-at="1250" aria-hidden="true"><div class="face">
             <svg class="canvas" viewBox="0 0 200 140">
               <defs><pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="1" fill="#c3c3c3"/></pattern>
@@ -569,12 +661,30 @@
               </g>
             </svg>
           </div></div>
-          <div class="chip chip2 pop" data-at="1420"><div class="face"><span id="role" aria-label="Digital Designer"></span><span class="caret" id="caret"></span></div></div>
-          <span class="big t-from" data-split data-fx="flip" data-at="1700">from India</span>
+          <span class="big hl" data-split data-fx="flip" data-at="900">interfaces</span>
+        </div>
+        <div class="hrow r2">
+          <h1 class="big hl" data-split data-fx="blur" data-at="1200">people love to use.</h1>
         </div>
         <div class="hrow r3">
-          <h1 class="big t-tag" data-split data-fx="blur" data-at="2050">Designing experiences people love.</h1>
+          <span class="big sub" data-split data-fx="blur" data-at="1600">A</span>
+          <div class="chip chip2 pop" data-at="1750"><div class="face"><span id="role" aria-label="UI/UX Designer"></span><span class="caret" id="caret"></span></div></div>
+          <span class="big sub" data-split data-fx="blur" data-at="1900">from India, at BC Webwise.</span>
         </div>
+        <div class="hrow r4">
+          <a class="btn dark pop hb" data-at="2150" href="#work">See my work <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+          <a class="btn light pop hb" data-at="2250" href="#contact">Get in touch <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        </div>
+
+        <!-- left: the design process, drifting along an orbit -->
+        <div class="abs chip pc pc1 pop" data-at="2400" aria-hidden="true"><div class="face"><i>01</i>Research</div></div>
+        <div class="abs chip pc pc2 pop" data-at="2500" aria-hidden="true"><div class="face"><i>02</i>Wireframes</div></div>
+        <div class="abs chip pc pc3 pop" data-at="2600" aria-hidden="true"><div class="face"><i>03</i>UI design</div></div>
+        <div class="abs chip pc pc4 pop" data-at="2700" aria-hidden="true"><div class="face"><i>04</i>Prototype</div></div>
+
+        <!-- right: two recent projects, floating -->
+        <button type="button" class="abs ph mini m1 pop" data-at="2500" data-open="tataCase" aria-label="Open the Tata Power case study"><div class="face"><div class="fl"><img src="{{HM_TATA}}" alt="" width="720" height="814" decoding="async"><span class="tag">Tata Power</span></div></div></button>
+        <button type="button" class="abs ph mini m2 pop" data-at="2650" data-open="casaCase" aria-label="Open the Casagrand case study"><div class="face"><div class="fl"><img src="{{HM_CASA}}" alt="" width="720" height="814" decoding="async"><span class="tag">Casagrand</span></div></div></button>
       </div>
 
       <div class="abs work-head" id="workHead" aria-hidden="true">
@@ -702,14 +812,14 @@
     words.forEach((word, wi) => {
       const w = document.createElement('span'); w.className = 'w'; w.setAttribute('aria-hidden', 'true');
       if (word === 'India') w.classList.add('india');
-      if (word === 'love.') w.classList.add('love');
+      if (/^love\b/.test(word)) w.classList.add('love');
       [...word].forEach((c, j) => {
         const cw = document.createElement('span'); cw.className = 'cw';
         const s = document.createElement('span'); s.className = 'ch'; s.textContent = c;
         s.style.cssText = `--i:${i};--j:${j};--wi:${wi}`;
         if (el.dataset.fx === 'drop' && wi === 0 && j < 2) s.classList.add('wv');   // the "Hi" letters wave
         cw.appendChild(s); w.appendChild(cw);
-        letters.push({ cw, owner: el, i,
+        letters.push({ cw, owner: el, i, base: parseInt(getComputedStyle(el).fontWeight) || 700,
           // where this letter flies when the hero explodes on scroll
           ex: rand(-1, 1) * 260, ey: rand(-1.1, .35) * 380, er: rand(-120, 120),
           // where it starts from when "Selected Work" assembles
@@ -724,7 +834,7 @@
 
   // Underline under "love."
   const love = document.querySelector('.love');
-  love.insertAdjacentHTML('beforeend', '<svg class="scribble" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 13 C 35 5, 70 18, 105 10 S 165 4, 197 11"/></svg>');
+  if (love) love.insertAdjacentHTML('beforeend', '<svg class="scribble" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 13 C 35 5, 70 18, 105 10 S 165 4, 197 11"/></svg>');
 
   // Nav rolling text
   document.querySelectorAll('.nav a.lnk').forEach(a => { const t = a.dataset.label;
@@ -755,10 +865,10 @@
     }, speed + rand(-15, 25));
   }
   const nameEl = document.getElementById('name'), roleEl = document.getElementById('role'), caret = document.getElementById('caret');
-  setTimeout(() => scramble(nameEl, 'Parth Dake', 900), reduce ? 0 : 860);
-  setTimeout(() => typewrite(roleEl, 'Digital Designer', caret), reduce ? 0 : 1500);
+  setTimeout(() => scramble(nameEl, 'Parth Dake', 900), reduce ? 0 : 400);
+  setTimeout(() => typewrite(roleEl, 'UI/UX Designer', caret), reduce ? 0 : 1850);
   // After the first type-in, the chip swaps between titles: backspace, then type the next one
-  const ROLES = ['Digital Designer', 'UI/UX Designer'];
+  const ROLES = ['UI/UX Designer', 'Digital Designer'];
   let roleIdx = 0;
   function swapRole() {
     if (reduce || !roleEl._typed || roleEl._busy) return;
@@ -795,7 +905,8 @@
 
   /* ---------- Intro timeline ---------- */
   document.querySelectorAll('[data-at]').forEach(el => setTimeout(() => el.classList.add('in'), reduce ? 0 : +el.dataset.at));
-  setTimeout(() => document.querySelector('.scribble').classList.add('drawn'), reduce ? 0 : 3000);
+  setTimeout(() => { const sc = document.querySelector('.scribble'); sc && sc.classList.add('drawn'); }, reduce ? 0 : 2000);
+  document.querySelectorAll('.mini[data-open]').forEach(b => b.addEventListener('click', () => window.__openPage && window.__openPage(b.dataset.open)));
 
   /* ---------- Cards ---------- */
   const IMG = window.__COVERS = {{IMAGES}};
@@ -811,6 +922,7 @@
     { id: 'ultratech',   href: 'ultratech-case-study.html', page: 'ultraCase', name: 'UltraTech Cement',             type: 'Pitch project',   x: 1562, y: 1205, r: 14 },
   ];
   CARDS.forEach(c => c.aspect = 814 / 720);   // every card is the same size
+  CARDS.forEach(c => c.y += 150);              // the fan sits low, just peeking under the hero
   const W = 330;
   const SLOTS = [[270,300],[290,800],[640,245],[1290,245],[1650,300],[1640,800],[960,860],[960,245]];
   const shuffled = SLOTS.map(s => [Math.random(), s]).sort((a, b) => a[0] - b[0]).map(x => x[1]);
@@ -937,7 +1049,7 @@
     const heroAlpha = 1 - clamp(p / .3);
     document.getElementById('hero').style.opacity = Math.pow(heroAlpha, 1.3);
     heroLetters.forEach(l => {
-      const f = reduce ? 0 : proximity(l, u, 700, h < .05);
+      const f = reduce ? 0 : proximity(l, u, l.base || 700, h < .05);
       l.cw.style.transform = `translate(${l.ex * h * u}px, ${(l.ey * h - 7 * f) * u}px) rotate(${l.er * h}deg) scale(${1 + .1 * f})`;
     });
     shapes.forEach(s => s.face.style.transform = h ? `translate(${s.ex * h * u}px, ${s.ey * h * u}px) rotate(${s.er * h}deg)` : '');
@@ -1189,6 +1301,11 @@
   if (RESUME_URL) resume.href = RESUME_URL;
   else resume.addEventListener('click', e => { e.preventDefault(); toast('Résumé coming soon'); });
   document.getElementById('ctWork').addEventListener('click', e => { e.preventDefault(); scrollTo({ top: window.__workTop(), behavior: 'smooth' }); });
+  document.querySelectorAll('.hero .hb').forEach(b => b.addEventListener('click', e => {
+    e.preventDefault();
+    if (b.getAttribute('href') === '#work') scrollTo({ top: window.__workTop(), behavior: 'smooth' });
+    else document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+  }));
   document.getElementById('ctTop').addEventListener('click', e => { e.preventDefault(); scrollTo({ top: 0, behavior: 'smooth' }); });
 
   // Cursor-reactive letters, like the rest of the page
