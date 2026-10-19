@@ -45,6 +45,13 @@ for k in ['convo_crop', 'convo_full', 'bcw']:
 HL = {}
 for k, f in [('TATA', 'tata.png'), ('ICA', 'ica.png'), ('CASA', 'casagrand.png'), ('ULTRA', 'ultratech.png')]:
     HL[k] = save_webp(f'{H}/logos/{f}', f'images/hl-{k.lower()}.webp', max_h=96, q=90)
+# project deck: full-bleed portrait image + client logo per card
+os.makedirs(f'{OUT}/images/deck', exist_ok=True)
+DECK = {}
+for k, f in [('tata', 'tata.png'), ('casagrand', 'casagrand.png'), ('ica', 'ica.png'), ('anchor', 'anchor.svg'), ('amin', 'amin.png'),
+             ('ellenbarrie', 'ellenbarrie.png'), ('ultratech', 'ultratech.png'), ('sp', 'sp.png')]:
+    logo = cp(f'{H}/logos/{f}', f'images/deck/logo-{k}.svg') if f.endswith('.svg') else save_webp(f'{H}/logos/{f}', f'images/deck/logo-{k}.webp', max_h=120, q=90)
+    DECK[k] = {'img': cp(f'{H}/cards/deck/{k}.webp', f'images/deck/{k}.webp'), 'logo': logo}
 cp(f'{OPT}/resume/Parth-Dake-Resume.pdf', 'resume/Parth-Dake-Resume.pdf')
 cp(f'{OPT}/jquery-3.7.1.min.js', 'assets/jquery-3.7.1.min.js')
 
@@ -56,7 +63,7 @@ pages = {'case': 'amin/', 'proto': 'amin/prototype.html', 'anchorCase': 'anchor/
          'casaCase': 'casagrand/', 'casaProto': 'casagrand/prototype.html'}
 rep = {
     '{{IMAGES}}': json.dumps(covers), '{{HM_TATA}}': covers['tata'], '{{HM_CASA}}': covers['casagrand'],
-    **{'{{HL_%s}}' % k: v for k, v in HL.items()},
+    **{'{{HL_%s}}' % k: v for k, v in HL.items()}, '{{DECK}}': json.dumps(DECK),
     '{{CONVOFULL_AVIF}}': 'images/convo_full.avif', '{{CONVOFULL}}': 'images/convo_full.webp',
     '{{CONVO_AVIF}}': 'images/convo_crop.avif', '{{CONVO}}': 'images/convo_crop.webp',
     '{{BCW_AVIF}}': 'images/bcw.avif', '{{BCW}}': 'images/bcw.webp',

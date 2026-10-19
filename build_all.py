@@ -13,6 +13,7 @@ def run(script, cwd=H):
 for d in ['anchor', 'ultra', 'ellen', 'ica', 'tata', 'casa']:
     run('build.py', os.path.join(H, d))
 run('make_covers.py')
+run('make_deck.py')
 run('optimize_media.py')
 run('optimize_prototypes.py')
 run('build_site.py')
