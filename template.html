@@ -354,8 +354,11 @@
 
   /* ---------- Hero v3: minimal, centred, soft backdrop with orbits ---------- */
   .hero { isolation: isolate; }
-  .hbg { position: absolute; inset: -60vh -60vw; z-index: -1; pointer-events: none;
-         background: radial-gradient(ellipse 48% 52% at 50% 46%, #ffffff 0%, #f5f5f6 42%, #e9e9eb 78%, #e2e2e5 100%); }
+  .hbg { position: absolute; inset: -60vh -60vw; z-index: -1; pointer-events: none; background: #ececee; overflow: hidden; }
+  .hbg .satin { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .hbg::after { content: ""; position: absolute; inset: 0;
+                background: radial-gradient(ellipse 26% 30% at 50% 44%, rgba(255,255,255,.78) 0%, rgba(255,255,255,.35) 55%, rgba(255,255,255,0) 100%); }
+  .hbg .orbits { z-index: 1; }
   .hbg .orbits { position: absolute; left: 60vw; top: 60vh; width: calc(1920*var(--u)); height: calc(1080*var(--u)); overflow: visible; }
   .orb circle { fill: none; stroke: #d5d5d9; stroke-width: 1.2; }
   .orb circle.dot { fill: var(--accent); stroke: none; }
@@ -569,6 +572,7 @@
       <div class="abs hero" id="hero" style="inset:0">
         <!-- soft backdrop + slow orbits (decorative) -->
         <div class="hbg" aria-hidden="true">
+          <canvas class="satin"></canvas>
           <svg class="orbits" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
             <g class="orb o1"><circle cx="300" cy="610" r="250"/><circle class="dot" cx="300" cy="360" r="5"/></g>
             <g class="orb o2"><circle cx="1600" cy="600" r="210"/><circle class="dot" cx="1810" cy="600" r="5"/></g>
@@ -902,6 +906,49 @@
     }, 5000);
   })();
   document.querySelector('.chip2').addEventListener('mouseenter', () => { if (roleEl._typed && !roleEl._busy) scramble(roleEl, ROLES[roleIdx], 650); });
+
+
+  /* ---------- Hero backdrop: soft satin folds, slowly swaying ---------- */
+  (() => {
+    const cv = document.querySelector('.hbg .satin'); if (!cv) return;
+    const W = 220, H = 124, ctx = cv.getContext('2d');
+    cv.width = W; cv.height = H;
+    const img = ctx.createImageData(W, H), d = img.data;
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let folds = 8;
+    const size = () => { folds = Math.max(3, cv.clientWidth / 260); };
+    size(); addEventListener('resize', size);
+    const TAU = Math.PI * 2;
+    function paint(t) {
+      const k = folds * TAU;
+      let p = 0;
+      for (let y = 0; y < H; y++) {
+        const v = y / H;
+        // the cloth hangs from the top: folds sway a little more lower down
+        const sway = Math.sin(v * 2.6 + t * .42) * (.35 + v * .9);
+        for (let x = 0; x < W; x++) {
+          const u = x / W;
+          const a = u * k + sway + Math.sin(u * 7.3 - t * .23) * .9 + t * .16;
+          let f = Math.sin(a) * .62 + Math.sin(a * .47 + 1.9 + t * .19) * .38;    // -1..1
+          f = (f + 1) / 2;
+          const sheen = Math.pow(f, 2.4);                                        // narrow bright highlights, broad soft shadows
+          const val = 214 + f * 22 + sheen * 19 - v * 6;
+          d[p++] = val; d[p++] = val; d[p++] = val + 2; d[p++] = 255;
+        }
+      }
+      ctx.putImageData(img, 0, 0);
+    }
+    const hero = document.getElementById('hero');
+    let last = 0;
+    function loop(now) {
+      requestAnimationFrame(loop);
+      if (now - last < 40 || document.hidden || window.__layerOpen) return;       // ~25 fps is plenty for slow cloth
+      if (parseFloat(getComputedStyle(hero).opacity) < .02) return;
+      last = now; paint(now / 1000);
+    }
+    paint(8);
+    if (!still) requestAnimationFrame(loop);
+  })();
 
   /* ---------- Intro timeline ---------- */
   document.querySelectorAll('[data-at]').forEach(el => setTimeout(() => el.classList.add('in'), reduce ? 0 : +el.dataset.at));
