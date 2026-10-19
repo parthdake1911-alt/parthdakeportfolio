@@ -17,3 +17,7 @@
   Cache-Control: public, max-age=604800
 /tatapower/img/*
   Cache-Control: public, max-age=604800
+/casagrand/img/*
+  Cache-Control: public, max-age=604800
+/casagrand/proto/*
+  Cache-Control: public, max-age=604800

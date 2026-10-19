@@ -16,7 +16,7 @@ H = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(H, 'site')
 OPT = os.path.join(H, 'optimized')
 shutil.rmtree(OUT, ignore_errors=True)
-for d in ['resume', 'images/cards', 'media', 'assets', 'amin/img', 'anchor/img', 'ultratech/img', 'ellenbarrie/img', 'ica/img', 'tatapower/img']:
+for d in ['resume', 'images/cards', 'media', 'assets', 'amin/img', 'anchor/img', 'ultratech/img', 'ellenbarrie/img', 'ica/img', 'tatapower/img', 'casagrand/img', 'casagrand/proto']:
     os.makedirs(f'{OUT}/{d}', exist_ok=True)
 
 def cp(src, dst):
@@ -34,7 +34,7 @@ def save_webp(src, dst, max_h=None, q=88):
 # ---------- shared + homepage assets ----------
 save_webp(f'{H}/cards/logo.png', 'images/logo.webp', max_h=160)          # shown at 40 px tall
 covers = {}
-for k in ['amin', 'ultratech', 'tata', 'ica', 'ellenbarrie', 'anchor', 'sp']:
+for k in ['amin', 'ultratech', 'tata', 'ica', 'ellenbarrie', 'anchor', 'casagrand', 'sp']:
     src = f'{OPT}/images/cards/{k}.webp' if os.path.exists(f'{OPT}/images/cards/{k}.webp') else f'{H}/cards/{k}.webp'
     covers[k] = cp(src, f'images/cards/{k}.webp')
     cp(f'{OPT}/images/cards/{k}.avif', f'images/cards/{k}.avif')
@@ -51,7 +51,8 @@ cp(f'{OPT}/jquery-3.7.1.min.js', 'assets/jquery-3.7.1.min.js')
 t = open(f'{H}/template.html').read()
 pages = {'case': 'amin/', 'proto': 'amin/prototype.html', 'anchorCase': 'anchor/', 'anchorProto': 'anchor/prototype.html',
          'ultraCase': 'ultratech/', 'ellenCase': 'ellenbarrie/', 'ellenProto': 'ellenbarrie/prototype.html',
-         'icaCase': 'ica/', 'icaProto': 'ica/prototype.html', 'tataCase': 'tatapower/', 'tataProto': 'tatapower/prototype.html'}
+         'icaCase': 'ica/', 'icaProto': 'ica/prototype.html', 'tataCase': 'tatapower/', 'tataProto': 'tatapower/prototype.html',
+         'casaCase': 'casagrand/', 'casaProto': 'casagrand/prototype.html'}
 rep = {
     '{{IMAGES}}': json.dumps(covers), '{{VIDEOWEBM}}': 'media/intro.webm', '{{VIDEOPOSTER}}': 'media/intro-poster.webp', '{{VIDEO}}': 'media/intro.mp4',
     '{{CONVOFULL_AVIF}}': 'images/convo_full.avif', '{{CONVOFULL}}': 'images/convo_full.webp',
@@ -62,7 +63,7 @@ rep = {
 for k, v in rep.items():
     assert k in t, k
     t = t.replace(k, v)
-for a, b in [('amin', 'amin'), ('anchor', 'anchor'), ('ultratech', 'ultratech'), ('ellenbarrie', 'ellenbarrie'), ('ica', 'ica'), ('tata', 'tatapower')]:
+for a, b in [('amin', 'amin'), ('anchor', 'anchor'), ('ultratech', 'ultratech'), ('ellenbarrie', 'ellenbarrie'), ('ica', 'ica'), ('tata', 'tatapower'), ('casagrand', 'casagrand')]:
     t = t.replace(f"href: '{a}-case-study.html'", f"href: '{b}/'")
 old = "f.srcdoc = P[key];"
 assert old in t
@@ -169,6 +170,12 @@ case_page(f'{H}/ica/case.html', 'ica', f'{H}/ica/out', logo=f'{L}/ica.png', alt=
 cp(f'{PROTO}/tatapower.html', 'tatapower/prototype.html')
 case_page(f'{H}/tata/case.html', 'tatapower', f'{H}/tata/out', logo=f'{L}/tata.png', alt='Tata Power logo', h=84)
 
+# ---------- Casagrand ----------
+cp(f'{PROTO}/casagrand.html', 'casagrand/prototype.html')
+for f in os.listdir(f'{PROTO}/casagrand_proto'):
+    cp(f'{PROTO}/casagrand_proto/{f}', f'casagrand/proto/{f}')
+case_page(f'{H}/casa/case.html', 'casagrand', f'{H}/casa/out', logo=f'{L}/casagrand.png', alt='Casagrand logo', h=64)
+
 # ---------- cache-busting: every local asset link gets ?v=<fingerprint> ----------
 # Images/media are cached by browsers for a week; a changed file gets a new link, so visitors always see the latest.
 import hashlib
@@ -192,7 +199,7 @@ def bust_page(rel):
         return f'{q}{ref}?v={fingerprint(target)}{q}' if os.path.isfile(target) else m.group(0)
     p = open(path).read()
     open(path, 'w').write(ASSET.sub(f, p))
-for rel in ['index.html'] + [f'{d}/index.html' for d in ['amin', 'anchor', 'ultratech', 'ellenbarrie', 'ica', 'tatapower']]:
+for rel in ['index.html'] + [f'{d}/index.html' for d in ['amin', 'anchor', 'ultratech', 'ellenbarrie', 'ica', 'tatapower', 'casagrand']]:
     bust_page(rel)
 
 # ---------- 404 page + Netlify caching ----------
@@ -231,11 +238,15 @@ open(f'{OUT}/_headers', 'w').write("""# Netlify caching rules. Images, video and
   Cache-Control: public, max-age=604800
 /tatapower/img/*
   Cache-Control: public, max-age=604800
+/casagrand/img/*
+  Cache-Control: public, max-age=604800
+/casagrand/proto/*
+  Cache-Control: public, max-age=604800
 """)
 
 # ---------- minify HTML/CSS/JS of the pages (prototypes are left as built) ----------
 MIN = os.environ.get('HTML_MINIFIER') or shutil.which('html-minifier-terser')
-pages_to_min = ['index.html', '404.html'] + [f'{d}/index.html' for d in ['amin', 'anchor', 'ultratech', 'ellenbarrie', 'ica', 'tatapower']]
+pages_to_min = ['index.html', '404.html'] + [f'{d}/index.html' for d in ['amin', 'anchor', 'ultratech', 'ellenbarrie', 'ica', 'tatapower', 'casagrand']]
 if MIN:
     before = sum(os.path.getsize(f'{OUT}/{f}') for f in pages_to_min)
     for f in pages_to_min:

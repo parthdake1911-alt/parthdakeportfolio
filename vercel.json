@@ -6,6 +6,6 @@
   "outputDirectory": "site",
   "headers": [
     { "source": "/(images|media|assets)/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }] },
-    { "source": "/(amin|anchor|ultratech|ellenbarrie|ica|tatapower)/img/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }] }
+    { "source": "/(amin|anchor|ultratech|ellenbarrie|ica|tatapower|casagrand)/(img|proto)/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }] }
   ]
 }

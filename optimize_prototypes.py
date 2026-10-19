@@ -111,3 +111,26 @@ assert h.count(old) == 1, 'Customer Smile loader changed'
 h = h.replace(old, new)
 print(f'  Customer Smile: {len(table)} unique images')
 write('tatapower.html', h, len(src.encode()))
+
+# ---------- Casagrand: embedded photos -> separate WebP files (stored once, cached by the browser) ----------
+import hashlib, shutil
+src = open(os.path.join(ROOT, 'casa/src/casagrand.html'), encoding='utf-8').read()
+CG = os.path.join(OUT, 'casagrand_proto')
+shutil.rmtree(CG, ignore_errors=True); os.makedirs(CG)
+done = {}
+def cg_img(m):
+    mime, b64 = m.group(1), m.group(2)
+    if b64 not in done:
+        im = Image.open(io.BytesIO(base64.b64decode(b64))); im.load()
+        alpha = im.mode in ('RGBA', 'LA') or (im.mode == 'P' and 'transparency' in im.info)
+        im = im.convert('RGBA' if alpha else 'RGB')
+        if im.width > 1920:
+            im = im.resize((1920, round(im.height * 1920 / im.width)), Image.LANCZOS)
+        name = 'cg-' + hashlib.md5(b64.encode()).hexdigest()[:10] + '.webp'
+        im.save(os.path.join(CG, name), 'WEBP', quality=80, method=6, alpha_quality=90)
+        done[b64] = 'proto/' + name
+    return done[b64]
+h = DATA_ANY.sub(cg_img, src)
+size = sum(os.path.getsize(os.path.join(CG, f)) for f in os.listdir(CG))
+print(f'  Casagrand: {len(done)} unique images, {size/1e6:.2f} MB as files')
+write('casagrand.html', h, len(src.encode()))

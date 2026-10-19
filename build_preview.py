@@ -24,12 +24,12 @@ h1{font-size:28px;margin:0 0 10px;letter-spacing:-.02em}p{color:#555;max-width:4
 
 home = open(f'{S}/index.html').read()
 pages = {
-    'case': 'amin', 'anchorCase': 'anchor', 'ultraCase': 'ultratech', 'ellenCase': 'ellenbarrie', 'icaCase': 'ica', 'tataCase': 'tatapower',
+    'case': 'amin', 'anchorCase': 'anchor', 'ultraCase': 'ultratech', 'ellenCase': 'ellenbarrie', 'icaCase': 'ica', 'tataCase': 'tatapower', 'casaCase': 'casagrand',
 }
 P = {}
 for key, folder in pages.items():
     P[key] = inline(open(f'{S}/{folder}/index.html').read(), f'{S}/{folder}')
-for key in ['proto', 'anchorProto', 'ellenProto', 'icaProto', 'tataProto']:
+for key in ['proto', 'anchorProto', 'ellenProto', 'icaProto', 'tataProto', 'casaProto']:
     P[key] = PROTO
 
 home = inline(home, S)
