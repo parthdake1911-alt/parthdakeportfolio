@@ -395,6 +395,40 @@
   .hero .btn.light:hover { transform: translateY(calc(-3*var(--u))); }
   .hero .btn.dark:hover svg { transform: translateY(calc(3*var(--u))); }
 
+
+  /* ---------- Hero motion system: one easing family, short travel, depth over decoration ---------- */
+  :root { --ease-o: cubic-bezier(.16, 1, .3, 1); --ease-io: cubic-bezier(.65, 0, .35, 1); }
+  /* entrances: rise a little, sharpen, settle (no spins, no bounces) */
+  #hero .pop, #hero .chip.pop { transform: translateY(calc(22*var(--u))) scale(.98); filter: blur(calc(8*var(--u))); opacity: 0;
+             transition: transform 1.1s var(--ease-o), opacity .8s var(--ease-o), filter .9s var(--ease-o); }
+  #hero .pop.in, #hero .chip.pop.in { transform: none; filter: none; opacity: 1; }
+  /* headline: each word rises out of its own line, like type being set */
+  [data-fx=rise] .w { overflow: hidden; padding-bottom: .12em; margin-bottom: -.12em; vertical-align: bottom; }
+  [data-fx=rise].in .ch { animation: rise 1.15s var(--ease-o) both; animation-delay: calc(var(--wi) * 90ms + var(--j) * 12ms); }
+  @keyframes rise { from { transform: translateY(108%); } to { transform: none; } }
+  [data-fx=rise].done .w { overflow: visible; }
+  [data-fx=fade].in .ch { animation: fadeup .9s var(--ease-o) both; animation-delay: calc(var(--wi) * 50ms); }
+  @keyframes fadeup { from { transform: translateY(40%); opacity: 0; } to { transform: none; opacity: 1; } }
+  /* the curtain fades up first, like a light coming on */
+  .hbg { opacity: 0; transition: opacity 1.6s var(--ease-io); }
+  .hbg.lit { opacity: 1; }
+  /* ambient loops: slower and quieter, so the headline stays the focus */
+  .orb { animation-duration: 120s; } .orb.o2 { animation-duration: 95s; } .orb.o3 { animation-duration: 170s; }
+  .orb circle.dot { opacity: .75; }
+  .mini .fl { animation-duration: 9s; }
+  .m2 .fl { animation-duration: 11s; }
+  @keyframes floaty { 0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); } 50% { transform: translateY(calc(-8*var(--u))) rotate(calc(var(--r, 0deg) * .8)); } }
+  /* micro-interactions: lift on hover, a small press on click */
+  .hero .hb { transition: transform .5s var(--ease-o), translate .5s var(--ease-o), box-shadow .5s var(--ease-o), background .3s, opacity .8s var(--ease-o), filter .9s var(--ease-o); }
+  .hero .hb:active { scale: .97; transition: scale .12s; }
+  .hero .hb svg { transition: transform .5s var(--ease-o); }
+  .hero .btn.light:hover svg { transform: translate(calc(3*var(--u)), calc(-3*var(--u))); }
+  .mini { transition: scale .6s var(--ease-o); }
+  .mini:hover { scale: 1.05; }
+  .mini:active { scale: .98; transition: scale .12s; }
+  .stack i { transition: translate .5s var(--ease-o); }
+  .chip1:hover .stack i { translate: calc(var(--k, 0) * 5 * var(--u)) 0; }
+
   /* process chips on the left orbit */
   .pc { height: calc(54*var(--u)); }
   .pc .face { border-radius: 999px; padding: 0 calc(20*var(--u)) 0 calc(8*var(--u)); gap: calc(10*var(--u)); font-size: calc(18*var(--u)); font-weight: 500; white-space: nowrap;
@@ -404,7 +438,10 @@
   .pc2 { left: calc(420*var(--u)); top: calc(690*var(--u)); }
   .pc3 { left: calc(436*var(--u)); top: calc(796*var(--u)); }
   .pc4 { left: calc(334*var(--u)); top: calc(896*var(--u)); }
-  .pc3 .face { background: #0A0A0A; color: #fff; } .pc3 i { background: #333; color: #fff; }
+  .pc .face { transition: background .6s var(--ease-o), color .6s var(--ease-o), box-shadow .6s var(--ease-o); }
+  .pc i { transition: background .6s var(--ease-o), color .6s var(--ease-o); }
+  .pc.on .face { background: #0A0A0A; color: #fff; box-shadow: 0 calc(14*var(--u)) calc(30*var(--u)) rgba(0,0,0,.18); }
+  .pc.on i { background: #2a2a2a; color: #fff; }
 
   /* project cards on the right orbit */
   .mini { width: calc(196*var(--u)); height: calc(222*var(--u)); border: 0; padding: 0; background: none; cursor: pointer; }
@@ -493,6 +530,7 @@
     .hero .hb { height: 48px; font-size: 15px; padding: 0 20px; }
     .hero .hrow.r4 { margin-top: 6px; }
     .pc, .mini { display: none; }
+    .hero .scribble { bottom: -.16em; height: .3em; }
 
     /* work: a simple grid */
     .work-head { position: relative !important; left: auto; right: auto; top: auto !important; padding: 34px 16px 4px; pointer-events: auto; }
@@ -547,6 +585,7 @@
     [data-fx] .ch { animation: none !important; opacity: 1 !important; }
     .pop, .names span, .scribble path { transition: none !important; }
     .orb, .mini .fl { animation: none !important; }
+    #hero .pop { filter: none !important; } .hbg { transition: none; }
     .card-in, .nav, .caret { animation: none !important; }
   }
 </style>
@@ -582,13 +621,13 @@
 
         <div class="hrow r0">
           <div class="chip chip1 pop" data-at="250"><div class="face">
-            <span class="stack" aria-hidden="true"><i><img src="{{HL_TATA}}" alt=""></i><i><img src="{{HL_ICA}}" alt=""></i><i><img src="{{HL_CASA}}" alt=""></i><i><img src="{{HL_ULTRA}}" alt=""></i></span>
+            <span class="stack" aria-hidden="true"><i style="--k:-1.5"><img src="{{HL_TATA}}" alt=""></i><i style="--k:-.5"><img src="{{HL_ICA}}" alt=""></i><i style="--k:.5"><img src="{{HL_CASA}}" alt=""></i><i style="--k:1.5"><img src="{{HL_ULTRA}}" alt=""></i></span>
             <span class="hi">Hi, I’m <b id="name">Parth Dake</b></span>
           </div></div>
         </div>
         <div class="hrow r1">
-          <span class="big hl" data-split data-fx="drop" data-at="520">From user problems</span>
-          <div class="ph ph2 pop" data-at="1250" aria-hidden="true"><div class="face">
+          <span class="big hl" data-split data-fx="rise" data-at="450">From user problems</span>
+          <div class="ph ph2 pop" data-at="700" aria-hidden="true"><div class="face">
             <svg class="canvas" viewBox="0 0 200 140">
               <defs><pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="1" fill="#c3c3c3"/></pattern>
                 <clipPath id="phoneClip"><rect x="76" y="22" width="48" height="100" rx="5"/></clipPath></defs>
@@ -668,27 +707,27 @@
           
         </div>
         <div class="hrow r2">
-          <h1 class="big hl" data-split data-fx="blur" data-at="1200" data-mark="intuitive">to intuitive interfaces.</h1>
+          <h1 class="big hl" data-split data-fx="rise" data-at="750" data-mark="intuitive">to intuitive interfaces.</h1>
         </div>
         <div class="hrow r3">
-          <span class="big sub" data-split data-fx="blur" data-at="1600">A</span>
-          <div class="chip chip2 pop" data-at="1750"><div class="face"><span id="role" aria-label="UI/UX Designer"></span><span class="caret" id="caret"></span></div></div>
-          <span class="big sub" data-split data-fx="blur" data-at="1900">from India, at BC Webwise.</span>
+          <span class="big sub" data-split data-fx="fade" data-at="1050">A</span>
+          <div class="chip chip2 pop" data-at="1100"><div class="face"><span id="role" aria-label="UI/UX Designer"></span><span class="caret" id="caret"></span></div></div>
+          <span class="big sub" data-split data-fx="fade" data-at="1150">from India, at BC Webwise.</span>
         </div>
         <div class="hrow r4">
-          <a class="btn dark pop hb" data-at="2150" href="#work">See my work <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
-          <a class="btn light pop hb" data-at="2250" href="#contact">Get in touch <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          <a class="btn dark pop hb" data-at="1250" href="#work">See my work <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+          <a class="btn light pop hb" data-at="1330" href="#contact">Get in touch <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
         </div>
 
         <!-- left: the design process, drifting along an orbit -->
-        <div class="abs chip pc pc1 pop" data-at="2400" aria-hidden="true"><div class="face"><i>01</i>Research</div></div>
-        <div class="abs chip pc pc2 pop" data-at="2500" aria-hidden="true"><div class="face"><i>02</i>Wireframes</div></div>
-        <div class="abs chip pc pc3 pop" data-at="2600" aria-hidden="true"><div class="face"><i>03</i>UI design</div></div>
-        <div class="abs chip pc pc4 pop" data-at="2700" aria-hidden="true"><div class="face"><i>04</i>Prototype</div></div>
+        <div class="abs chip pc pc1 pop on" data-at="1550" aria-hidden="true"><div class="face"><i>01</i>Ideate</div></div>
+        <div class="abs chip pc pc2 pop" data-at="1630" aria-hidden="true"><div class="face"><i>02</i>Wireframe</div></div>
+        <div class="abs chip pc pc3 pop" data-at="1710" aria-hidden="true"><div class="face"><i>03</i>UI design</div></div>
+        <div class="abs chip pc pc4 pop" data-at="1790" aria-hidden="true"><div class="face"><i>04</i>Prototype</div></div>
 
         <!-- right: two recent projects, floating -->
-        <button type="button" class="abs ph mini m1 pop" data-at="2500" data-open="tataCase" aria-label="Open the Tata Power case study"><div class="face"><div class="fl"><img src="{{HM_TATA}}" alt="" width="720" height="814" decoding="async"><span class="tag">Tata Power</span></div></div></button>
-        <button type="button" class="abs ph mini m2 pop" data-at="2650" data-open="casaCase" aria-label="Open the Casagrand case study"><div class="face"><div class="fl"><img src="{{HM_CASA}}" alt="" width="720" height="814" decoding="async"><span class="tag">Casagrand</span></div></div></button>
+        <button type="button" class="abs ph mini m1 pop" data-at="1600" data-open="tataCase" aria-label="Open the Tata Power case study"><div class="face"><div class="fl"><img src="{{HM_TATA}}" alt="" width="720" height="814" decoding="async"><span class="tag">Tata Power</span></div></div></button>
+        <button type="button" class="abs ph mini m2 pop" data-at="1720" data-open="casaCase" aria-label="Open the Casagrand case study"><div class="face"><div class="fl"><img src="{{HM_CASA}}" alt="" width="720" height="814" decoding="async"><span class="tag">Casagrand</span></div></div></button>
       </div>
 
       <div class="abs work-head" id="workHead" aria-hidden="true">
@@ -698,7 +737,7 @@
       </div>
 
       <div id="cards"></div>
-      <div class="abs hint" id="hint" data-split data-fx="bob" data-at="3400">Scroll</div>
+      <div class="abs hint" id="hint" data-split data-fx="bob" data-at="2400">Scroll</div>
     </main>
   </div>
 </div>
@@ -869,8 +908,8 @@
     }, speed + rand(-15, 25));
   }
   const nameEl = document.getElementById('name'), roleEl = document.getElementById('role'), caret = document.getElementById('caret');
-  setTimeout(() => scramble(nameEl, 'Parth Dake', 900), reduce ? 0 : 400);
-  setTimeout(() => typewrite(roleEl, 'UI/UX Designer', caret), reduce ? 0 : 1850);
+  setTimeout(() => scramble(nameEl, 'Parth Dake', 700), reduce ? 0 : 450);
+  setTimeout(() => typewrite(roleEl, 'UI/UX Designer', caret), reduce ? 0 : 1300);
   // After the first type-in, the chip swaps between titles: backspace, then type the next one
   const ROLES = ['UI/UX Designer', 'Digital Designer'];
   let roleIdx = 0;
@@ -890,7 +929,7 @@
       }
     }, 35);
   }
-  setInterval(swapRole, 4200);
+  setInterval(swapRole, 6500);
   if (reduce) document.querySelectorAll('.canvas').forEach(s => s.pauseAnimations && s.pauseAnimations());
   document.querySelector('.chip1').addEventListener('mouseenter', () => scramble(nameEl, 'Parth Dake', 600));
 
@@ -902,6 +941,7 @@
     try { cv.setCurrentTime(0); } catch (e) {}
     setInterval(() => {
       scenes[k].classList.remove('on'); k = (k + 1) % scenes.length; scenes[k].classList.add('on');
+      document.querySelectorAll('.pc').forEach((c, i) => c.classList.toggle('on', i === k));   // the step on the orbit lights up with the scene
       try { cv.setCurrentTime(0); } catch (e) {}
     }, 5000);
   })();
@@ -982,6 +1022,7 @@
       last = now; draw(now / 1000);
     }
     draw(6);
+    requestAnimationFrame(() => cv.closest('.hbg').classList.add('lit'));
     if (!still) requestAnimationFrame(loop);
   })();
 
@@ -1018,7 +1059,7 @@
       if (window.__layerOpen) return;
       // no input for a while: drift slowly on its own, so the depth is always visible
       const idle = now - input > 2500;
-      const gx = idle ? Math.sin(now / 2600) * .55 : tx, gy = idle ? Math.sin(now / 3700 + 1) * .4 : ty;
+      const gx = idle ? Math.sin(now / 4200) * .3 : tx, gy = idle ? Math.sin(now / 5900 + 1) * .22 : ty;
       x += (gx - x) * .06; y += (gy - y) * .06;
       layers.forEach(l => l.els.forEach(el => {
         el.style.translate = `${(x * l.d).toFixed(2)}px ${(y * l.d * .6).toFixed(2)}px`;
@@ -1029,9 +1070,18 @@
     requestAnimationFrame(loop);
   })();
 
+  /* ---------- Hero CTAs: a gentle magnetic pull toward the cursor ---------- */
+  if (!reduce && matchMedia('(hover: hover)').matches) document.querySelectorAll('.hero .hb').forEach(b => {
+    b.addEventListener('pointermove', e => { const r = b.getBoundingClientRect();
+      b.style.translate = `${((e.clientX - r.left) / r.width - .5) * 10}px ${((e.clientY - r.top) / r.height - .5) * 8}px`; });
+    b.addEventListener('pointerleave', () => { b.style.translate = ''; });
+  });
+
   /* ---------- Intro timeline ---------- */
   document.querySelectorAll('[data-at]').forEach(el => setTimeout(() => el.classList.add('in'), reduce ? 0 : +el.dataset.at));
-  setTimeout(() => { const sc = document.querySelector('.scribble'); sc && sc.classList.add('drawn'); }, reduce ? 0 : 2000);
+  // once the words have risen, drop the masks so the underline and scroll motion aren't clipped
+  document.querySelectorAll('[data-fx=rise]').forEach(el => setTimeout(() => el.classList.add('done'), reduce ? 0 : +el.dataset.at + 1700));
+  setTimeout(() => { const sc = document.querySelector('.scribble'); sc && sc.classList.add('drawn'); }, reduce ? 0 : 1500);
   document.querySelectorAll('.mini[data-open]').forEach(b => b.addEventListener('click', () => window.__openPage && window.__openPage(b.dataset.open)));
 
   /* ---------- Cards ---------- */
@@ -1093,9 +1143,12 @@
   const nav = document.getElementById('nav'), pill = document.getElementById('pill');
   let activeLink = navLinks[0], hovering = false, hoveredLink = null;
   const chips = [...document.querySelectorAll('#hero .chip')].map((el, k) => ({ el, face: el.querySelector('.face'), rx: 0, ry: 0, mx: 0, my: 0, ph: k * 2.1,
-                  ex: rand(-1, 1) * 300, ey: -rand(250, 450), er: rand(-40, 40) }));
-  const shapes = [...document.querySelectorAll('#hero .ph')].map(el => ({ face: el.querySelector('.face'), ex: rand(-1, 1) * 250, ey: -rand(200, 420), er: rand(-60, 60) }));
+                  ex: 0, ey: -(260 + k * 45), er: 0 }));
+  const shapes = [...document.querySelectorAll('#hero .ph')].map((el, k) => ({ face: el.querySelector('.face'), ex: 0, ey: -(300 + k * 90), er: 0 }));
   const heroLetters = letters.filter(l => l.owner.closest('#hero'));
+  // Exit on scroll: rows lift away at different speeds (lower rows travel further), no spin
+  heroLetters.forEach(l => { const row = l.owner.closest('.hrow'); const k = row ? ['r0', 'r1', 'r2', 'r3', 'r4'].findIndex(c => row.classList.contains(c)) : 2;
+    l.ex = 0; l.ey = -(170 + k * 70); l.er = 0; });
   const headLetters = letters.filter(l => l.owner === headTitle);
 
   let mouse = { x: -1e4, y: -1e4 };
@@ -1103,12 +1156,12 @@
   document.addEventListener('pointerleave', () => { mouse.x = mouse.y = -1e4; });
 
   // Letters near the cursor get heavier and lift up
-  function proximity(l, u, baseWeight, active) {
+  function proximity(l, u, baseWeight, active, maxWeight = 900) {
     const r = l.cw.getBoundingClientRect();
     const d = Math.hypot(mouse.x - (r.left + r.width / 2), mouse.y - (r.top + r.height / 2));
     const f = active ? Math.pow(clamp(1 - d / (150 * u)), 1.6) : 0;
     l.lift = lerp(l.lift, f, .18);
-    const wght = Math.round(baseWeight + (900 - baseWeight) * l.lift);
+    const wght = Math.round(baseWeight + (maxWeight - baseWeight) * l.lift);
     if (wght !== l.wght) { l.cw.style.fontWeight = wght; l.wght = wght; }
     return l.lift;
   }
@@ -1175,8 +1228,8 @@
     const heroAlpha = 1 - clamp(p / .3);
     document.getElementById('hero').style.opacity = Math.pow(heroAlpha, 1.3);
     heroLetters.forEach(l => {
-      const f = reduce ? 0 : proximity(l, u, l.base || 700, h < .05);
-      l.cw.style.transform = `translate(${l.ex * h * u}px, ${(l.ey * h - 7 * f) * u}px) rotate(${l.er * h}deg) scale(${1 + .1 * f})`;
+      const f = reduce ? 0 : proximity(l, u, l.base || 700, h < .05, (l.base || 700) + 160);
+      l.cw.style.transform = `translate(${l.ex * h * u}px, ${(l.ey * h - 3 * f) * u}px) rotate(${l.er * h}deg) scale(${1 + .03 * f})`;
     });
     shapes.forEach(s => s.face.style.transform = h ? `translate(${s.ex * h * u}px, ${s.ey * h * u}px) rotate(${s.er * h}deg)` : '');
 
@@ -1186,10 +1239,10 @@
       const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
       const dx = mouse.x - cx, dy = mouse.y - cy;
       const near = !reduce && Math.abs(dx) < r.width / 2 + 60 * u && Math.abs(dy) < r.height / 2 + 60 * u && h < .05;
-      c.ry = lerp(c.ry, near ? clamp(dx / r.width, -1, 1) * 18 : 0, .15);
-      c.rx = lerp(c.rx, near ? clamp(-dy / r.height, -1, 1) * 18 : 0, .15);
-      c.mx = lerp(c.mx, near ? dx * .12 : 0, .15);
-      c.my = lerp(c.my, near ? dy * .12 : 0, .15);
+      c.ry = lerp(c.ry, near ? clamp(dx / r.width, -1, 1) * 8 : 0, .12);
+      c.rx = lerp(c.rx, near ? clamp(-dy / r.height, -1, 1) * 8 : 0, .12);
+      c.mx = lerp(c.mx, near ? dx * .08 : 0, .12);
+      c.my = lerp(c.my, near ? dy * .08 : 0, .12);
       const bob = reduce ? 0 : Math.sin(now / 900 + c.ph) * 3 * u;
       c.face.style.transform = `translate(${c.mx + c.ex * h * u}px, ${c.my + bob + c.ey * h * u}px) rotate(${c.er * h}deg) rotateX(${c.rx}deg) rotateY(${c.ry}deg)`;
     });
