@@ -196,33 +196,32 @@
   .card .label { display: none; }
 
   /* ---------- Project cards v2: a scroll deck of full-bleed portrait cards ---------- */
-  .card .frame { aspect-ratio: 3 / 4; border-radius: calc(34*var(--u)); background: #d9d9dc;
-                 box-shadow: 0 calc(30*var(--u)) calc(60*var(--u)) rgba(20,20,40,.22); transition: transform .6s var(--ease-o, cubic-bezier(.16,1,.3,1)), box-shadow .6s; }
+  .card .frame { aspect-ratio: 3 / 4; border-radius: calc(34*var(--u)); background: #eef0f4;
+                 box-shadow: 0 calc(2*var(--u)) calc(4*var(--u)) rgba(20,25,45,.04), 0 calc(30*var(--u)) calc(70*var(--u)) rgba(20,25,45,.18); transition: transform .6s var(--ease-o, cubic-bezier(.16,1,.3,1)), box-shadow .6s; }
   .card .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .card .frame::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 34%; z-index: 1; pointer-events: none;
-                         background: linear-gradient(to bottom, rgba(8,10,16,.55), rgba(8,10,16,0)); }
-  .card .frame::after { content: ""; position: absolute; inset: auto 0 0 0; height: 34%; z-index: 1; pointer-events: none;
-                        backdrop-filter: blur(calc(16*var(--u))) saturate(1.2); -webkit-backdrop-filter: blur(calc(16*var(--u))) saturate(1.2);
-                        background: linear-gradient(to top, rgba(10,10,14,.55), rgba(10,10,14,0));
-                        -webkit-mask-image: linear-gradient(to top, #000 45%, transparent); mask-image: linear-gradient(to top, #000 45%, transparent); }
-  .card .badge { position: absolute; z-index: 2; top: calc(24*var(--u)); left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; gap: calc(7*var(--u));
-                 padding: calc(5*var(--u)) calc(12*var(--u)); border-radius: calc(8*var(--u)); background: rgba(255,255,255,.2); color: #fff;
-                 backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); font-size: calc(14*var(--u)); font-weight: 500; white-space: nowrap; }
+  .card .frame::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; border-radius: inherit;
+                         box-shadow: inset 0 0 0 1px rgba(255,255,255,.7), inset 0 1px 0 rgba(255,255,255,.9); }
+  .card .badge { position: absolute; z-index: 2; top: calc(22*var(--u)); left: calc(22*var(--u)); display: inline-flex; align-items: center; gap: calc(7*var(--u));
+                 padding: calc(7*var(--u)) calc(13*var(--u)); border-radius: 999px; background: rgba(255,255,255,.62); color: #2a2a2a;
+                 backdrop-filter: blur(10px) saturate(1.4); -webkit-backdrop-filter: blur(10px) saturate(1.4);
+                 box-shadow: 0 0 0 1px rgba(255,255,255,.8), 0 4px 14px rgba(20,25,45,.06);
+                 font-size: calc(13.5*var(--u)); font-weight: 600; letter-spacing: .01em; white-space: nowrap; }
   .card .badge .pulse { width: calc(7*var(--u)); height: calc(7*var(--u)); border-radius: 50%; background: #F5B400; animation: wipPulse 1.6s ease-in-out infinite; }
-  .card .ttl { position: absolute; z-index: 2; top: calc(60*var(--u)); left: calc(16*var(--u)); right: calc(16*var(--u)); text-align: center; color: #fff;
-               font-size: calc(32*var(--u)); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; text-shadow: 0 2px 18px rgba(0,0,0,.35); }
-  .card .foot { position: absolute; z-index: 2; left: calc(22*var(--u)); right: calc(22*var(--u)); bottom: calc(22*var(--u)); display: flex; align-items: center; gap: calc(12*var(--u)); color: #fff; }
-  .card .lg { flex: none; width: calc(46*var(--u)); height: calc(46*var(--u)); border-radius: 50%; background: #fff; display: grid; place-items: center; overflow: hidden;
-              box-shadow: 0 0 0 calc(2*var(--u)) rgba(255,255,255,.35); }
-  .card .lg img { width: 76%; height: 76%; object-fit: contain; }
+  .card .idx { position: absolute; z-index: 2; top: calc(26*var(--u)); right: calc(26*var(--u)); font-size: calc(14*var(--u)); font-weight: 600;
+               color: rgba(20,25,45,.45); font-variant-numeric: tabular-nums; letter-spacing: .04em; }
+  .card .foot { position: absolute; z-index: 2; left: calc(14*var(--u)); right: calc(14*var(--u)); bottom: calc(14*var(--u)); display: flex; align-items: center; gap: calc(12*var(--u));
+                padding: calc(14*var(--u)) calc(14*var(--u)) calc(14*var(--u)) calc(20*var(--u)); border-radius: calc(24*var(--u));
+                background: rgba(255,255,255,.72); backdrop-filter: blur(18px) saturate(1.5); -webkit-backdrop-filter: blur(18px) saturate(1.5);
+                box-shadow: 0 0 0 1px rgba(255,255,255,.85), 0 12px 30px rgba(20,25,45,.12); color: #0A0A0A; }
   .card .meta { display: flex; flex-direction: column; min-width: 0; line-height: 1.25; }
-  .card .meta b { font-size: calc(16*var(--u)); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .card .meta i { font-style: normal; font-size: calc(13.5*var(--u)); opacity: .78; }
-  .card .go { margin-left: auto; flex: none; background: #fff; color: var(--ink); font-size: calc(16*var(--u)); font-weight: 600;
-              padding: calc(11*var(--u)) calc(20*var(--u)); border-radius: 999px; transition: transform .45s var(--spring); }
-  .card .go.soon { background: rgba(255,255,255,.25); color: #fff; }
+  .card .meta b { font-size: calc(20*var(--u)); font-weight: 650; letter-spacing: -0.015em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .card .meta i { font-style: normal; font-size: calc(13.5*var(--u)); color: #6b6b6b; margin-top: calc(3*var(--u)); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .card .go { margin-left: auto; flex: none; width: calc(48*var(--u)); height: calc(48*var(--u)); border-radius: 50%; background: #0A0A0A; color: #fff;
+              display: grid; place-items: center; transition: transform .5s var(--spring), background .3s; }
+  .card .go svg { width: 42%; height: 42%; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; transition: transform .5s var(--spring); }
+  .card .go.soon { width: auto; padding: 0 calc(16*var(--u)); border-radius: 999px; background: rgba(10,10,10,.08); color: #555; font-size: calc(14*var(--u)); font-weight: 600; }
   .card:hover .frame, .card:focus-visible .frame { transform: translateY(calc(-6*var(--u))); box-shadow: 0 calc(40*var(--u)) calc(70*var(--u)) rgba(20,20,40,.28); }
-  .card:hover .go:not(.soon) { transform: scale(1.06); }
+  .card:hover .go:not(.soon) { transform: scale(1.08); } .card:hover .go:not(.soon) svg { transform: rotate(45deg); }
   .card { transition: filter .3s; }
   /* the caption bottom-left follows the card in focus */
   .work-head { left: calc(150*var(--u)); right: auto; top: calc(800*var(--u)); text-align: left; }
@@ -587,9 +586,9 @@
     #deckPin { position: sticky; top: 0; height: 100svh; overflow: hidden; }
     .card { position: absolute; left: 0; top: 0; width: min(66vw, 300px); will-change: transform, opacity; }
     .card .frame { border-radius: 26px; }
-    .card .badge { top: 14px; font-size: 12px; padding: 4px 10px; border-radius: 7px; } .card .ttl { top: 44px; font-size: 24px; }
-    .card .foot { left: 14px; right: 14px; bottom: 14px; gap: 9px; } .card .lg { width: 36px; height: 36px; }
-    .card .meta b { font-size: 14px; } .card .meta i { font-size: 12px; } .card .go { font-size: 14px; padding: 9px 16px; }
+    .card .badge { top: 12px; left: 12px; font-size: 11.5px; padding: 5px 10px; } .card .idx { top: 15px; right: 15px; font-size: 12px; }
+    .card .foot { left: 9px; right: 9px; bottom: 9px; gap: 8px; padding: 10px 10px 10px 14px; border-radius: 18px; }
+    .card .meta b { font-size: 16px; } .card .meta i { font-size: 11.5px; } .card .go { width: 38px; height: 38px; } .card .go.soon { font-size: 12px; padding: 0 12px; }
     .card .frame { box-shadow: 0 14px 30px rgba(0,0,0,.18); }
     .card .open { left: 8px; right: 8px; bottom: 8px; padding: 5px 5px 5px 11px; gap: 6px; font-size: 12.5px;
                   background: rgba(255,255,255,.94); box-shadow: 0 4px 12px rgba(0,0,0,.2); }
@@ -1179,9 +1178,9 @@
     const soon = c.wip || !c.href;
     a.innerHTML = `<div class="card-in" style="--d:${reduce ? 0 : 200 + i * 60}ms"><div class="frame">`
       + `<img class="bg" src="${DECK[c.id].img}" alt="" width="720" height="960" decoding="async" loading="eager">`
-      + `<span class="badge">${c.wip ? '<i class="pulse"></i>' : ''}${c.type}</span><span class="ttl">${c.name.replace(' – Italian Wood Finishes', '').replace(' Industrial Gases', '').replace(' Real Estate', '')}</span>`
-      + `<span class="foot"><span class="lg"><img src="${DECK[c.id].logo}" alt="" decoding="async"></span><span class="meta"><b>${c.sub.split(' · ')[0]}</b><i>${c.sub.split(' · ')[1]}</i></span>`
-      + `<span class="go${soon ? ' soon' : ''}" aria-hidden="true">${soon ? 'Soon' : 'View'}</span></span></div></div>`;
+      + `<span class="badge">${c.wip ? '<i class="pulse"></i>' : ''}${c.type}</span><span class="idx">${String(i + 1).padStart(2, '0')}</span>`
+      + `<span class="foot"><span class="meta"><b>${c.name.replace(' – Italian Wood Finishes', '').replace(' Industrial Gases', '').replace(' Real Estate', '')}</b><i>${c.sub}</i></span>`
+      + `<span class="go${soon ? ' soon' : ''}" aria-hidden="true">${soon ? 'Soon' : '<svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>'}</span></span></div></div>`;
     const tag = names.querySelector(`[data-id="${c.id}"]`);
     if (c.href) a.addEventListener('click', e => { if (window.__openPage) { e.preventDefault(); window.__openPage(c.page); } });
     // warm up the case study while the visitor is hovering or focusing the card
