@@ -4,7 +4,7 @@ site/
   index.html            homepage                    404.html   not-found page
   _headers              Netlify caching rules       assets/    shared scripts (jQuery for two prototypes)
   images/  media/  resume/
-  amin/ anchor/ ultratech/ ellenbarrie/ ica/ tatapower/   one folder per case study:
+  amin/ anchor/ ultratech/ ica/ tatapower/   one folder per case study:
         index.html, img/*, prototype.html (where there is one)
 
 Run optimize_prototypes.py first (build_all.py does everything in order).
@@ -16,7 +16,7 @@ H = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(H, 'site')
 OPT = os.path.join(H, 'optimized')
 shutil.rmtree(OUT, ignore_errors=True)
-for d in ['resume', 'images/cards', 'media', 'assets', 'amin/img', 'anchor/img', 'ultratech/img', 'ellenbarrie/img', 'ica/img', 'tatapower/img', 'casagrand/img', 'casagrand/proto']:
+for d in ['resume', 'images/cards', 'media', 'assets', 'amin/img', 'anchor/img', 'ultratech/img', 'ica/img', 'tatapower/img', 'casagrand/img', 'casagrand/proto']:
     os.makedirs(f'{OUT}/{d}', exist_ok=True)
 
 def cp(src, dst):
@@ -34,7 +34,7 @@ def save_webp(src, dst, max_h=None, q=88):
 # ---------- shared + homepage assets ----------
 save_webp(f'{H}/cards/logo.png', 'images/logo.webp', max_h=160)          # shown at 40 px tall
 covers = {}
-for k in ['amin', 'ultratech', 'tata', 'ica', 'ellenbarrie', 'anchor', 'casagrand', 'sp']:
+for k in ['amin', 'ultratech', 'tata', 'ica', 'anchor', 'casagrand', 'sp']:
     src = f'{OPT}/images/cards/{k}.webp' if os.path.exists(f'{OPT}/images/cards/{k}.webp') else f'{H}/cards/{k}.webp'
     covers[k] = cp(src, f'images/cards/{k}.webp')
     cp(f'{OPT}/images/cards/{k}.avif', f'images/cards/{k}.avif')
@@ -49,7 +49,7 @@ for k, f in [('TATA', 'tata.png'), ('ICA', 'ica.png'), ('CASA', 'casagrand.png')
 os.makedirs(f'{OUT}/images/deck', exist_ok=True)
 DECK = {}
 for k, f in [('tata', 'tata.png'), ('casagrand', 'casagrand.png'), ('ica', 'ica.png'), ('anchor', 'anchor.svg'), ('amin', 'amin.png'),
-             ('ellenbarrie', 'ellenbarrie.png'), ('ultratech', 'ultratech.png'), ('sp', 'sp.png')]:
+             ('ultratech', 'ultratech.png'), ('sp', 'sp.png')]:
     logo = cp(f'{H}/logos/{f}', f'images/deck/logo-{k}.svg') if f.endswith('.svg') else save_webp(f'{H}/logos/{f}', f'images/deck/logo-{k}.webp', max_h=120, q=90)
     DECK[k] = {'img': cp(f'{H}/cards/deck/{k}.webp', f'images/deck/{k}.webp'), 'logo': logo}
 cp(f'{OPT}/resume/Parth-Dake-Resume.pdf', 'resume/Parth-Dake-Resume.pdf')
@@ -58,7 +58,7 @@ cp(f'{OPT}/jquery-3.7.1.min.js', 'assets/jquery-3.7.1.min.js')
 # ---------- homepage ----------
 t = open(f'{H}/template.html').read()
 pages = {'case': 'amin/', 'proto': 'amin/prototype.html', 'anchorCase': 'anchor/', 'anchorProto': 'anchor/prototype.html',
-         'ultraCase': 'ultratech/', 'ellenCase': 'ellenbarrie/', 'ellenProto': 'ellenbarrie/prototype.html',
+         'ultraCase': 'ultratech/',
          'icaCase': 'ica/', 'icaProto': 'ica/prototype.html', 'tataCase': 'tatapower/', 'tataProto': 'tatapower/prototype.html',
          'casaCase': 'casagrand/', 'casaProto': 'casagrand/prototype.html'}
 rep = {
@@ -72,7 +72,7 @@ rep = {
 for k, v in rep.items():
     assert k in t, k
     t = t.replace(k, v)
-for a, b in [('amin', 'amin'), ('anchor', 'anchor'), ('ultratech', 'ultratech'), ('ellenbarrie', 'ellenbarrie'), ('ica', 'ica'), ('tata', 'tatapower'), ('casagrand', 'casagrand')]:
+for a, b in [('amin', 'amin'), ('anchor', 'anchor'), ('ultratech', 'ultratech'), ('ica', 'ica'), ('tata', 'tatapower'), ('casagrand', 'casagrand')]:
     t = t.replace(f"href: '{a}-case-study.html'", f"href: '{b}/'")
 old = "f.srcdoc = P[key];"
 assert old in t
@@ -168,8 +168,7 @@ case_page(f'{H}/ultra/case.html', 'ultratech', f'{H}/ultra/out', logo=f'{L}/ultr
 assert sorted(os.listdir(f'{OUT}/ultratech/img')) == ['client-logo.webp', 'u_audio.webp', 'u_hero.webp', 'u_stages.webp'], os.listdir(f'{OUT}/ultratech/img')
 
 # ---------- Ellenbarrie ----------
-cp(f'{PROTO}/ellenbarrie.html', 'ellenbarrie/prototype.html')
-case_page(f'{H}/ellen/case.html', 'ellenbarrie', f'{H}/ellen/out', logo=f'{L}/ellenbarrie.png', alt='Ellenbarrie Industrial Gases logo', h=76)
+# Ellenbarrie: removed from the portfolio (sources kept in ellen/)
 
 # ---------- ICA ----------
 cp(f'{PROTO}/ica.html', 'ica/prototype.html')
@@ -208,7 +207,7 @@ def bust_page(rel):
         return f'{q}{ref}?v={fingerprint(target)}{q}' if os.path.isfile(target) else m.group(0)
     p = open(path).read()
     open(path, 'w').write(ASSET.sub(f, p))
-for rel in ['index.html'] + [f'{d}/index.html' for d in ['amin', 'anchor', 'ultratech', 'ellenbarrie', 'ica', 'tatapower', 'casagrand']]:
+for rel in ['index.html'] + [f'{d}/index.html' for d in ['amin', 'anchor', 'ultratech', 'ica', 'tatapower', 'casagrand']]:
     bust_page(rel)
 
 # ---------- 404 page + Netlify caching ----------
@@ -241,8 +240,6 @@ open(f'{OUT}/_headers', 'w').write("""# Netlify caching rules. Images, video and
   Cache-Control: public, max-age=604800
 /ultratech/img/*
   Cache-Control: public, max-age=604800
-/ellenbarrie/img/*
-  Cache-Control: public, max-age=604800
 /ica/img/*
   Cache-Control: public, max-age=604800
 /tatapower/img/*
@@ -255,7 +252,7 @@ open(f'{OUT}/_headers', 'w').write("""# Netlify caching rules. Images, video and
 
 # ---------- minify HTML/CSS/JS of the pages (prototypes are left as built) ----------
 MIN = os.environ.get('HTML_MINIFIER') or shutil.which('html-minifier-terser')
-pages_to_min = ['index.html', '404.html'] + [f'{d}/index.html' for d in ['amin', 'anchor', 'ultratech', 'ellenbarrie', 'ica', 'tatapower', 'casagrand']]
+pages_to_min = ['index.html', '404.html'] + [f'{d}/index.html' for d in ['amin', 'anchor', 'ultratech', 'ica', 'tatapower', 'casagrand']]
 if MIN:
     before = sum(os.path.getsize(f'{OUT}/{f}') for f in pages_to_min)
     for f in pages_to_min:

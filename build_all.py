@@ -10,7 +10,7 @@ H = os.path.dirname(os.path.abspath(__file__))
 def run(script, cwd=H):
     print('>>', os.path.relpath(os.path.join(cwd, script), H))
     subprocess.run([sys.executable, script], cwd=cwd, check=True)
-for d in ['anchor', 'ultra', 'ellen', 'ica', 'tata', 'casa']:
+for d in ['anchor', 'ultra', 'ica', 'tata', 'casa']:
     run('build.py', os.path.join(H, d))
 run('make_covers.py')
 run('make_deck.py')

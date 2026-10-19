@@ -582,7 +582,7 @@
     .names .dot { margin: 0 6px; }
     .tapcue { margin-top: 16px !important; font-size: 13px !important; padding: 8px 14px 8px 10px !important; gap: 7px !important; }
     .tapcue svg { width: 16px !important; height: 16px !important; }
-    #cards { position: relative; height: calc(100svh + 8 * 62svh); }
+    #cards { position: relative; height: calc(100svh + 7 * 62svh); }
     #deckPin { position: sticky; top: 0; height: 100svh; overflow: hidden; }
     .card { position: absolute; left: 0; top: 0; width: min(66vw, 300px); will-change: transform, opacity; }
     .card .frame { border-radius: 26px; }
@@ -1141,7 +1141,6 @@
     { id: 'ica',         sub: 'Premium website · Website', href: 'ica-case-study.html', page: 'icaCase', name: 'ICA – Italian Wood Finishes',  type: 'Client project',     x: 701,  y: 1099, r: 15.7 },
     { id: 'anchor',      sub: 'Trading journal · Desktop app', href: 'anchor-case-study.html', page: 'anchorCase', name: 'Anchor',                       type: 'College project', x: 985,  y: 1105, r: -12.5 },
     { id: 'amin',        sub: 'Member portal · Web app', href: 'amin-case-study.html', page: 'case', name: 'Amin Worldwide',               type: 'Pitch project',   x: 1399, y: 1126, r: -14 },
-    { id: 'ellenbarrie', sub: 'Homepage redesign · Website', href: 'ellenbarrie-case-study.html', page: 'ellenCase', name: 'Ellenbarrie Industrial Gases', type: 'Pitch project',   x: 1176, y: 1072, r: 11 },
     { id: 'ultratech',   sub: 'Home-building journey · Mobile', href: 'ultratech-case-study.html', page: 'ultraCase', name: 'UltraTech Cement',             type: 'Pitch project',   x: 1562, y: 1205, r: 14 },
     { id: 'sp',          sub: 'Real-estate website · In progress', wip: true, name: 'Shapoorji Pallonji Real Estate', type: 'Work in progress',   x: 845,  y: 1150, r: 5 },
   ];
@@ -1153,8 +1152,8 @@
 
   // Project names under the heading (highlight when that card is hovered)
   const names = document.getElementById('names');
-  const GROUPS = [['Client work', ['tata', 'ica', 'sp']], ['Pitch', ['casagrand', 'ultratech', 'ellenbarrie', 'amin']], ['College', ['anchor']]];
-  const short = { ica: 'ICA', tata: 'Tata Power', sp: 'Shapoorji Pallonji (in progress)', ultratech: 'UltraTech', ellenbarrie: 'Ellenbarrie', casagrand: 'Casagrand', amin: 'Amin Worldwide', anchor: 'Anchor' };
+  const GROUPS = [['Client work', ['tata', 'ica', 'sp']], ['Pitch', ['casagrand', 'ultratech', 'amin']], ['College', ['anchor']]];
+  const short = { ica: 'ICA', tata: 'Tata Power', sp: 'Shapoorji Pallonji (in progress)', ultratech: 'UltraTech', casagrand: 'Casagrand', amin: 'Amin Worldwide', anchor: 'Anchor' };
   let k = 0;
   names.innerHTML = GROUPS.map(([g, ids]) => `<span class="grp" style="--i:${k++}">${g}</span>` +
       ids.map(id => `<span data-id="${id}" style="--i:${k++}">${short[id]}</span>`).join('<span class="dot">·</span>')).join('<span class="sep">/</span>');
@@ -1449,7 +1448,7 @@
     else if (h === '#about' || h === '#contact') document.getElementById(h.slice(1)).scrollIntoView({ behavior: 'auto' });
   };
   window.__jump = jump;
-  if (location.hash && !['#amin', '#anchor', '#ultratech', '#ellenbarrie', '#ica', '#tatapower', '#casagrand'].includes(location.hash)) setTimeout(jump, 60);
+  if (location.hash && !['#amin', '#anchor', '#ultratech', '#ica', '#tatapower', '#casagrand'].includes(location.hash)) setTimeout(jump, 60);
 })();
 </script>
 <script>
@@ -1643,8 +1642,6 @@
     case:        { el: make('AMIN Worldwide case study'), hash: '#amin' },
     anchorCase:  { el: make('Anchor case study'), hash: '#anchor' },
     ultraCase:   { el: make('UltraTech Cement case study'), hash: '#ultratech' },
-    ellenCase:   { el: make('Ellenbarrie case study'), hash: '#ellenbarrie' },
-    ellenProto:  { el: make('Ellenbarrie redesigned homepage', '← Back to the case study') },
     icaCase:     { el: make('ICA case study'), hash: '#ica' },
     icaProto:    { el: make('ICA redesigned homepage', '← Back to the case study') },
     tataCase:    { el: make('Tata Power Customer Smile case study'), hash: '#tatapower' },
@@ -1656,7 +1653,7 @@
     anchorProto: { el: make('Anchor trading journal prototype', '← Back to the case study') }
   };
   L.tataProto.el.classList.add('top-back');
-  const PROTO_OF = { proto: 'case', anchorProto: 'anchorCase', ellenProto: 'ellenCase', icaProto: 'icaCase', tataProto: 'tataCase', casaProto: 'casaCase' };
+  const PROTO_OF = { proto: 'case', anchorProto: 'anchorCase', icaProto: 'icaCase', tataProto: 'tataCase', casaProto: 'casaCase' };
   let lastFocus = null, openCase = null;
 
   function show(key) {

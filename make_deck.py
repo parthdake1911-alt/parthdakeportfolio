@@ -15,7 +15,6 @@ D = {
     'ica':         ('#F8F6F2', '#E6DFD3', 'logos/ica.png',         170, 'ica/out/i_trend.webp',  'browser', 'top'),
     'anchor':      ('#F5F7FB', '#DCE3F0', 'logos/anchor.svg',      104, 'anchor/out/a_dash.webp', 'browser', 'top left'),
     'amin':        ('#F7F5FD', '#E2DCF6', 'logos/amin.png',         88, 'amin/out/a_globe.webp', 'browser', 'top left'),
-    'ellenbarrie': ('#FBF5F5', '#F0DADA', 'logos/ellenbarrie.png', 130, 'ellen/out/r_hero.webp', 'browser', 'top left'),
     'ultratech':   ('#FDFBF1', '#F2EAC4', 'logos/ultratech.png',   140, 'ultra/out/u_hero.webp', 'phone',   'top'),
     'sp':          ('#F4F8FC', '#DCE7F2', 'logos/sp.png',          190, None,                    'none',    None),
 }
