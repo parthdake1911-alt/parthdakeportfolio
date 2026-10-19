@@ -1089,24 +1089,25 @@
   const IMG = window.__COVERS = {{IMAGES}};
   // type: client = worked on, pitch = pitch project, college = college project
   const CARDS = [
-    { id: 'anchor',      href: 'anchor-case-study.html', page: 'anchorCase', name: 'Anchor',                       type: 'College project', x: 985,  y: 1105, r: -12.5 },
-    { id: 'sp',          wip: true, name: 'Shapoorji Pallonji Real Estate', type: 'Work in progress',   x: 845,  y: 1150, r: 5 },
-    { id: 'ica',         href: 'ica-case-study.html', page: 'icaCase', name: 'ICA – Italian Wood Finishes',  type: 'Client project',     x: 701,  y: 1099, r: 15.7 },
     { id: 'tata',        href: 'tata-case-study.html', page: 'tataCase', name: 'Tata Power',                   type: 'Client project',     x: 539,  y: 1218, r: -16 },
+    { id: 'casagrand',   href: 'casagrand-case-study.html', page: 'casaCase', name: 'Casagrand',                    type: 'Pitch project',   x: 1270, y: 1180, r: -9 },
+    { id: 'ica',         href: 'ica-case-study.html', page: 'icaCase', name: 'ICA – Italian Wood Finishes',  type: 'Client project',     x: 701,  y: 1099, r: 15.7 },
+    { id: 'anchor',      href: 'anchor-case-study.html', page: 'anchorCase', name: 'Anchor',                       type: 'College project', x: 985,  y: 1105, r: -12.5 },
     { id: 'amin',        href: 'amin-case-study.html', page: 'case', name: 'Amin Worldwide',               type: 'Pitch project',   x: 1399, y: 1126, r: -14 },
     { id: 'ellenbarrie', href: 'ellenbarrie-case-study.html', page: 'ellenCase', name: 'Ellenbarrie Industrial Gases', type: 'Pitch project',   x: 1176, y: 1072, r: 11 },
-    { id: 'casagrand',   href: 'casagrand-case-study.html', page: 'casaCase', name: 'Casagrand',                    type: 'Pitch project',   x: 1270, y: 1180, r: -9 },
     { id: 'ultratech',   href: 'ultratech-case-study.html', page: 'ultraCase', name: 'UltraTech Cement',             type: 'Pitch project',   x: 1562, y: 1205, r: 14 },
+    { id: 'sp',          wip: true, name: 'Shapoorji Pallonji Real Estate', type: 'Work in progress',   x: 845,  y: 1150, r: 5 },
   ];
   CARDS.forEach(c => c.aspect = 814 / 720);   // every card is the same size
   CARDS.forEach(c => c.y += 150);              // the fan sits low, just peeking under the hero
   const W = 330;
   const SLOTS = [[270,300],[290,800],[640,245],[1290,245],[1650,300],[1640,800],[960,860],[960,245]];
-  const shuffled = SLOTS.map(s => [Math.random(), s]).sort((a, b) => a[0] - b[0]).map(x => x[1]);
+  // fixed reading order: top row left to right, then the bottom row (card 1 = top left)
+  const shuffled = [...SLOTS].sort((a, b) => (a[1] < 500) === (b[1] < 500) ? a[0] - b[0] : a[1] - b[1]);
 
   // Project names under the heading (highlight when that card is hovered)
   const names = document.getElementById('names');
-  const GROUPS = [['Client work', ['ica', 'tata', 'sp']], ['Pitch', ['casagrand', 'ultratech', 'ellenbarrie', 'amin']], ['College', ['anchor']]];
+  const GROUPS = [['Client work', ['tata', 'ica', 'sp']], ['Pitch', ['casagrand', 'ultratech', 'ellenbarrie', 'amin']], ['College', ['anchor']]];
   const short = { ica: 'ICA', tata: 'Tata Power', sp: 'Shapoorji Pallonji (in progress)', ultratech: 'UltraTech', ellenbarrie: 'Ellenbarrie', casagrand: 'Casagrand', amin: 'Amin Worldwide', anchor: 'Anchor' };
   let k = 0;
   names.innerHTML = GROUPS.map(([g, ids]) => `<span class="grp" style="--i:${k++}">${g}</span>` +
