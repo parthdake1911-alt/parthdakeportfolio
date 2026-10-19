@@ -517,7 +517,8 @@
 
     /* hero v3 on phones */
     .hero { gap: 14px; padding: 96px 16px 80px; }
-    .hbg { inset: 0; }
+    .hbg { inset: 0 0 -140px 0; -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, rgba(0,0,0,.6) 78%, transparent 100%);
+           mask-image: linear-gradient(to bottom, #000 0%, #000 62%, rgba(0,0,0,.6) 78%, transparent 100%); }
     .hbg .orbits { left: 50%; top: 0; width: 1400px; height: 100%; transform: translateX(-50%); }
     .hero .hl { font-size: calc(76*var(--u)); line-height: 1.06; white-space: normal; text-align: center; flex: 0 1 auto; max-width: 100%; }
     .hero .chip1, .hero .chip2 { width: auto; }
