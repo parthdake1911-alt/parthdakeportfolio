@@ -634,6 +634,88 @@
     #hero .pop { filter: none !important; } .hbg { transition: none; }
     .card-in, .nav, .caret { animation: none !important; }
   }
+  /* =====================================================================================
+     THE DOORWAY — futuristic night theme.
+     Idea: the visitor is the person on the horizon; each project is a lit door.
+     Dark so the light (the work) is what you look at; one warm accent for "light from the door".
+     ===================================================================================== */
+  :root { --ink: #F2F3F7; --night: #05070c; --glass: rgba(255,255,255,.07); --glass-b: rgba(255,255,255,.12); --muted-d: rgba(235,238,245,.62); --warm: #FFB27A; }
+  html, body { background: var(--night); }
+  body { color: var(--ink); }
+  ::selection { background: rgba(255,178,122,.35); }
+
+  /* scene behind the pinned stage */
+  .door-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: var(--night); }
+  .door-cv { position: absolute; inset: 0; width: 100%; height: 100%; display: block; transition: opacity .2s linear; }
+  .door-bg.no-gl { background: radial-gradient(ellipse 30% 45% at 72% 52%, rgba(255,200,150,.35), transparent 70%), linear-gradient(#05070c 0 64%, #0b1220 64%); }
+  .walker { position: absolute; left: 0; top: 0; width: calc(var(--fh, 60px) * .375); height: calc(var(--fh, 60px) * 2); pointer-events: none; will-change: transform; }
+  .walker .fig { position: absolute; left: 0; top: 0; width: 100%; height: 50%; display: block; }
+  .walker .fig.refl { top: 50%; transform: scaleY(-1); opacity: .28; filter: blur(1.2px); -webkit-mask-image: linear-gradient(to top, #000, transparent 85%); mask-image: linear-gradient(to top, #000, transparent 85%); }
+  #stage { position: relative; z-index: 1; }
+
+  /* navigation: dark glass, light pill */
+  .brand img { filter: invert(1); }
+  .nav { background: rgba(14,17,26,.55); box-shadow: inset 0 0 0 1px var(--glass-b); }
+  .nav.scrolled { background: rgba(14,17,26,.78); box-shadow: inset 0 0 0 1px var(--glass-b), 0 calc(10*var(--u)) calc(30*var(--u)) rgba(0,0,0,.35); }
+  .nav a.lnk { color: rgba(235,238,245,.7); }
+  .nav a.lnk.under.active { color: var(--night); }
+  .pill.preview { background: rgba(255,255,255,.14); }
+  .toast { color: var(--night); }
+
+  /* hero: words on the left, the door on the right */
+  .hero .hrow { justify-content: flex-start; left: calc(160*var(--u)); right: auto; }
+  .hero .hl { font-size: calc(92*var(--u)); font-weight: 300; letter-spacing: -0.045em; color: #F4F5F8; }
+  .hero h1.hl .love, .hero .hl .love { color: var(--warm); }
+  .hrow.r0 { top: calc(200*var(--u)); } .hrow.r1 { top: calc(290*var(--u)); } .hrow.r2 { top: calc(408*var(--u)); }
+  .hrow.r3 { top: calc(568*var(--u)); } .hrow.r4 { top: calc(660*var(--u)); }
+  .hero .ph2 { width: calc(170*var(--u)); height: calc(100*var(--u)); }
+  .hero .ph2 .face { background: rgba(255,250,244,.92); box-shadow: 0 0 calc(40*var(--u)) rgba(255,190,140,.35), 0 0 0 1px rgba(255,255,255,.6); }
+  .chip .face { background: var(--glass); color: var(--ink); box-shadow: inset 0 0 0 1px var(--glass-b); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  .hero .chip1 .face { color: var(--muted-d); }
+  .hero .chip1 b { color: #fff; }
+  .stack i { border-color: rgba(255,255,255,.9); box-shadow: 0 0 0 calc(1*var(--u)) rgba(0,0,0,.4); }
+  .hero .sub { color: var(--muted-d); }
+  .btn.dark, .hero .btn.dark { background: #F4F5F8; color: var(--night); box-shadow: 0 0 calc(30*var(--u)) rgba(255,200,160,.18); }
+  .btn.dark:hover { background: #fff; }
+  .btn.light, .hero .btn.light { background: var(--glass); color: var(--ink); box-shadow: inset 0 0 0 1px var(--glass-b); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+  .hint { color: rgba(235,238,245,.55); }
+  .hint .w { background: var(--glass); box-shadow: inset 0 0 0 1px var(--glass-b); }
+  .scribble path { stroke: var(--warm); }
+
+  /* work: each project is a lit door standing in the night */
+  .work-head h2 { color: #F4F5F8; }
+  .deck-info { color: var(--muted-d); } .deck-info .of { color: rgba(235,238,245,.35); } .deck-info b { color: #fff; }
+  .names { color: var(--muted-d); } .names .sep { color: rgba(255,255,255,.2); }
+  .tapcue { background: var(--glass); color: var(--ink); box-shadow: inset 0 0 0 1px var(--glass-b); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+  .card .frame { box-shadow: 0 0 0 1px rgba(255,255,255,.25), 0 calc(30*var(--u)) calc(80*var(--u)) rgba(0,0,0,.55); }
+  .card.active .frame { box-shadow: 0 0 0 1px rgba(255,255,255,.4), 0 0 calc(90*var(--u)) rgba(255,205,160,.28), 0 calc(40*var(--u)) calc(90*var(--u)) rgba(0,0,0,.6);
+                        -webkit-box-reflect: below calc(10*var(--u)) linear-gradient(transparent 72%, rgba(255,255,255,.16)); }
+
+  /* about + contact: the same night, quieter */
+  .about, .contact { background: var(--night); }
+  .about::before, .contact::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+     background: radial-gradient(ellipse 50% 40% at 75% 55%, rgba(255,178,122,.08), transparent 70%), radial-gradient(ellipse 40% 35% at 20% 30%, rgba(120,160,255,.06), transparent 70%); }
+  .ab-kicker { color: var(--muted-d); }
+  .ab-giant, .ct-giant { color: rgba(255,255,255,.035); }
+  .ab-ph .zoom { background: rgba(10,12,18,.8); } .ab-ph .zoom svg { stroke: #fff; }
+  .ct-mail a, .ct-mail button { background: var(--glass); color: var(--ink); box-shadow: inset 0 0 0 1px var(--glass-b); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  .ct-badge a { background: radial-gradient(circle at 50% 40%, #fff6ec, #ffd2ae 60%, #ff9f66); color: var(--night); box-shadow: 0 0 calc(60*var(--u)) rgba(255,178,122,.45); }
+  .ct-badge text { fill: var(--night); }
+  .ct-badge .mid svg { stroke: var(--night); }
+  .ct-foot { border-top-color: rgba(255,255,255,.1); color: var(--muted-d); }
+  .page-layer .loading { color: var(--muted-d); }
+  .page-layer { background: var(--night); }
+
+  @media (max-width: 900px), (orientation: portrait) and (max-width: 1180px) {
+    .door-bg { position: absolute; inset: 0 0 auto 0; height: 100svh; -webkit-mask-image: linear-gradient(#000 70%, transparent); mask-image: linear-gradient(#000 70%, transparent); }
+    .hero .hrow { left: auto; right: auto; justify-content: center; }
+    .hero { justify-content: flex-start; padding-top: calc(40svh + 10px); padding-bottom: 80px; gap: 12px; }
+    .hero .hl { font-size: calc(70*var(--u)); font-weight: 300; }
+    .hero .hrow.r1 { gap: 8px; }
+    .navlayer::before { background: rgba(5,7,12,.72); box-shadow: 0 1px 0 rgba(255,255,255,.06); }
+    .card.active .frame { -webkit-box-reflect: unset; }
+  }
+
 </style>
 </head>
 <body>
@@ -650,21 +732,19 @@
 
 <div class="scroller" id="scroller">
   <div class="pin">
+    <div class="door-bg" id="doorBg" aria-hidden="true">
+      <canvas class="door-cv" id="doorCv"></canvas>
+      <div class="walker" id="walker"><svg class="fig" viewBox="0 0 24 64" aria-hidden="true"><g fill="#05060a">
+          <circle cx="12" cy="5.2" r="4.1"/>
+          <path d="M7.4 11.6c1.3-1.4 7.9-1.4 9.2 0 1.6 1.7 2.4 10.6 2.6 15.6.1 2-1.6 2.3-2 .4l-1.2-8.2-.4 14.1 2.6 26.9c.2 2.1-2.6 2.3-3 .3L12.3 38.4h-.6L8.8 60.6c-.4 2-3.2 1.8-3-.3l2.6-26.9-.4-14.1-1.2 8.2c-.4 1.9-2.1 1.6-2-.4.2-5 1-13.9 2.6-15.5z"/></g></svg><svg class="fig refl" viewBox="0 0 24 64" aria-hidden="true"><g fill="#05060a">
+          <circle cx="12" cy="5.2" r="4.1"/>
+          <path d="M7.4 11.6c1.3-1.4 7.9-1.4 9.2 0 1.6 1.7 2.4 10.6 2.6 15.6.1 2-1.6 2.3-2 .4l-1.2-8.2-.4 14.1 2.6 26.9c.2 2.1-2.6 2.3-3 .3L12.3 38.4h-.6L8.8 60.6c-.4 2-3.2 1.8-3-.3l2.6-26.9-.4-14.1-1.2 8.2c-.4 1.9-2.1 1.6-2-.4.2-5 1-13.9 2.6-15.5z"/></g></svg></div>
+    </div>
     <main class="stage" id="stage">
 
 
 
       <div class="abs hero" id="hero" style="inset:0">
-        <!-- soft backdrop + slow orbits (decorative) -->
-        <div class="hbg" aria-hidden="true">
-          <canvas class="satin"></canvas>
-          <svg class="orbits" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
-            <g class="orb o1"><circle cx="300" cy="610" r="250"/><circle class="dot" cx="300" cy="360" r="5"/></g>
-            <g class="orb o2"><circle cx="1600" cy="600" r="210"/><circle class="dot" cx="1810" cy="600" r="5"/></g>
-            <g class="orb o3"><circle cx="1600" cy="600" r="300"/><circle class="dot" cx="1600" cy="300" r="4"/></g>
-          </svg>
-        </div>
-
         <div class="hrow r0">
           <div class="chip chip1 pop" data-at="250"><div class="face">
             <span class="stack" aria-hidden="true"><i style="--k:-1.5"><img src="{{HL_TATA}}" alt=""></i><i style="--k:-.5"><img src="{{HL_ICA}}" alt=""></i><i style="--k:.5"><img src="{{HL_CASA}}" alt=""></i><i style="--k:1.5"><img src="{{HL_ULTRA}}" alt=""></i></span>
@@ -765,15 +845,6 @@
           <a class="btn light pop hb" data-at="1330" href="#contact">Get in touch <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
         </div>
 
-        <!-- left: the design process, drifting along an orbit -->
-        <div class="abs chip pc pc1 pop on" data-at="1550" aria-hidden="true"><div class="face"><i>01</i>Ideate</div></div>
-        <div class="abs chip pc pc2 pop" data-at="1630" aria-hidden="true"><div class="face"><i>02</i>Wireframe</div></div>
-        <div class="abs chip pc pc3 pop" data-at="1710" aria-hidden="true"><div class="face"><i>03</i>UI design</div></div>
-        <div class="abs chip pc pc4 pop" data-at="1790" aria-hidden="true"><div class="face"><i>04</i>Prototype</div></div>
-
-        <!-- right: two recent projects, floating -->
-        <button type="button" class="abs ph mini m1 pop" data-at="1600" data-open="tataCase" aria-label="Open the Tata Power case study"><div class="face"><div class="fl"><img src="{{HM_TATA}}" alt="" width="720" height="814" decoding="async"><span class="tag">Tata Power</span></div></div></button>
-        <button type="button" class="abs ph mini m2 pop" data-at="1720" data-open="casaCase" aria-label="Open the Casagrand case study"><div class="face"><div class="fl"><img src="{{HM_CASA}}" alt="" width="720" height="814" decoding="async"><span class="tag">Casagrand</span></div></div></button>
       </div>
 
       <div class="abs work-head" id="workHead" aria-hidden="true">
@@ -1623,6 +1694,163 @@
       document.querySelector('.ct-badge a').style.translate = `${px * 30 * u}px ${py * 30 * u}px`;
     }
     requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+<script>
+/* The Doorway: a night horizon over still water, a glowing door, light pouring out.
+   uniforms: res, t (s), door (x centre 0..1, door width as fraction of height), open (0..1 scroll approach), m (pointer -1..1) */
+window.DoorScene = function (cv, opts) {
+  const gl = cv.getContext('webgl', { antialias: false, alpha: false, powerPreference: 'high-performance' });
+  if (!gl) return null;
+  const VS = 'attribute vec2 a; void main(){ gl_Position = vec4(a, 0., 1.); }';
+  const FS = `precision highp float;
+  uniform vec2 res; uniform float t; uniform vec2 door; uniform float open; uniform vec2 m; uniform float hz; uniform float dsz;
+  float h21(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
+  float n2(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.-2.*f);
+    return mix(mix(h21(i), h21(i+vec2(1,0)), f.x), mix(h21(i+vec2(0,1)), h21(i+vec2(1,1)), f.x), f.y); }
+  float fbm(vec2 p){ float s = 0., a = .5; for (int i = 0; i < 5; i++){ s += a * n2(p); p *= 2.03; a *= .5; } return s; }
+  // rounded box sdf
+  float sdBox(vec2 p, vec2 b){ vec2 d = abs(p) - b; return length(max(d, 0.)) + min(max(d.x, d.y), 0.); }
+  vec3 sky(vec2 uv, float hz){
+    // uv.y up; deep night above, warm-cool glow at the horizon
+    float y = uv.y - hz;
+    vec3 top = vec3(.012, .02, .045), mid = vec3(.035, .07, .12), low = vec3(.30, .22, .22);
+    vec3 c = mix(mid, top, smoothstep(0., .55, y));
+    c = mix(low * .55, c, smoothstep(-.01, .16, y));
+    // faint stars
+    vec2 sg = uv * vec2(res.x / res.y, 1.) * 180.;
+    vec2 cell = floor(sg), f = fract(sg) - .5;
+    float st = step(.9975, h21(cell)) * smoothstep(.08, .5, y) * smoothstep(.22, .0, length(f));
+    c += st * (.25 + .2 * sin(t * 1.5 + h21(cell) * 30.));
+    // distant hills on the horizon
+    float hill = hz + .018 * fbm(vec2(uv.x * 6., 1.)) + .025 * smoothstep(.75, 1., uv.x) + .012 * smoothstep(.25, 0., uv.x);
+    c = mix(c, vec3(.02, .025, .04), smoothstep(hill + .002, hill - .002, uv.y) * step(hz, uv.y));
+    return c;
+  }
+  vec3 inside(vec2 q, float tt){
+    // the world beyond the door: pale dawn sky with slow clouds
+    vec3 c = mix(vec3(.98, .86, .74), vec3(.60, .80, .98), smoothstep(-.9, .6, q.y));
+    float cl = fbm(q * vec2(2.2, 3.4) + vec2(tt * .03, 0.));
+    c = mix(c, vec3(1.), smoothstep(.55, .85, cl) * .75);
+    return c;
+  }
+  vec3 scene(vec2 uv, float aspect, bool refl){
+    vec3 c = sky(uv, hz);
+    // door geometry (in aspect-corrected space)
+    vec2 p = vec2((uv.x - door.x) * aspect, uv.y - hz);
+    float dh = mix(dsz, 1.7, open), dw = dh * door.y;        // the door grows as you approach
+    vec2 dc = vec2(0., dh * .5);
+    float d = sdBox(p - dc, vec2(dw * .5, dh * .5));
+    // light rays fanning out from the door
+    vec2 rp = p - vec2(0., dh * .32);
+    float ang = atan(rp.y, rp.x), rr = length(rp);
+    float rays = pow(n2(vec2(ang * 6., t * .06)), 2.2) * .9 + pow(n2(vec2(ang * 15. + 4., t * .04)), 3.) * .5;
+    float fall = exp(-rr * 2.6) * smoothstep(-.02, .12, p.y + .02);
+    vec3 warm = vec3(1., .55, .22), cool = vec3(.55, .78, 1.);
+    vec3 rayc = mix(warm, cool, smoothstep(-1., 1., cos(ang)) ) ;
+    c += rayc * rays * fall * .42 * (refl ? .45 : 1.);
+    c += mix(warm, cool, .35) * exp(-rr * 4.5) * .22 * (refl ? .5 : 1.);   // soft bloom
+    // glow around the frame
+    float glow = exp(-max(d, 0.) * 18.) * .9 + exp(-max(d, 0.) * 4.) * .35;
+    c += mix(warm, vec3(1., .93, .85), .6) * glow * (refl ? .5 : 1.);
+    // the opening itself
+    float inDoor = 1. - smoothstep(-.002, .002, d);
+    vec2 q = (p - dc) / vec2(dw * .5, dh * .5);
+    c = mix(c, inside(q, t) * (refl ? .6 : 1.), inDoor);
+    return c;
+  }
+  void main(){
+    vec2 uv = gl_FragCoord.xy / res; float aspect = res.x / res.y;
+    uv += m * vec2(.006, .004);                               // tiny parallax with the pointer
+    vec3 c;
+    if (uv.y >= hz) c = scene(uv, aspect, false);
+    else {
+      // still water: mirror the scene with soft ripples, darker and bluer
+      float dy = hz - uv.y;
+      vec2 w = vec2(sin(uv.y * 160. + t * 1.2) * .0015 + (n2(vec2(uv.x * 40., uv.y * 300. - t)) - .5) * .004 * (dy * 6. + .2), 0.);
+      vec2 ruv = vec2(uv.x + w.x, hz + dy * 1.02);
+      c = scene(ruv, aspect, true) * vec3(.55, .62, .75);
+      c *= .75 + .25 * smoothstep(0., .3, dy);
+      // glints on the water (the chromatic sparkle)
+      vec2 g = vec2(uv.x * aspect * 220., dy * 900.);
+      vec2 gf = fract(g) - .5;
+      float sp = step(.993, h21(floor(g) + floor(t * 1.5))) * exp(-abs(uv.x - door.x) * aspect * 3.2) * exp(-dy * 3.) * smoothstep(.5, .1, abs(gf.y)) ;
+      c += sp * mix(vec3(1., .72, .45), vec3(.65, .85, 1.), h21(floor(g))) * 1.1;
+    }
+    // bright core near the threshold + horizon haze
+    c += vec3(1., .78, .6) * exp(-abs(uv.y - hz) * 60.) * exp(-abs(uv.x - door.x) * aspect * 1.6) * .35;
+    // the approach: light floods the frame as you step through
+    c = mix(c, vec3(.97, .95, .92), smoothstep(.72, 1., open));
+    // film grain + vignette
+    c += (h21(gl_FragCoord.xy + fract(t)) - .5) * .035;
+    vec2 vv = gl_FragCoord.xy / res - .5; c *= 1. - dot(vv, vv) * .55;
+    gl_FragColor = vec4(pow(max(c, 0.), vec3(.95)), 1.);
+  }`;
+  const sh = (ty, s) => { const o = gl.createShader(ty); gl.shaderSource(o, s); gl.compileShader(o); if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) { console.warn(gl.getShaderInfoLog(o)); return null; } return o; };
+  const vs = sh(gl.VERTEX_SHADER, VS), fs = sh(gl.FRAGMENT_SHADER, FS); if (!vs || !fs) return null;
+  const pr = gl.createProgram(); gl.attachShader(pr, vs); gl.attachShader(pr, fs); gl.linkProgram(pr); gl.useProgram(pr);
+  const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
+  const l = gl.getAttribLocation(pr, 'a'); gl.enableVertexAttribArray(l); gl.vertexAttribPointer(l, 2, gl.FLOAT, false, 0, 0);
+  const U = n => gl.getUniformLocation(pr, n), uRes = U('res'), uT = U('t'), uDoor = U('door'), uOpen = U('open'), uM = U('m'), uHz = U('hz'), uDs = U('dsz');
+  const st = { door: [opts && opts.x || .66, .46], open: 0, m: [0, 0], scale: opts && opts.scale || .6, hz: .36, dsz: .30 };
+  function size() { const w = cv.clientWidth, h = cv.clientHeight, k = Math.min(st.scale, 1400 / Math.max(w, 1)) * Math.min(devicePixelRatio || 1, 1.5);
+    cv.width = Math.max(2, Math.round(w * k)); cv.height = Math.max(2, Math.round(h * k)); }
+  function draw(t) { gl.viewport(0, 0, cv.width, cv.height); gl.uniform2f(uRes, cv.width, cv.height); gl.uniform1f(uT, t);
+    gl.uniform2f(uDoor, st.door[0], st.door[1]); gl.uniform1f(uOpen, st.open); gl.uniform2f(uM, st.m[0], st.m[1]); gl.uniform1f(uHz, st.hz); gl.uniform1f(uDs, st.dsz); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); }
+  size(); addEventListener('resize', size);
+  return { st, draw, size };
+};
+
+
+
+/* ---------- The Doorway: drive the scene from scroll, pointer and layout ---------- */
+(() => {
+  const cv = document.getElementById('doorCv'), walker = document.getElementById('walker'), bg = document.getElementById('doorBg');
+  if (!cv) return;
+  const S = window.DoorScene(cv, { x: .72 });
+  if (!S) { bg.classList.add('no-gl'); return; }
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v)), ease = t => 1 - Math.pow(1 - t, 3);
+  let mx = 0, my = 0, tmx = 0, tmy = 0;
+  addEventListener('pointermove', e => { tmx = e.clientX / innerWidth * 2 - 1; tmy = e.clientY / innerHeight * 2 - 1; }, { passive: true });
+  let last = 0, still = false, slow = 0;
+  const layout = () => {
+    const mob = window.__MOB && window.__MOB.matches;
+    S.st.door[0] = mob ? .5 : .72; S.st.hz = mob ? .63 : .36; S.st.dsz = mob ? .21 : .30;
+    S.size(); still = false;
+  };
+  layout(); addEventListener('resize', layout);
+  function frame(now) {
+    requestAnimationFrame(frame);
+    if (document.hidden || window.__layerOpen) return;
+    const mob = window.__MOB && window.__MOB.matches;
+    let open, dim;
+    if (mob) { const h = innerHeight; if (scrollY > h * 1.15) { bg.style.visibility = 'hidden'; return; } bg.style.visibility = ''; open = clamp(scrollY / (h * 1.1)) * .5; dim = 0; }   // off screen: stop drawing so scrolling stays smooth
+    else {
+      const sc = document.getElementById('scroller'), max = sc.offsetHeight - innerHeight, p = clamp(scrollY / (max || 1));
+      open = ease(clamp(p / .1)) * .32;                  // walking toward the door as the hero leaves
+      dim = clamp((p - .04) / .08);                      // then the night settles behind the project doors
+      if (scrollY > sc.offsetHeight) { bg.style.visibility = 'hidden'; return; } else bg.style.visibility = '';
+    }
+    // behind the project doors the scene is dimmed to a backdrop: draw one still frame and stop, so the cards get the whole frame budget
+    if (dim >= 1) { if (still) return; still = true; } else still = false;
+    if (now - last < 30) return;
+    // adaptive quality: if this device can't keep up, render the light at a lower resolution (it is soft, so the drop is invisible)
+    const dt = now - last; last = now;
+    if (dt < 400) { slow = slow * .9 + (dt > 50 ? 1 : 0) * .1; if (slow > .6 && S.st.scale > .32) { S.st.scale *= .75; S.size(); slow = 0; } }
+    mx += (tmx - mx) * .05; my += (tmy - my) * .05;
+    S.st.open = reduce ? 0 : open; S.st.m = [mx, -my];
+    S.draw(reduce ? 14 : now / 1000);
+    cv.style.opacity = (1 - dim * .72).toFixed(3);
+    // the walker stands at the threshold; he grows with the door and fades as we pass through
+    const W = cv.clientWidth, H = cv.clientHeight, hzY = H * (1 - S.st.hz);
+    const dh = (S.st.dsz + (1.7 - S.st.dsz) * S.st.open) * H;
+    const fh = dh * .2, x = W * S.st.door[0] + (mx * -6);
+    walker.style.transform = `translate(${(x - fh * .19).toFixed(1)}px, ${(hzY - fh + dh * .018).toFixed(1)}px)`;
+    walker.style.setProperty('--fh', fh.toFixed(1) + 'px');
+    walker.style.opacity = (1 - clamp((S.st.open - .3) / .2)) * (1 - dim);
   }
   requestAnimationFrame(frame);
 })();

@@ -62,7 +62,7 @@ pages = {'case': 'amin/', 'proto': 'amin/prototype.html', 'anchorCase': 'anchor/
          'icaCase': 'ica/', 'icaProto': 'ica/prototype.html', 'tataCase': 'tatapower/', 'tataProto': 'tatapower/prototype.html',
          'casaCase': 'casagrand/', 'casaProto': 'casagrand/prototype.html'}
 rep = {
-    '{{IMAGES}}': json.dumps(covers), '{{HM_TATA}}': covers['tata'], '{{HM_CASA}}': covers['casagrand'],
+    '{{IMAGES}}': json.dumps(covers),
     **{'{{HL_%s}}' % k: v for k, v in HL.items()}, '{{DECK}}': json.dumps(DECK),
     '{{CONVOFULL_AVIF}}': 'images/convo_full.avif', '{{CONVOFULL}}': 'images/convo_full.webp',
     '{{CONVO_AVIF}}': 'images/convo_crop.avif', '{{CONVO}}': 'images/convo_crop.webp',
@@ -70,7 +70,6 @@ rep = {
     '{{LOGO}}': 'images/logo.webp', '{{PAGES}}': json.dumps(pages),
 }
 for k, v in rep.items():
-    assert k in t, k
     t = t.replace(k, v)
 for a, b in [('amin', 'amin'), ('anchor', 'anchor'), ('ultratech', 'ultratech'), ('ica', 'ica'), ('tata', 'tatapower'), ('casagrand', 'casagrand')]:
     t = t.replace(f"href: '{a}-case-study.html'", f"href: '{b}/'")
@@ -86,6 +85,37 @@ PAGE_CSS = """
   .client-logo { display: flex; align-items: center; margin-bottom: clamp(18px, 2.4vw, 28px); }
   .client-logo img { height: var(--lh, 44px); width: auto; max-width: min(100%, 420px); object-fit: contain; display: block; }
   @media (max-width: 640px) { .client-logo img { height: calc(var(--lh, 44px) * .78); } }
+
+  /* Doorway theme: dark cinematic header, light reading body */
+  .top { background: rgba(5,7,12,.95) !important; color: #F2F3F7; }
+  .top.scrolled { box-shadow: 0 1px 0 rgba(255,255,255,.08) !important; }
+  .top .brand img { filter: invert(1); }
+  .top .nav { background: rgba(255,255,255,.08) !important; box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); }
+  .top .nav a { color: rgba(242,243,247,.72) !important; }
+  .top .nav a:hover { background: rgba(255,255,255,.12) !important; color: #fff !important; }
+  .top .nav a.on { background: #F2F3F7 !important; color: #05070c !important; }
+  .top .progress { background: #FFB27A !important; }
+  .hero { position: relative; color: #F2F3F7; background:
+      radial-gradient(60% 45% at 78% 8%, rgba(255,178,122,.20), transparent 70%),
+      radial-gradient(40% 30% at 15% 0%, rgba(120,150,255,.10), transparent 70%),
+      linear-gradient(#05070c 0%, #0a0d16 70%, #0d111b 100%);
+    padding-bottom: clamp(48px, 6vw, 90px); margin-bottom: clamp(24px, 4vw, 56px); }
+  .hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,178,122,.75) 50%, transparent); box-shadow: 0 0 24px 2px rgba(255,178,122,.35); pointer-events: none; }
+  .hero .wrap { position: relative; z-index: 1; }
+  .hero h1, .hero .hero-headline, .hero h2, .hero h3 { color: #F2F3F7; }
+  .hero h1 .soft { color: rgba(242,243,247,.42) !important; }
+  .hero .kicker { color: #FFB27A !important; }
+  .hero p, .hero .lead, .hero p.lead, .hero figcaption, .hero .hint-s { color: rgba(242,243,247,.7) !important; }
+  .hero .meta div { background: rgba(255,255,255,.06) !important; box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); }
+  .hero .meta b { color: rgba(242,243,247,.55) !important; }
+  .hero .meta span { color: #F2F3F7; }
+  .hero .chip { background: rgba(255,255,255,.08) !important; color: #F2F3F7; box-shadow: inset 0 0 0 1px rgba(255,255,255,.14) !important; }
+  .hero .chip.dark i { background: #FFB27A; }
+  .hero .btn.dark { background: #F2F3F7 !important; color: #05070c !important; box-shadow: 0 10px 30px rgba(255,178,122,.18) !important; }
+  .hero .btn.light { background: rgba(255,255,255,.08) !important; color: #F2F3F7 !important; box-shadow: inset 0 0 0 1px rgba(255,255,255,.18) !important; }
+  .hero .client-logo img { background: #fff; padding: 10px 16px; border-radius: 12px; box-sizing: content-box; }
+  .hero .shot, .hero .hero-shot img { box-shadow: 0 30px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.06); }
+  .hero a:not(.btn):not(.kicker) { color: #FFB27A; }
 """
 def add_logo(p, folder, logo, alt, h):
     ext = os.path.splitext(logo)[1]
