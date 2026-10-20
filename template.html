@@ -645,12 +645,22 @@
   ::selection { background: rgba(255,178,122,.35); }
 
   /* scene behind the pinned stage */
-  .door-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: var(--night); }
-  .door-cv { position: absolute; inset: 0; width: 100%; height: 100%; display: block; transition: opacity .2s linear; }
-  .door-bg.no-gl { background: radial-gradient(ellipse 30% 45% at 72% 52%, rgba(255,200,150,.35), transparent 70%), linear-gradient(#05070c 0 64%, #0b1220 64%); }
-  .walker { position: absolute; left: 0; top: 0; width: calc(var(--fh, 60px) * .375); height: calc(var(--fh, 60px) * 2); pointer-events: none; will-change: transform; }
-  .walker .fig { position: absolute; left: 0; top: 0; width: 100%; height: 50%; display: block; }
-  .walker .fig.refl { top: 50%; transform: scaleY(-1); opacity: .28; filter: blur(1.2px); -webkit-mask-image: linear-gradient(to top, #000, transparent 85%); mask-image: linear-gradient(to top, #000, transparent 85%); }
+  .door-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: #070507; contain: strict; }
+  .door-bg .sc { position: absolute; left: 0; top: 0; width: 100%; height: 100%; transform-origin: 82% 55%; will-change: transform; }
+  .door-bg .sc img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; user-select: none; }
+  .door-bg .sc .soft { opacity: 0; will-change: opacity; }
+  /* the door breathes: a slow pulse of light over the opening, and a shimmer along the beam */
+  .door-bg .glow { position: absolute; left: var(--dx, 82%); top: var(--dy, 55%); width: 34%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%;
+     background: radial-gradient(closest-side, rgba(255,214,160,.55), rgba(255,170,90,.18) 45%, transparent 75%); mix-blend-mode: screen; pointer-events: none;
+     animation: doorBreath 6s ease-in-out infinite; }
+  .door-bg .beam { position: absolute; left: var(--bx, 50%); top: var(--by, 70%); width: 34%; height: 9%; transform-origin: 0 50%; transform: rotate(var(--ba, -12deg));
+     background: linear-gradient(90deg, rgba(255,190,120,0), rgba(255,200,140,.32) 55%, rgba(255,230,190,.5)); filter: blur(14px); mix-blend-mode: screen; pointer-events: none;
+     animation: beamShimmer 7.5s ease-in-out infinite; }
+  @keyframes doorBreath { 0%, 100% { opacity: .55; transform: translate(-50%, -50%) scale(.96); } 50% { opacity: .95; transform: translate(-50%, -50%) scale(1.04); } }
+  @keyframes beamShimmer { 0%, 100% { opacity: .35; } 45% { opacity: .8; } 60% { opacity: .55; } }
+  .door-bg .sparks { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
+  .door-bg .shade { position: absolute; inset: 0; background: #0a0709; opacity: 0; pointer-events: none; will-change: opacity; }
+  @media (prefers-reduced-motion: reduce) { .door-bg .glow, .door-bg .beam { animation: none; } }
   #stage { position: relative; z-index: 1; }
 
   /* navigation: dark glass, light pill */
@@ -687,9 +697,13 @@
   .deck-info { color: var(--muted-d); } .deck-info .of { color: rgba(235,238,245,.35); } .deck-info b { color: #fff; }
   .names { color: var(--muted-d); } .names .sep { color: rgba(255,255,255,.2); }
   .tapcue { background: var(--glass); color: var(--ink); box-shadow: inset 0 0 0 1px var(--glass-b); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-  .card .frame { box-shadow: 0 0 0 1px rgba(255,255,255,.25), 0 calc(30*var(--u)) calc(80*var(--u)) rgba(0,0,0,.55); }
-  .card.active .frame { box-shadow: 0 0 0 1px rgba(255,255,255,.4), 0 0 calc(90*var(--u)) rgba(255,205,160,.28), 0 calc(40*var(--u)) calc(90*var(--u)) rgba(0,0,0,.6);
-                        -webkit-box-reflect: below calc(10*var(--u)) linear-gradient(transparent 72%, rgba(255,255,255,.16)); }
+  /* cards: lit by the door — warm rim on the side facing the light, a soft halo, no gimmicks */
+  .card .frame { background: #f6f2ec; box-shadow: 0 0 0 1px rgba(255,236,214,.28), 0 calc(30*var(--u)) calc(80*var(--u)) rgba(10,4,2,.55); transition: box-shadow .5s var(--ease-o), transform .5s var(--spring); }
+  .card .frame::after { content: ""; position: absolute; inset: 0; z-index: 3; border-radius: inherit; pointer-events: none;
+     box-shadow: inset 0 0 0 1px rgba(255,255,255,.55), inset calc(-2*var(--u)) 0 calc(18*var(--u)) rgba(255,190,130,.22); }
+  .card .bg { -webkit-mask-image: linear-gradient(#000 74%, transparent 94%); mask-image: linear-gradient(#000 74%, transparent 94%); }
+  .card.active .frame { box-shadow: 0 0 0 1px rgba(255,236,214,.45), 0 0 calc(120*var(--u)) rgba(255,168,96,.30), 0 calc(44*var(--u)) calc(100*var(--u)) rgba(10,4,2,.62); }
+  .card .foot { box-shadow: 0 calc(8*var(--u)) calc(24*var(--u)) rgba(40,20,10,.14); }
 
   /* about + contact: the same night, quieter */
   .about, .contact { background: var(--night); }
@@ -707,13 +721,17 @@
   .page-layer { background: var(--night); }
 
   @media (max-width: 900px), (orientation: portrait) and (max-width: 1180px) {
-    .door-bg { position: absolute; inset: 0 0 auto 0; height: 100svh; -webkit-mask-image: linear-gradient(#000 70%, transparent); mask-image: linear-gradient(#000 70%, transparent); }
+    .door-bg { position: absolute; inset: 0 0 auto 0; height: 100svh; -webkit-mask-image: linear-gradient(#000 82%, transparent); mask-image: linear-gradient(#000 82%, transparent); }
     .hero .hrow { left: auto; right: auto; justify-content: center; }
-    .hero { justify-content: flex-start; padding-top: calc(40svh + 10px); padding-bottom: 80px; gap: 12px; }
+    .hero { justify-content: flex-start; padding-top: calc(86px + 2svh); padding-bottom: 80px; gap: 12px; }   /* words sit in the open night sky, the door glows below them */
     .hero .hl { font-size: calc(70*var(--u)); font-weight: 300; }
     .hero .hrow.r1 { gap: 8px; }
     .navlayer::before { background: rgba(5,7,12,.72); box-shadow: 0 1px 0 rgba(255,255,255,.06); }
-    .card.active .frame { -webkit-box-reflect: unset; }
+    /* the light sits behind the buttons on phones, so they get a solid glass backing */
+    .hero .btn.light { background: rgba(14,10,12,.62); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+    .hero .sub { text-shadow: 0 1px 14px rgba(0,0,0,.85); }
+    /* phones: the cards stand in the same warm light, softened so the work stays sharp */
+    #deckPin { background: linear-gradient(#0a0709 0%, rgba(10,7,9,.2) 24%, rgba(10,7,9,.15) 70%, rgba(10,7,9,.55)), url({{DOOR_MB}}) 88% 60% / auto 190% no-repeat, #0a0709; }
   }
 
 </style>
@@ -733,12 +751,14 @@
 <div class="scroller" id="scroller">
   <div class="pin">
     <div class="door-bg" id="doorBg" aria-hidden="true">
-      <canvas class="door-cv" id="doorCv"></canvas>
-      <div class="walker" id="walker"><svg class="fig" viewBox="0 0 24 64" aria-hidden="true"><g fill="#05060a">
-          <circle cx="12" cy="5.2" r="4.1"/>
-          <path d="M7.4 11.6c1.3-1.4 7.9-1.4 9.2 0 1.6 1.7 2.4 10.6 2.6 15.6.1 2-1.6 2.3-2 .4l-1.2-8.2-.4 14.1 2.6 26.9c.2 2.1-2.6 2.3-3 .3L12.3 38.4h-.6L8.8 60.6c-.4 2-3.2 1.8-3-.3l2.6-26.9-.4-14.1-1.2 8.2c-.4 1.9-2.1 1.6-2-.4.2-5 1-13.9 2.6-15.5z"/></g></svg><svg class="fig refl" viewBox="0 0 24 64" aria-hidden="true"><g fill="#05060a">
-          <circle cx="12" cy="5.2" r="4.1"/>
-          <path d="M7.4 11.6c1.3-1.4 7.9-1.4 9.2 0 1.6 1.7 2.4 10.6 2.6 15.6.1 2-1.6 2.3-2 .4l-1.2-8.2-.4 14.1 2.6 26.9c.2 2.1-2.6 2.3-3 .3L12.3 38.4h-.6L8.8 60.6c-.4 2-3.2 1.8-3-.3l2.6-26.9-.4-14.1-1.2 8.2c-.4 1.9-2.1 1.6-2-.4.2-5 1-13.9 2.6-15.5z"/></g></svg></div>
+      <div class="sc" id="doorSc">
+        <picture><source media="(max-width: 900px), (orientation: portrait) and (max-width: 1180px)" srcset="{{DOOR_M}}"><img src="{{DOOR_D}}" alt="" fetchpriority="high" decoding="async"></picture>
+        <picture><source media="(max-width: 900px), (orientation: portrait) and (max-width: 1180px)" srcset="{{DOOR_MB}}"><img class="soft" id="doorSoft" src="{{DOOR_DB}}" alt="" loading="lazy" decoding="async"></picture>
+        <div class="beam" id="doorBeam"></div>
+        <div class="glow" id="doorGlow"></div>
+      </div>
+      <canvas class="sparks" id="doorSparks"></canvas>
+      <div class="shade" id="doorShade"></div>
     </div>
     <main class="stage" id="stage">
 
@@ -1699,158 +1719,102 @@
 })();
 </script>
 <script>
-/* The Doorway: a night horizon over still water, a glowing door, light pouring out.
-   uniforms: res, t (s), door (x centre 0..1, door width as fraction of height), open (0..1 scroll approach), m (pointer -1..1) */
-window.DoorScene = function (cv, opts) {
-  const gl = cv.getContext('webgl', { antialias: false, alpha: false, powerPreference: 'high-performance' });
-  if (!gl) return null;
-  const VS = 'attribute vec2 a; void main(){ gl_Position = vec4(a, 0., 1.); }';
-  const FS = `precision highp float;
-  uniform vec2 res; uniform float t; uniform vec2 door; uniform float open; uniform vec2 m; uniform float hz; uniform float dsz;
-  float h21(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
-  float n2(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.-2.*f);
-    return mix(mix(h21(i), h21(i+vec2(1,0)), f.x), mix(h21(i+vec2(0,1)), h21(i+vec2(1,1)), f.x), f.y); }
-  float fbm(vec2 p){ float s = 0., a = .5; for (int i = 0; i < 5; i++){ s += a * n2(p); p *= 2.03; a *= .5; } return s; }
-  // rounded box sdf
-  float sdBox(vec2 p, vec2 b){ vec2 d = abs(p) - b; return length(max(d, 0.)) + min(max(d.x, d.y), 0.); }
-  vec3 sky(vec2 uv, float hz){
-    // uv.y up; deep night above, warm-cool glow at the horizon
-    float y = uv.y - hz;
-    vec3 top = vec3(.012, .02, .045), mid = vec3(.035, .07, .12), low = vec3(.30, .22, .22);
-    vec3 c = mix(mid, top, smoothstep(0., .55, y));
-    c = mix(low * .55, c, smoothstep(-.01, .16, y));
-    // faint stars
-    vec2 sg = uv * vec2(res.x / res.y, 1.) * 180.;
-    vec2 cell = floor(sg), f = fract(sg) - .5;
-    float st = step(.9975, h21(cell)) * smoothstep(.08, .5, y) * smoothstep(.22, .0, length(f));
-    c += st * (.25 + .2 * sin(t * 1.5 + h21(cell) * 30.));
-    // distant hills on the horizon
-    float hill = hz + .018 * fbm(vec2(uv.x * 6., 1.)) + .025 * smoothstep(.75, 1., uv.x) + .012 * smoothstep(.25, 0., uv.x);
-    c = mix(c, vec3(.02, .025, .04), smoothstep(hill + .002, hill - .002, uv.y) * step(hz, uv.y));
-    return c;
-  }
-  vec3 inside(vec2 q, float tt){
-    // the world beyond the door: pale dawn sky with slow clouds
-    vec3 c = mix(vec3(.98, .86, .74), vec3(.60, .80, .98), smoothstep(-.9, .6, q.y));
-    float cl = fbm(q * vec2(2.2, 3.4) + vec2(tt * .03, 0.));
-    c = mix(c, vec3(1.), smoothstep(.55, .85, cl) * .75);
-    return c;
-  }
-  vec3 scene(vec2 uv, float aspect, bool refl){
-    vec3 c = sky(uv, hz);
-    // door geometry (in aspect-corrected space)
-    vec2 p = vec2((uv.x - door.x) * aspect, uv.y - hz);
-    float dh = mix(dsz, 1.7, open), dw = dh * door.y;        // the door grows as you approach
-    vec2 dc = vec2(0., dh * .5);
-    float d = sdBox(p - dc, vec2(dw * .5, dh * .5));
-    // light rays fanning out from the door
-    vec2 rp = p - vec2(0., dh * .32);
-    float ang = atan(rp.y, rp.x), rr = length(rp);
-    float rays = pow(n2(vec2(ang * 6., t * .06)), 2.2) * .9 + pow(n2(vec2(ang * 15. + 4., t * .04)), 3.) * .5;
-    float fall = exp(-rr * 2.6) * smoothstep(-.02, .12, p.y + .02);
-    vec3 warm = vec3(1., .55, .22), cool = vec3(.55, .78, 1.);
-    vec3 rayc = mix(warm, cool, smoothstep(-1., 1., cos(ang)) ) ;
-    c += rayc * rays * fall * .42 * (refl ? .45 : 1.);
-    c += mix(warm, cool, .35) * exp(-rr * 4.5) * .22 * (refl ? .5 : 1.);   // soft bloom
-    // glow around the frame
-    float glow = exp(-max(d, 0.) * 18.) * .9 + exp(-max(d, 0.) * 4.) * .35;
-    c += mix(warm, vec3(1., .93, .85), .6) * glow * (refl ? .5 : 1.);
-    // the opening itself
-    float inDoor = 1. - smoothstep(-.002, .002, d);
-    vec2 q = (p - dc) / vec2(dw * .5, dh * .5);
-    c = mix(c, inside(q, t) * (refl ? .6 : 1.), inDoor);
-    return c;
-  }
-  void main(){
-    vec2 uv = gl_FragCoord.xy / res; float aspect = res.x / res.y;
-    uv += m * vec2(.006, .004);                               // tiny parallax with the pointer
-    vec3 c;
-    if (uv.y >= hz) c = scene(uv, aspect, false);
-    else {
-      // still water: mirror the scene with soft ripples, darker and bluer
-      float dy = hz - uv.y;
-      vec2 w = vec2(sin(uv.y * 160. + t * 1.2) * .0015 + (n2(vec2(uv.x * 40., uv.y * 300. - t)) - .5) * .004 * (dy * 6. + .2), 0.);
-      vec2 ruv = vec2(uv.x + w.x, hz + dy * 1.02);
-      c = scene(ruv, aspect, true) * vec3(.55, .62, .75);
-      c *= .75 + .25 * smoothstep(0., .3, dy);
-      // glints on the water (the chromatic sparkle)
-      vec2 g = vec2(uv.x * aspect * 220., dy * 900.);
-      vec2 gf = fract(g) - .5;
-      float sp = step(.993, h21(floor(g) + floor(t * 1.5))) * exp(-abs(uv.x - door.x) * aspect * 3.2) * exp(-dy * 3.) * smoothstep(.5, .1, abs(gf.y)) ;
-      c += sp * mix(vec3(1., .72, .45), vec3(.65, .85, 1.), h21(floor(g))) * 1.1;
-    }
-    // bright core near the threshold + horizon haze
-    c += vec3(1., .78, .6) * exp(-abs(uv.y - hz) * 60.) * exp(-abs(uv.x - door.x) * aspect * 1.6) * .35;
-    // the approach: light floods the frame as you step through
-    c = mix(c, vec3(.97, .95, .92), smoothstep(.72, 1., open));
-    // film grain + vignette
-    c += (h21(gl_FragCoord.xy + fract(t)) - .5) * .035;
-    vec2 vv = gl_FragCoord.xy / res - .5; c *= 1. - dot(vv, vv) * .55;
-    gl_FragColor = vec4(pow(max(c, 0.), vec3(.95)), 1.);
-  }`;
-  const sh = (ty, s) => { const o = gl.createShader(ty); gl.shaderSource(o, s); gl.compileShader(o); if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) { console.warn(gl.getShaderInfoLog(o)); return null; } return o; };
-  const vs = sh(gl.VERTEX_SHADER, VS), fs = sh(gl.FRAGMENT_SHADER, FS); if (!vs || !fs) return null;
-  const pr = gl.createProgram(); gl.attachShader(pr, vs); gl.attachShader(pr, fs); gl.linkProgram(pr); gl.useProgram(pr);
-  const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
-  const l = gl.getAttribLocation(pr, 'a'); gl.enableVertexAttribArray(l); gl.vertexAttribPointer(l, 2, gl.FLOAT, false, 0, 0);
-  const U = n => gl.getUniformLocation(pr, n), uRes = U('res'), uT = U('t'), uDoor = U('door'), uOpen = U('open'), uM = U('m'), uHz = U('hz'), uDs = U('dsz');
-  const st = { door: [opts && opts.x || .66, .46], open: 0, m: [0, 0], scale: opts && opts.scale || .6, hz: .36, dsz: .30 };
-  function size() { const w = cv.clientWidth, h = cv.clientHeight, k = Math.min(st.scale, 1400 / Math.max(w, 1)) * Math.min(devicePixelRatio || 1, 1.5);
-    cv.width = Math.max(2, Math.round(w * k)); cv.height = Math.max(2, Math.round(h * k)); }
-  function draw(t) { gl.viewport(0, 0, cv.width, cv.height); gl.uniform2f(uRes, cv.width, cv.height); gl.uniform1f(uT, t);
-    gl.uniform2f(uDoor, st.door[0], st.door[1]); gl.uniform1f(uOpen, st.open); gl.uniform2f(uM, st.m[0], st.m[1]); gl.uniform1f(uHz, st.hz); gl.uniform1f(uDs, st.dsz); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); }
-  size(); addEventListener('resize', size);
-  return { st, draw, size };
-};
-
-
-
-/* ---------- The Doorway: drive the scene from scroll, pointer and layout ---------- */
+/* ---------- The Doorway: a photographic scene, brought to life ----------
+   One image, a few honest moves: the door breathes, embers drift out of it,
+   the view follows the pointer a little (depth), and scrolling walks you toward the door.
+   Behind the project cards the scene softens and steps back so the work is what you look at. */
 (() => {
-  const cv = document.getElementById('doorCv'), walker = document.getElementById('walker'), bg = document.getElementById('doorBg');
-  if (!cv) return;
-  const S = window.DoorScene(cv, { x: .72 });
-  if (!S) { bg.classList.add('no-gl'); return; }
+  const bg = document.getElementById('doorBg'); if (!bg) return;
+  const sc = document.getElementById('doorSc'), soft = document.getElementById('doorSoft'), shade = document.getElementById('doorShade');
+  const glow = document.getElementById('doorGlow'), beam = document.getElementById('doorBeam'), cv = document.getElementById('doorSparks');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v)), ease = t => 1 - Math.pow(1 - t, 3);
-  let mx = 0, my = 0, tmx = 0, tmy = 0;
-  addEventListener('pointermove', e => { tmx = e.clientX / innerWidth * 2 - 1; tmy = e.clientY / innerHeight * 2 - 1; }, { passive: true });
-  let last = 0, still = false, slow = 0;
-  const layout = () => {
-    const mob = window.__MOB && window.__MOB.matches;
-    S.st.door[0] = mob ? .5 : .72; S.st.hz = mob ? .63 : .36; S.st.dsz = mob ? .21 : .30;
-    S.size(); still = false;
+  // where things are in each picture (fractions of the image)
+  const G = {
+    d: { ar: 1672 / 941, door: [.819, .547], dw: .07, dh: .58, px: .62, py: .5, beam: [.53, .69, 26, -16.5] },
+    m: { ar: 941 / 1672, door: [.845, .556], dw: .09, dh: .28, px: .82, py: .5, beam: [.415, .617, 37, -12.5] }
   };
+  let g = G.d, W = 0, H = 0, box = { x: 0, y: 0, w: 0, h: 0 }, mob = false;
+  const layout = () => {
+    mob = !!(window.__MOB && window.__MOB.matches); g = mob ? G.m : G.d;
+    W = bg.clientWidth; H = bg.clientHeight;
+    // cover-fit the picture, keeping the door in view on any screen shape
+    let w = W, h = W / g.ar; if (h < H) { h = H; w = H * g.ar; }
+    box = { w, h, x: (W - w) * g.px, y: (H - h) * g.py };
+    Object.assign(sc.style, { width: w + 'px', height: h + 'px', left: box.x + 'px', top: box.y + 'px', transformOrigin: (g.door[0] * 100) + '% ' + (g.door[1] * 100) + '%' });
+    glow.style.setProperty('--dx', g.door[0] * 100 + '%'); glow.style.setProperty('--dy', g.door[1] * 100 + '%');
+    glow.style.width = (mob ? 46 : 30) + '%';
+    beam.style.setProperty('--bx', g.beam[0] * 100 + '%'); beam.style.setProperty('--by', g.beam[1] * 100 + '%');
+    beam.style.width = g.beam[2] + '%'; beam.style.setProperty('--ba', g.beam[3] + 'deg');
+    const k = Math.min(devicePixelRatio || 1, 1.5); cv.width = Math.round(W * k); cv.height = Math.round(H * k); ctx.setTransform(k, 0, 0, k, 0, 0);
+    still = false;
+  };
+
+  // embers: tiny warm sparks leaving the door, plus a few large out-of-focus ones close to the camera
+  const ctx = cv.getContext('2d');
+  const sprite = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d');
+    const r = x.createRadialGradient(32, 32, 0, 32, 32, 32); r.addColorStop(0, 'rgba(255,236,205,1)'); r.addColorStop(.25, 'rgba(255,190,120,.55)'); r.addColorStop(1, 'rgba(255,150,80,0)');
+    x.fillStyle = r; x.fillRect(0, 0, 64, 64); return c; })();
+  const P = [];
+  const spawn = (p, fresh) => {
+    const near = Math.random() < .12;
+    p.near = near;
+    if (near) { p.x = Math.random(); p.y = .55 + Math.random() * .5; p.s = 26 + Math.random() * 40; p.vx = (Math.random() - .5) * .004; p.vy = -.002 - Math.random() * .003; p.a = .12 + Math.random() * .14; }
+    else { // born at the opening, drifting out and up
+      p.x = g.door[0] + (Math.random() - .5) * g.dw * 1.4; p.y = g.door[1] + (Math.random() - .5) * g.dh;
+      p.s = 2 + Math.random() * 5; p.vx = -.004 - Math.random() * .012; p.vy = -.002 - Math.random() * .007; p.a = .4 + Math.random() * .6; }
+    p.t = fresh ? Math.random() : 0; p.life = 6 + Math.random() * 8; p.ph = Math.random() * 6.28;
+    return p;
+  };
+  for (let i = 0; i < (innerWidth < 700 ? 38 : 64); i++) P.push(spawn({}, true));
+  const drawSparks = (dt, now, zoom, ox, oy) => {
+    ctx.clearRect(0, 0, W, H); ctx.globalCompositeOperation = 'lighter';
+    const cx = box.x + box.w * g.door[0], cy = box.y + box.h * g.door[1];
+    for (const p of P) {
+      p.t += dt / p.life; if (p.t >= 1) spawn(p, false);
+      p.x += p.vx * dt + Math.sin(now * .0006 + p.ph) * .0004; p.y += p.vy * dt;
+      // image space -> screen, following the same zoom and parallax as the picture
+      let sx = box.x + p.x * box.w, sy = box.y + p.y * box.h;
+      sx = cx + (sx - cx) * zoom + ox * (p.near ? 2.4 : 1); sy = cy + (sy - cy) * zoom + oy * (p.near ? 2.4 : 1);
+      const fade = Math.sin(Math.PI * p.t), tw = .75 + .25 * Math.sin(now * .004 + p.ph * 3);
+      ctx.globalAlpha = p.a * fade * tw; const sz = p.s * (mob ? .8 : 1) * (p.near ? 1 : zoom);
+      ctx.drawImage(sprite, sx - sz, sy - sz, sz * 2, sz * 2);
+    }
+    ctx.globalAlpha = 1;
+  };
+
+  let mx = 0, my = 0, tmx = 0, tmy = 0, last = 0, still = false, slow = 0, sparksOn = true;
+  addEventListener('pointermove', e => { if (e.pointerType === 'touch') return; tmx = e.clientX / innerWidth * 2 - 1; tmy = e.clientY / innerHeight * 2 - 1; }, { passive: true });
   layout(); addEventListener('resize', layout);
+  if (reduce) { cv.style.display = 'none'; }
+
   function frame(now) {
     requestAnimationFrame(frame);
     if (document.hidden || window.__layerOpen) return;
-    const mob = window.__MOB && window.__MOB.matches;
-    let open, dim;
-    if (mob) { const h = innerHeight; if (scrollY > h * 1.15) { bg.style.visibility = 'hidden'; return; } bg.style.visibility = ''; open = clamp(scrollY / (h * 1.1)) * .5; dim = 0; }   // off screen: stop drawing so scrolling stays smooth
-    else {
-      const sc = document.getElementById('scroller'), max = sc.offsetHeight - innerHeight, p = clamp(scrollY / (max || 1));
-      open = ease(clamp(p / .1)) * .32;                  // walking toward the door as the hero leaves
-      dim = clamp((p - .04) / .08);                      // then the night settles behind the project doors
-      if (scrollY > sc.offsetHeight) { bg.style.visibility = 'hidden'; return; } else bg.style.visibility = '';
+    let zoom, back;
+    if (mob) {
+      const h = innerHeight; if (scrollY > h * 1.15) { bg.style.visibility = 'hidden'; return; } bg.style.visibility = '';
+      zoom = 1 + ease(clamp(scrollY / h)) * .28; back = 0;
+    } else {
+      const s = document.getElementById('scroller'), max = s.offsetHeight - innerHeight, p = clamp(scrollY / (max || 1));
+      if (scrollY > s.offsetHeight) { bg.style.visibility = 'hidden'; return; } bg.style.visibility = '';
+      zoom = 1 + ease(clamp(p / .1)) * .5;          // walking toward the door as the hero leaves
+      back = clamp((p - .05) / .06);                  // then the scene softens behind the project cards
     }
-    // behind the project doors the scene is dimmed to a backdrop: draw one still frame and stop, so the cards get the whole frame budget
-    if (dim >= 1) { if (still) return; still = true; } else still = false;
-    if (now - last < 30) return;
-    // adaptive quality: if this device can't keep up, render the light at a lower resolution (it is soft, so the drop is invisible)
-    const dt = now - last; last = now;
-    if (dt < 400) { slow = slow * .9 + (dt > 50 ? 1 : 0) * .1; if (slow > .6 && S.st.scale > .32) { S.st.scale *= .75; S.size(); slow = 0; } }
+    if (reduce) zoom = 1 + (zoom - 1) * .3;
+    // behind the cards the scene is a still, soft backdrop: settle, draw once, then rest
+    if (back >= 1) { if (still) return; } else still = false;
+    const dt = Math.min(64, now - (last || now));
+    if (now - last < 30 && back < 1) return;
+    if (dt > 0 && dt < 400) { slow = slow * .9 + (dt > 55 ? .1 : 0); if (slow > .6 && sparksOn && !reduce) { sparksOn = false; cv.style.display = 'none'; } }
+    last = now;
     mx += (tmx - mx) * .05; my += (tmy - my) * .05;
-    S.st.open = reduce ? 0 : open; S.st.m = [mx, -my];
-    S.draw(reduce ? 14 : now / 1000);
-    cv.style.opacity = (1 - dim * .72).toFixed(3);
-    // the walker stands at the threshold; he grows with the door and fades as we pass through
-    const W = cv.clientWidth, H = cv.clientHeight, hzY = H * (1 - S.st.hz);
-    const dh = (S.st.dsz + (1.7 - S.st.dsz) * S.st.open) * H;
-    const fh = dh * .2, x = W * S.st.door[0] + (mx * -6);
-    walker.style.transform = `translate(${(x - fh * .19).toFixed(1)}px, ${(hzY - fh + dh * .018).toFixed(1)}px)`;
-    walker.style.setProperty('--fh', fh.toFixed(1) + 'px');
-    walker.style.opacity = (1 - clamp((S.st.open - .3) / .2)) * (1 - dim);
+    const ox = reduce || mob ? 0 : -mx * 14, oy = reduce || mob ? 0 : -my * 8;
+    sc.style.transform = `translate3d(${ox.toFixed(2)}px, ${oy.toFixed(2)}px, 0) scale(${zoom.toFixed(4)})`;
+    soft.style.opacity = back.toFixed(3);
+    shade.style.opacity = (back * .42).toFixed(3);
+    if (sparksOn && !reduce) { if (back < 1) drawSparks(dt / 1000, now, zoom, ox, oy); else ctx.clearRect(0, 0, W, H); }
+    if (back >= 1) still = true;
   }
   requestAnimationFrame(frame);
 })();
