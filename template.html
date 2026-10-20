@@ -667,6 +667,7 @@
       radial-gradient(40% 30% at 50% 50%, rgba(255,200,150,.07), transparent 70%),
       linear-gradient(165deg, #170d0d 0%, #0c0709 52%, #0a0810 100%); }
   .door-bg .ambient { position: absolute; inset: 0; background: var(--ambient); opacity: 0; will-change: opacity; pointer-events: none; }
+  .door-bg.rest .sc { visibility: hidden; } .door-bg.rest * { animation-play-state: paused !important; }
   .door-bg .shade { position: absolute; inset: 0; background: #0a0709; opacity: 0; pointer-events: none; will-change: opacity; }
   @media (prefers-reduced-motion: reduce) { .door-bg .glow, .door-bg .beam { animation: none; } }
   /* SUNLIGHT IN MOTION — the light from the door is alive, but slow and quiet:
@@ -2031,7 +2032,7 @@
     if (document.hidden || window.__layerOpen) return;
     let zoom, back;
     if (mob) {
-      const h = innerHeight; if (scrollY > h * 1.15) { bg.style.visibility = 'hidden'; return; } bg.style.visibility = '';
+      const h = innerHeight; if (scrollY > h * 1.15) { bg.style.visibility = 'hidden'; bg.classList.add('rest'); return; } bg.style.visibility = ''; bg.classList.remove('rest');
       zoom = 1 + ease(clamp(scrollY / h)) * .5; back = 0;
     } else {
       const s = document.getElementById('scroller'), max = s.offsetHeight - innerHeight, p = clamp(scrollY / (max || 1));
@@ -2041,6 +2042,7 @@
     }
     if (reduce) zoom = 1 + (zoom - 1) * .3;
     // behind the cards the scene is a still, soft backdrop: settle, draw once, then rest
+    bg.classList.toggle('rest', back >= 1);   // fully behind the cards: stop the light animations and stop painting the scene
     if (back >= 1) { if (still) return; } else still = false;
     const dt = Math.min(64, now - (last || now));
     if (now - last < 30 && back < 1) return;
