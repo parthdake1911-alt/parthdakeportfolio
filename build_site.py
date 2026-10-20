@@ -62,7 +62,7 @@ pages = {'case': 'amin/', 'proto': 'amin/prototype.html', 'anchorCase': 'anchor/
          'icaCase': 'ica/', 'icaProto': 'ica/prototype.html', 'tataCase': 'tatapower/', 'tataProto': 'tatapower/prototype.html',
          'casaCase': 'casagrand/', 'casaProto': 'casagrand/prototype.html'}
 # The Doorway scene (made by make_scene.py from Parth's generated images)
-for f in ['door-d.webp', 'door-m.webp', 'door-d-soft.webp', 'door-m-soft.webp']:
+for f in ['door-d.webp', 'door-m.webp']:
     cp(f'{H}/scene/{f}', f'images/{f}')
 rep = {
     '{{DOOR_D}}': 'images/door-d.webp', '{{DOOR_M}}': 'images/door-m.webp', '{{DOOR_DB}}': 'images/door-d-soft.webp', '{{DOOR_MB}}': 'images/door-m-soft.webp',
