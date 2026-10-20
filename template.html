@@ -734,6 +734,63 @@
     #deckPin { background: linear-gradient(#0a0709 0%, rgba(10,7,9,.2) 24%, rgba(10,7,9,.15) 70%, rgba(10,7,9,.55)), url({{DOOR_MB}}) 88% 60% / auto 190% no-repeat, #0a0709; }
   }
 
+
+  /* =====================================================================================
+     GLASS — frosted panels over the warm light.
+     Reason: glass lets the scene (the door's light) show through every surface, so the
+     page feels like one lit space; the frost keeps text readable on top of it.
+     ===================================================================================== */
+  :root { --gl: linear-gradient(135deg, rgba(255,255,255,.17), rgba(255,255,255,.05) 55%, rgba(255,255,255,.08));
+          --gl-strong: linear-gradient(135deg, rgba(255,255,255,.24), rgba(255,255,255,.08) 60%, rgba(255,255,255,.12));
+          --gl-edge: inset 0 0 0 1px rgba(255,255,255,.2), inset 0 1px 0 rgba(255,255,255,.42), inset 0 -1px 0 rgba(255,255,255,.06);
+          --gl-blur: blur(22px) saturate(170%); }
+  .nav, .nav.scrolled { background: var(--gl); backdrop-filter: var(--gl-blur); -webkit-backdrop-filter: var(--gl-blur);
+          box-shadow: var(--gl-edge), 0 calc(14*var(--u)) calc(40*var(--u)) rgba(0,0,0,.28); }
+  .chip .face, .btn.light, .hero .btn.light, .tapcue, .ct-mail a, .ct-mail button, .hint .w {
+          background: var(--gl); backdrop-filter: var(--gl-blur); -webkit-backdrop-filter: var(--gl-blur); box-shadow: var(--gl-edge), 0 calc(10*var(--u)) calc(30*var(--u)) rgba(0,0,0,.22); }
+  .btn.light:hover, .ct-mail a:hover, .ct-mail button:hover { background: var(--gl-strong); }
+  .btn.dark, .hero .btn.dark { box-shadow: inset 0 1px 0 #fff, 0 0 calc(40*var(--u)) rgba(255,190,140,.28); }
+
+  /* project cards: a frosted bezel around each screen, and a glass caption bar.
+     The deck backdrop is already a soft blur, so the bezel is drawn as tinted glass without a live blur — same look, smooth scrolling. */
+  .card .frame { background: linear-gradient(150deg, rgba(255,255,255,.34), rgba(255,255,255,.1) 45%, rgba(255,220,190,.16)); padding: calc(10*var(--u)); }
+  .card .frame .bg { inset: calc(10*var(--u)); width: calc(100% - 20*var(--u)); height: calc(100% - 20*var(--u)); border-radius: calc(26*var(--u)); -webkit-mask-image: none; mask-image: none; }
+  .card .frame::after { box-shadow: inset 0 0 0 1px rgba(255,255,255,.38), inset 0 1px 0 rgba(255,255,255,.7), inset calc(-3*var(--u)) 0 calc(22*var(--u)) rgba(255,190,130,.25); }
+  .card .foot { left: calc(20*var(--u)); right: calc(20*var(--u)); bottom: calc(20*var(--u)); background: linear-gradient(135deg, rgba(255,255,255,.78), rgba(255,255,255,.58));
+          backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%); box-shadow: inset 0 0 0 1px rgba(255,255,255,.7), 0 calc(10*var(--u)) calc(30*var(--u)) rgba(40,20,10,.2); }
+  .card .badge { background: rgba(255,255,255,.62); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: inset 0 0 0 1px rgba(255,255,255,.7); }
+  .card .badge, .card .idx { top: calc(30*var(--u)); } .card .badge { left: calc(30*var(--u)); } .card .idx { right: calc(34*var(--u)); }
+  /* caption for the active project sits on its own glass plate */
+  .work-head { padding: calc(28*var(--u)) calc(34*var(--u)) calc(30*var(--u)); margin-left: calc(-34*var(--u)); border-radius: calc(30*var(--u)); isolation: isolate; }
+  .work-head::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; opacity: 0; transition: opacity .6s var(--ease-o);
+          background: var(--gl); backdrop-filter: var(--gl-blur); -webkit-backdrop-filter: var(--gl-blur); box-shadow: var(--gl-edge), 0 calc(20*var(--u)) calc(60*var(--u)) rgba(0,0,0,.25); }
+  .work-head.in::before { opacity: 1; }
+
+  /* about + contact: the door's light carries on behind a large frosted pane */
+  .about, .contact { background: linear-gradient(rgba(10,7,9,.45), rgba(10,7,9,.55)), url({{DOOR_DB}}) 70% 50% / cover no-repeat, var(--night); }
+  .contact { background-position: 0 0, 90% 60%, 0 0; }
+  .about::before, .contact::before { background: radial-gradient(28% 34% at 82% 30%, rgba(255,170,100,.35), transparent 70%), radial-gradient(24% 30% at 14% 78%, rgba(255,120,80,.22), transparent 70%), radial-gradient(30% 30% at 50% 110%, rgba(140,120,255,.14), transparent 70%); }
+  .glass-panel { position: absolute; left: calc(330*var(--u)); right: calc(330*var(--u)); top: calc(200*var(--u)); height: calc(660*var(--u)); border-radius: calc(48*var(--u)); pointer-events: none;
+          background: var(--gl); backdrop-filter: blur(30px) saturate(160%); -webkit-backdrop-filter: blur(30px) saturate(160%);
+          box-shadow: var(--gl-edge), 0 calc(40*var(--u)) calc(120*var(--u)) rgba(0,0,0,.35); }
+  .glass-panel::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(60% 50% at 20% 0%, rgba(255,255,255,.14), transparent 70%); }
+  #contactStage .glass-panel { top: calc(220*var(--u)); height: calc(620*var(--u)); }
+  .ab-giant, .ct-giant { color: rgba(255,255,255,.05); }
+
+  @media (max-width: 900px), (orientation: portrait) and (max-width: 1180px) {
+    .work-head { margin: 0 16px; padding: 26px 16px 20px; border-radius: 26px; }
+    .card .frame { padding: 7px; border-radius: 26px; }
+    .card .frame .bg { inset: 7px; width: calc(100% - 14px); height: calc(100% - 14px); border-radius: 20px; }
+    .card .foot { left: 13px; right: 13px; bottom: 13px; }
+    .card .badge { top: 17px; left: 17px; } .card .idx { top: 20px; right: 20px; }
+    #aboutStage, #contactStage { position: relative; padding: 34px 18px 30px; }
+    .glass-panel, #contactStage .glass-panel { left: 0; right: 0; top: 0; bottom: 0; height: auto; border-radius: 30px; }
+    .about, .contact { background-position: 0 0, 80% 50%, 0 0; }
+    .hero .btn.light { background: linear-gradient(135deg, rgba(30,22,24,.62), rgba(14,10,12,.5)); }   /* frost, but darker: the door's light sits right behind it on phones */
+  }
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass-panel, .work-head::before, .nav { background: rgba(28,22,24,.82); }
+  }
 </style>
 </head>
 <body>
@@ -882,6 +939,7 @@
 
 <section class="about" id="about" aria-label="About Parth Dake">
   <div class="stage" id="aboutStage">
+    <div class="glass-panel" aria-hidden="true"></div>
     <div class="abs ab-giant" id="abGiant" aria-hidden="true"><span class="w">parth</span></div>
 
     <div class="abs ab-kicker ab-k">About me</div>
@@ -912,6 +970,7 @@
 
 <section class="contact" id="contact" aria-label="Contact">
   <div class="stage" id="contactStage">
+    <div class="glass-panel" aria-hidden="true"></div>
     <div class="abs ct-giant" id="ctGiant" aria-hidden="true"><span class="w">hello</span></div>
     <div class="abs ab-kicker ab-k">Contact</div>
 
