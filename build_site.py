@@ -64,6 +64,9 @@ pages = {'case': 'amin/', 'proto': 'amin/prototype.html', 'anchorCase': 'anchor/
 # The Doorway scene (made by make_scene.py from Parth's generated images)
 for f in ['door-d.webp', 'door-m.webp']:
     cp(f'{H}/scene/{f}', f'images/{f}')
+os.makedirs(f'{OUT}/images/portal', exist_ok=True)
+for f in os.listdir(f'{H}/scene/portal'):
+    cp(f'{H}/scene/portal/{f}', f'images/portal/{f}')
 # Self-hosted type: Geist (reading), Geist Mono (labels), Instrument Serif italic (one accent word)
 os.makedirs(f'{OUT}/assets/fonts', exist_ok=True)
 for src, dst in [('geist-latin-wght-normal.woff2', 'geist.woff2')]:

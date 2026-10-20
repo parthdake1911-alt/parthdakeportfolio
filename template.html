@@ -672,6 +672,24 @@
   /* SUNLIGHT IN MOTION — the light from the door is alive, but slow and quiet:
      two fans of rays turning against each other (so they shimmer like real god-rays through haze),
      light flowing along the beam toward the figure, and the opening's glow breathing. */
+  /* BEYOND THE DOOR: a world of interfaces — Parth's real screens floating in the light, over a receding grid.
+     The door is the threshold between a user's problem (this side) and the product (that side). */
+  .door-bg .portal { position: absolute; overflow: hidden; pointer-events: none;
+     left: calc(var(--pl) * 1%); top: calc(var(--pt) * 1%); width: calc(var(--pw) * 1%); height: calc(var(--ph) * 1%); clip-path: var(--pc); }
+  .portal .ptint { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(40,26,40,.30), rgba(90,50,50,.18) 55%, rgba(30,16,24,.5) 100%); }
+  .portal .pgrid { position: absolute; left: -60%; right: -60%; top: 66%; height: 70%; transform-origin: 50% 0; transform: perspective(120px) rotateX(62deg);
+     background-image: linear-gradient(rgba(255,230,200,.55) 1px, transparent 1px), linear-gradient(90deg, rgba(255,230,200,.45) 1px, transparent 1px);
+     background-size: 14px 14px; animation: pgrid 2.4s linear infinite; -webkit-mask-image: linear-gradient(#000 0%, transparent 85%); mask-image: linear-gradient(#000 0%, transparent 85%); }
+  @keyframes pgrid { to { background-position: 0 14px, 0 0; } }   /* the floor moves toward you: the world beyond is in motion */
+  .portal .pp { position: absolute; display: block; border-radius: 6%; overflow: hidden; transform-style: preserve-3d;
+     box-shadow: 0 0 0 1px rgba(255,255,255,.75), 0 0 14px 2px rgba(255,214,170,.65), 0 8px 18px rgba(60,20,10,.35);
+     animation: pfloat var(--d) ease-in-out var(--o) infinite alternate; will-change: transform; }
+  .portal .pp.phone { border-radius: 14%/7%; }
+  .door-bg .portal .pp img { position: static; display: block; width: 100%; height: auto; -webkit-mask-image: none !important; mask-image: none !important; }
+  .portal .pp::after { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,.35), transparent 40%, rgba(255,200,150,.12)); }
+  @keyframes pfloat { from { transform: translate3d(0, 4%, 0) rotate(-1.5deg); } to { transform: translate3d(0, -6%, 0) rotate(1.5deg); } }
+  .portal .pveil { position: absolute; inset: 0; mix-blend-mode: screen; background: radial-gradient(70% 30% at 50% 100%, rgba(255,214,170,.35), transparent 70%), linear-gradient(90deg, rgba(255,236,210,.55), transparent 14%, transparent 86%, rgba(255,236,210,.6)); }
+  @media (prefers-reduced-motion: reduce) { .portal .pgrid, .portal .pp { animation: none; } }
   .door-bg .rays { position: absolute; left: var(--dx, 82%); top: var(--dy, 55%); width: 150%; aspect-ratio: 1; transform: translate(-50%, -50%); pointer-events: none; mix-blend-mode: screen;
      -webkit-mask-image: radial-gradient(closest-side, #000 4%, rgba(0,0,0,.55) 30%, transparent 72%); mask-image: radial-gradient(closest-side, #000 4%, rgba(0,0,0,.55) 30%, transparent 72%); }
   .door-bg .rays i { position: absolute; inset: 0; border-radius: 50%; will-change: transform, opacity; }
@@ -686,7 +704,7 @@
      animation: beamFlow 5.5s linear infinite; mix-blend-mode: screen; }
   @keyframes beamFlow { from { background-position: 100% 0; } to { background-position: -160% 0; } }   /* light pours out of the door, toward the figure */
   .door-bg .flare { position: absolute; left: var(--dx, 82%); top: var(--dy, 55%); width: 9%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none; mix-blend-mode: screen;
-     background: radial-gradient(closest-side, rgba(255,250,240,.9), rgba(255,220,180,.35) 40%, transparent 75%); animation: flare 4.2s ease-in-out infinite; }
+     background: radial-gradient(closest-side, rgba(255,250,240,.5), rgba(255,220,180,.2) 40%, transparent 75%); animation: flare 4.2s ease-in-out infinite; }
   @keyframes flare { 0%, 100% { opacity: .55; transform: translate(-50%, -50%) scale(.9); } 35% { opacity: .95; transform: translate(-50%, -50%) scale(1.12); } 55% { opacity: .7; } }
   @keyframes doorBreath { 0%, 100% { opacity: .5; transform: translate(-50%, -50%) scale(.94); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.07); } }
   @media (prefers-reduced-motion: reduce) { .door-bg .rays i, .door-bg .beam .flow, .door-bg .flare { animation: none; } }
@@ -944,6 +962,7 @@
         <div class="beam" id="doorBeam"><i class="flow"></i></div>
         <div class="glow" id="doorGlow"></div>
         <div class="flare" id="doorFlare"></div>
+        <div class="portal" id="doorPortal" aria-hidden="true"><div class="ptint"></div><div class="pgrid"></div><i class="pp web" style="left:8%;top:10%;width:84%;--d:7.0s;--o:0s"><img src="images/portal/amin.webp" alt="" decoding="async"></i><i class="pp phone" style="left:58%;top:27%;width:34%;--d:8.5s;--o:1.2s"><img src="images/portal/tata.webp" alt="" decoding="async"></i><i class="pp web" style="left:2%;top:33%;width:60%;--d:9.5s;--o:0.6s"><img src="images/portal/casa.webp" alt="" decoding="async"></i><i class="pp phone" style="left:8%;top:50%;width:22%;--d:7.8s;--o:2.1s"><img src="images/portal/ultra.webp" alt="" decoding="async"></i><i class="pp web" style="left:34%;top:52%;width:52%;--d:10.5s;--o:1.6s"><img src="images/portal/anchor.webp" alt="" decoding="async"></i><i class="pp web" style="left:44%;top:67%;width:34%;--d:8.8s;--o:0.3s"><img src="images/portal/ica.webp" alt="" decoding="async"></i><div class="pveil"></div></div>
       </div>
       <canvas class="sparks" id="doorSparks"></canvas>
       <div class="ambient" id="doorSoft"></div>
@@ -1946,8 +1965,8 @@
   const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v)), ease = t => 1 - Math.pow(1 - t, 3);
   // where things are in each picture (fractions of the image)
   const G = {
-    d: { ar: 1672 / 941, door: [.819, .547], dw: .07, dh: .58, px: .62, py: .5, beam: [.53, .69, 26, -16.5] },
-    m: { ar: 941 / 1672, door: [.845, .556], dw: .09, dh: .28, px: .8, py: .5, shift: .16, beam: [.415, .617, 37, -12.5] }
+    d: { ar: 1672 / 941, door: [.819, .547], dw: .07, dh: .58, px: .62, py: .5, beam: [.53, .69, 26, -16.5], portal: [78.59, 25.93, 7.0, 57.7, 'polygon(0 7.7%, 100% 0, 100% 100%, 0 95%)'] },
+    m: { ar: 941 / 1672, door: [.845, .556], dw: .09, dh: .28, px: .8, py: .5, shift: .16, beam: [.415, .617, 37, -12.5], portal: [79.92, 41.03, 8.71, 28.65, 'polygon(0 6%, 100% 0, 100% 100%, 0 95.2%)'] }
   };
   let g = G.d, W = 0, H = 0, box = { x: 0, y: 0, w: 0, h: 0 }, mob = false;
   const layout = () => {
@@ -1959,6 +1978,8 @@
     Object.assign(sc.style, { width: w + 'px', height: h + 'px', left: box.x + 'px', top: box.y + 'px', transformOrigin: (g.door[0] * 100) + '% ' + (g.door[1] * 100) + '%' });
     glow.style.setProperty('--dx', g.door[0] * 100 + '%'); glow.style.setProperty('--dy', g.door[1] * 100 + '%');
     glow.style.width = (mob ? 46 : 30) + '%';
+    const po = document.getElementById('doorPortal'), [pl, pt, pw, ph, pc] = g.portal;
+    Object.entries({ '--pl': pl, '--pt': pt, '--pw': pw, '--ph': ph, '--pc': pc }).forEach(([k, v]) => po.style.setProperty(k, v));
     document.getElementById('doorRays').style.width = (mob ? 230 : 150) + '%';
     document.getElementById('doorFlare').style.width = (mob ? 16 : 9) + '%';
     beam.style.setProperty('--bx', g.beam[0] * 100 + '%'); beam.style.setProperty('--by', g.beam[1] * 100 + '%');
@@ -2011,11 +2032,11 @@
     let zoom, back;
     if (mob) {
       const h = innerHeight; if (scrollY > h * 1.15) { bg.style.visibility = 'hidden'; return; } bg.style.visibility = '';
-      zoom = 1 + ease(clamp(scrollY / h)) * .28; back = 0;
+      zoom = 1 + ease(clamp(scrollY / h)) * .5; back = 0;
     } else {
       const s = document.getElementById('scroller'), max = s.offsetHeight - innerHeight, p = clamp(scrollY / (max || 1));
       if (scrollY > s.offsetHeight) { bg.style.visibility = 'hidden'; return; } bg.style.visibility = '';
-      zoom = 1 + ease(clamp(p / .1)) * .5;          // walking toward the door as the hero leaves
+      zoom = 1 + ease(clamp(p / .1)) * .8;          // walking toward the door as the hero leaves — the world beyond comes closer
       back = clamp((p - .05) / .06);                  // then the scene softens behind the project cards
     }
     if (reduce) zoom = 1 + (zoom - 1) * .3;

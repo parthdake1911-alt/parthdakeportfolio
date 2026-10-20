@@ -24,3 +24,17 @@ for k, src in SRC.items():
     s = im.resize((sw, round(im.height * sw / im.width)), Image.LANCZOS).filter(ImageFilter.GaussianBlur(sw / 60))
     s.save(f'{OUT}/door-{k}-soft.webp', 'WEBP', quality=70, method=6)
     print(k, im.size, os.path.getsize(f'{OUT}/door-{k}.webp') // 1024, 'KB', 'upscaled' if os.path.exists(up) else 'lanczos')
+
+# ---- The world beyond the door: small crops of Parth's real screens, shown floating inside the doorway
+from PIL import Image as _I
+P = f'{OUT}/portal'; os.makedirs(P, exist_ok=True)
+for k, src, kind in [('tata', 'tata/out/t_home.webp', 'phone'), ('ultra', 'ultra/out/u_hero.webp', 'phone'),
+                     ('casa', 'casa/out/c_hero.webp', 'web'), ('ica', 'ica/out/i_trend.webp', 'web'),
+                     ('anchor', 'anchor/out/a_dash.webp', 'web'), ('amin', 'amin/out/a_globe.webp', 'web')]:
+    im = _I.open(f'{H}/{src}').convert('RGB')
+    if kind == 'web':
+        w, h = im.width, round(im.width * 10 / 16); im = im.crop((0, 0, w, min(h, im.height))).resize((360, 225), _I.LANCZOS)
+    else:
+        w, h = im.width, round(im.width * 19 / 9); im = im.crop((0, 0, w, min(h, im.height))).resize((180, 380), _I.LANCZOS)
+    im.save(f'{P}/{k}.webp', 'WEBP', quality=84, method=6)
+print('portal screens:', sorted(os.listdir(P)))
