@@ -669,6 +669,27 @@
   .door-bg .ambient { position: absolute; inset: 0; background: var(--ambient); opacity: 0; will-change: opacity; pointer-events: none; }
   .door-bg .shade { position: absolute; inset: 0; background: #0a0709; opacity: 0; pointer-events: none; will-change: opacity; }
   @media (prefers-reduced-motion: reduce) { .door-bg .glow, .door-bg .beam { animation: none; } }
+  /* SUNLIGHT IN MOTION — the light from the door is alive, but slow and quiet:
+     two fans of rays turning against each other (so they shimmer like real god-rays through haze),
+     light flowing along the beam toward the figure, and the opening's glow breathing. */
+  .door-bg .rays { position: absolute; left: var(--dx, 82%); top: var(--dy, 55%); width: 150%; aspect-ratio: 1; transform: translate(-50%, -50%); pointer-events: none; mix-blend-mode: screen;
+     -webkit-mask-image: radial-gradient(closest-side, #000 4%, rgba(0,0,0,.55) 30%, transparent 72%); mask-image: radial-gradient(closest-side, #000 4%, rgba(0,0,0,.55) 30%, transparent 72%); }
+  .door-bg .rays i { position: absolute; inset: 0; border-radius: 50%; will-change: transform, opacity; }
+  .door-bg .rays i:nth-child(1) { background: repeating-conic-gradient(from 0deg, rgba(255,214,168,0) 0deg, rgba(255,214,168,.16) 3deg, rgba(255,214,168,0) 7deg, rgba(255,214,168,0) 13deg);
+     animation: raysA 22s ease-in-out infinite alternate; }
+  .door-bg .rays i:nth-child(2) { background: repeating-conic-gradient(from 5deg, rgba(255,190,130,0) 0deg, rgba(255,196,140,.12) 2deg, rgba(255,190,130,0) 5deg, rgba(255,190,130,0) 17deg);
+     animation: raysB 31s ease-in-out infinite alternate; }
+  @keyframes raysA { 0% { transform: rotate(-4deg); opacity: .55; } 50% { opacity: 1; } 100% { transform: rotate(5deg); opacity: .7; } }
+  @keyframes raysB { 0% { transform: rotate(6deg); opacity: .8; } 50% { opacity: .45; } 100% { transform: rotate(-5deg); opacity: .9; } }
+  .door-bg .beam { overflow: hidden; }
+  .door-bg .beam .flow { position: absolute; inset: 0; background: linear-gradient(90deg, transparent 0%, rgba(255,236,205,.55) 12%, transparent 26%); background-size: 260% 100%;
+     animation: beamFlow 5.5s linear infinite; mix-blend-mode: screen; }
+  @keyframes beamFlow { from { background-position: 100% 0; } to { background-position: -160% 0; } }   /* light pours out of the door, toward the figure */
+  .door-bg .flare { position: absolute; left: var(--dx, 82%); top: var(--dy, 55%); width: 9%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none; mix-blend-mode: screen;
+     background: radial-gradient(closest-side, rgba(255,250,240,.9), rgba(255,220,180,.35) 40%, transparent 75%); animation: flare 4.2s ease-in-out infinite; }
+  @keyframes flare { 0%, 100% { opacity: .55; transform: translate(-50%, -50%) scale(.9); } 35% { opacity: .95; transform: translate(-50%, -50%) scale(1.12); } 55% { opacity: .7; } }
+  @keyframes doorBreath { 0%, 100% { opacity: .5; transform: translate(-50%, -50%) scale(.94); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.07); } }
+  @media (prefers-reduced-motion: reduce) { .door-bg .rays i, .door-bg .beam .flow, .door-bg .flare { animation: none; } }
   #stage { position: relative; z-index: 1; }
 
   /* navigation: dark glass, light pill */
@@ -919,8 +940,10 @@
     <div class="door-bg" id="doorBg" aria-hidden="true">
       <div class="sc" id="doorSc">
         <picture><source media="(max-width: 900px), (orientation: portrait) and (max-width: 1180px)" srcset="{{DOOR_M}}"><img src="{{DOOR_D}}" alt="" fetchpriority="high" decoding="async"></picture>
-        <div class="beam" id="doorBeam"></div>
+        <div class="rays" id="doorRays"><i></i><i></i></div>
+        <div class="beam" id="doorBeam"><i class="flow"></i></div>
         <div class="glow" id="doorGlow"></div>
+        <div class="flare" id="doorFlare"></div>
       </div>
       <canvas class="sparks" id="doorSparks"></canvas>
       <div class="ambient" id="doorSoft"></div>
@@ -1936,6 +1959,8 @@
     Object.assign(sc.style, { width: w + 'px', height: h + 'px', left: box.x + 'px', top: box.y + 'px', transformOrigin: (g.door[0] * 100) + '% ' + (g.door[1] * 100) + '%' });
     glow.style.setProperty('--dx', g.door[0] * 100 + '%'); glow.style.setProperty('--dy', g.door[1] * 100 + '%');
     glow.style.width = (mob ? 46 : 30) + '%';
+    document.getElementById('doorRays').style.width = (mob ? 230 : 150) + '%';
+    document.getElementById('doorFlare').style.width = (mob ? 16 : 9) + '%';
     beam.style.setProperty('--bx', g.beam[0] * 100 + '%'); beam.style.setProperty('--by', g.beam[1] * 100 + '%');
     beam.style.width = g.beam[2] + '%'; beam.style.setProperty('--ba', g.beam[3] + 'deg');
     const k = Math.min(devicePixelRatio || 1, 1.5); cv.width = Math.round(W * k); cv.height = Math.round(H * k); ctx.setTransform(k, 0, 0, k, 0, 0);
