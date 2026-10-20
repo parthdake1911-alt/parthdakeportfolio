@@ -64,6 +64,11 @@ pages = {'case': 'amin/', 'proto': 'amin/prototype.html', 'anchorCase': 'anchor/
 # The Doorway scene (made by make_scene.py from Parth's generated images)
 for f in ['door-d.webp', 'door-m.webp']:
     cp(f'{H}/scene/{f}', f'images/{f}')
+# Self-hosted type: Geist (reading), Geist Mono (labels), Instrument Serif italic (one accent word)
+os.makedirs(f'{OUT}/assets/fonts', exist_ok=True)
+for src, dst in [('geist-latin-wght-normal.woff2', 'geist.woff2'), ('geist-mono-latin-wght-normal.woff2', 'geist-mono.woff2'),
+                 ('instrument-serif-latin-400-italic.woff2', 'instrument-serif-italic.woff2')]:
+    cp(f'{H}/fonts/{src}', f'assets/fonts/{dst}')
 rep = {
     '{{DOOR_D}}': 'images/door-d.webp', '{{DOOR_M}}': 'images/door-m.webp', '{{DOOR_DB}}': 'images/door-d-soft.webp', '{{DOOR_MB}}': 'images/door-m-soft.webp',
     '{{IMAGES}}': json.dumps(covers),
@@ -85,6 +90,17 @@ open(f'{OUT}/index.html', 'w').write(t)
 
 # ---------- case-study helpers ----------
 PAGE_CSS = """
+  /* same three voices as the homepage */
+  @font-face { font-family: "Geist"; src: url(../assets/fonts/geist.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+  @font-face { font-family: "Geist Mono"; src: url(../assets/fonts/geist-mono.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+  @font-face { font-family: "Instrument Serif"; src: url(../assets/fonts/instrument-serif-italic.woff2) format("woff2"); font-style: italic; font-weight: 400; font-display: swap; }
+  body, button { font-family: "Geist", "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  .kicker, .meta b, figcaption, .eyebrow { font-family: "Geist Mono", ui-monospace, monospace; }
+  .kicker { font-size: 12px !important; letter-spacing: .2em !important; font-weight: 500 !important; }
+  .meta b { font-size: 11px !important; letter-spacing: .16em !important; font-weight: 500 !important; }
+  .hero h1 { font-weight: 400 !important; letter-spacing: -0.05em !important; }
+  body .hero h1 .soft { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: -0.01em; color: #FFB27A !important; }
+  h2 { letter-spacing: -0.035em; }
   :where(img[width][height]) { height: auto; }
   .client-logo { display: flex; align-items: center; margin-bottom: clamp(18px, 2.4vw, 28px); }
   .client-logo img { height: var(--lh, 44px); width: auto; max-width: min(100%, 420px); object-fit: contain; display: block; }
@@ -107,7 +123,7 @@ PAGE_CSS = """
   .hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,178,122,.75) 50%, transparent); box-shadow: 0 0 24px 2px rgba(255,178,122,.35); pointer-events: none; }
   .hero .wrap { position: relative; z-index: 1; }
   .hero h1, .hero .hero-headline, .hero h2, .hero h3 { color: #F2F3F7; }
-  .hero h1 .soft { color: rgba(242,243,247,.42) !important; }
+  .hero h1 .soft { color: #FFB27A !important; }
   .hero .kicker { color: #FFB27A !important; }
   .hero p, .hero .lead, .hero p.lead, .hero figcaption, .hero .hint-s { color: rgba(242,243,247,.7) !important; }
   .hero .meta div { background: rgba(255,255,255,.06) !important; box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); }

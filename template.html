@@ -3,10 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Parth Dake – Portfolio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+<title>Parth Dake — UI/UX Designer</title>
+<meta name="description" content="Parth Dake is a UI/UX designer at BC Webwise, India. Case studies from client, pitch and college projects: from user problems to intuitive interfaces.">
+<meta property="og:title" content="Parth Dake — UI/UX Designer">
+<meta property="og:description" content="From user problems to intuitive interfaces. Case studies by Parth Dake.">
+<link rel="preload" href="assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
 <style>
   :root { --u: min(100vw / 1920, 100vh / 1080); --ph: #D9D9D9; --ink: #0A0A0A; --accent: #FF5A1F;
           --spring: cubic-bezier(.34,1.56,.64,1); --out: cubic-bezier(.16,1,.3,1); }
@@ -809,6 +811,52 @@
   @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
     .glass-panel, .work-head::before, .nav { background: rgba(28,22,24,.82); }
   }
+
+  /* =====================================================================================
+     TYPE — three voices, each with one job.
+     Geist (sans)          : everything you read — calm, modern, built for screens.
+     Instrument Serif ital : one word per statement, in the door's warm light — the human, crafted part.
+     Geist Mono            : labels, indexes and metadata — the quiet "interface" layer, like a HUD.
+     ===================================================================================== */
+  @font-face { font-family: "Geist"; src: url(assets/fonts/geist.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+  @font-face { font-family: "Geist Mono"; src: url(assets/fonts/geist-mono.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+  @font-face { font-family: "Instrument Serif"; src: url(assets/fonts/instrument-serif-italic.woff2) format("woff2"); font-style: italic; font-weight: 400; font-display: swap; }
+  :root { --sans: "Geist", "Inter", system-ui, sans-serif; --serif: "Instrument Serif", "Times New Roman", serif; --mono: "Geist Mono", ui-monospace, monospace; }
+  body, button, input { font-family: var(--sans); font-feature-settings: "ss01", "cv11"; -webkit-font-smoothing: antialiased; }
+  .mono, .card .badge, .card .idx, .deck-info .n, .deck-info .of, .hint, .ab-kicker, .ct-foot { font-family: var(--mono); }
+  .acc, .hero .hl .love { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; color: var(--warm); }
+  .hero .hl .love { font-size: 1.1em; line-height: .9; }
+
+  /* display: light and tight, like the hero */
+  .hero .hl { font-weight: 300; letter-spacing: -0.05em; }
+  .work-head h2 { font-weight: 300; letter-spacing: -0.045em; font-size: calc(64*var(--u)); }
+  .work-head h2 .acc { font-size: 1.12em; }
+  .about .big, .contact .big { font-weight: 300; letter-spacing: -0.035em; }
+  .about .big .acc, .contact .big .acc { font-size: 1.14em; }
+  /* labels: small mono caps, generous tracking */
+  .work-head .kick { opacity: 0; transition: opacity .6s var(--ease-o); } .work-head.in .kick { opacity: 1; }
+  .kick { font-family: var(--mono); font-size: calc(15*var(--u)); font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--warm); margin-bottom: calc(14*var(--u)); }
+  .ab-kicker { font-size: calc(16*var(--u)); font-weight: 500; letter-spacing: .2em; text-transform: uppercase; }
+  .card .badge { font-size: calc(11.5*var(--u)); font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
+  .card .idx { font-size: calc(13*var(--u)); font-weight: 500; }
+  .card .meta b { font-weight: 500; letter-spacing: -0.02em; }
+  .card .meta i { font-size: calc(13.5*var(--u)); letter-spacing: 0; }
+  .deck-info { font-size: calc(17*var(--u)); } .deck-info b { font-weight: 500; } .deck-info i { font-style: normal; font-family: var(--mono); font-size: .8em; letter-spacing: .08em; text-transform: uppercase; }
+  .deck-info .n, .deck-info .of { font-size: .85em; letter-spacing: .06em; }
+  .hero .chip1 .face { font-weight: 400; } .hero .chip1 b { font-weight: 500; }
+  .hero .sub { font-weight: 300; letter-spacing: -0.02em; }
+  .chip .face, .btn, .nav a.lnk { font-weight: 500; letter-spacing: -0.005em; }
+  .hint { letter-spacing: .24em; font-size: calc(11*var(--u)); }
+  .ct-foot { font-size: calc(12.5*var(--u)); letter-spacing: .06em; text-transform: uppercase; }
+  .names { font-weight: 300; } .names .grp { font-family: var(--mono); font-weight: 500; font-size: .74em; letter-spacing: .16em; text-transform: uppercase; color: var(--warm); }
+  @media (max-width: 900px), (orientation: portrait) and (max-width: 1180px) {
+    .kick { font-size: 11.5px; margin-bottom: 10px; }
+    .work-head h2 { font-size: clamp(36px, 10vw, 56px); }
+    .ab-kicker { font-size: 11.5px !important; }
+    .card .badge { font-size: 10px; } .card .meta i { font-size: 12px; }
+    .names .grp { font-size: 11.5px; }
+    .ct-foot { font-size: 11.5px; }
+  }
 </style>
 </head>
 <body>
@@ -943,10 +991,11 @@
       </div>
 
       <div class="abs work-head" id="workHead" aria-hidden="true">
-        <h2 data-split id="headTitle">Selected Work</h2>
+        <p class="kick mono" aria-hidden="true">01 — Work</p>
+        <h2 data-split data-acc="work" id="headTitle">Selected work</h2>
         <p class="deck-info" id="deckInfo" aria-live="polite"><span class="n" id="deckN">01</span><span class="of">/ 08</span><b id="deckName">Tata Power</b><i id="deckType">Client project</i></p>
         <p class="names" id="names"></p>
-        <p><span class="tapcue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-1.5a1.5 1.5 0 0 1 3 0V11m0-1a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1-6 6h-.6a6 6 0 0 1-4.9-2.6L4.3 14a1.6 1.6 0 0 1 2.5-2L9 14"/></svg><span class="t-mouse">Click any card to view the case study</span><span class="t-touch">Tap any card to view the case study</span></span></p>
+        <p><span class="tapcue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-1.5a1.5 1.5 0 0 1 3 0V11m0-1a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1-6 6h-.6a6 6 0 0 1-4.9-2.6L4.3 14a1.6 1.6 0 0 1 2.5-2L9 14"/></svg><span class="t-mouse">Click a card to open the case study</span><span class="t-touch">Tap a card to open the case study</span></span></p>
       </div>
 
       <div id="cards"><div id="deckPin"></div></div>
@@ -960,7 +1009,7 @@
     <div class="glass-panel" aria-hidden="true"></div>
     <div class="abs ab-giant" id="abGiant" aria-hidden="true"><span class="w">parth</span></div>
 
-    <div class="abs ab-kicker ab-k">About me</div>
+    <div class="abs ab-kicker ab-k mono">02 — About</div>
 
     <div class="hrow ab-r1">
       <span class="abs big ab-l1" data-split data-fx="drop" data-at2="150">I hold a</span>
@@ -981,7 +1030,7 @@
       <div class="abs ab-logo pop" data-at2="2300" role="img" aria-label="BC Webwise"><div class="face"><picture><source srcset="{{BCW_AVIF}}" type="image/avif"><img src="{{BCW}}" alt="" width="560" height="216" loading="lazy" decoding="async"></picture></div></div>
     </div>
     <div class="hrow ab-r4">
-      <span class="abs big ab-l4" data-split data-fx="blur" data-at2="2650">Designing interfaces people love to use.</span>
+      <span class="abs big ab-l4" data-split data-fx="blur" data-at2="2650" data-acc="obvious">I start with the problem, and design until it feels obvious.</span>
     </div>
   </div>
 </section>
@@ -990,12 +1039,12 @@
   <div class="stage" id="contactStage">
     <div class="glass-panel" aria-hidden="true"></div>
     <div class="abs ct-giant" id="ctGiant" aria-hidden="true"><span class="w">hello</span></div>
-    <div class="abs ab-kicker ab-k">Contact</div>
+    <div class="abs ab-kicker ab-k mono">03 — Contact</div>
 
-    <div class="hrow ct-r1"><span class="abs big ct-l1" data-split data-fx="drop" data-at3="150">Have a project in mind?</span></div>
+    <div class="hrow ct-r1"><span class="abs big ct-l1" data-split data-fx="drop" data-at3="150">Have a problem worth solving?</span></div>
     <div class="hrow ct-r2"><span class="abs big ct-l2" data-split data-fx="flip" data-at3="550">Let’s talk</span>
       <div class="abs ct-wave pop" data-at3="800" aria-hidden="true"><div class="face"><span>👋</span></div></div>
-      <span class="abs big ct-l2b" data-split data-fx="blur" data-at3="1000">and make it real.</span></div>
+      <span class="abs big ct-l2b" data-split data-fx="blur" data-at3="1000" data-acc="intuitive">and make it intuitive.</span></div>
     <div class="hrow ct-r3">
     <div class="abs ct-mail pop" data-at3="1350">
       <a href="mailto:parthdake1911@gmail.com" aria-label="Email parthdake1911@gmail.com">
@@ -1071,6 +1120,7 @@
       const w = document.createElement('span'); w.className = 'w'; w.setAttribute('aria-hidden', 'true');
       if (word === 'India') w.classList.add('india');
       if (el.dataset.mark === word) w.classList.add('love');
+      if (el.dataset.acc && word.replace(/[.,?!]/g, '') === el.dataset.acc) w.classList.add('acc');   // the one serif word in this line
       [...word].forEach((c, j) => {
         const cw = document.createElement('span'); cw.className = 'cw';
         const s = document.createElement('span'); s.className = 'ch'; s.textContent = c;
@@ -1308,7 +1358,7 @@
     { id: 'casagrand',   sub: 'Homepage redesign · Website', href: 'casagrand-case-study.html', page: 'casaCase', name: 'Casagrand',                    type: 'Pitch project',   x: 1270, y: 1180, r: -9 },
     { id: 'ica',         sub: 'Premium website · Website', href: 'ica-case-study.html', page: 'icaCase', name: 'ICA – Italian Wood Finishes',  type: 'Client project',     x: 701,  y: 1099, r: 15.7 },
     { id: 'anchor',      sub: 'Trading journal · Desktop app', href: 'anchor-case-study.html', page: 'anchorCase', name: 'Anchor',                       type: 'College project', x: 985,  y: 1105, r: -12.5 },
-    { id: 'amin',        sub: 'Member portal · Web app', href: 'amin-case-study.html', page: 'case', name: 'Amin Worldwide',               type: 'Pitch project',   x: 1399, y: 1126, r: -14 },
+    { id: 'amin',        sub: 'Member portal · Web app', href: 'amin-case-study.html', page: 'case', name: 'AMIN Worldwide',               type: 'Pitch project',   x: 1399, y: 1126, r: -14 },
     { id: 'ultratech',   sub: 'Home-building journey · Mobile', href: 'ultratech-case-study.html', page: 'ultraCase', name: 'UltraTech Cement',             type: 'Pitch project',   x: 1562, y: 1205, r: 14 },
     { id: 'sp',          sub: 'Real-estate website · In progress', wip: true, name: 'Shapoorji Pallonji Real Estate', type: 'Work in progress',   x: 845,  y: 1150, r: 5 },
   ];
@@ -1321,7 +1371,7 @@
   // Project names under the heading (highlight when that card is hovered)
   const names = document.getElementById('names');
   const GROUPS = [['Client work', ['tata', 'ica', 'sp']], ['Pitch', ['casagrand', 'ultratech', 'amin']], ['College', ['anchor']]];
-  const short = { ica: 'ICA', tata: 'Tata Power', sp: 'Shapoorji Pallonji (in progress)', ultratech: 'UltraTech', casagrand: 'Casagrand', amin: 'Amin Worldwide', anchor: 'Anchor' };
+  const short = { ica: 'ICA', tata: 'Tata Power', sp: 'Shapoorji Pallonji (in progress)', ultratech: 'UltraTech', casagrand: 'Casagrand', amin: 'AMIN Worldwide', anchor: 'Anchor' };
   let k = 0;
   names.innerHTML = GROUPS.map(([g, ids]) => `<span class="grp" style="--i:${k++}">${g}</span>` +
       ids.map(id => `<span data-id="${id}" style="--i:${k++}">${short[id]}</span>`).join('<span class="dot">·</span>')).join('<span class="sep">/</span>');
@@ -1547,7 +1597,7 @@
     const q = reduce ? (p > P0 ? 1 : 0) : ease(clamp((p - P0) / (P1 - P0 + .03)));
     headLetters.forEach((l, k) => {
       const qq = clamp(q * 1.25 - (k / headLetters.length) * .25);   // slight stagger
-      const f = reduce ? 0 : proximity(l, u, 700, qq > .98);
+      const f = reduce ? 0 : proximity(l, u, l.base || 300, qq > .98, (l.base || 300) + 160);
       const o = 1 - qq;
       l.cw.style.transform = `translate(${l.ax * o * u}px, ${(l.ay * o - 10 * f) * u}px) rotate(${l.ar * o}deg) scale(${lerp(.3, 1, qq) + .08 * f})`;
       l.cw.style.opacity = qq;
@@ -1696,7 +1746,7 @@
         const r = l.cw.getBoundingClientRect();
         const d = Math.hypot(mouse.x - (r.left + r.width / 2), mouse.y - (r.top + r.height / 2));
         l.f = lerp(l.f, reduce ? 0 : Math.pow(clamp(1 - d / (150 * u)), 1.6), .18);
-        const w = Math.round(700 + 200 * l.f);
+        const w = Math.round(300 + 160 * l.f);   // light type, letters near the cursor gain a little weight
         if (w !== l.w) { l.cw.style.fontWeight = w; l.w = w; }
         l.cw.style.transform = `translateY(${-7 * l.f * u}px) scale(${1 + .1 * l.f})`;
       });
@@ -1781,7 +1831,7 @@
         const r = l.cw.getBoundingClientRect();
         const d = Math.hypot(mouse.x - (r.left + r.width / 2), mouse.y - (r.top + r.height / 2));
         l.f = lerp(l.f, reduce ? 0 : Math.pow(clamp(1 - d / (150 * u)), 1.6), .18);
-        const w = Math.round(700 + 200 * l.f);
+        const w = Math.round(300 + 160 * l.f);   // light type, letters near the cursor gain a little weight
         if (w !== l.w) { l.cw.style.fontWeight = w; l.w = w; }
         l.cw.style.transform = `translateY(${-7 * l.f * u}px) scale(${1 + .1 * l.f})`;
       });
