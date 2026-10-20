@@ -872,8 +872,13 @@
     .contact { min-height: 100svh; }   /* last section fills the screen, so "Contact" in the nav lands on it */
   }
 
+  /* cards everywhere: the poster art carries the logo, so no badge or number on top; a thin light edge instead of a bezel */
+  .card .badge, .card .idx { display: none !important; }
+  .card .frame { padding: 0 !important; background: none !important; }
+  .card .frame .bg { inset: 0 !important; width: 100% !important; height: 100% !important; border-radius: inherit !important; }
+  .card .frame::after { box-shadow: inset 0 0 0 1px rgba(255,255,255,.14), inset 0 1px 0 rgba(255,255,255,.28) !important; }
   /* phone deck: minimal — a title, a count, one hairline; the card is just the picture; the name sits under it */
-  .mhud, .mcap { display: none; }
+  .mhud, .mcap, .snap { display: none; }
   @media (max-width: 900px), (orientation: portrait) and (max-width: 1180px) {
     .work-head { height: 0 !important; padding: 0 !important; margin: 0 !important; overflow: hidden; visibility: hidden; }   /* kept only as the "Work" scroll anchor */
     .mhud { display: block; position: absolute; z-index: 200; left: 20px; right: 20px; top: calc(80px + 1svh); pointer-events: none; }
@@ -891,6 +896,9 @@
     .card .frame .bg { inset: 0 !important; width: 100% !important; height: 100% !important; border-radius: 22px !important; }
     .card .frame::after { box-shadow: inset 0 0 0 1px rgba(255,255,255,.1) !important; }
     .card .badge, .card .idx, .card .foot { display: none !important; }
+    html { scroll-snap-type: y mandatory; }
+    .scroller, .about, .contact { scroll-snap-align: start; }
+    .snap { display: block; position: absolute; left: 0; width: 1px; height: 1px; pointer-events: none; scroll-snap-align: start; scroll-snap-stop: always; }
   }
 </style>
 </head>
@@ -1133,7 +1141,7 @@
   // Phones and portrait tablets get a stacked layout (see the CSS block with the same query)
   window.__MOB = matchMedia('(max-width: 900px), (orientation: portrait) and (max-width: 1180px)');
   window.__workTop = () => window.__MOB.matches
-    ? Math.max(0, document.getElementById('workHead').getBoundingClientRect().top + scrollY - 76)
+    ? window.__deckTop(0)   // phones: land on the first project in focus (also its scroll-snap stop)
     : (document.getElementById('scroller').offsetHeight - innerHeight) * .17;
 </script>
 <script>
@@ -1420,11 +1428,16 @@
   const mcap = document.createElement('div'); mcap.className = 'mcap'; mcap.setAttribute('aria-hidden', 'true');
   mcap.innerHTML = '<b class="mh-name"></b><span class="mh-type"></span><em class="mh-go"></em>';
   deckPin.appendChild(mcap);
+  // one stop per card: on phones a flick moves exactly one project (scroll-snap with snap-stop)
+  const snaps = CARDS.map(() => { const m = document.createElement('i'); m.className = 'snap'; m.setAttribute('aria-hidden', 'true'); wrap.appendChild(m); return m; });
+  const placeSnaps = () => { const run = wrap.offsetHeight - deckPin.offsetHeight;
+    snaps.forEach((m, i) => { m.style.top = (run * (.04 + (i / (CARDS.length - 1)) * .92)).toFixed(1) + 'px'; }); };
+  placeSnaps(); addEventListener('resize', placeSnaps); addEventListener('load', placeSnaps);
   const mhN = mhud.querySelector('.mh-n'), mhName = mcap.querySelector('.mh-name'), mhType = mcap.querySelector('.mh-type'), mhLine = mhud.querySelector('.mh-line i');
   // scroll position at which card i is the one in focus (desktop deck)
   window.__deckTop = i => {
     const f = i / (CARDS.length - 1);
-    if (window.__MOB.matches) { const c = document.getElementById('cards'); return c.getBoundingClientRect().top + scrollY + (c.offsetHeight - innerHeight) * (.04 + f * .92); }
+    if (window.__MOB.matches) { const c = document.getElementById('cards'); return c.getBoundingClientRect().top + scrollY + (c.offsetHeight - document.getElementById('deckPin').offsetHeight) * (.04 + f * .92); }
     return (document.getElementById('scroller').offsetHeight - innerHeight) * (.16 + f * (.95 - .16));
   };
   const deckN = document.getElementById('deckN'), deckName = document.getElementById('deckName'), deckType = document.getElementById('deckType');
@@ -1514,14 +1527,17 @@
       // 3. cards rise, straighten and fade in as each one enters the screen
       // 3. the deck: vertical scroll moves the cards along the diagonal, like the desktop
       const cr = document.getElementById('cards').getBoundingClientRect();
-      const run = cr.height - innerHeight;
+      const pinH = deckPin.offsetHeight;   // the pinned screen (100svh): stable while Safari's toolbar comes and goes
+      const run = cr.height - pinH;
       const prog = clamp(-cr.top / (run || 1));
       const enterM = reduce ? 1 : ease(clamp((innerHeight - cr.top) / (innerHeight * .7)));
       const NM = CARDS.length, posM = clamp((prog - .04) / .92) * (NM - 1);
       const spreadM = ease(clamp(posM * 1.6));
       // Phones: one card in focus, the next ones stacked just behind it (like a wallet),
       // the one you've seen lifts away. A small heads-up bar above says where you are.
-      const vw = innerWidth, vh = innerHeight, cw = Math.min(vw - 40, 380, (vh - 300) * .75), chh = cw * 4 / 3;
+      const vw = innerWidth, vh = pinH;
+      const hudB0 = mhud.getBoundingClientRect().bottom - deckPin.getBoundingClientRect().top;
+      const cw = Math.min(vw - 48, 360, (vh - hudB0 - 200) * .75), chh = cw * 4 / 3;   // always leaves room for the name beneath
       const hudB = mhud.getBoundingClientRect().bottom - deckPin.getBoundingClientRect().top;
       const cX = vw * .5, cY = hudB + 28 + chh / 2;
       CARDS.forEach((c, i) => {

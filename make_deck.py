@@ -1,5 +1,5 @@
 """Portrait (3:4) project cards for the scroll deck: cards/deck/<id>.webp, 720 x 960 (rendered at 2x for sharpness, saved at 720).
-A dark night card with the client's logo large at the top and a real screen from the project rising from the bottom.
+A poster card with the client's logo large at the top and a real screen from the project rising from the bottom.
 Text (type, name, button) is laid over in HTML, so the image itself carries no text of ours."""
 import asyncio
 from pathlib import Path
@@ -18,36 +18,54 @@ D = {
     'ultratech':   ('#FFD400', 'logos/ultratech.png',    92, 'ultra/out/u_hero.webp', 'phone',   'top'),
     'sp':          ('#2E7DD6', 'logos/sp.png',          120, None,                    'none',    None),
 }
-# Night cards: each project is a lit doorway. Dark glass, the client's colour glowing from within,
-# the logo on a frosted plate (so every brand colour reads true on dark), and the real screen rising into the light.
+# Poster cards: the work fills the card edge to edge, like a film poster or an App Store story.
+# A dark fade top and bottom gives the logo (small, on a frosted chip) and the edge light room to breathe.
+# Phone projects sit on an atmosphere made from their own screen, blurred, so every card carries its brand's colour.
 CSS = f"""*{{box-sizing:border-box;margin:0;padding:0}}
-html,body{{width:{W}px;height:{HT}px;overflow:hidden}}
-body{{position:relative;background:linear-gradient(172deg,#17110f 0%,#0d0a0b 55%,#0a0809 100%)}}
-.glow{{position:absolute;inset:0;background:radial-gradient(60% 38% at 50% 26%,color-mix(in srgb,var(--c) 42%,transparent),transparent 72%),
-  radial-gradient(70% 30% at 50% 104%,rgba(255,170,100,.30),transparent 70%)}}
-.grid{{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.16) 1px,transparent 1.4px);background-size:22px 22px;
-  -webkit-mask-image:radial-gradient(65% 45% at 50% 30%,#000,transparent 75%);opacity:.55}}
-.plate{{position:absolute;left:50%;top:var(--lt);transform:translate(-50%,-50%);padding:26px 40px;border-radius:30px;
-  background:linear-gradient(160deg,rgba(255,255,255,.97),rgba(255,255,255,.86));box-shadow:0 0 0 1px rgba(255,255,255,.6) inset,0 20px 50px rgba(0,0,0,.45),0 0 70px color-mix(in srgb,var(--c) 35%,transparent)}}
-.plate img{{display:block;height:var(--lh);max-width:430px;object-fit:contain}}
-.browser{{position:absolute;left:56px;right:56px;top:392px;height:700px;border-radius:22px 22px 0 0;overflow:hidden;background:#111;
-  box-shadow:0 0 0 1px rgba(255,255,255,.14),0 -10px 90px color-mix(in srgb,var(--c) 30%,transparent),0 40px 80px -20px rgba(0,0,0,.6)}}
-.browser .bar{{height:34px;background:#1b1517;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:8px;padding-left:18px}}
-.browser .bar i{{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.18)}}
-.browser img{{display:block;width:100%;height:calc(100% - 34px);object-fit:cover;object-position:var(--pos)}}
-.phone{{position:absolute;left:50%;transform:translateX(-50%);top:350px;width:330px;height:720px;border-radius:52px;background:#050505;padding:11px;
-  box-shadow:0 0 0 1px rgba(255,255,255,.18),0 0 0 3px #1c1c1c,0 -10px 90px color-mix(in srgb,var(--c) 32%,transparent),0 50px 90px -24px rgba(0,0,0,.7)}}
-.phone img{{display:block;width:100%;height:100%;object-fit:cover;object-position:top;border-radius:42px}}
+html,body{{width:{W}px;height:{HT}px;overflow:hidden;background:#0b0809}}
+.full{{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos)}}
+.atmo{{position:absolute;inset:-60px;width:calc(100% + 120px);height:calc(100% + 120px);object-fit:cover;filter:blur(46px) saturate(1.4) brightness(.55)}}
+.brand{{position:absolute;inset:0}}
+.win{{position:absolute;left:70px;top:250px;width:1040px;height:700px;border-radius:18px;overflow:hidden;background:#111;
+  transform:perspective(1700px) rotateY(-24deg) rotateX(9deg) rotateZ(1.5deg);transform-origin:left center;
+  box-shadow:0 0 0 1px rgba(255,255,255,.22),0 80px 140px -30px rgba(0,0,0,.85)}}
+.win .bar{{height:36px;background:#1b1618;display:flex;align-items:center;gap:9px;padding-left:20px}}
+.win .bar i{{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.2)}}
+.win img{{display:block;width:100%;height:calc(100% - 36px);object-fit:cover;object-position:var(--pos)}}
+.win::after{{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.18),transparent 35%)}}
+.shade{{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,6,7,.78) 0%,rgba(8,6,7,0) 26%,rgba(8,6,7,0) 58%,rgba(8,6,7,.85) 100%)}}
+.edge{{position:absolute;inset:0;background:radial-gradient(60% 40% at 100% 0%,rgba(255,200,150,.22),transparent 70%)}}
+.chip{{position:absolute;left:40px;top:40px;padding:16px 22px;border-radius:20px;background:rgba(255,255,255,.94);box-shadow:0 10px 30px rgba(0,0,0,.35)}}
+.chip img{{display:block;height:var(--lh);max-width:300px;object-fit:contain}}
+.center{{left:50%;top:50%;transform:translate(-50%,-50%);padding:30px 44px;border-radius:30px}}
+.phone{{position:absolute;left:50%;transform:translateX(-50%);top:190px;width:380px;height:830px;border-radius:58px;background:#050505;padding:12px;
+  box-shadow:0 0 0 1px rgba(255,255,255,.2),0 0 0 3px #1a1a1a,0 60px 120px -20px rgba(0,0,0,.8)}}
+.phone img{{display:block;width:100%;height:100%;object-fit:cover;object-position:top;border-radius:47px}}
 """
+D = {
+    #  id: (brand colour, logo, logo height on chip, shot, kind, object-position)
+    'tata':      ('#2F7BFF', 'logos/tata.png',      54, 'tata/out/t_home.webp',   'phone',   'top'),
+    'casagrand': ('#FFB536', 'logos/casagrand.png', 34, 'casa/out/c_hero.webp',   'tilt',    'top'),
+    'ica':       ('#E2483B', 'logos/ica.png',       58, 'ica/out/i_trend.webp',   'tilt',    'top'),
+    'anchor':    ('#4C6FFF', 'logos/anchor.svg',    34, 'anchor/out/a_dash.webp', 'tilt',    'left top'),
+    'amin':      ('#8B5CF6', 'logos/amin.png',      32, 'amin/out/a_globe.webp',  'tilt',    'top left'),
+    'ultratech': ('#FFD400', 'logos/ultratech.png', 52, 'ultra/out/u_hero.webp',  'phone',   'top'),
+    'sp':        ('#2E7DD6', 'logos/sp.png',        96, None,                     'none',    None),
+}
 def page(k):
     c, logo, lh, shot, kind, pos = D[k]
-    lt = 200 if kind != 'none' else 430
-    body = f'<div class="glow"></div><div class="grid"></div><div class="plate" style="--lt:{lt}px"><img src="{(H / logo).as_uri()}" style="--lh:{lh}px"></div>'
-    if kind == 'browser':
-        body += f'<div class="browser"><div class="bar"><i></i><i></i><i></i></div><img src="{(H / shot).as_uri()}" style="--pos:{pos}"></div>'
+    L = (H / logo).as_uri()
+    if kind == 'tilt':
+        S = (H / shot).as_uri()
+        body = f'<img class="atmo" src="{S}"><div class="win"><div class="bar"><i></i><i></i><i></i></div><img src="{S}" style="--pos:{pos}"></div><div class="shade"></div><div class="edge"></div><div class="chip"><img src="{L}" style="--lh:{lh}px"></div>'
+    elif kind == 'full':
+        body = f'<img class="full" src="{(H / shot).as_uri()}" style="--pos:{pos}"><div class="shade"></div><div class="edge"></div><div class="chip"><img src="{L}" style="--lh:{lh}px"></div>'
     elif kind == 'phone':
-        body += f'<div class="phone"><img src="{(H / shot).as_uri()}"></div>'
-    return f'<!doctype html><html><head><meta charset="utf-8"><style>{CSS}</style></head><body style="--c:{c}">{body}</body></html>'
+        S = (H / shot).as_uri()
+        body = f'<img class="atmo" src="{S}"><div class="phone"><img src="{S}"></div><div class="shade"></div><div class="edge"></div><div class="chip"><img src="{L}" style="--lh:{lh}px"></div>'
+    else:
+        body = f'<div class="brand" style="background:radial-gradient(75% 55% at 50% 45%,{c}cc,{c}33 45%,transparent 78%),linear-gradient(170deg,#141018,#0b0809)"></div><div class="edge"></div><div class="chip center"><img src="{L}" style="--lh:{lh}px"></div>'
+    return f'<!doctype html><html><head><meta charset="utf-8"><style>{CSS}</style></head><body>{body}</body></html>'
 async def main():
     async with async_playwright() as p:
         br = await p.chromium.launch()
