@@ -69,7 +69,7 @@ for f in os.listdir(f'{H}/scene/portal'):
     cp(f'{H}/scene/portal/{f}', f'images/portal/{f}')
 # Self-hosted type: Geist (reading), Geist Mono (labels), Instrument Serif italic (one accent word)
 os.makedirs(f'{OUT}/assets/fonts', exist_ok=True)
-for src, dst in [('geist-latin-wght-normal.woff2', 'geist.woff2')]:
+for src, dst in [('geist-latin-wght-normal.woff2', 'geist.woff2'), ('crimson-pro-latin-wght-normal.woff2', 'serif.woff2'), ('crimson-pro-latin-wght-italic.woff2', 'serif-italic.woff2')]:
     cp(f'{H}/fonts/{src}', f'assets/fonts/{dst}')
 rep = {
     '{{DOOR_D}}': 'images/door-d.webp', '{{DOOR_M}}': 'images/door-m.webp', '{{DOOR_DB}}': 'images/door-d-soft.webp', '{{DOOR_MB}}': 'images/door-m-soft.webp',
@@ -92,7 +92,14 @@ open(f'{OUT}/index.html', 'w').write(t)
 
 # ---------- case-study helpers ----------
 PAGE_CSS = """
-  /* same type as the homepage: Geist only, two weights, greys do the emphasis */
+  /* same type as the homepage: Athelas (Apple devices) or its open cousin Crimson Pro */
+  @font-face { font-family: "Crimson Pro"; src: url(../assets/fonts/serif.woff2) format("woff2"); font-weight: 200 900; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Crimson Pro"; src: url(../assets/fonts/serif-italic.woff2) format("woff2"); font-weight: 200 900; font-style: italic; font-display: swap; }
+  html body, body button, body .btn, body .kicker, body .meta b, body .nav a, body h1, body h2, body h3, body p { font-family: "Athelas", "Crimson Pro", Georgia, serif !important; }
+  body { font-size-adjust: .47; }
+  .hero h1 { font-weight: 400 !important; letter-spacing: -0.02em !important; }
+  h2 { font-weight: 500 !important; letter-spacing: -0.015em !important; }
+
   @font-face { font-family: "Geist"; src: url(../assets/fonts/geist.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
   body, button { font-family: "Geist", "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
   .hero h1 { font-weight: 500 !important; letter-spacing: -0.05em !important; }

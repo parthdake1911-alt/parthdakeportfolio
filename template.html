@@ -7,7 +7,7 @@
 <meta name="description" content="Parth Dake is a UI/UX designer at BC Webwise, India. Case studies from client, pitch and college projects: from user problems to intuitive interfaces.">
 <meta property="og:title" content="Parth Dake — UI/UX Designer">
 <meta property="og:description" content="From user problems to intuitive interfaces. Case studies by Parth Dake.">
-<link rel="preload" href="assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/serif.woff2" as="font" type="font/woff2" crossorigin>
 <style>
   :root { --u: min(100vw / 1920, 100vh / 1080); --ph: #D9D9D9; --ink: #0A0A0A; --accent: #FF5A1F;
           --spring: cubic-bezier(.34,1.56,.64,1); --out: cubic-bezier(.16,1,.3,1); }
@@ -954,6 +954,62 @@
     .deck-info b { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
     .deck-info i { grid-column: 1 / -1; overflow: hidden; text-overflow: ellipsis; }
   }
+
+  /* =====================================================================================
+     TYPE: Athelas — a calm, bookish serif. Apple devices have it built in; everyone else gets
+     Crimson Pro, a close open-source cousin served from this site. font-size-adjust keeps the
+     x-height equal across both, so the layout doesn't shift.
+     ===================================================================================== */
+  @font-face { font-family: "Crimson Pro"; src: url(assets/fonts/serif.woff2) format("woff2"); font-weight: 200 900; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Crimson Pro"; src: url(assets/fonts/serif-italic.woff2) format("woff2"); font-weight: 200 900; font-style: italic; font-display: swap; }
+  :root { --sans: "Athelas", "Crimson Pro", Georgia, serif; }
+  html body, body button, body input, body .btn, body .nav a.lnk, body .card .meta b, body .card .meta i, body .kick, body .ab-kicker, body .mh-t, body .mh-c, body .mcap b, body .mcap span, body .deck-info, body .ct-foot, body .ct-mail a, body .chip .face { font-family: var(--sans) !important; }
+  body { font-size-adjust: .47; font-feature-settings: "kern", "liga", "onum" 0, "lnum"; }
+  .hero .hl { font-weight: 400 !important; letter-spacing: -0.025em !important; }
+  .work-head h2, .mh-t { font-weight: 400 !important; letter-spacing: -0.02em !important; }
+  .about .big, .contact .big, .about .chip .face { font-weight: 400 !important; letter-spacing: -0.015em !important; }
+  .btn, .nav a.lnk, .card .meta b, .hero .chip1 b { font-weight: 500 !important; letter-spacing: 0 !important; }
+  .card .meta b, .mcap b { letter-spacing: -0.01em !important; }
+
+  /* =====================================================================================
+     LIGHT ↔ DARK: the page plays between night and day.
+     Hero (night: the problem) → Work (daylight: you've walked through the door, into the light)
+     → About (dusk) → Contact (daylight). Light sections use warm paper, never stark white.
+     ===================================================================================== */
+  :root { --paper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+      radial-gradient(60% 45% at 88% 6%, rgba(255,186,120,.30), transparent 70%), radial-gradient(50% 40% at 4% 96%, rgba(255,150,100,.14), transparent 70%), linear-gradient(170deg, #F6F2EB, #EEE8DF); }
+  .tone-light, body.tone-work .work-head { --t1: #17120F; --t2: rgba(23,18,15,.66); --t3: rgba(23,18,15,.46); color: var(--t1); }
+  /* desktop: walking into the door fades the night into daylight behind the cards */
+  @media not all and (max-width: 900px) { .door-bg .ambient { background: var(--paper); } }
+  body.tone-work .work-head::before { background: rgba(255,255,255,.55) !important; box-shadow: inset 0 0 0 1px rgba(23,18,15,.08), 0 20px 50px rgba(80,50,30,.12) !important; }
+  body.tone-work .card .frame { box-shadow: 0 30px 60px rgba(70,45,30,.22) !important; }
+  body.tone-work .card.active .frame { box-shadow: 0 40px 80px rgba(70,45,30,.28), 0 0 0 1px rgba(23,18,15,.06) !important; }
+  /* the nav follows the light: dark ink over daylight sections */
+  body.nav-light .brand img { filter: none !important; }
+  body.nav-light .nav, body.nav-light .nav.scrolled { background: rgba(255,255,255,.62) !important; box-shadow: inset 0 0 0 1px rgba(23,18,15,.08), 0 10px 30px rgba(80,50,30,.1) !important; }
+  body.nav-light .nav a.lnk { color: rgba(23,18,15,.62) !important; }
+  body.nav-light .nav a.lnk.under.active, body.nav-light .nav a.lnk.active { color: #fff !important; }
+  body.nav-light .pill { background: #17120F !important; }
+  body.nav-light .navlayer::before { background: rgba(246,242,235,.8) !important; box-shadow: 0 1px 0 rgba(23,18,15,.06) !important; }
+  .brand img, .nav, .nav a.lnk, .pill { transition: filter .4s, background .4s, color .4s, box-shadow .4s; }
+  /* contact: back in daylight */
+  section.contact.tone-light { background: var(--paper) !important; }
+  .contact.tone-light::after { background: linear-gradient(90deg, transparent, rgba(23,18,15,.14) 50%, transparent) !important; }
+  .contact.tone-light .ct-mail a, .contact.tone-light .ct-mail button { background: rgba(255,255,255,.7) !important; color: var(--t1) !important; box-shadow: inset 0 0 0 1px rgba(23,18,15,.12) !important; backdrop-filter: none !important; }
+  .contact.tone-light .btn.dark { background: #17120F !important; color: #F6F2EB !important; }
+  .contact.tone-light .btn.light { background: transparent !important; color: var(--t1) !important; box-shadow: inset 0 0 0 1px rgba(23,18,15,.16) !important; }
+  .contact.tone-light .ct-foot { border-top-color: rgba(23,18,15,.1) !important; color: var(--t3) !important; } .contact.tone-light .ct-foot a { color: var(--t2) !important; }
+  .contact.tone-light svg { stroke: currentColor; }
+  @media (max-width: 900px), (orientation: portrait) and (max-width: 1180px) {
+    /* phones: the work row sits on paper; a short fade carries you out of the night */
+    #cards.tone-light { background: var(--paper) !important; }
+    .contact .ct-mail a { font-size: 15px !important; }
+    #cards.tone-light .card .frame .bg { box-shadow: 0 20px 40px rgba(70,45,30,.25) !important; outline-color: rgba(23,18,15,.08) !important; }
+    #cards.tone-light .card .go { background: rgba(255,255,255,.7) !important; color: var(--t1) !important; box-shadow: inset 0 0 0 1px rgba(23,18,15,.14) !important; }
+    #cards.tone-light .mh-line { background: rgba(23,18,15,.1); } #cards.tone-light .mh-line i { background: #17120F; }
+    #cards.tone-light .mhud { top: 92px; }
+    #cards.tone-light { padding-top: 168px !important; }
+  }
 </style>
 </head>
 <body>
@@ -1098,7 +1154,7 @@
         <p><span class="tapcue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-1.5a1.5 1.5 0 0 1 3 0V11m0-1a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1-6 6h-.6a6 6 0 0 1-4.9-2.6L4.3 14a1.6 1.6 0 0 1 2.5-2L9 14"/></svg><span class="t-mouse">Click a card to open the case study</span><span class="t-touch">Tap a card to open the case study</span></span></p>
       </div>
 
-      <div id="cards"><div id="deckPin"></div></div>
+      <div id="cards" data-tone="light"><div id="deckPin"></div></div>
       <div class="abs hint" id="hint" data-split data-fx="bob" data-at="2400">Scroll</div>
     </main>
   </div>
@@ -1135,7 +1191,7 @@
   </div>
 </section>
 
-<section class="contact" id="contact" aria-label="Contact">
+<section class="contact tone-light" id="contact" aria-label="Contact">
   <div class="stage" id="contactStage">
     <div class="glass-panel" aria-hidden="true"></div>
     <div class="abs ct-giant" id="ctGiant" aria-hidden="true"><span class="w">hello</span></div>
@@ -1856,6 +1912,16 @@
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
+  // the nav takes dark ink while it sits over a daylight section
+  const cardsEl = document.getElementById('cards'), contactEl = document.getElementById('contact');
+  const toneNav = () => {
+    const y = 64, over = el => { const r = el.getBoundingClientRect(); return r.top <= y && r.bottom > y; };
+    const isMob = window.__MOB && window.__MOB.matches;
+    cardsEl.classList.toggle('tone-light', !!isMob);
+    const workLight = !isMob && document.body.classList.contains('tone-work') && document.getElementById('scroller').getBoundingClientRect().bottom > y;
+    document.body.classList.toggle('nav-light', workLight || over(contactEl) || (isMob && over(cardsEl)));
+  };
+  addEventListener('scroll', toneNav, { passive: true }); addEventListener('resize', toneNav); setInterval(toneNav, 400); toneNav();
 })();
 </script>
 <script>
@@ -2020,13 +2086,14 @@
       zoom = 1 + ease(clamp(scrollY / h)) * .5; back = 0;
     } else {
       const s = document.getElementById('scroller'), max = s.offsetHeight - innerHeight, p = clamp(scrollY / (max || 1));
-      if (scrollY > s.offsetHeight) { bg.style.visibility = 'hidden'; return; } bg.style.visibility = '';
+      if (scrollY > s.offsetHeight) { bg.style.visibility = 'hidden'; document.body.classList.remove('tone-work'); return; } bg.style.visibility = '';
       zoom = 1 + ease(clamp(p / .1)) * .8;          // walking toward the door as the hero leaves — the world beyond comes closer
       back = clamp((p - .05) / .06);                  // then the scene softens behind the project cards
     }
     if (reduce) zoom = 1 + (zoom - 1) * .3;
     // behind the cards the scene is a still, soft backdrop: settle, draw once, then rest
-    bg.classList.toggle('rest', back >= 1);   // fully behind the cards: stop the light animations and stop painting the scene
+    bg.classList.toggle('rest', back >= 1);
+    document.body.classList.toggle('tone-work', back > .55);   // fully behind the cards: stop the light animations and stop painting the scene
     if (back >= 1) { if (still) return; } else still = false;
     const dt = Math.min(64, now - (last || now));
     if (now - last < 30 && back < 1) return;
@@ -2036,7 +2103,7 @@
     const ox = reduce || mob ? 0 : -mx * 14, oy = reduce || mob ? 0 : -my * 8;
     sc.style.transform = `translate3d(${ox.toFixed(2)}px, ${oy.toFixed(2)}px, 0) scale(${zoom.toFixed(4)})`;
     soft.style.opacity = back.toFixed(3);
-    shade.style.opacity = (back * .2).toFixed(3);
+    shade.style.opacity = '0';   // daylight behind the cards: no darkening
     if (sparksOn && !reduce) { if (back < 1) drawSparks(dt / 1000, now, zoom, ox, oy); else ctx.clearRect(0, 0, W, H); }
     if (back >= 1) still = true;
   }
