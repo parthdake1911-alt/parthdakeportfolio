@@ -946,6 +946,14 @@
     .card .go { width: 40px !important; height: 40px !important; background: rgba(255,255,255,.08) !important; color: var(--t1) !important; box-shadow: inset 0 0 0 1px rgba(255,255,255,.14) !important; }
     .card .go.soon { width: auto !important; padding: 0 12px !important; font-size: 12px !important; }
   }
+
+  /* "Selected work" caption: one fixed size, whatever project is in focus (no resizing as cards change) */
+  @media not all and (max-width: 900px) {
+    .work-head { width: calc(560*var(--u)); box-sizing: border-box; }
+    .deck-info { display: grid !important; grid-template-columns: auto auto 1fr; column-gap: calc(8*var(--u)); row-gap: calc(4*var(--u)); align-items: baseline; white-space: nowrap; }
+    .deck-info b { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+    .deck-info i { grid-column: 1 / -1; overflow: hidden; text-overflow: ellipsis; }
+  }
 </style>
 </head>
 <body>
