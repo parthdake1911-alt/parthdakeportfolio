@@ -69,7 +69,7 @@ for f in os.listdir(f'{H}/scene/portal'):
     cp(f'{H}/scene/portal/{f}', f'images/portal/{f}')
 # Self-hosted type: Geist (reading), Geist Mono (labels), Instrument Serif italic (one accent word)
 os.makedirs(f'{OUT}/assets/fonts', exist_ok=True)
-for src, dst in [('geist-latin-wght-normal.woff2', 'geist.woff2'), ('crimson-pro-latin-wght-normal.woff2', 'serif.woff2'), ('crimson-pro-latin-wght-italic.woff2', 'serif-italic.woff2')]:
+for src, dst in [('geist-latin-wght-normal.woff2', 'geist.woff2'), ('crimson-pro-latin-wght-normal.woff2', 'serif.woff2'), ('crimson-pro-latin-wght-italic.woff2', 'serif-italic.woff2'), ('dm-serif-display-latin-400-normal.woff2', 'display.woff2'), ('dm-serif-display-latin-400-italic.woff2', 'display-italic.woff2')]:
     cp(f'{H}/fonts/{src}', f'assets/fonts/{dst}')
 rep = {
     '{{STUDIO_D}}': 'images/studio-d.webp', '{{STUDIO_M}}': 'images/studio-m.webp',
@@ -98,7 +98,11 @@ PAGE_CSS = """
   @font-face { font-family: "Crimson Pro"; src: url(../assets/fonts/serif-italic.woff2) format("woff2"); font-weight: 200 900; font-style: italic; font-display: swap; }
   html body, body button, body .btn, body .kicker, body .meta b, body .nav a, body h1, body h2, body h3, body p { font-family: "Athelas", "Crimson Pro", Georgia, serif !important; }
   body { font-size-adjust: .47; }
-  .hero h1 { font-weight: 400 !important; letter-spacing: -0.02em !important; }
+  @font-face { font-family: "DM Serif Display"; src: url(../assets/fonts/display.woff2) format("woff2"); font-weight: 400; font-display: swap; }
+  @font-face { font-family: "DM Serif Display"; src: url(../assets/fonts/display-italic.woff2) format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+  html body .hero h1, html body h2 { font-family: "DM Serif Display", "Athelas", Georgia, serif !important; font-weight: 400 !important; font-size-adjust: none; }
+  .hero h1 { letter-spacing: -0.015em !important; }
+  .hero h1 .soft { font-style: italic; }
   h2 { font-weight: 500 !important; letter-spacing: -0.015em !important; }
 
   @font-face { font-family: "Geist"; src: url(../assets/fonts/geist.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }

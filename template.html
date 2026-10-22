@@ -8,6 +8,8 @@
 <meta property="og:title" content="Parth Dake — UI/UX Designer">
 <meta property="og:description" content="From user problems to intuitive interfaces. Case studies by Parth Dake.">
 <link rel="preload" href="assets/fonts/serif.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/display-italic.woff2" as="font" type="font/woff2" crossorigin>
 <style>
   :root { --u: min(100vw / 1920, 100vh / 1080); --ph: #D9D9D9; --ink: #0A0A0A; --accent: #FF5A1F;
           --spring: cubic-bezier(.34,1.56,.64,1); --out: cubic-bezier(.16,1,.3,1); }
@@ -1101,6 +1103,34 @@
     #cards .card .meta i { color: var(--t3) !important; }
     .mh-c, .mcap span { font-size: 14px !important; }
   }
+
+  /* =====================================================================================
+     DISPLAY TYPE — headlines set like an editorial cover: a confident roman line answered by a
+     flowing italic one ("From user problems / to intuitive interfaces."). DM Serif Display for
+     headlines, Athelas for everything you read.
+     ===================================================================================== */
+  @font-face { font-family: "DM Serif Display"; src: url(assets/fonts/display.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: "DM Serif Display"; src: url(assets/fonts/display-italic.woff2) format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+  :root { --display: "DM Serif Display", "Athelas", Georgia, serif; }
+  html body .hero .hl, html body .work-head h2, html body .mh-t, html body .about .big, html body .contact .big, html body .card .meta b, html body .mcap b {
+     font-family: var(--display) !important; font-weight: 400 !important; font-size-adjust: none; }
+  /* hero: roman line, then the italic answer — both in full ink */
+  #hero .hl { letter-spacing: -0.015em !important; line-height: .98 !important; font-size: calc(104*var(--u)) !important; }
+  #hero .hrow.r1 .hl { color: var(--t1) !important; }
+  #hero .hrow.r2 .hl { font-style: italic; }
+  @media not all and (max-width: 900px) { .hrow.r2 { top: calc(424*var(--u)) !important; } }
+  /* italic accents */
+  .work-head h2 .acc, .mh-t em, .contact .ct-l2b, .contact .ct-l2 { font-style: italic; }
+  .work-head h2 .acc { font-family: var(--display) !important; color: inherit !important; font-size: 1em !important; letter-spacing: -0.01em; }
+  .work-head h2, .mh-t { letter-spacing: -0.015em !important; }
+  .about .big, .contact .big { letter-spacing: -0.01em !important; }
+  .contact .ct-l1 { color: var(--t1) !important; }
+  .contact .ct-l2, .contact .ct-l2b { color: var(--t1) !important; opacity: 1 !important; }
+  .card .meta b, .mcap b { letter-spacing: -0.005em !important; }
+  @media (max-width: 900px), (orientation: portrait) and (max-width: 1180px) {
+    #hero .hl { font-size: calc(80*var(--u)) !important; line-height: 1.02 !important; }
+    .mh-t { font-size: 32px !important; }
+  }
 </style>
 </head>
 <body>
@@ -1239,7 +1269,7 @@
 
       <div class="abs work-head" id="workHead" aria-hidden="true">
         <p class="kick" aria-hidden="true">Work</p>
-        <h2 data-split id="headTitle">Selected work</h2>
+        <h2 data-split data-acc="work" id="headTitle">Selected work</h2>
         <p class="deck-info" id="deckInfo" aria-live="polite"><span class="n" id="deckN">01</span><span class="of">/ 08</span><b id="deckName">Tata Power</b><i id="deckType">Client project</i></p>
         <p class="names" id="names"></p>
         <p><span class="tapcue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-1.5a1.5 1.5 0 0 1 3 0V11m0-1a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1-6 6h-.6a6 6 0 0 1-4.9-2.6L4.3 14a1.6 1.6 0 0 1 2.5-2L9 14"/></svg><span class="t-mouse">Click a card to open the case study</span><span class="t-touch">Tap a card to open the case study</span></span></p>
@@ -1291,7 +1321,7 @@
     <div class="hrow ct-r1"><span class="abs big ct-l1" data-split data-fx="drop" data-at3="150">Have a problem worth solving?</span></div>
     <div class="hrow ct-r2"><span class="abs big ct-l2" data-split data-fx="flip" data-at3="550">Let’s talk</span>
       <div class="abs ct-wave pop" data-at3="800" aria-hidden="true"><div class="face"><span>👋</span></div></div>
-      <span class="abs big ct-l2b" data-split data-fx="blur" data-at3="1000">and make it intuitive.</span></div>
+      <span class="abs big ct-l2b" data-split data-fx="drop" data-at3="900">and make it intuitive.</span></div>
     <div class="hrow ct-r3">
     <div class="abs ct-mail pop" data-at3="1350">
       <a href="mailto:parthdake1911@gmail.com" aria-label="Email parthdake1911@gmail.com">
@@ -1626,7 +1656,7 @@
   const wrap = document.getElementById('cards'), deckPin = document.getElementById('deckPin');
   // phone heads-up bar for the deck: title, position, and a segmented progress line
   const mhud = document.createElement('div'); mhud.className = 'mhud'; mhud.setAttribute('aria-hidden', 'true');
-  mhud.innerHTML = '<div class="mh-row"><span class="mh-t">Selected work</span><span class="mh-c"><b class="mh-n">01</b><span>/ ' + String(CARDS.length).padStart(2, '0') + '</span></span></div>'
+  mhud.innerHTML = '<div class="mh-row"><span class="mh-t">Selected <em>work</em></span><span class="mh-c"><b class="mh-n">01</b><span>/ ' + String(CARDS.length).padStart(2, '0') + '</span></span></div>'
     + '<div class="mh-line"><i></i></div>';
   wrap.insertBefore(mhud, deckPin);
   const mcap = document.createElement('div'); mcap.className = 'mcap'; mcap.setAttribute('aria-hidden', 'true');
