@@ -1016,10 +1016,6 @@
      Hero: golden daylight (the open door) · Work: night, so the posters glow · About: paper ·
      Contact: night · Footer: the bright studio where the work happens.
      ===================================================================================== */
-  @media not all and (max-width: 900px) { .door-bg .ambient { background: var(--ambient) !important; } }
-  body.tone-work .work-head { --t1: #F5F5F4; --t2: rgba(245,245,244,.56); --t3: rgba(245,245,244,.42); }
-  body.tone-work .work-head::before { background: var(--gl) !important; box-shadow: var(--gl-edge), 0 20px 60px rgba(0,0,0,.25) !important; }
-  body.tone-work .card .frame, body.tone-work .card.active .frame { box-shadow: 0 30px 70px rgba(0,0,0,.5) !important; }
   /* hero in daylight: dark ink */
   #hero.tone-light .hl { text-shadow: 0 1px 30px rgba(255,240,220,.35); }
   #hero.tone-light .chip1 .dash { background: var(--t3); }
@@ -1037,7 +1033,7 @@
   /* footer: the studio picture, full width; its white wall carries the sign-off */
   .studio { position: relative; background: #E6E7E9; color: var(--t1); overflow: hidden; }
   .studio .st-img img { display: block; width: 100%; height: auto; }
-  .studio .st-copy { position: absolute; z-index: 2; left: 0; right: 0; top: 0; padding: clamp(110px, 9vw, 150px) clamp(20px, 8vw, 150px) 0; }   /* clears the fixed nav */
+  .studio .st-copy { position: absolute; z-index: 2; left: 0; right: 0; top: 0; padding: clamp(150px, 12vw, 190px) clamp(20px, 8vw, 150px) 0; }   /* clears the fixed nav */
   .st-k { font-size: clamp(13px, 1.05vw, 16px); color: var(--t3); margin: 0 0 10px; }
   .st-h { font-size: clamp(40px, 6.2vw, 112px); line-height: 1; letter-spacing: -0.02em; font-weight: 400; margin: 0; color: var(--t1); }
   .st-row { display: flex; justify-content: space-between; gap: 16px; margin: clamp(18px, 2vw, 30px) 0 0; font-size: clamp(13px, 1vw, 15px); color: var(--t3); }
@@ -1050,6 +1046,21 @@
     .studio .st-img img { width: 100%; height: 300px; object-fit: cover; object-position: 30% 100%; }
     .contact { min-height: 0 !important; padding-bottom: 72px !important; }
   }
+
+  /* =====================================================================================
+     ALL DAYLIGHT — the whole site sits in warm light. Paper everywhere, dark ink, the hero's sun.
+     ===================================================================================== */
+  :root { --t1: #17120F; --t2: rgba(23,18,15,.66); --t3: rgba(23,18,15,.46); --night: #F2EDE5; }
+  html { background: #F2EDE5 !important; }
+  body::before { background: var(--paper) !important; }
+  .door-bg .ambient { background: var(--paper) !important; }
+  body.tone-work .work-head, .work-head { --t1: #17120F; --t2: rgba(23,18,15,.66); --t3: rgba(23,18,15,.46); }
+  .work-head::before { background: rgba(255,255,255,.55) !important; box-shadow: inset 0 0 0 1px rgba(23,18,15,.08), 0 20px 50px rgba(80,50,30,.12) !important; }
+  .card .frame { box-shadow: 0 30px 60px rgba(70,45,30,.22) !important; }
+  .card.active .frame { box-shadow: 0 40px 80px rgba(70,45,30,.28), 0 0 0 1px rgba(23,18,15,.06) !important; }
+  .page-layer { background: #F2EDE5 !important; } .page-layer .loading { color: rgba(23,18,15,.5) !important; }
+  .about.tone-light::after, .contact.tone-light::after { display: none !important; }
+  ::selection { background: rgba(255,170,100,.35); color: #17120F; }
 </style>
 </head>
 <body>
@@ -1231,7 +1242,7 @@
   </div>
 </section>
 
-<section class="contact" id="contact" aria-label="Contact">
+<section class="contact tone-light" id="contact" aria-label="Contact">
   <div class="stage" id="contactStage">
     <div class="glass-panel" aria-hidden="true"></div>
     <div class="abs ct-giant" id="ctGiant" aria-hidden="true"><span class="w">hello</span></div>
@@ -1965,10 +1976,10 @@
   const toneNav = () => {
     const y = 64, over = el => { const r = el.getBoundingClientRect(); return r.top <= y && r.bottom > y; };
     const isMob = window.__MOB && window.__MOB.matches;
-    cardsEl.classList.remove('tone-light');
+    cardsEl.classList.toggle('tone-light', !!isMob);
     const heroLight = isMob ? over(document.getElementById('doorBg')) && !over(cardsEl)
                             : !document.body.classList.contains('tone-work') && document.getElementById('scroller').getBoundingClientRect().bottom > y;
-    document.body.classList.toggle('nav-light', heroLight || over(document.getElementById('about')) || over(document.getElementById('studio')));
+    document.body.classList.add('nav-light');   // the whole site is in daylight now
   };
   addEventListener('scroll', toneNav, { passive: true }); addEventListener('resize', toneNav); setInterval(toneNav, 400); toneNav();
 })();
