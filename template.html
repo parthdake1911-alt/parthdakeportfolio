@@ -16,7 +16,7 @@
   body { font-family: "Inter", system-ui, sans-serif; color: var(--ink); overflow-x: hidden; }
   a { color: inherit; text-decoration: none; }
 
-  .scroller { position: relative; height: 900vh; }
+  .scroller { position: relative; height: 520vh; }   /* about half a screen of scrolling per project */
   .pin { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
   .stage { position: relative; width: calc(1920 * var(--u)); height: calc(1080 * var(--u)); flex: none; }
   .abs { position: absolute; }
@@ -583,8 +583,9 @@
     .names .dot { margin: 0 6px; }
     .tapcue { margin-top: 16px !important; font-size: 13px !important; padding: 8px 14px 8px 10px !important; gap: 7px !important; }
     .tapcue svg { width: 16px !important; height: 16px !important; }
-    #cards { position: relative; height: calc(100svh + 7 * 62svh); }
-    #deckPin { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+    #cards { position: relative; height: auto; padding: 96px 0 12px; }
+    #deckPin { position: relative; height: auto; display: flex; gap: 14px; overflow-x: auto; overflow-y: hidden; padding: 6px 20px 24px; scroll-snap-type: x mandatory; scroll-padding: 0 20px; overscroll-behavior-x: contain; scrollbar-width: none; }
+    #deckPin::-webkit-scrollbar { display: none; }
     .card { position: absolute; left: 0; top: 0; width: min(82vw, 360px); will-change: transform, opacity; }
     .card .frame { border-radius: 26px; }
     .card .badge { top: 12px; left: 12px; font-size: 11.5px; padding: 5px 10px; } .card .idx { top: 15px; right: 15px; font-size: 12px; }
@@ -922,28 +923,28 @@
   .card .frame { padding: 0 !important; background: none !important; }
   .card .frame .bg { inset: 0 !important; width: 100% !important; height: 100% !important; border-radius: inherit !important; }
   .card .frame::after { box-shadow: inset 0 0 0 1px rgba(255,255,255,.14), inset 0 1px 0 rgba(255,255,255,.28) !important; }
-  /* phone deck: minimal — a title, a count, one hairline; the card is just the picture; the name sits under it */
+  /* phone work section: a swipeable row. Heading + count + hairline above; each card is the picture with its name beneath. */
   .mhud, .mcap, .snap { display: none; }
   @media (max-width: 900px), (orientation: portrait) and (max-width: 1180px) {
     .work-head { height: 0 !important; padding: 0 !important; margin: 0 !important; overflow: hidden; visibility: hidden; }   /* kept only as the "Work" scroll anchor */
-    .mhud { display: block; position: absolute; z-index: 200; left: 20px; right: 20px; top: calc(80px + 1svh); pointer-events: none; }
+    .mhud { display: block; position: absolute; z-index: 5; left: 20px; right: 20px; top: 24px; pointer-events: none; }
     .mh-row { display: flex; align-items: baseline; justify-content: space-between; }
     .mh-t { font-size: 28px; font-weight: 500; letter-spacing: -0.045em; color: var(--t1); }
     .mh-c { font-size: 13px; font-weight: 500; color: var(--t3); font-variant-numeric: tabular-nums; } .mh-c b { color: var(--t1); font-weight: 500; margin-right: 4px; }
     .mh-line { margin-top: 16px; height: 1px; background: rgba(255,255,255,.1); overflow: hidden; }
-    .mh-line i { display: block; height: 100%; background: rgba(255,255,255,.75); transform-origin: left; transform: scaleX(0); }
-    .mcap { display: flex; flex-direction: column; gap: 5px; position: absolute; z-index: 200; left: 20px; right: 20px; text-align: center; align-items: center; pointer-events: none; }
-    .mcap b { font-size: 19px; font-weight: 500; letter-spacing: -0.03em; color: var(--t1); }
-    .mcap span { font-size: 13px; color: var(--t3); }
-    .mcap .mh-go { font-style: normal; font-size: 12.5px; color: var(--t2); margin-top: 10px; padding: 7px 14px; border-radius: 999px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.12); }
-    /* the card is only the picture */
-    .card .frame { padding: 0 !important; background: none !important; border-radius: 22px !important; box-shadow: 0 30px 60px rgba(0,0,0,.45) !important; }
-    .card .frame .bg { inset: 0 !important; width: 100% !important; height: 100% !important; border-radius: 22px !important; }
-    .card .frame::after { box-shadow: inset 0 0 0 1px rgba(255,255,255,.1) !important; }
-    .card .badge, .card .idx, .card .foot { display: none !important; }
-    html { scroll-snap-type: y mandatory; }
-    .scroller, .about, .contact { scroll-snap-align: start; }
-    .snap { display: block; position: absolute; left: 0; width: 1px; height: 1px; pointer-events: none; scroll-snap-align: start; scroll-snap-stop: always; }
+    .mh-line i { display: block; height: 100%; background: rgba(255,255,255,.75); transform-origin: left; transform: scaleX(0); transition: transform .35s var(--ease-o); }
+    .card { position: relative !important; left: auto !important; top: auto !important; flex: 0 0 auto; width: min(78vw, 330px) !important; transform: none !important; opacity: 1 !important;
+            scroll-snap-align: start; scroll-snap-stop: always; will-change: auto; }
+    .card .card-in { transform: none !important; opacity: 1 !important; }
+    .card .frame { aspect-ratio: auto !important; overflow: visible !important; background: none !important; padding: 0 !important; box-shadow: none !important; border-radius: 0 !important; }
+    .card .frame::after, .card .frame::before { display: none !important; }
+    .card .frame .bg { position: relative !important; inset: auto !important; display: block; width: 100% !important; height: auto !important; aspect-ratio: 3 / 4; object-fit: cover;
+            border-radius: 22px !important; outline: 1px solid rgba(255,255,255,.12); outline-offset: -1px; box-shadow: 0 24px 50px rgba(0,0,0,.45); }
+    .card .badge, .card .idx { display: none !important; }
+    .card .foot { display: flex !important; position: static !important; margin-top: 14px; padding: 0 2px !important; background: none !important; box-shadow: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; align-items: center; gap: 12px; }
+    .card .meta b { font-size: 18px !important; color: var(--t1); } .card .meta i { font-size: 13px !important; color: var(--t3); }
+    .card .go { width: 40px !important; height: 40px !important; background: rgba(255,255,255,.08) !important; color: var(--t1) !important; box-shadow: inset 0 0 0 1px rgba(255,255,255,.14) !important; }
+    .card .go.soon { width: auto !important; padding: 0 12px !important; font-size: 12px !important; }
   }
 </style>
 </head>
@@ -1472,7 +1473,7 @@
   const mhud = document.createElement('div'); mhud.className = 'mhud'; mhud.setAttribute('aria-hidden', 'true');
   mhud.innerHTML = '<div class="mh-row"><span class="mh-t">Selected work</span><span class="mh-c"><b class="mh-n">01</b><span>/ ' + String(CARDS.length).padStart(2, '0') + '</span></span></div>'
     + '<div class="mh-line"><i></i></div>';
-  deckPin.appendChild(mhud);
+  wrap.insertBefore(mhud, deckPin);
   const mcap = document.createElement('div'); mcap.className = 'mcap'; mcap.setAttribute('aria-hidden', 'true');
   mcap.innerHTML = '<b class="mh-name"></b><span class="mh-type"></span><em class="mh-go"></em>';
   deckPin.appendChild(mcap);
@@ -1485,7 +1486,9 @@
   // scroll position at which card i is the one in focus (desktop deck)
   window.__deckTop = i => {
     const f = i / (CARDS.length - 1);
-    if (window.__MOB.matches) { const c = document.getElementById('cards'); return c.getBoundingClientRect().top + scrollY + (c.offsetHeight - document.getElementById('deckPin').offsetHeight) * (.04 + f * .92); }
+    if (window.__MOB.matches) { const c = document.getElementById('cards'), pin = document.getElementById('deckPin'), card = pin.querySelectorAll('.card')[i];
+      if (card) pin.scrollTo({ left: card.offsetLeft - 20, behavior: 'instant' });
+      return Math.max(0, c.getBoundingClientRect().top + scrollY - 70); }
     return (document.getElementById('scroller').offsetHeight - innerHeight) * (.16 + f * (.95 - .16));
   };
   const deckN = document.getElementById('deckN'), deckName = document.getElementById('deckName'), deckType = document.getElementById('deckType');
@@ -1572,45 +1575,13 @@
         l.cw.style.transform = o ? `translate(${l.ax * o * um * .45}px, ${l.ay * o * um * .45}px) rotate(${l.ar * o}deg) scale(${lerp(.3, 1, qq)})` : '';
         l.cw.style.opacity = qq;
       });
-      // 3. cards rise, straighten and fade in as each one enters the screen
-      // 3. the deck: vertical scroll moves the cards along the diagonal, like the desktop
-      const cr = document.getElementById('cards').getBoundingClientRect();
-      const pinH = deckPin.offsetHeight;   // the pinned screen (100svh): stable while Safari's toolbar comes and goes
-      const run = cr.height - pinH;
-      const prog = clamp(-cr.top / (run || 1));
-      const enterM = reduce ? 1 : ease(clamp((innerHeight - cr.top) / (innerHeight * .7)));
-      const NM = CARDS.length, posM = clamp((prog - .04) / .92) * (NM - 1);
-      const spreadM = ease(clamp(posM * 1.6));
-      // Phones: one card in focus, the next ones stacked just behind it (like a wallet),
-      // the one you've seen lifts away. A small heads-up bar above says where you are.
-      const vw = innerWidth, vh = pinH;
-      const hudB0 = mhud.getBoundingClientRect().bottom - deckPin.getBoundingClientRect().top;
-      const cw = Math.min(vw - 48, 360, (vh - hudB0 - 200) * .75), chh = cw * 4 / 3;   // always leaves room for the name beneath
-      const hudB = mhud.getBoundingClientRect().bottom - deckPin.getBoundingClientRect().top;
-      const cX = vw * .5, cY = hudB + 28 + chh / 2;
-      CARDS.forEach((c, i) => {
-        const d = i - posM;
-        let x = cX, y, s, z, o;
-        if (d >= 0) {                       // waiting: tucked behind, peeking out below
-          const t = Math.min(d, 1);
-          y = cY + t * vh * .1; s = 1 - t * .04; o = 1 - clamp(d / .7); z = 100 - Math.round(d * 10);   // the next card rises in from below; only one is ever visible
-        } else {                            // seen: lifts up and fades
-          const e = Math.min(-d, 1.5);
-          y = cY - e * vh * .08; s = 1 - e * .04; o = 1 - clamp(e / .45); z = 99 - Math.round(e * 10);   // the seen card drifts up and fades
-        }
-        const k = clamp(enterM * 1.3 - i * .05);
-        y += (1 - ease(k)) * vh * .3; o *= k;
-        if (c._w !== cw) { c.el.style.width = cw + 'px'; c._w = cw; }
-        c.el.style.transform = `translate(${(x - cw / 2).toFixed(1)}px, ${(y - chh / 2).toFixed(1)}px) scale(${s.toFixed(3)})`;
-        c.el.style.zIndex = z; c.el.style.opacity = o.toFixed(3); c.el.style.filter = '';
-        c.el.style.pointerEvents = o < .2 ? 'none' : '';
-      });
-      const ai = Math.round(posM);
-      if (ai !== mhud._a) { mhud._a = ai; mhN.textContent = String(ai + 1).padStart(2, '0'); mhName.textContent = CARDS[ai].name; mhType.textContent = CARDS[ai].type + ' · ' + CARDS[ai].sub.split(' · ')[0]; mcap.querySelector('.mh-go').textContent = CARDS[ai].wip ? 'Case study coming soon' : 'Tap to open the case study ↗'; }
-      mhLine.style.transform = `scaleX(${((posM + 1) / NM).toFixed(4)})`;
-      mhud.style.opacity = enterM.toFixed(3);
-      mcap.style.top = (cY + chh / 2 + 20).toFixed(1) + 'px';
-      mcap.style.opacity = (enterM * (1 - Math.min(1, Math.abs(posM - ai) * 2.4))).toFixed(3);
+      // 3. Phones: the projects are a horizontal row you swipe through — one swipe, one project, and the page
+      //    itself only needs one scroll to get past the whole section. Cards keep one fixed size.
+      if (!frame.mobInit) { frame.mobInit = true; CARDS.forEach(c => { c.el.style.transform = ''; c.el.style.opacity = ''; c.el.style.zIndex = ''; c.el.style.width = ''; c.el.style.pointerEvents = ''; }); }
+      const step = CARDS.length > 1 ? (CARDS[1].el.offsetLeft - CARDS[0].el.offsetLeft) : 1;
+      const posM = clamp(deckPin.scrollLeft / (step || 1), 0, CARDS.length - 1), ai = Math.round(posM);
+      if (ai !== mhud._a) { mhud._a = ai; mhN.textContent = String(ai + 1).padStart(2, '0'); }
+      mhLine.style.transform = `scaleX(${((posM + 1) / CARDS.length).toFixed(4)})`;
       const half = innerHeight * .5;
       head.classList.toggle('in', headTop < innerHeight * .9);
       hint.style.opacity = scrollY > 40 ? 0 : '';
