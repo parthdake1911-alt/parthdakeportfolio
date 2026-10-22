@@ -1157,7 +1157,14 @@
   .about .chip .face { font-weight: 500 !important; letter-spacing: -0.015em !important; }
   @media (max-width: 900px), (orientation: portrait) and (max-width: 1180px) {
     #hero .hl { font-size: calc(76*var(--u)) !important; line-height: 1.04 !important; }
+    .hero .hrow.r2 { margin-top: -12px; }   /* the two lines read as one statement */
   }
+
+  /* headline: one font, one style, upright — a soft warm black instead of italics */
+  html body #hero .hl, html body #hero .hl .love, html body #hero .hrow.r1 .hl, html body #hero .hrow.r2 .hl { font-style: normal !important; color: #1F1B18 !important; }
+  html body .work-head h2 .acc, html body .mh-t em, html body .contact .ct-l2, html body .contact .ct-l2b { color: #1F1B18 !important; }
+  .work-head h2 .acc, .mh-t em, .contact .ct-l2, .contact .ct-l2b { font-style: normal !important; }
+  .work-head h2, .mh-t, .about .big, .contact .big, .contact .ct-l1 { color: #1F1B18 !important; }
 </style>
 </head>
 <body>

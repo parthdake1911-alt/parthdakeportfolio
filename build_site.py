@@ -113,7 +113,7 @@ PAGE_CSS = """
   html body .hero h1 { font-weight: 600 !important; letter-spacing: -0.04em !important; }
   html body h2 { font-weight: 600 !important; letter-spacing: -0.03em !important; }
   .hero h1 { letter-spacing: -0.015em !important; }
-  .hero h1 .soft { font-style: italic; }
+  .hero h1 .soft { font-style: normal !important; color: #57504A !important; }
   h2 { font-weight: 500 !important; letter-spacing: -0.015em !important; }
 
   @font-face { font-family: "Geist"; src: url(../assets/fonts/geist.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
@@ -130,7 +130,7 @@ PAGE_CSS = """
 
   /* light theme throughout: warm paper header, the original light reading body */
   .top { background: rgba(246,242,235,.88) !important; }
-  .hero h1 .soft { color: rgba(23,18,15,.38) !important; }
+  .hero h1 .soft { color: #57504A !important; font-style: normal !important; }
 """
 def add_logo(p, folder, logo, alt, h):
     ext = os.path.splitext(logo)[1]
