@@ -62,7 +62,7 @@ pages = {'case': 'amin/', 'proto': 'amin/prototype.html', 'anchorCase': 'anchor/
          'icaCase': 'ica/', 'icaProto': 'ica/prototype.html', 'tataCase': 'tatapower/', 'tataProto': 'tatapower/prototype.html',
          'casaCase': 'casagrand/', 'casaProto': 'casagrand/prototype.html'}
 # The Doorway scene (made by make_scene.py from Parth's generated images)
-for f in ['door-d.webp', 'door-m.webp']:
+for f in ['door-d.webp', 'door-m.webp', 'studio-d.webp', 'studio-m.webp']:
     cp(f'{H}/scene/{f}', f'images/{f}')
 os.makedirs(f'{OUT}/images/portal', exist_ok=True)
 for f in os.listdir(f'{H}/scene/portal'):
@@ -72,6 +72,7 @@ os.makedirs(f'{OUT}/assets/fonts', exist_ok=True)
 for src, dst in [('geist-latin-wght-normal.woff2', 'geist.woff2'), ('crimson-pro-latin-wght-normal.woff2', 'serif.woff2'), ('crimson-pro-latin-wght-italic.woff2', 'serif-italic.woff2')]:
     cp(f'{H}/fonts/{src}', f'assets/fonts/{dst}')
 rep = {
+    '{{STUDIO_D}}': 'images/studio-d.webp', '{{STUDIO_M}}': 'images/studio-m.webp',
     '{{DOOR_D}}': 'images/door-d.webp', '{{DOOR_M}}': 'images/door-m.webp', '{{DOOR_DB}}': 'images/door-d-soft.webp', '{{DOOR_MB}}': 'images/door-m-soft.webp',
     '{{IMAGES}}': json.dumps(covers),
     **{'{{HL_%s}}' % k: v for k, v in HL.items()}, '{{DECK}}': json.dumps(DECK),
