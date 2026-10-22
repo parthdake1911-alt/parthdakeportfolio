@@ -1061,6 +1061,46 @@
   .page-layer { background: #F2EDE5 !important; } .page-layer .loading { color: rgba(23,18,15,.5) !important; }
   .about.tone-light::after, .contact.tone-light::after { display: none !important; }
   ::selection { background: rgba(255,170,100,.35); color: #17120F; }
+
+  /* =====================================================================================
+     FOOTER = CONTACT. The last screen is the studio: the question and the ways to reach me sit on
+     the white wall, the three moments of the work (sketch, think, build) sit along the bottom.
+     ===================================================================================== */
+  footer.contact.tone-light { background: #F6F4F2 url({{STUDIO_D}}) center bottom / 100% auto no-repeat !important; height: auto !important;
+     min-height: max(100vh, 66.67vw) !important; align-items: flex-start !important; }
+  .contact .ct-end { position: absolute; z-index: 3; left: clamp(20px, 6vw, 120px); right: clamp(20px, 6vw, 120px); bottom: clamp(10px, 1.2vw, 18px);
+     display: flex; justify-content: space-between; font-size: 14px; color: var(--t2); }
+  .contact .ct-end a { color: var(--t1); text-decoration: none; }
+  @media (max-width: 900px), (orientation: portrait) and (max-width: 1180px) {
+    /* phones: zoom into the three moments so the people read at a glance */
+    footer.contact.tone-light { background: #F6F4F2 url({{STUDIO_M}}) 60% 100% / 165% auto no-repeat !important; min-height: 0 !important;
+       padding-bottom: 60vw !important; }
+    .contact .ct-end { position: relative; left: auto; right: auto; bottom: auto; margin: 26px 20px 0; font-size: 13.5px; }
+  }
+
+  /* =====================================================================================
+     LEGIBILITY — every piece of text reads clearly on paper and on the bright hero:
+     greys are no lighter than ~4.5:1 contrast, small text never under 13px, and text over the
+     sunlit picture gets a soft light halo.
+     ===================================================================================== */
+  :root { --t2: rgba(23,18,15,.74); --t3: rgba(23,18,15,.6); }
+  body.tone-work .work-head, .work-head { --t2: rgba(23,18,15,.74); --t3: rgba(23,18,15,.6); }
+  html .tone-light, html body .about, html body .contact { --t2: rgba(23,18,15,.74); --t3: rgba(23,18,15,.6); }
+  #hero .hl, #hero .chip1 .face, #hero .chip1 b { text-shadow: 0 0 18px rgba(255,246,234,.85), 0 0 2px rgba(255,246,234,.6); }
+  #hero .hrow.r1 .hl { color: rgba(23,18,15,.55) !important; }
+  #hero .chip1 .face { font-size: max(15px, calc(18*var(--u))) !important; color: var(--t2) !important; }
+  .nav a.lnk { font-size: max(14px, calc(17*var(--u))) !important; }
+  .kick, .ab-kicker { font-size: max(14px, calc(16*var(--u))) !important; color: var(--t2) !important; }
+  .deck-info { font-size: max(14px, calc(17*var(--u))) !important; }
+  .tapcue { font-size: max(14px, calc(16*var(--u))) !important; color: var(--t2) !important; }
+  .card .meta b { font-size: max(15px, calc(19*var(--u))) !important; } .card .meta i { font-size: max(13px, calc(14*var(--u))) !important; color: rgba(245,245,244,.82) !important; }
+  .btn { font-size: max(15px, calc(17*var(--u))) !important; }
+  .about .big, .contact .big { color: var(--t1); }
+  .about .ab-l1, .about .ab-l2, .about .ab-l3, .about .ab-l3b, .contact .ct-l2, .contact .ct-l2b, .about .ab-l4 { color: var(--t2) !important; }
+  @media (max-width: 900px), (orientation: portrait) and (max-width: 1180px) {
+    #cards .card .meta i { color: var(--t3) !important; }
+    .mh-c, .mcap span { font-size: 14px !important; }
+  }
 </style>
 </head>
 <body>
@@ -1242,7 +1282,7 @@
   </div>
 </section>
 
-<section class="contact tone-light" id="contact" aria-label="Contact">
+<footer class="contact tone-light" id="contact" aria-label="Contact">
   <div class="stage" id="contactStage">
     <div class="glass-panel" aria-hidden="true"></div>
     <div class="abs ct-giant" id="ctGiant" aria-hidden="true"><span class="w">hello</span></div>
@@ -1294,16 +1334,8 @@
       <a href="#home" id="ctTop"><span class="roll"><span>Back to top ↑</span><span aria-hidden="true">Back to top ↑</span></span></a>
     </div>
   </div>
-</section>
-<footer class="studio tone-light" id="studio" aria-label="Footer">
-  <div class="st-copy">
-    <p class="st-k">The work behind the work</p>
-    <p class="st-h">Sketch. Think. Build.</p>
-    <p class="st-row"><span>© 2026 Parth Dake</span><a href="#home" id="stTop">Back to top ↑</a></p>
-  </div>
-  <picture class="st-img"><source media="(max-width: 900px)" srcset="{{STUDIO_M}}"><img src="{{STUDIO_D}}" alt="Parth at work in a studio: sketching at a table, thinking at a wall of sticky notes, and building on a laptop" width="2304" height="1536" loading="lazy" decoding="async"></picture>
+  <div class="ct-end"><span>© 2026 Parth Dake</span><a href="#home" id="stTop">Back to top ↑</a></div>
 </footer>
-
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Convocation photo">
   <button type="button" id="lbClose" aria-label="Close">×</button>
   <figure><picture><source data-srcset="{{CONVOFULL_AVIF}}" type="image/avif"><img data-src="{{CONVOFULL}}" alt="Parth receiving his Bachelor of Design degree at the Vishwakarma University convocation ceremony" width="1400" height="790" loading="lazy" decoding="async"></picture><figcaption>Bachelor of Design (UI/UX) · Vishwakarma University convocation</figcaption></figure>
