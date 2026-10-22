@@ -69,7 +69,10 @@ for f in os.listdir(f'{H}/scene/portal'):
     cp(f'{H}/scene/portal/{f}', f'images/portal/{f}')
 # Self-hosted type: Geist (reading), Geist Mono (labels), Instrument Serif italic (one accent word)
 os.makedirs(f'{OUT}/assets/fonts', exist_ok=True)
-for src, dst in [('geist-latin-wght-normal.woff2', 'geist.woff2'), ('crimson-pro-latin-wght-normal.woff2', 'serif.woff2'), ('crimson-pro-latin-wght-italic.woff2', 'serif-italic.woff2'), ('dm-serif-display-latin-400-normal.woff2', 'display.woff2'), ('dm-serif-display-latin-400-italic.woff2', 'display-italic.woff2')]:
+for src, dst in [('geist-latin-wght-normal.woff2', 'geist.woff2'), ('crimson-pro-latin-wght-normal.woff2', 'serif.woff2'), ('crimson-pro-latin-wght-italic.woff2', 'serif-italic.woff2'), ('dm-serif-display-latin-400-normal.woff2', 'display.woff2'), ('dm-serif-display-latin-400-italic.woff2', 'display-italic.woff2'),
+                 ('switzer-latin-400-normal.woff2', 'switzer-400.woff2'), ('switzer-latin-500-normal.woff2', 'switzer-500.woff2'), ('switzer-latin-600-normal.woff2', 'switzer-600.woff2'),
+                 ('switzer-latin-400-italic.woff2', 'switzer-400-italic.woff2'), ('switzer-latin-500-italic.woff2', 'switzer-500-italic.woff2'), ('switzer-latin-600-italic.woff2', 'switzer-600-italic.woff2'),
+                 ('inter-latin-wght-normal.woff2', 'inter.woff2'), ('inter-latin-wght-italic.woff2', 'inter-italic.woff2')]:
     cp(f'{H}/fonts/{src}', f'assets/fonts/{dst}')
 rep = {
     '{{STUDIO_D}}': 'images/studio-d.webp', '{{STUDIO_M}}': 'images/studio-m.webp',
@@ -100,7 +103,15 @@ PAGE_CSS = """
   body { font-size-adjust: .47; }
   @font-face { font-family: "DM Serif Display"; src: url(../assets/fonts/display.woff2) format("woff2"); font-weight: 400; font-display: swap; }
   @font-face { font-family: "DM Serif Display"; src: url(../assets/fonts/display-italic.woff2) format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
-  html body .hero h1, html body h2 { font-family: "DM Serif Display", "Athelas", Georgia, serif !important; font-weight: 400 !important; font-size-adjust: none; }
+  @font-face { font-family: "Switzer"; src: url(../assets/fonts/switzer-500.woff2) format("woff2"); font-weight: 500; font-display: swap; }
+  @font-face { font-family: "Switzer"; src: url(../assets/fonts/switzer-600.woff2) format("woff2"); font-weight: 600; font-display: swap; }
+  @font-face { font-family: "Switzer"; src: url(../assets/fonts/switzer-500-italic.woff2) format("woff2"); font-weight: 500; font-style: italic; font-display: swap; }
+  @font-face { font-family: "Inter"; src: url(../assets/fonts/inter.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+  @font-face { font-family: "Inter"; src: url(../assets/fonts/inter-italic.woff2) format("woff2"); font-weight: 100 900; font-style: italic; font-display: swap; }
+  html body, body button, body .btn, body .kicker, body .meta b, body .nav a, body p, body li, body figcaption { font-family: "Inter", system-ui, sans-serif !important; font-size-adjust: none !important; }
+  html body h1, html body h2, html body h3 { font-family: "Switzer", "Inter", system-ui, sans-serif !important; font-size-adjust: none !important; }
+  html body .hero h1 { font-weight: 600 !important; letter-spacing: -0.04em !important; }
+  html body h2 { font-weight: 600 !important; letter-spacing: -0.03em !important; }
   .hero h1 { letter-spacing: -0.015em !important; }
   .hero h1 .soft { font-style: italic; }
   h2 { font-weight: 500 !important; letter-spacing: -0.015em !important; }

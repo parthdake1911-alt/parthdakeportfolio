@@ -5,11 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Parth Dake — UI/UX Designer</title>
 <meta name="description" content="Parth Dake is a UI/UX designer at BC Webwise, India. Case studies from client, pitch and college projects: from user problems to intuitive interfaces.">
+<link rel="preload" href="assets/fonts/switzer-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
 <meta property="og:title" content="Parth Dake — UI/UX Designer">
 <meta property="og:description" content="From user problems to intuitive interfaces. Case studies by Parth Dake.">
-<link rel="preload" href="assets/fonts/serif.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/display.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/display-italic.woff2" as="font" type="font/woff2" crossorigin>
 <style>
   :root { --u: min(100vw / 1920, 100vh / 1080); --ph: #D9D9D9; --ink: #0A0A0A; --accent: #FF5A1F;
           --spring: cubic-bezier(.34,1.56,.64,1); --out: cubic-bezier(.16,1,.3,1); }
@@ -1068,15 +1067,15 @@
      FOOTER = CONTACT. The last screen is the studio: the question and the ways to reach me sit on
      the white wall, the three moments of the work (sketch, think, build) sit along the bottom.
      ===================================================================================== */
-  footer.contact.tone-light { background: #F6F4F2 url({{STUDIO_D}}) center bottom / 100% auto no-repeat !important; height: auto !important;
+  footer.contact.tone-light { background: #F6F4F2 url({{STUDIO_D}}) center bottom 4.5vw / 100% auto no-repeat !important; height: auto !important;
      min-height: max(100vh, 66.67vw) !important; align-items: flex-start !important; }
   .contact .ct-end { position: absolute; z-index: 3; left: clamp(20px, 6vw, 120px); right: clamp(20px, 6vw, 120px); bottom: clamp(10px, 1.2vw, 18px);
      display: flex; justify-content: space-between; font-size: 14px; color: var(--t2); }
   .contact .ct-end a { color: var(--t1); text-decoration: none; }
   @media (max-width: 900px), (orientation: portrait) and (max-width: 1180px) {
     /* phones: zoom into the three moments so the people read at a glance */
-    footer.contact.tone-light { background: #F6F4F2 url({{STUDIO_M}}) 60% 100% / 165% auto no-repeat !important; min-height: 0 !important;
-       padding-bottom: 60vw !important; }
+    footer.contact.tone-light { background: #F6F4F2 url({{STUDIO_M}}) right 40% bottom 28px / 165% auto no-repeat !important; min-height: 0 !important;
+       padding-bottom: calc(60vw + 28px) !important; }
     .contact .ct-end { position: relative; left: auto; right: auto; bottom: auto; margin: 26px 20px 0; font-size: 13.5px; }
   }
 
@@ -1130,6 +1129,34 @@
   @media (max-width: 900px), (orientation: portrait) and (max-width: 1180px) {
     #hero .hl { font-size: calc(80*var(--u)) !important; line-height: 1.02 !important; }
     .mh-t { font-size: 32px !important; }
+  }
+
+  /* =====================================================================================
+     TYPE (final): Switzer for headings — a crisp, neutral grotesk with real character in its
+     italics; Inter for everything you read. Both served from this site.
+     ===================================================================================== */
+  @font-face { font-family: "Switzer"; src: url(assets/fonts/switzer-400.woff2) format("woff2"); font-weight: 400; font-display: swap; }
+  @font-face { font-family: "Switzer"; src: url(assets/fonts/switzer-500.woff2) format("woff2"); font-weight: 500; font-display: swap; }
+  @font-face { font-family: "Switzer"; src: url(assets/fonts/switzer-600.woff2) format("woff2"); font-weight: 600; font-display: swap; }
+  @font-face { font-family: "Switzer"; src: url(assets/fonts/switzer-400-italic.woff2) format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+  @font-face { font-family: "Switzer"; src: url(assets/fonts/switzer-500-italic.woff2) format("woff2"); font-weight: 500; font-style: italic; font-display: swap; }
+  @font-face { font-family: "Switzer"; src: url(assets/fonts/switzer-600-italic.woff2) format("woff2"); font-weight: 600; font-style: italic; font-display: swap; }
+  @font-face { font-family: "Inter"; src: url(assets/fonts/inter.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+  @font-face { font-family: "Inter"; src: url(assets/fonts/inter-italic.woff2) format("woff2"); font-weight: 100 900; font-style: italic; font-display: swap; }
+  :root { --sans: "Inter", system-ui, sans-serif; --display: "Switzer", "Inter", system-ui, sans-serif; }
+  body { font-size-adjust: none !important; font-feature-settings: "cv11", "ss01" !important; }
+  html body, body button, body input, body .btn, body .nav a.lnk, body .card .meta i, body .kick, body .ab-kicker, body .mh-c, body .mcap span,
+  body .deck-info, body .ct-end, body .ct-mail a, body .chip .face, body .tapcue { font-family: var(--sans) !important; }
+  html body .hero .hl, html body .work-head h2, html body .mh-t, html body .about .big, html body .contact .big, html body .card .meta b, html body .mcap b, html body h1, html body h2 {
+     font-family: var(--display) !important; font-weight: 500 !important; }
+  #hero .hl { letter-spacing: -0.04em !important; line-height: 1 !important; font-size: calc(100*var(--u)) !important; }
+  .work-head h2, .mh-t { letter-spacing: -0.035em !important; }
+  .about .big, .contact .big { letter-spacing: -0.025em !important; }
+  .card .meta b, .mcap b { letter-spacing: -0.015em !important; }
+  .btn, .nav a.lnk { font-weight: 500 !important; letter-spacing: -0.01em !important; }
+  .about .chip .face { font-weight: 500 !important; letter-spacing: -0.015em !important; }
+  @media (max-width: 900px), (orientation: portrait) and (max-width: 1180px) {
+    #hero .hl { font-size: calc(76*var(--u)) !important; line-height: 1.04 !important; }
   }
 </style>
 </head>
@@ -1305,9 +1332,6 @@
       <div class="abs chip ab-c3 pop" data-at2="1900"><div class="face" style="justify-content:center"><span id="abJob">Jr. UI/UX Designer</span></div></div>
       <span class="abs big ab-l3b" data-split data-fx="spin" data-at2="2150">at</span>
       <div class="abs ab-logo pop" data-at2="2300" role="img" aria-label="BC Webwise"><div class="face"><picture><source srcset="{{BCW_AVIF}}" type="image/avif"><img src="{{BCW}}" alt="" width="560" height="216" loading="lazy" decoding="async"></picture></div></div>
-    </div>
-    <div class="hrow ab-r4">
-      <span class="abs big ab-l4" data-split data-fx="blur" data-at2="2650">I start with the problem, and design until it feels obvious.</span>
     </div>
   </div>
 </section>
