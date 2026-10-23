@@ -86,6 +86,18 @@ src = open(os.path.join(ROOT, 'tata/src/mcs.html')).read()
 sm = re.search(r'(<script id="screens" type="application/json">)(.*?)(</script>)', src, re.S)
 screens = {k: base64.b64decode(v).decode() for k, v in json.loads(sm.group(2)).items()}
 screens = {'home': screens['home']}   # the portfolio shows the homepage only; other screens aren't shipped
+# Keep the bottom nav and header pinned on every device: the page scrolls inside <body> rather than the
+# document, so the screen's own height never grows (iOS Safari otherwise stretches the frame and the
+# fixed nav scrolls away with it). window.scrollY / scrollTo / 'scroll' events are forwarded to <body>.
+PIN = """<style id="pin-shell">html{height:100%;overflow:hidden}body{height:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}</style>
+<script>(function(){var b=function(){return document.body};
+Object.defineProperty(window,'scrollY',{get:function(){return b()?b().scrollTop:0}});
+Object.defineProperty(window,'pageYOffset',{get:function(){return b()?b().scrollTop:0}});
+window.scrollTo=function(x,y){var o=(typeof x==='object')?x:{left:x,top:y};if(b())b().scrollTo(o)};
+window.scrollBy=function(x,y){var o=(typeof x==='object')?x:{left:x,top:y};if(b())b().scrollBy(o)};
+document.addEventListener('DOMContentLoaded',function(){b().addEventListener('scroll',function(){window.dispatchEvent(new Event('scroll'))},{passive:true})});})();</script>"""
+screens['home'] = screens['home'].replace('</head>', PIN + '\n</head>', 1)
+assert 'pin-shell' in screens['home']
 table, index = [], {}
 def tata_img(m):
     mime, b64 = m.group(1), m.group(2)
