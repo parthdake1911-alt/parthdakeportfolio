@@ -1167,6 +1167,12 @@
   html body .work-head h2 .acc, html body .mh-t em, html body .contact .ct-l2, html body .contact .ct-l2b { color: #1F1B18 !important; }
   .work-head h2 .acc, .mh-t em, .contact .ct-l2, .contact .ct-l2b { font-style: normal !important; }
   .work-head h2, .mh-t, .about .big, .contact .big, .contact .ct-l1 { color: #1F1B18 !important; }
+
+  /* footer sign-off: just the year and name, at the very bottom, centred */
+  html body .contact .ct-end { position: absolute !important; left: 0 !important; right: 0 !important; bottom: 14px !important; margin: 0 !important; justify-content: center !important; font-size: 13.5px; color: var(--t2); }
+  @media (max-width: 900px), (orientation: portrait) and (max-width: 1180px) {
+    footer.contact.tone-light { padding-bottom: calc(60vw + 56px) !important; background-position: right 40% bottom 44px !important; }
+  }
 </style>
 </head>
 <body>
@@ -1373,10 +1379,6 @@
         Download résumé
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"/></svg>
       </a>
-      <a class="btn light pop" data-at3="1720" href="#work" id="ctWork">
-        See my work
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V8M6 13l6-6 6 6"/></svg>
-      </a>
       <a class="btn light pop" data-at3="1840" href="https://www.linkedin.com/in/parth-dake-232790215/" target="_blank" rel="noopener" id="ctLinkedIn" aria-label="Parth Dake on LinkedIn (opens in a new tab)">
         LinkedIn
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
@@ -1397,7 +1399,7 @@
       <a href="#home" id="ctTop"><span class="roll"><span>Back to top ↑</span><span aria-hidden="true">Back to top ↑</span></span></a>
     </div>
   </div>
-  <div class="ct-end"><span>© 2026 Parth Dake</span><a href="#home" id="stTop">Back to top ↑</a></div>
+  <div class="ct-end"><span>© 2026 Parth Dake</span></div>
 </footer>
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Convocation photo">
   <button type="button" id="lbClose" aria-label="Close">×</button>
@@ -2124,14 +2126,12 @@
   const resume = document.getElementById('ctResume');
   if (RESUME_URL) resume.href = RESUME_URL;
   else resume.addEventListener('click', e => { e.preventDefault(); toast('Résumé coming soon'); });
-  document.getElementById('ctWork').addEventListener('click', e => { e.preventDefault(); scrollTo({ top: window.__workTop(), behavior: 'smooth' }); });
   document.querySelectorAll('.hero .hb').forEach(b => b.addEventListener('click', e => {
     e.preventDefault();
     if (b.getAttribute('href') === '#work') scrollTo({ top: window.__workTop(), behavior: 'smooth' });
     else document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
   }));
   document.getElementById('ctTop').addEventListener('click', e => { e.preventDefault(); scrollTo({ top: 0, behavior: 'smooth' }); });
-  document.getElementById('stTop').addEventListener('click', e => { e.preventDefault(); scrollTo({ top: 0, behavior: 'smooth' }); });
 
   // Cursor-reactive letters, like the rest of the page
   const letters = [...sec.querySelectorAll('[data-split] .cw')].map(cw => ({ cw, f: 0, w: 700 }));
