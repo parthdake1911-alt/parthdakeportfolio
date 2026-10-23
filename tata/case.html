@@ -404,6 +404,29 @@
     .palette { grid-template-columns: repeat(3, 1fr); }
     .dec-head { align-items: flex-start; flex-direction: column; gap: 6px; }
   }
+
+  /* ---------- Screens first, less reading ---------- */
+  .hero-rest { margin-top: clamp(36px, 5vw, 64px); }
+  .trace:not(.open) .more { display: none; }
+  .trace-more { display: inline-flex; align-items: center; gap: 6px; margin: 4px 0 6px; padding: 10px 16px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font: 600 14px/1 Inter, system-ui, sans-serif; color: var(--ink); cursor: pointer; justify-self: start; align-self: start; }
+  .trace-more:hover { border-color: var(--ink); }
+  .numlist p, .role ul { display: none; }
+  .dec.flip .trace-box { order: 2; }
+  .trace-box { position: sticky; top: 140px; }
+  .trace-box .trace { position: static; }
+  @media (max-width: 980px) { .dec.flip .trace-box { order: 0; } .trace-box { position: static; } }
+  @media (max-width: 640px) {
+    .hero .stage { margin-top: 22px; }
+    .hero-rest { margin-top: 18px; }
+    .phones5 { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; padding: 18px var(--pad) 26px; scrollbar-width: none; }
+    .phones5::-webkit-scrollbar { display: none; }
+    .phones5 .shot, .phones5 .p1, .phones5 .p2, .phones5 .p5 { display: block; flex: 0 0 46%; max-width: none; transform: none; opacity: 1; scroll-snap-align: center; }
+    .phones5 .p3 { order: -1; box-shadow: none; }
+    .stage figcaption::before { content: 'Swipe for more screens → '; color: var(--ink); font-weight: 600; }
+    .meta8 { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .meta8 > div { padding: 10px 12px; }
+    .dec-vis { order: -1; margin-bottom: 18px; }
+  }
 </style>
 </head>
 <body>
@@ -425,6 +448,18 @@
     <div class="wrap">
       <a href="portfolio-hero.html#work" class="kicker" style="text-decoration:none">Enterprise UX/UI · Mobile app design · End-to-end design</a>
       <h1 data-split>Tata Power Customer Smile <span class="soft sub">Rethinking the employee experience</span></h1>
+    </div>
+    <figure class="stage rv d3">
+      <div class="phones5">
+        <button class="shot phone p1" data-cap="Explore: stories and best practices from colleagues."><img src="{{t_explore}}" alt="Explore screen with story and best-practice cards." loading="eager"></button>
+        <button class="shot phone p2" data-cap="A story: the customer's need, the step taken, and appreciation from colleagues."><img src="{{t_story}}" alt="Story screen: 'Restored power to a dialysis patient in 40 min' with the customer's need and the step taken." loading="eager"></button>
+        <button class="shot phone p3" data-cap="Home: one clear action, Share a smile."><img src="{{t_home}}" alt="Home screen: 'Made someone smile today?' with a Share a smile button and colleagues' stories." loading="eager"></button>
+        <button class="shot phone p4" data-cap="Champions: quarterly hall of fame with Jury and People's choice."><img src="{{t_champions}}" alt="Champions screen with a podium for the top three." loading="eager"></button>
+        <button class="shot phone p5" data-cap="Bin: changes requested by an assessor, the jury or the administrator."><img src="{{t_bin}}" alt="Bin screen listing change requests with reply-by dates." loading="eager"></button>
+      </div>
+      <figcaption class="wrap">Screens from the working prototype. It runs on sample content and isn’t the production app.</figcaption>
+    </figure>
+    <div class="wrap hero-rest">
       <p class="hero-headline rv">One platform. Four roles. A more intuitive employee experience.</p>
       <p class="lead rv">Customer Smile was an opportunity to rethink how Tata Power employees use an internal platform for customer stories. I worked end to end on a mobile-first experience that simplifies the workflow, accounts for four distinct user roles and explores gamification to support engagement.</p>
 
@@ -445,17 +480,6 @@
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
       </div>
     </div>
-
-    <figure class="stage rv d3">
-      <div class="phones5">
-        <button class="shot phone p1" data-cap="Explore: stories and best practices from colleagues."><img src="{{t_explore}}" alt="Explore screen with story and best-practice cards." loading="eager"></button>
-        <button class="shot phone p2" data-cap="Share a smile: a guided form with AI drafting and voice input."><img src="{{t_share}}" alt="Share a smile form with cover photo, story title and prompts." loading="eager"></button>
-        <button class="shot phone p3" data-cap="Home: one clear action, Share a smile."><img src="{{t_home}}" alt="Home screen: 'Made someone smile today?' with a Share a smile button and colleagues' stories." loading="eager"></button>
-        <button class="shot phone p4" data-cap="Champions: quarterly hall of fame with Jury and People's choice."><img src="{{t_champions}}" alt="Champions screen with a podium for the top three." loading="eager"></button>
-        <button class="shot phone p5" data-cap="Bin: changes requested by an assessor, the jury or the administrator."><img src="{{t_bin}}" alt="Bin screen listing change requests with reply-by dates." loading="eager"></button>
-      </div>
-      <figcaption class="wrap">Screens from the working prototype. It runs on sample content and isn’t the production app.</figcaption>
-    </figure>
   </section>
 
   <!-- ================= OVERVIEW ================= -->
@@ -693,9 +717,8 @@
           <dt>Prototype evidence</dt><dd class="ev">The full form has a cover photo (photo or illustration), a story title and two prompts, each with Help me write and Speak instead. Voice can be added as text or attached as a voice note. Department, location, attachments and Save as draft follow, and Continue stays disabled until the required parts are filled.</dd>
           <dt>Intended benefit</dt><dd>Fewer half-finished entries and clearer stories for reviewers.</dd>
         </dl>
-        <div class="dec-vis rv d1"><div class="phones3">
-          <button class="shot phone" data-cap="The full form, with guided prompts."><img src="{{t_share}}" alt="Share a smile form with prompts." loading="lazy"></button>
-          <button class="shot phone" data-cap="Help me write: an AI draft to start from."><img src="{{t_share_ai}}" alt="Help me write panel suggesting a draft." loading="lazy"></button>
+        <div class="dec-vis rv d1"><div class="phones2">
+          <button class="shot phone" data-cap="Guided prompts, each with Help me write and Speak instead."><img src="{{t_share_mid}}" alt="Form prompts 'Customer needed help with' and 'The step I took was', each with Help me write and Speak instead." loading="lazy"></button>
           <button class="shot phone" data-cap="Speak instead: voice to text or a voice note."><img src="{{t_share_listen}}" alt="Listening sheet with a waveform, a timer and a stop button." loading="lazy"></button>
         </div></div>
       </div>
@@ -860,6 +883,21 @@
   <button type="button" id="lbClose" aria-label="Close">×</button>
   <figure><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure>
 </div>
+<script>
+  // Phones: each design decision shows the decision and its benefit; context, rationale and evidence open on tap
+  document.querySelectorAll('.trace').forEach(dl => {
+    let n = 0;
+    dl.querySelectorAll('dt').forEach(dt => {
+      if (/^(Design decision|Intended benefit)$/i.test(dt.textContent.trim())) return;
+      dt.classList.add('more'); const dd = dt.nextElementSibling; if (dd && dd.tagName === 'DD') dd.classList.add('more'); n++;
+    });
+    if (!n) return;
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'trace-more'; b.setAttribute('aria-expanded', 'false');
+    b.textContent = 'Context, rationale & evidence +';
+    b.onclick = () => { const o = dl.classList.toggle('open'); b.setAttribute('aria-expanded', o); b.textContent = o ? 'Show less −' : 'Context, rationale & evidence +'; };
+    const box = document.createElement('div'); box.className = 'trace-box'; dl.before(box); box.append(dl, b);
+  });
+</script>
 
 <script>
 (() => {
@@ -888,8 +926,11 @@
   requestAnimationFrame(() => setTimeout(() => document.getElementById('hero').classList.add('go'), 80));
 
   // Reveal on scroll
-  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: matchMedia('(max-width: 760px)').matches ? '0px 0px 12% 0px' : '0px 0px -8% 0px' });
   document.querySelectorAll('.rv').forEach(el => reduce ? el.classList.add('in') : io.observe(el));
+
+  // Screens: once the page has loaded, fetch the remaining images in the background so they're ready before you scroll to them
+  addEventListener('load', () => setTimeout(() => document.querySelectorAll('img[loading="lazy"]').forEach(i => { i.loading = 'eager'; }), 300));
 
   // Top bar: shadow + reading progress
   const top = document.getElementById('top'), prog = document.getElementById('progress');
