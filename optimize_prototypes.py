@@ -85,6 +85,7 @@ write('amin.html', h, len(src.encode()))
 src = open(os.path.join(ROOT, 'tata/src/mcs.html')).read()
 sm = re.search(r'(<script id="screens" type="application/json">)(.*?)(</script>)', src, re.S)
 screens = {k: base64.b64decode(v).decode() for k, v in json.loads(sm.group(2)).items()}
+screens = {'home': screens['home']}   # the portfolio shows the homepage only; other screens aren't shipped
 table, index = [], {}
 def tata_img(m):
     mime, b64 = m.group(1), m.group(2)
@@ -109,6 +110,10 @@ old = "var SRC=JSON.parse(document.getElementById('screens').textContent), CACHE
 new = "var SRC=JSON.parse(document.getElementById('screens').textContent), IM=JSON.parse(document.getElementById('imgs').textContent), CACHE={};\n  function html(k){ if(!CACHE[k]){ CACHE[k]=SRC[k].replace(/__I(\\d+)__/g,function(m,i){ return IM[+i]; }); } return CACHE[k]; }"
 assert h.count(old) == 1, 'Customer Smile loader changed'
 h = h.replace(old, new)
+# homepage only: anything that would open another screen shows a short note instead
+for fn in ('function tab(k){', 'function push(k){'):
+    assert h.count(fn) == 1, fn
+    h = h.replace(fn, fn + " if(k!=='home'){ toast('This preview shows the homepage only'); return; }")
 print(f'  Customer Smile: {len(table)} unique images')
 write('tatapower.html', h, len(src.encode()))
 
