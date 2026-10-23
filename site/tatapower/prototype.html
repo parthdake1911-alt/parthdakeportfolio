@@ -10,7 +10,9 @@
   html,body{height:100%}
   body{background:#e9eef5;display:flex;justify-content:center;align-items:flex-start;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:#0f1b2d}
   .device{position:relative;width:393px;height:852px;flex-shrink:0;overflow:hidden;overflow:clip;background:#edf3fc;isolation:isolate}
-  @media (max-width:392px){ body{display:block} .device{width:100%;height:100vh;height:100dvh} }
+  @media (max-width:392px){ body{display:block} .device{width:100%} }
+  .device{height:min(852px,100vh);height:min(852px,100dvh);max-width:100vw}
+  @media (max-width:500px){ body{display:block} .device{width:100%} }
   .scr{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:#edf3fc;
     transition:transform .38s cubic-bezier(.2,.8,.2,1), opacity .25s ease, filter .38s}
   .scr.off{visibility:hidden;pointer-events:none}

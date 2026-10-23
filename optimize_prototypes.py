@@ -122,6 +122,10 @@ old = "var SRC=JSON.parse(document.getElementById('screens').textContent), CACHE
 new = "var SRC=JSON.parse(document.getElementById('screens').textContent), IM=JSON.parse(document.getElementById('imgs').textContent), CACHE={};\n  function html(k){ if(!CACHE[k]){ CACHE[k]=SRC[k].replace(/__I(\\d+)__/g,function(m,i){ return IM[+i]; }); } return CACHE[k]; }"
 assert h.count(old) == 1, 'Customer Smile loader changed'
 h = h.replace(old, new)
+# the phone frame always fits the visible screen (in-app browsers and Safari toolbars included), so the bottom nav is never cut off
+dev_old = "@media (max-width:392px){ body{display:block} .device{width:100%;height:100vh;height:100dvh} }"
+assert h.count(dev_old) == 1, 'device CSS changed'
+h = h.replace(dev_old, "@media (max-width:392px){ body{display:block} .device{width:100%} }\n  .device{height:min(852px,100vh);height:min(852px,100dvh);max-width:100vw}\n  @media (max-width:500px){ body{display:block} .device{width:100%} }")
 # homepage only: anything that would open another screen shows a short note instead
 for fn in ('function tab(k){', 'function push(k){'):
     assert h.count(fn) == 1, fn
