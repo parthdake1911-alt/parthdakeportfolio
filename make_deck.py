@@ -23,24 +23,24 @@ D = {
 # A dark fade top and bottom gives the logo (small, on a frosted chip) and the edge light room to breathe.
 # Phone projects sit on an atmosphere made from their own screen, blurred, so every card carries its brand's colour.
 CSS = f"""*{{box-sizing:border-box;margin:0;padding:0}}
-html,body{{width:{W}px;height:{HT}px;overflow:hidden;background:#0b0809}}
+html,body{{width:{W}px;height:{HT}px;overflow:hidden;background:#F6F2EB}}
 .full{{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos)}}
 .atmo{{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}}
 .brand{{position:absolute;inset:0}}
 .win{{position:absolute;left:70px;top:250px;width:1040px;height:700px;border-radius:18px;overflow:hidden;background:#111;
   transform:perspective(1700px) rotateY(-24deg) rotateX(9deg) rotateZ(1.5deg);transform-origin:left center;
-  box-shadow:0 0 0 1px rgba(255,255,255,.22),0 50px 70px -20px rgba(0,0,0,.7)}}
-.win .bar{{height:36px;background:#1b1618;display:flex;align-items:center;gap:9px;padding-left:20px}}
-.win .bar i{{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.2)}}
+  box-shadow:0 0 0 1px rgba(23,18,15,.08),0 40px 60px -20px rgba(70,45,30,.35)}}
+.win .bar{{height:36px;background:#fff;display:flex;align-items:center;gap:9px;padding-left:20px}}
+.win .bar i{{width:11px;height:11px;border-radius:50%;background:rgba(23,18,15,.14)}}
 .win img{{display:block;width:100%;height:calc(100% - 36px);object-fit:cover;object-position:var(--pos)}}
-.win::after{{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.18),transparent 35%)}}
-.shade{{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,6,7,.78) 0%,rgba(8,6,7,0) 26%,rgba(8,6,7,0) 58%,rgba(8,6,7,.85) 100%)}}
-.edge{{position:absolute;inset:0;background:radial-gradient(60% 40% at 100% 0%,rgba(255,200,150,.22),transparent 70%)}}
-.chip{{position:absolute;left:40px;top:40px;padding:16px 22px;border-radius:20px;background:rgba(255,255,255,.94);box-shadow:0 10px 30px rgba(0,0,0,.35)}}
+.win::after{{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.22),transparent 35%)}}
+.shade{{position:absolute;inset:0;background:linear-gradient(180deg,rgba(246,242,235,.55) 0%,rgba(246,242,235,0) 24%,rgba(246,242,235,0) 70%,rgba(246,242,235,.65) 100%)}}
+.edge{{position:absolute;inset:0;background:radial-gradient(60% 40% at 100% 0%,rgba(255,196,140,.35),transparent 70%)}}
+.chip{{position:absolute;left:40px;top:40px;padding:16px 22px;border-radius:20px;background:rgba(255,255,255,.96);box-shadow:0 0 0 1px rgba(23,18,15,.06),0 10px 30px rgba(70,45,30,.16)}}
 .chip img{{display:block;height:var(--lh);max-width:300px;object-fit:contain}}
 .center{{left:50%;top:50%;transform:translate(-50%,-50%);padding:30px 44px;border-radius:30px}}
 .phone{{position:absolute;left:50%;transform:translateX(-50%);top:190px;width:380px;height:830px;border-radius:58px;background:#050505;padding:12px;
-  box-shadow:0 0 0 1px rgba(255,255,255,.2),0 0 0 3px #1a1a1a,0 40px 60px -10px rgba(0,0,0,.6)}}
+  box-shadow:0 0 0 1px rgba(255,255,255,.2),0 0 0 3px #1a1a1a,0 40px 60px -10px rgba(70,45,30,.4)}}
 .phone img{{display:block;width:100%;height:100%;object-fit:cover;object-position:top;border-radius:47px}}
 """
 D = {
@@ -62,7 +62,8 @@ def atmo(k, shot):
     im = im.resize((round(im.width * sc), round(im.height * sc)), Image.LANCZOS)
     l, t = (im.width - w) // 2, 0; im = im.crop((l, t, l + w, t + h))
     im = im.resize((360, 480), Image.LANCZOS).filter(ImageFilter.GaussianBlur(28)).resize((w, h), Image.BICUBIC).filter(ImageFilter.GaussianBlur(6))
-    im = ImageEnhance.Color(im).enhance(1.4); im = ImageEnhance.Brightness(im).enhance(.55)
+    im = ImageEnhance.Color(im).enhance(.9); im = ImageEnhance.Brightness(im).enhance(1.08)
+    im = Image.blend(im, Image.new('RGB', im.size, (246, 242, 235)), .55)   # daylight: the project's colours, washed onto warm paper
     im.save(out); return out.as_uri()
 def page(k):
     c, logo, lh, shot, kind, pos = D[k]
@@ -76,7 +77,7 @@ def page(k):
         S = (H / shot).as_uri()
         body = f'<img class="atmo" src="{atmo(k, shot)}"><div class="phone"><img src="{S}"></div><div class="shade"></div><div class="edge"></div><div class="chip"><img src="{L}" style="--lh:{lh}px"></div>'
     else:
-        body = f'<div class="brand" style="background:radial-gradient(75% 55% at 50% 45%,{c}cc,{c}33 45%,transparent 78%),linear-gradient(170deg,#141018,#0b0809)"></div><div class="edge"></div><div class="chip center"><img src="{L}" style="--lh:{lh}px"></div>'
+        body = f'<div class="brand" style="background:radial-gradient(75% 55% at 50% 45%,{c}55,{c}18 45%,transparent 78%),linear-gradient(170deg,#FAF7F2,#EFE8DE)"></div><div class="edge"></div><div class="chip center"><img src="{L}" style="--lh:{lh}px"></div>'
     return f'<!doctype html><html><head><meta charset="utf-8"><style>{CSS}</style></head><body>{body}</body></html>'
 async def main():
     async with async_playwright() as p:

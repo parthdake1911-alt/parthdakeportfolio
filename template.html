@@ -1173,6 +1173,28 @@
   @media (max-width: 900px), (orientation: portrait) and (max-width: 1180px) {
     footer.contact.tone-light { padding-bottom: calc(60vw + 56px) !important; background-position: right 40% bottom 44px !important; }
   }
+
+  /* cards in daylight: light poster art, a soft warm shadow, light glass caption — no boxes, no bands */
+  .card .foot { background: rgba(255,255,255,.72) !important; box-shadow: inset 0 0 0 1px rgba(255,255,255,.8), 0 8px 24px rgba(70,45,30,.14) !important; }
+  .card .meta b { color: #1F1B18 !important; } .card .meta i { color: rgba(31,27,24,.66) !important; }
+  .card .go { background: #1F1B18 !important; color: #F6F2EB !important; box-shadow: none !important; }
+  .card .go.soon { background: rgba(31,27,24,.08) !important; color: #1F1B18 !important; }
+  .card .frame::after { box-shadow: inset 0 0 0 1px rgba(31,27,24,.06) !important; }
+  @media (max-width: 900px), (orientation: portrait) and (max-width: 1180px) {
+    #cards, #cards.tone-light { background: transparent !important; }          /* the page's own paper shows through: no band */
+    html body .card .frame, html body .card.active .frame { box-shadow: none !important; }   /* shadow on the picture only, not around the caption */
+    html body #cards .card .frame .bg { outline: 1px solid rgba(31,27,24,.06) !important; box-shadow: 0 18px 36px rgba(70,45,30,.16) !important; }
+    html body #cards .card .foot { background: none !important; box-shadow: none !important; }
+    html body #cards .card .go { width: 42px !important; height: 42px !important; }
+  }
+
+  /* one continuous sheet of paper: sections don't paint their own, so there are no bands between them */
+  html body section.about.tone-light { background: transparent !important; }
+  @media (max-width: 900px), (orientation: portrait) and (max-width: 1180px) {
+    html body .door-bg { -webkit-mask-image: linear-gradient(#000 80%, transparent) !important; mask-image: linear-gradient(#000 80%, transparent) !important; }
+  }
+
+  html body footer.contact { -webkit-mask-image: linear-gradient(transparent 0, #000 140px); mask-image: linear-gradient(transparent 0, #000 140px); }   /* footer fades in from the paper above */
 </style>
 </head>
 <body>
