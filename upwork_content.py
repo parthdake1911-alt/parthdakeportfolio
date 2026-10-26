@@ -12,7 +12,7 @@ PROJECTS = [
       {'file': 'four-roles', 'title': 'One app, four roles: every review step visible to the employee',
        'items': [('tata/out/t_status.webp', P), ('tata/out/t_bin.webp', P), ('tata/out/t_dates.webp', P)]},
       {'file': 'share-in-three-steps', 'title': 'Sharing a customer story in three quick steps',
-       'items': [('tata/out/t_chooser.webp', P), ('tata/out/t_quick_filled.webp', P), ('tata/out/t_success.webp', P)]},
+       'items': [('tata/out/t_chooser.webp', P), ('tata/out/t_form.webp', P), ('tata/out/t_submitted.webp', P)]},
       {'file': 'guided-writing', 'title': 'Guided prompts, AI drafting and voice input for the full story',
        'items': [('tata/out/t_share_mid.webp', P), ('tata/out/t_share_listen.webp', P)]},
       {'file': 'gamification', 'title': 'Gamification tied to the real task: points, a daily spin, recognition',
