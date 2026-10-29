@@ -32,9 +32,6 @@ async def main():
                 ok(f'{name}: back to case study', len(await on(pg))==1)
             await fr.locator('.foot a[href="../#work"]').click(); await pg.wait_for_timeout(1500)
             ok(f'{name}: "more projects" returns to the cards', len(await on(pg))==0)
-        await pg.evaluate("scrollTo(0, window.__deckTop(5))"); await pg.wait_for_timeout(2500)
-        bb=await pg.locator('a.card[aria-label^="Shapoorji"] .frame').bounding_box(); await pg.mouse.click(bb['x']+bb['width']/2,bb['y']+bb['height']/2); await pg.wait_for_timeout(500)
-        ok('Shapoorji: coming-soon message', 'coming soon' in (await pg.evaluate('(document.querySelector(".toast,#toast")||{}).textContent||""')))
         ok('homepage: no page errors during navigation', not errs, errs[:2])
         await b.close()
         for name,hash_,_ in CASES:

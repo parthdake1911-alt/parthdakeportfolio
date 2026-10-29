@@ -16,8 +16,6 @@ D = {
     'ica':         ('#E2483B', 'logos/ica.png',         112, 'ica/out/i_trend.webp',  'browser', 'top'),
     'anchor':      ('#4C6FFF', 'logos/anchor.svg',       66, 'anchor/out/a_dash.webp', 'browser', 'top left'),
     'amin':        ('#8B5CF6', 'logos/amin.png',         58, 'amin/out/a_globe.webp', 'browser', 'top left'),
-    'ultratech':   ('#FFD400', 'logos/ultratech.png',    92, 'ultra/out/u_hero.webp', 'phone',   'top'),
-    'sp':          ('#2E7DD6', 'logos/sp.png',          120, None,                    'none',    None),
 }
 # Poster cards: the work fills the card edge to edge, like a film poster or an App Store story.
 # A dark fade top and bottom gives the logo (small, on a frosted chip) and the edge light room to breathe.
@@ -50,8 +48,6 @@ D = {
     'ica':       ('#E2483B', 'logos/ica.png',       58, 'ica/out/i_trend.webp',   'tilt',    'top'),
     'anchor':    ('#4C6FFF', 'logos/anchor.svg',    34, 'anchor/out/a_dash.webp', 'tilt',    'left top'),
     'amin':      ('#8B5CF6', 'logos/amin.png',      32, 'amin/out/a_globe.webp',  'tilt',    'top left'),
-    'ultratech': ('#FFD400', 'logos/ultratech.png', 52, 'ultra/out/u_hero.webp',  'phone',   'top'),
-    'sp':        ('#2E7DD6', 'logos/sp.png',        96, None,                     'none',    None),
 }
 from PIL import ImageFilter, ImageEnhance
 def atmo(k, shot):

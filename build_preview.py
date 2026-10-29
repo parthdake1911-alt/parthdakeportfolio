@@ -24,7 +24,7 @@ h1{font-size:28px;margin:0 0 10px;letter-spacing:-.02em}p{color:#555;max-width:4
 
 home = open(f'{S}/index.html').read()
 pages = {
-    'case': 'amin', 'anchorCase': 'anchor', 'ultraCase': 'ultratech', 'icaCase': 'ica', 'tataCase': 'tatapower', 'casaCase': 'casagrand',
+    'case': 'amin', 'anchorCase': 'anchor', 'icaCase': 'ica', 'tataCase': 'tatapower', 'casaCase': 'casagrand',
 }
 P = {}
 for key, folder in pages.items():

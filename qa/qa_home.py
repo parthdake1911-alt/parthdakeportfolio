@@ -21,7 +21,7 @@ async def main():
             sc=await pg.evaluate("document.getElementById('scroller').offsetHeight - innerHeight")
             await pg.evaluate(f"scrollTo(0,{sc})"); await pg.wait_for_timeout(3500); await pg.screenshot(path=SP+f'qa_{tag}_work.png')
             cards=await pg.evaluate("[...document.querySelectorAll('a.card')].map(a=>[a.getAttribute('aria-label'),a.querySelector('img').currentSrc.split('/').pop()])")
-            ok(f'{tag}: 6 cards with deck images', len(cards)==6 and all(c[1].split('?')[0].endswith('.webp') for c in cards), cards)
+            ok(f'{tag}: 5 cards with deck images', len(cards)==5 and all(c[1].split('?')[0].endswith('.webp') for c in cards), cards)
             for sel in ['#about','#contact']:
                 await pg.evaluate(f"document.querySelector('{sel}').scrollIntoView()"); await pg.wait_for_timeout(2500)
                 await pg.screenshot(path=SP+f'qa_{tag}_{sel[1:]}.png')

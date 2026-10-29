@@ -14,12 +14,10 @@ W, HT = 720, 814
 COVERS = {
     'amin':        ('#F1EEFB', 'logos/amin.png',        40, 'amin/out/a_globe.webp',  'browser', 'top'),
     'anchor':      ('#EEF2F9', 'logos/anchor.svg',      52, 'anchor/out/a_dash.webp', 'browser', 'top left'),
-    'ultratech':   ('#FAF6E4', 'logos/ultratech.png',   58, 'ultra/out/u_hero.webp',  'phone',   'top'),
     'ellenbarrie': ('#F8EEEE', 'logos/ellenbarrie.png', 66, 'ellen/out/r_hero.webp',  'browser', 'top'),
     'ica':         ('#F2EFEA', 'logos/ica.png',         82, 'ica/out/i_trend.webp',   'browser', 'top'),
     'tata':        ('#EAF1FB', 'logos/tata.png',        66, 'tata/out/t_home.webp',   'phone',   'top'),
     'casagrand':   ('#FBF3E3', 'logos/casagrand.png',   48, 'casa/out/c_hero.webp',   'browser', 'top'),
-    'sp':          ('#EDF3F9', 'logos/sp.png',          96, None,                     'logo',    None),
 }
 
 CSS = """

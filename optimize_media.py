@@ -15,7 +15,7 @@ def avif(im, path, q=60):
     im.save(path, 'AVIF', quality=q, speed=4)
 
 # Project covers: AVIF (with the existing WebP as fallback). All cards share the 720x814 frame.
-for k in ['amin', 'ultratech', 'tata', 'ica', 'anchor', 'casagrand', 'sp']:
+for k in ['amin', 'tata', 'ica', 'anchor', 'casagrand']:
     im = Image.open(f'{H}/cards/{k}.webp').convert('RGB')
     fh = round(im.width * 814 / 720)
     if im.height > fh + 4:                       # taller than the frame: keep only the visible part
