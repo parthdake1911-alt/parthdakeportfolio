@@ -302,6 +302,11 @@ if MIN:
 else:
     print('html-minifier-terser not found: pages left unminified (the site still works).')
 
+# ---------- All In app (standalone, from allin/) ----------
+os.makedirs(f'{OUT}/allin', exist_ok=True)
+for f in ['index.html', 'og.jpg']:
+    shutil.copy(os.path.join(H, 'allin', f), f'{OUT}/allin/{f}')
+
 # ---------- report ----------
 tot = sum(os.path.getsize(os.path.join(r, f)) for r, _, fs in os.walk(OUT) for f in fs)
 print(f'site total {tot/1e6:.1f} MB')
