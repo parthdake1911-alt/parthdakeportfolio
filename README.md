@@ -1,6 +1,6 @@
 # Parth Dake — Portfolio
 
-UI/UX design portfolio: animated homepage plus case studies for Tata Power (Customer Smile), ICA, Ellenbarrie, UltraTech Cement, AMIN Worldwide and Anchor.
+UI/UX design portfolio: animated homepage plus case studies for All In (self-initiated group-trip app), Tata Power (Customer Smile), ICA, Ellenbarrie, UltraTech Cement, AMIN Worldwide and Anchor.
 
 ## What's where
 - **`site/`** — the finished website. This is what gets published (it has `index.html` at the top).

@@ -1,0 +1,937 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>All In – Case Study · Parth Dake</title>
+<meta name="description" content="All In: friends pay their share to say yes, and the trip locks. A complete UX case study by Parth Dake, from reading reviews to the final pop-style app.">
+<meta name="theme-color" content="#FFA45D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap">
+<style>
+:root{--tang:#FFA45D;--sun:#E16A3D;--sea:#1C9290;--pine:#016A6D;--nile:#043E52;--ink:#10262E;--mint:#DDF0EE;--peach:#FFE4CC;--cream:#F6F2EC;--muted:#4C5F66;
+--gloss:inset 0 1.5px 0 rgba(255,255,255,.55),inset 0 -3px 0 rgba(16,38,46,.10);--float:0 22px 34px -16px rgba(16,38,46,.36),0 6px 12px -6px rgba(16,38,46,.18);--soft:0 10px 22px -12px rgba(16,38,46,.32);color-scheme:light}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Outfit,system-ui,-apple-system,'Segoe UI',sans-serif;font-size:17.5px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--pine)}
+::selection{background:var(--tang)}
+:focus-visible{outline:3px solid var(--pine);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left,0px))}
+.read{max-width:740px}
+h1,h2,h3{margin:0;letter-spacing:-.035em;line-height:1.04;font-weight:800;text-wrap:balance}
+h2{font-size:clamp(34px,5.4vw,58px);margin-bottom:18px}
+h3{font-size:22px;letter-spacing:-.02em;margin-bottom:6px}
+p{margin:0 0 14px}
+.lead{font-size:clamp(19px,2.2vw,22px);color:var(--muted);max-width:62ch}
+.over{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--pine);margin-bottom:12px}
+.over i{font-style:normal;background:var(--ink);color:#fff;border-radius:999px;padding:2px 9px;letter-spacing:.04em}
+section{position:relative}
+.band{padding:96px 0}
+.band.tight{padding:64px 0}
+.bg-tang{background:var(--tang)}.bg-ink{background:var(--ink);color:#fff}.bg-nile{background:var(--nile);color:#fff}.bg-mint{background:var(--mint)}.bg-sea{background:var(--sea);color:#fff}.bg-sun{background:var(--sun);color:#fff}.bg-white{background:#fff}
+.bg-ink .over,.bg-nile .over,.bg-sea .over,.bg-sun .over{color:var(--tang)}.bg-sea .over,.bg-sun .over{color:#fff}
+.bg-ink .lead,.bg-nile .lead,.bg-sea .lead,.bg-sun .lead{color:rgba(255,255,255,.82)}
+.curve{border-radius:44px 44px 0 0;margin-top:-44px}
+.card{background:#fff;border-radius:24px;padding:22px;box-shadow:var(--float),var(--gloss)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;padding:7px 14px;border-radius:999px;background:#fff;box-shadow:var(--soft),var(--gloss)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 26px;border-radius:16px;background:var(--pine);color:#fff;font:600 17px Outfit,sans-serif;text-decoration:none;border:0;cursor:pointer;box-shadow:0 14px 22px -12px rgba(1,106,109,.8),var(--gloss);position:relative;overflow:hidden;transition:transform .15s}
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.22) 50%,transparent 65%);transform:translateX(-120%);animation:shine 4.5s ease-in-out infinite}
+@keyframes shine{0%,70%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+.btn:active{transform:scale(.97)}
+.btn.white{background:#fff;color:var(--ink);box-shadow:var(--float),var(--gloss)}.btn.white::after{display:none}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;padding:8px 14px;border-radius:999px;background:#fff;color:var(--ink);border:0;box-shadow:var(--soft),var(--gloss);cursor:pointer;font-family:inherit;transition:transform .15s,background .2s}
+.chip.on{background:var(--pine);color:#fff}
+.chip:active{transform:scale(.95)}
+
+/* top bar */
+.top{position:fixed;left:0;right:0;top:0;z-index:50;padding:12px 0;transition:background .3s,box-shadow .3s}
+.top.solid{background:rgba(246,242,236,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(16,38,46,.08)}
+.top .wrap{display:flex;align-items:center;gap:14px}
+.top .me img{height:34px;width:auto}
+.top .back{margin-left:auto;font-weight:700;font-size:15px;text-decoration:none;color:var(--ink);background:#fff;padding:9px 16px;border-radius:999px;box-shadow:var(--soft),var(--gloss)}
+.prog{position:absolute;left:0;bottom:0;height:3px;background:var(--pine);width:0}
+.chap{font-size:14px;font-weight:700;opacity:0;transform:translateY(6px);transition:.3s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46vw}
+.top.solid .chap{opacity:1;transform:none}
+
+/* brand marks */
+.br-icon{display:inline-grid;place-items:center;flex:none;position:relative;box-shadow:0 18px 28px -14px rgba(16,38,46,.45),0 6px 10px -6px rgba(16,38,46,.25),inset 0 1.5px 0 rgba(255,255,255,.25),inset 0 -3px 0 rgba(0,0,0,.18);overflow:hidden}
+.br-icon.shine::after{content:"";position:absolute;top:0;bottom:0;width:40%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);animation:brShine 3.6s ease-in-out infinite 1.2s}
+@keyframes brShine{0%,60%{transform:translateX(-140%) skewX(-20deg)}100%{transform:translateX(240%) skewX(-20deg)}}
+.br-ticket{display:block;filter:drop-shadow(0 6px 6px rgba(16,38,46,.28));overflow:visible}
+.br-word{font-weight:800;letter-spacing:-.045em;line-height:1;white-space:nowrap;display:inline-block}
+.br-i{position:relative;display:inline-block}.br-i i{position:absolute;left:50%;top:.02em;width:.3em;height:.17em;border-radius:.05em;transform:translateX(-46%) rotate(-14deg);box-shadow:0 .03em .04em rgba(16,38,46,.25)}
+
+/* motion */
+.rv{opacity:0;transform:translateY(28px) scale(.98);transition:opacity .7s cubic-bezier(.2,1,.3,1),transform .7s cubic-bezier(.2,1.2,.3,1);transition-delay:calc(var(--d,0) * 80ms)}
+.rv.in{opacity:1;transform:none}
+.dr{opacity:0}
+.dr.in{animation:drop .8s cubic-bezier(.3,1.35,.5,1) forwards;animation-delay:calc(var(--d,0) * 110ms)}
+@keyframes drop{from{opacity:0;transform:translateY(-160px) rotate(-18deg)}to{opacity:1;transform:rotate(var(--r,0deg))}}
+.sl{opacity:0}
+.sl.in{animation:slam .5s cubic-bezier(.3,1.6,.5,1) forwards;animation-delay:calc(var(--d,0) * 110ms)}
+@keyframes slam{from{opacity:0;transform:scale(2.4) rotate(-30deg)}to{opacity:1;transform:scale(1) rotate(var(--r,-10deg))}}
+.k{display:inline-block;opacity:0;transform:translateY(60%) rotate(4deg)}
+.kh.in .k{animation:kin .6s cubic-bezier(.2,1.2,.4,1) forwards}
+@keyframes kin{to{opacity:1;transform:none}}
+.hov{animation:hov 5.5s ease-in-out infinite}
+@keyframes hov{50%{translate:0 -8px}}
+.strike{position:relative;display:inline-block}.strike::after{content:"";position:absolute;left:-2px;right:-2px;top:52%;height:3px;border-radius:2px;background:var(--sun);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.6,0,.2,1);transition-delay:calc(var(--d,0) * 120ms + .2s)}
+.in .strike::after,.strike.in::after{transform:scaleX(1)}
+@media (prefers-reduced-motion:reduce){.rv,.dr,.sl,.k{opacity:1!important;transform:none!important;animation:none!important;transition:none!important}.hov,.btn::after,.br-icon.shine::after,.marq>div{animation:none!important}}
+
+/* hero */
+.hero{background:var(--tang);min-height:100svh;padding:110px 0 70px;overflow:hidden;position:relative}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr}.hero{padding-top:96px}}
+.hero h1{font-size:clamp(54px,9vw,112px);line-height:.94;letter-spacing:-.05em;margin:18px 0 22px}
+.hero .lead{color:rgba(16,38,46,.82)}
+.metas{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.stage{position:relative;height:520px}
+@media (max-width:900px){.stage{height:430px;max-width:420px;margin:0 auto;width:100%}}
+.phone{position:absolute;width:236px;border-radius:34px;overflow:hidden;background:#fff;box-shadow:0 34px 50px -22px rgba(16,38,46,.55),0 0 0 7px #fff,0 0 0 8px rgba(16,38,46,.08)}
+.phone img{width:100%;height:auto}
+@media (max-width:900px){.phone{width:190px}}
+.fch{position:absolute;font-size:14px;font-weight:700;padding:8px 14px;border-radius:999px;background:#fff;color:var(--ink);box-shadow:var(--float);white-space:nowrap}
+.scrollcue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);font-size:13px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.75}
+.scrollcue span{width:22px;height:34px;border-radius:12px;border:2px solid var(--ink);position:relative}.scrollcue span::after{content:"";position:absolute;left:50%;top:6px;width:4px;height:7px;border-radius:2px;background:var(--ink);transform:translateX(-50%);animation:cue 1.6s ease-in-out infinite}
+@keyframes cue{60%{transform:translate(-50%,10px);opacity:0}}
+
+/* marquee */
+.marq{overflow:hidden;background:var(--ink);color:var(--tang);padding:14px 0;transform:rotate(-1.6deg);margin:-18px -20px 0;position:relative;z-index:3;box-shadow:var(--float)}
+.marq>div{display:flex;gap:40px;width:max-content;animation:marq 26s linear infinite;font-weight:800;font-size:22px;letter-spacing:-.01em}
+.marq b{color:#fff}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* itinerary nav */
+.itin{display:flex;gap:10px;overflow-x:auto;padding:6px 2px 14px;scrollbar-width:none}.itin::-webkit-scrollbar{display:none}
+.itin a{flex:none;text-decoration:none;color:var(--ink);background:#fff;border-radius:18px;padding:12px 14px;box-shadow:var(--soft),var(--gloss);min-width:150px;transition:transform .2s}
+.itin a:hover{transform:translateY(-3px) rotate(-1deg)}
+.itin a b{display:block;font-size:12px;color:var(--pine);letter-spacing:.08em;text-transform:uppercase}
+.itin a span{font-weight:700;font-size:15px}
+
+/* stats */
+.stat{background:#fff;border-radius:24px;padding:22px;box-shadow:var(--float),var(--gloss);min-width:0}
+.stat b{display:block;white-space:nowrap;font-size:clamp(40px,5vw,56px);font-weight:800;letter-spacing:-.05em;line-height:1;margin-bottom:8px;font-variant-numeric:tabular-nums}
+.stat > span{display:block;font-weight:600}
+.stat small{display:block;color:var(--muted);font-size:13px;margin-top:8px;line-height:1.4}
+
+/* quote */
+.quote{font-size:clamp(26px,3.6vw,40px);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin:0}
+.quote em{font-style:normal;background:var(--tang);color:var(--ink);padding:0 .15em;border-radius:.2em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.bg-ink .quote em{background:var(--tang)}
+
+/* reviews wall */
+.reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px}
+.rev{background:#fff;color:var(--ink);border-radius:20px;padding:16px;box-shadow:var(--float);font-size:15px;line-height:1.45}
+.rev .st{color:var(--sun);letter-spacing:2px;font-size:13px;margin-bottom:6px}
+.rev small{display:block;color:var(--muted);margin-top:8px;font-size:12.5px}
+.bars{display:flex;flex-direction:column;gap:10px}
+.bar{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:15px;font-weight:600}
+.bar i{grid-column:1/3;height:12px;border-radius:999px;background:rgba(255,255,255,.18);overflow:hidden;position:relative}
+.bar i::after{content:"";position:absolute;inset:0;width:var(--w);background:var(--tang);border-radius:999px;transform:scaleX(0);transform-origin:left;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.in .bar i::after{transform:scaleX(1)}
+
+/* scorecard */
+.score{width:100%;border-collapse:separate;border-spacing:0 10px}
+.score td,.score th{padding:14px 16px;text-align:left;vertical-align:top}
+.score th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.score tr td{background:#fff}.score tr td:first-child{border-radius:16px 0 0 16px;font-weight:700}.score tr td:last-child{border-radius:0 16px 16px 0}
+.score .bad{color:var(--sun);font-weight:700}.score .good{color:var(--pine);font-weight:700}
+.tbl{overflow-x:auto;margin:0 -4px;padding:0 4px}.tbl table{min-width:560px}
+
+/* personas */
+.persona{display:flex;gap:16px;align-items:flex-start}
+.ava{width:64px;height:64px;border-radius:20px;display:grid;place-items:center;font-weight:800;font-size:26px;flex:none;box-shadow:var(--gloss),var(--soft)}
+.persona ul{margin:8px 0 0;padding-left:18px;color:var(--muted);font-size:15.5px}
+
+/* journey */
+.journey{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;position:relative}
+@media (max-width:760px){.journey{grid-template-columns:repeat(3,1fr)}}
+.jstep{background:#fff;border-radius:18px;padding:14px;box-shadow:var(--soft),var(--gloss);font-size:14px;position:relative}
+.jstep b{display:block;font-size:16px;margin-bottom:4px}
+.jstep .mood{font-size:24px;display:block;margin-bottom:6px}
+.jstep.drop{background:var(--sun);color:#fff}
+.jstep.drop small{color:#fff}
+.jstep small{color:var(--muted);display:block;line-height:1.35}
+
+/* hmw */
+.hmw{display:flex;flex-wrap:wrap;gap:10px}
+.hmw span{background:#fff;border-radius:16px;padding:12px 16px;font-weight:600;box-shadow:var(--soft),var(--gloss);transform:rotate(var(--r,0deg))}
+
+/* phones row */
+.prow{display:flex;gap:18px;overflow-x:auto;padding:10px 4px 26px;scroll-snap-type:x mandatory;scrollbar-width:thin}
+.prow figure{flex:none;width:220px;margin:0;scroll-snap-align:start}
+.prow img{width:100%;border-radius:26px;box-shadow:var(--float);background:#fff}
+.prow figcaption{font-size:14px;font-weight:600;margin-top:10px;line-height:1.35}
+.prow figcaption small{display:block;font-weight:500;color:var(--muted)}
+.bg-ink .prow figcaption small,.bg-nile .prow figcaption small,.bg-sea .prow figcaption small{color:rgba(255,255,255,.7)}
+.wideimg{border-radius:26px;overflow:hidden;box-shadow:var(--float);background:#fff}
+.wideimg img{width:100%;height:auto}
+.hscroll{overflow-x:auto;border-radius:26px;box-shadow:var(--float);background:#fff}
+.hscroll img{max-width:none;height:420px;width:auto}
+@media (max-width:600px){.hscroll img{height:320px}}
+.cap{font-size:14px;color:var(--muted);margin-top:12px}
+.bg-ink .cap,.bg-nile .cap,.bg-sea .cap{color:rgba(255,255,255,.7)}
+
+/* crit list */
+.crit{display:grid;gap:12px}
+.crit div{display:flex;gap:14px;align-items:flex-start;background:#fff;border-radius:18px;padding:16px;box-shadow:var(--soft),var(--gloss)}
+.crit div span{flex:none;width:34px;height:34px;border-radius:12px;background:var(--sun);color:#fff;display:grid;place-items:center;font-weight:800}
+.crit p{margin:0;font-size:16px}
+
+/* cut list */
+.cuts{display:flex;flex-wrap:wrap;gap:10px}
+.cuts span{font-weight:700;font-size:18px;background:#fff;border-radius:14px;padding:10px 16px;box-shadow:var(--soft);color:var(--ink)}
+.cuts span.keep{background:var(--pine);color:#fff}
+
+/* seat demo */
+.demo{background:var(--pine);color:#fff;border-radius:30px;padding:26px;box-shadow:var(--float),var(--gloss);position:relative;overflow:hidden}
+.demo .top2{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.demo .big{font-size:64px;font-weight:800;letter-spacing:-.05em;line-height:.9}
+.seats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:22px 0 18px;position:relative}
+.seat{aspect-ratio:1/1.05;border-radius:18px;border:2px dashed rgba(255,255,255,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:13px;font-weight:600;color:rgba(255,255,255,.8);transition:background .3s}
+.seat .a{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;font-weight:800;color:var(--ink);box-shadow:var(--gloss)}
+.seat.in{background:#fff;border:0;color:var(--ink);box-shadow:var(--soft),var(--gloss);animation:seatIn .55s cubic-bezier(.3,1.6,.5,1)}
+@keyframes seatIn{from{transform:scale(.4) rotate(-10deg);opacity:0}to{transform:none;opacity:1}}
+.lockline{position:absolute;top:-8px;bottom:-8px;width:3px;border-radius:2px;background:var(--tang);left:calc(50% - 1.5px);display:none}
+.flag{position:absolute;top:-14px;font-size:11px;font-weight:800;letter-spacing:.06em;background:var(--tang);color:var(--ink);padding:3px 9px;border-radius:999px;left:50%;transform:translateX(-50%)}
+.demo .row2{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.fly{position:absolute;right:24px;top:24px;font-weight:800;font-size:22px;background:var(--tang);color:var(--ink);padding:4px 14px;border-radius:999px;box-shadow:var(--float);animation:fly 1.3s cubic-bezier(.2,.9,.3,1) forwards;pointer-events:none}
+@keyframes fly{0%{opacity:0;transform:translateY(20px) scale(.6)}20%{opacity:1;transform:scale(1.1)}70%{opacity:1;transform:translateY(-16px)}100%{opacity:0;transform:translateY(-34px)}}
+.stamp{position:absolute;right:22px;bottom:84px;width:118px;height:118px;border-radius:50%;border:4px solid var(--tang);color:var(--tang);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;letter-spacing:.06em;background:rgba(1,106,109,.7);opacity:0;pointer-events:none}
+.stamp.go{animation:slam .5s cubic-bezier(.3,1.6,.5,1) forwards}
+.confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.confetti i{position:absolute;top:-12px;width:9px;height:14px;border-radius:2px;animation:conf 1.6s cubic-bezier(.2,.6,.4,1) forwards}
+@keyframes conf{to{transform:translateY(560px) rotate(540deg);opacity:0}}
+
+/* steps */
+.steps{display:grid;gap:14px;counter-reset:s;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+.steps .card{position:relative;padding-top:56px}
+.steps .card::before{counter-increment:s;content:counter(s);position:absolute;left:20px;top:18px;width:30px;height:30px;border-radius:10px;background:var(--tang);display:grid;place-items:center;font-weight:800;box-shadow:var(--gloss)}
+
+/* brand */
+.routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:14px}
+.route{background:#fff;border-radius:22px;padding:18px;box-shadow:var(--soft),var(--gloss);position:relative}
+.route.win{outline:3px solid var(--pine)}
+.route .tag{position:absolute;right:14px;top:14px;font-size:12px;font-weight:800;background:var(--pine);color:#fff;padding:3px 10px;border-radius:999px}
+.route .glyph{font-size:44px;line-height:1;margin-bottom:10px}
+.swatches{display:flex;flex-wrap:wrap;gap:12px}
+.sw{width:118px;border-radius:20px;overflow:hidden;background:#fff;box-shadow:var(--soft)}
+.sw div{height:74px}
+.sw p{margin:0;padding:10px 12px;font-size:13px;line-height:1.3}
+.sw p b{display:block;font-size:14px}
+.logostage{background:var(--tang);border-radius:32px;min-height:340px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;position:relative;overflow:hidden;box-shadow:var(--float)}
+.replay{position:absolute;right:16px;top:16px}
+.ba{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center}
+@media (max-width:700px){.ba{grid-template-columns:1fr}}
+.ba .arrow{font-size:34px;font-weight:800;text-align:center;color:var(--sun)}
+
+/* ui problems */
+.prob{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;background:#fff;border-radius:26px;padding:22px;box-shadow:var(--float),var(--gloss)}
+@media (max-width:700px){.prob{grid-template-columns:1fr}}
+.prob .imgs{display:flex;gap:12px}
+.prob .imgs figure{margin:0;width:150px;position:relative}
+.prob .imgs img{border-radius:20px;box-shadow:var(--soft)}
+.prob .imgs figure span{position:absolute;left:8px;top:8px;font-size:11px;font-weight:800;padding:3px 9px;border-radius:999px;background:var(--sun);color:#fff;letter-spacing:.04em}
+.prob .imgs figure.after span{background:var(--pine)}
+.prob h3{margin-top:2px}
+.prob .tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.prob .tags b{font-size:12px;background:var(--mint);color:var(--pine);padding:3px 10px;border-radius:999px}
+.prob p{color:var(--muted);font-size:16px}
+.prob p strong{color:var(--ink)}
+.nodot{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+
+/* versions */
+.vtabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.vtabs button{font:700 15px Outfit,sans-serif;border:0;border-radius:999px;padding:10px 18px;background:rgba(255,255,255,.12);color:#fff;cursor:pointer;transition:.2s}
+.vtabs button.on{background:var(--tang);color:var(--ink)}
+.vpanel{display:grid;grid-template-columns:1.1fr 1fr;gap:30px;align-items:center}
+@media (max-width:860px){.vpanel{grid-template-columns:1fr}}
+.vph{display:flex;gap:14px;justify-content:center;min-height:400px;align-items:flex-start}
+.vph img{width:min(31%,200px);border-radius:24px;box-shadow:0 26px 40px -18px rgba(0,0,0,.6);animation:vin .6s cubic-bezier(.3,1.3,.5,1) both}
+.vph img:nth-child(2){margin-top:30px;animation-delay:.08s}.vph img:nth-child(3){animation-delay:.16s}
+@keyframes vin{from{opacity:0;transform:translateY(40px) rotate(-4deg)}to{opacity:1;transform:none}}
+.vtxt h3{font-size:30px}
+.vtxt .k2{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--tang)}
+.vtxt ul{padding-left:18px;color:rgba(255,255,255,.86)}
+.vtxt li{margin-bottom:6px}
+.vtime{display:flex;align-items:center;gap:0;margin:26px 0 8px}
+.vtime i{flex:1;height:4px;background:rgba(255,255,255,.18);position:relative}
+.vtime i.done{background:var(--tang)}
+.vtime b{width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,.3);flex:none}
+.vtime b.done{background:var(--tang)}
+
+/* decision log */
+.dfilter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.dlog{display:grid;gap:10px}
+.drow{display:grid;grid-template-columns:86px 110px 1fr;gap:14px;align-items:start;background:#fff;border-radius:18px;padding:14px 16px;box-shadow:var(--soft),var(--gloss);cursor:pointer;transition:transform .15s}
+.drow:hover{transform:translateX(4px)}
+@media (max-width:700px){.drow{grid-template-columns:1fr auto}.drow .dd{grid-column:1/3}}
+.drow .dt{font-size:13px;font-weight:700;color:var(--muted)}
+.drow .ar{font-size:12px;font-weight:800;padding:4px 10px;border-radius:999px;justify-self:start;letter-spacing:.03em}
+.ar.Product{background:var(--tang);color:var(--ink)}.ar.UX{background:var(--mint);color:var(--pine)}.ar.Brand{background:var(--peach);color:#A8461F}.ar.UI{background:var(--ink);color:#fff}.ar.Tech{background:var(--sea);color:#fff}.ar.Business{background:var(--sun);color:#fff}
+.drow .dd b{display:block;font-size:16.5px;line-height:1.3}
+.drow .why{max-height:0;overflow:hidden;transition:max-height .4s ease,margin .3s;color:var(--muted);font-size:15px}
+.drow.open .why{max-height:240px;margin-top:6px}
+.drow .why em{font-style:normal;color:var(--sun);font-weight:700}
+.dcount{font-size:14px;color:var(--muted);margin:0 0 12px}
+
+/* tables generic */
+table.t{width:100%;border-collapse:collapse;font-size:15.5px;background:#fff;border-radius:20px;overflow:hidden;box-shadow:var(--soft)}
+table.t th,table.t td{text-align:left;padding:13px 14px;border-bottom:1px solid #EEE7DE;vertical-align:top}
+table.t th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:#FBF8F4}
+table.t tr:last-child td{border-bottom:0}
+
+/* end swipe */
+.swipe{position:relative;height:72px;border-radius:999px;background:rgba(255,255,255,.2);overflow:hidden;user-select:none;-webkit-user-select:none;touch-action:none;max-width:460px}
+.sfill{position:absolute;left:0;top:0;bottom:0;width:70px;border-radius:999px;background:var(--ink)}
+.slab{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;color:#fff;padding-left:56px;animation:slab 2.4s ease-in-out infinite}
+@keyframes slab{50%{opacity:.55;transform:translateX(6px)}}
+.thumb{position:absolute;left:5px;top:5px;width:62px;height:62px;border:0;border-radius:999px;background:#fff;display:grid;place-items:center;box-shadow:var(--float);cursor:grab;padding:0;transform:rotate(-10deg)}
+.swipe.done .slab{color:#fff;padding-left:0;animation:none}
+footer{padding:40px 0 60px;font-size:14px;color:var(--muted)}
+.tldr{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:14px}
+.tldr .card b{display:block;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--pine);margin-bottom:6px}
+.tldr .card p{margin:0;font-size:16px}
+.hl{background:linear-gradient(transparent 58%,rgba(255,164,93,.55) 58%);padding:0 2px}
+.note{background:var(--peach);border-radius:20px;padding:18px 20px;font-size:16px}
+.note b{color:#A8461F}
+.sp{height:22px}
+.spl{height:40px}
+</style>
+</head>
+<body>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="me" href="../" data-nav="home" aria-label="Parth Dake, home"><img src="../images/logo.webp" alt="Parth Dake" width="68" height="34"></a>
+    <span class="chap" id="chap">All In</span>
+    <a class="back" href="../#work" data-nav="work">← All work</a>
+  </div>
+  <span class="prog" id="prog" aria-hidden="true"></span>
+</header>
+
+<main>
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero" data-chap="All In">
+  <div class="wrap">
+    <div>
+      <div class="dr in" style="display:flex;align-items:center;gap:12px">%%ICON56%%%%WORD34%%</div>
+      <h1 class="kh in" data-k>Stop chasing.<br>Lock the trip.</h1>
+      <p class="lead rv in" style="--d:6">A group-trip app for Indian friend groups. Friends say “I’m in” by <b>paying their share</b>, and the trip locks when enough people are in. If not, everyone gets their money back. This is how I got from reading angry reviews to a product with one clear job, and a brand to match.</p>
+      <div class="metas rv in" style="--d:8"><span class="pill">🎯 Solo UX/UI designer</span><span class="pill">🧭 Research → brand → UI</span><span class="pill">📱 Mobile app + Figma</span><span class="pill">🗓️ 3 days, 5 versions</span></div>
+      <div class="metas rv in" style="--d:10"><a class="btn" href="https://allin-app-sandy.vercel.app/" target="_blank" rel="noopener">Try the live app →</a></div>
+    </div>
+    <div class="stage" aria-hidden="true">
+      <div class="phone dr in" style="left:2%;top:40px;--r:-7deg;--d:2"><img src="img/v4_w0.webp" alt="" width="480" height="817"></div>
+      <div class="phone dr in" style="right:2%;top:0;--r:6deg;--d:4"><img src="img/v3_locked.webp" alt="" width="480" height="817"></div>
+      <span class="fch sl in" style="left:0;bottom:46px;--d:9;--r:-8deg;background:var(--pine);color:#fff">6 of 8 paid · locked</span>
+      <span class="fch sl in" style="right:4%;bottom:10px;--d:11;--r:6deg">0 reminders from Neha</span>
+    </div>
+  </div>
+  <div class="scrollcue" aria-hidden="true"><span></span>Scroll the trip</div>
+</section>
+<div class="marq" aria-hidden="true"><div>%%MARQ%%%%MARQ%%</div></div>
+
+<!-- ============ TL;DR ============ -->
+<section class="band tight" id="tldr" data-chap="The short version">
+  <div class="wrap">
+    <div class="over rv">The short version</div>
+    <div class="tldr">
+      <div class="card rv" style="--d:1"><b>Problem</b><p>76% of proposed group trips never happen. Plans die in the chat because a “yes” costs nothing, and one friend ends up chasing everyone.</p></div>
+      <div class="card rv" style="--d:2"><b>Insight</b><p>A trip isn’t real until people put money in. The missing step isn’t planning, it’s <span class="hl">commitment</span>.</p></div>
+      <div class="card rv" style="--d:3"><b>Solution</b><p>Pay your share to say yes. Enough in by the date? The trip locks and the money goes to the organisers. If not, everyone is refunded.</p></div>
+      <div class="card rv" style="--d:4"><b>Outcome</b><p>A working app, a brand system, a Figma file and a decision log. I cut 58 screens down to one clear flow along the way.</p></div>
+    </div>
+    <div class="spl"></div>
+    <nav class="itin rv" aria-label="Chapters">
+      <a href="#start"><b>Stop 01</b><span>The first idea</span></a>
+      <a href="#research"><b>Stop 02</b><span>Research</span></a>
+      <a href="#define"><b>Stop 03</b><span>Define</span></a>
+      <a href="#v1"><b>Stop 04</b><span>Version 1</span></a>
+      <a href="#pivot"><b>Stop 05</b><span>The honest pivot</span></a>
+      <a href="#solution"><b>Stop 06</b><span>The solution</span></a>
+      <a href="#brand"><b>Stop 07</b><span>Brand strategy</span></a>
+      <a href="#ui"><b>Stop 08</b><span>UI problems</span></a>
+      <a href="#versions"><b>Stop 09</b><span>Every version</span></a>
+      <a href="#reality"><b>Stop 10</b><span>Reality check</span></a>
+      <a href="#log"><b>Stop 11</b><span>Decision log</span></a>
+      <a href="#next"><b>Stop 12</b><span>Testing & learnings</span></a>
+    </nav>
+  </div>
+</section>
+
+<!-- ============ 01 START: STAYSHIELD ============ -->
+<section class="band bg-white" id="start" data-chap="01 · The first idea">
+  <div class="wrap">
+    <div class="read">
+      <div class="over rv"><i>01</i> How I found the problem</div>
+      <h2 class="kh" data-k>I started by reading other people’s bad days.</h2>
+      <p class="lead rv">I didn’t start with an app idea. I started with complaints. Travel apps in India have thousands of reviews, and one-star reviews are where people explain exactly what broke.</p>
+      <p class="rv">I collected <b>111 complaints</b> from the Play Store (OYO, MakeMyTrip, Booking.com), Trustpilot, consumer complaint sites and Reddit, then read <b>780 recent OYO reviews</b> one by one. I grouped them on an affinity board until patterns showed up.</p>
+    </div>
+    <p class="cap rv">The kind of thing I kept reading (paraphrased, not exact quotes):</p>
+    <div class="reviews">
+      <div class="rev rv" style="--d:1"><div class="st">★☆☆☆☆</div>“Reached at 11 pm, the hotel said no rooms. Support never picked up.”<small>Refused at check-in · paraphrased</small></div>
+      <div class="rev rv" style="--d:2"><div class="st">★☆☆☆☆</div>“Front desk asked for ₹1,500 more in cash or no room.”<small>Asked to pay more · paraphrased</small></div>
+      <div class="rev rv" style="--d:3"><div class="st">★★☆☆☆</div>“Refund promised in 5 days. It’s been a month. Got wallet credit instead.”<small>Refunds drag on · paraphrased</small></div>
+      <div class="rev rv" style="--d:4"><div class="st">★☆☆☆☆</div>“Hotel blames the app, app blames the hotel. Nobody owns it.”<small>No one responsible · paraphrased</small></div>
+    </div>
+    <div class="spl"></div>
+    <div class="grid g2" style="align-items:center">
+      <div class="card rv bg-ink" style="background:var(--ink);color:#fff">
+        <div class="over" style="color:var(--tang)">780 OYO reviews · Sep–Oct 2026</div>
+        <div class="bars">
+          <div class="bar"><span>Support unreachable or useless</span><span>27%</span><i style="--w:27%"></i></div>
+          <div class="bar"><span>Refund fights after the stay</span><span>27%</span><i style="--w:27%"></i></div>
+          <div class="bar"><span>Refused or moved at check-in</span><span>15%</span><i style="--w:15%"></i></div>
+          <div class="bar"><span>Asked for more money at the desk</span><span>8%</span><i style="--w:8%"></i></div>
+        </div>
+      </div>
+      <div class="read rv" style="--d:2">
+        <h3>The first idea: StayShield</h3>
+        <p>A guest’s own helper for the moment a hotel booking fails at the front desk. The research was solid, and I took it all the way to a live prototype.</p>
+        <p>Then I ran it through four simple tests I use before committing to a problem, and it failed three of them.</p>
+      </div>
+    </div>
+    <div class="sp"></div>
+    <div class="tbl rv"><table class="score">
+      <thead><tr><th>My test</th><th>StayShield</th><th>Group trips (All In)</th></tr></thead>
+      <tbody>
+        <tr><td>How often does it hurt?</td><td class="bad">Rare for any one person</td><td class="good">3+ trips a year for young Indians</td></tr>
+        <tr><td>Can the product change the outcome?</td><td class="bad">No, the hotel and the platform decide</td><td class="good">Yes, we run the decision</td></tr>
+        <tr><td>Will people remember us in the moment?</td><td class="bad">Doubtful, it’s an emergency app</td><td class="good">The organiser starts every trip in it</td></tr>
+        <tr><td>Is there a business?</td><td class="bad">Unclear</td><td class="good">Venues pay for group perks, stay referrals</td></tr>
+      </tbody>
+    </table></div>
+    <div class="sp"></div>
+    <p class="quote rv">Killing a project with good research felt wrong. <em>Building the wrong thing well</em> would have been worse.</p>
+  </div>
+</section>
+
+<!-- ============ 02 RESEARCH ============ -->
+<section class="band bg-ink curve" id="research" data-chap="02 · Research">
+  <div class="wrap">
+    <div class="read">
+      <div class="over rv"><i>02</i> Research</div>
+      <h2 class="kh" data-k>“Goa chalein?” is where most trips die.</h2>
+      <p class="lead rv">I scored five new directions on the same tests. Friends’ trips won. Every one of us has a group chat with a trip that was “definitely happening this time”.</p>
+    </div>
+    <div class="sp"></div>
+    <div class="grid g4">
+      <div class="stat rv" style="--d:1;color:var(--ink)"><b><span data-count="76">0</span>%</b><span>of proposed group trips never happen</span><small>Talker Research, 2,000 US women, Jun 2026 (sponsored; to validate in India)</small></div>
+      <div class="stat rv" style="--d:2;color:var(--ink)"><b><span data-count="83">0</span></b><span>messages to organise one trip, over ~19 hours</span><small>Same survey</small></div>
+      <div class="stat rv" style="--d:3;color:var(--ink)"><b><span data-count="80">0</span>%</b><span>say one person does most of the planning</span><small>Same survey</small></div>
+      <div class="stat rv" style="--d:4;color:var(--ink)"><b>3 in 4</b><span>young Indians: who you travel with matters more than where</span><small>Airbnb × YouGov, 2,012 Gen Z, 11 cities, 2026</small></div>
+    </div>
+    <div class="spl"></div>
+    <div class="grid g2">
+      <div class="read rv">
+        <h3>Why plans fail (what I kept hearing)</h3>
+        <ul class="nodot" style="margin-top:12px">
+          <li>🗓️ <b>Dates never line up</b>, so the plan gets postponed forever.</li>
+          <li>💸 <b>Budgets go unspoken.</b> People agree, then quietly drop out.</li>
+          <li>🤷 <b>“Maybe” costs nothing.</b> Nobody actually commits.</li>
+          <li>😮‍💨 <b>One invisible organiser</b> does everything and burns out chasing money.</li>
+        </ul>
+        <p class="cap">Sources: practitioner write-ups (KahinToChalo), the WanderOn business model (fixed departures exist because friends’ plans fail), and my own friend groups.</p>
+      </div>
+      <div class="rv" style="--d:2">
+        <h3>What people use today, and the gap</h3>
+        <table class="t" style="margin-top:12px;color:var(--ink)">
+          <tr><th>Tool</th><th>Good at</th><th>Misses</th></tr>
+          <tr><td><b>WhatsApp polls</b></td><td>Everyone’s there</td><td>No deadline, no money, no commitment</td></tr>
+          <tr><td><b>Splitwise</b></td><td>Splitting costs</td><td>Only after the trip; free tier capped at ~3–4 expenses a day</td></tr>
+          <tr><td><b>Wanderlog</b></td><td>Itineraries</td><td>Assumes the trip is already happening</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="spl"></div>
+    <p class="quote rv">Nobody needed another itinerary app. They needed a way to turn a <em>“yes”</em> in the chat into <em>a trip people have paid for</em>.</p>
+  </div>
+</section>
+
+<!-- ============ 03 DEFINE ============ -->
+<section class="band" id="define" data-chap="03 · Define">
+  <div class="wrap">
+    <div class="read">
+      <div class="over rv"><i>03</i> Define</div>
+      <h2 class="kh" data-k>Two people, one broken journey.</h2>
+      <p class="rv" style="color:var(--muted)">Proto-personas from desk research, to be replaced by interviews.</p>
+    </div>
+    <div class="grid g2">
+      <div class="card rv persona" style="--d:1"><span class="ava" style="background:var(--tang)">N</span><div><h3>Neha, the organiser</h3><p style="margin:0;color:var(--muted)">26, works in Mumbai. College gang of 8 across four cities. Always the one who books and fronts the money.</p><ul><li>“I spend weeks chasing replies.”</li><li>Needs: commitment, and money in before she books.</li></ul></div></div>
+      <div class="card rv persona" style="--d:2"><span class="ava" style="background:var(--sea);color:#fff">K</span><div><h3>Karan, the “maybe” friend</h3><p style="margin:0;color:var(--muted)">25, Bengaluru. Wants to go, unsure about leave and budget. Won’t install another app.</p><ul><li>“Count me in… probably.”</li><li>Needs: a clear ask, his share, and a way out if it falls through.</li></ul></div></div>
+    </div>
+    <div class="spl"></div>
+    <h3 class="rv">The journey, and where it breaks</h3>
+    <div class="journey" style="margin-top:14px">
+      <div class="jstep rv" style="--d:1"><span class="mood">✨</span><b>Spark</b><small>“Goa chalein?” Everyone’s excited.</small></div>
+      <div class="jstep drop rv" style="--d:2"><span class="mood">🫠</span><b>Who’s in</b><small>Maybes pile up. Biggest drop-off.</small></div>
+      <div class="jstep drop rv" style="--d:3"><span class="mood">😩</span><b>Decide</b><small>Dates and budgets clash. Weeks go by.</small></div>
+      <div class="jstep rv" style="--d:4"><span class="mood">😬</span><b>Book</b><small>One person pays for everyone.</small></div>
+      <div class="jstep rv" style="--d:5"><span class="mood">🏖️</span><b>Trip</b><small>Fun, but who paid for what?</small></div>
+      <div class="jstep rv" style="--d:6"><span class="mood">🙄</span><b>Settle</b><small>Chasing money for weeks.</small></div>
+    </div>
+    <div class="spl"></div>
+    <div class="grid g2" style="align-items:start">
+      <div class="rv">
+        <h3>How might we…</h3>
+        <div class="hmw" style="margin-top:12px">
+          <span style="--r:-1.5deg">…make saying yes mean something?</span>
+          <span style="--r:1deg">…take chasing off the organiser?</span>
+          <span style="--r:-.5deg">…protect friends if the trip falls through?</span>
+          <span style="--r:1.5deg">…keep money visible and fair?</span>
+          <span style="--r:-1deg">…work for people who won’t install an app?</span>
+        </div>
+      </div>
+      <div class="card rv" style="--d:2;background:var(--pine);color:#fff">
+        <div class="over" style="color:var(--tang)">Problem statement</div>
+        <p style="font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.3;margin:0">Young Indians plan trips with friends on WhatsApp, but most plans die in the chat: nobody really commits, and one friend ends up doing all the work and chasing money.</p>
+      </div>
+    </div>
+    <div class="spl"></div>
+    <div class="wideimg rv"><img src="img/v1_research.webp" alt="Research and define board in Figma: problem statement, evidence, two personas, journey map, how-might-we questions and success metrics" width="1300" height="1346" loading="lazy"></div>
+    <p class="cap">The research and define board in Figma.</p>
+  </div>
+</section>
+
+<!-- ============ 04 V1 ============ -->
+<section class="band bg-white" id="v1" data-chap="04 · Version 1">
+  <div class="wrap">
+    <div class="read">
+      <div class="over rv"><i>04</i> Version 1 · the everything app</div>
+      <h2 class="kh" data-k>58 screens that didn’t make sense.</h2>
+      <p class="lead rv">My first answer covered the whole trip, before, during and after: votes, budgets, stays, a live map, expenses, an album and a “Trip Wrapped” recap. Each idea was reasonable on its own. Together they told no story.</p>
+    </div>
+    <div class="sp"></div>
+    <div class="prow rv">
+      <figure><img src="img/v1_onboard.webp" alt="" width="480" height="817" loading="lazy"><figcaption>Onboarding<small>Five cards, one idea each</small></figcaption></figure>
+      <figure><img src="img/v1_where.webp" alt="" width="480" height="817" loading="lazy"><figcaption>Where to?<small>“Let the gang decide” vote</small></figcaption></figure>
+      <figure><img src="img/v1_home.webp" alt="" width="480" height="817" loading="lazy"><figcaption>Organiser home<small>Route, perks tiers, “your move”</small></figcaption></figure>
+      <figure><img src="img/v1_upi.webp" alt="" width="480" height="817" loading="lazy"><figcaption>₹500 token<small>Commitment, paid by UPI</small></figcaption></figure>
+      <figure><img src="img/v1_map.webp" alt="" width="480" height="817" loading="lazy"><figcaption>Live map<small>Who lands when</small></figcaption></figure>
+      <figure><img src="img/v1_bill.webp" alt="" width="480" height="817" loading="lazy"><figcaption>Pay with a perk<small>Gang discount, split bill</small></figcaption></figure>
+      <figure><img src="img/v1_wrapped.webp" alt="" width="480" height="817" loading="lazy"><figcaption>Trip Wrapped<small>Story cards after the trip</small></figcaption></figure>
+    </div>
+    <div class="spl"></div>
+    <div class="grid g2" style="align-items:start">
+      <div class="rv">
+        <h3>I ran a design crit on my own work</h3>
+        <div class="crit" style="margin-top:12px">
+          <div><span>1</span><p><b>Money was asked too early.</b> “What’s your budget?” can’t be answered before the place and travel exist.</p></div>
+          <div><span>2</span><p><b>Prices appeared from nowhere.</b> “~₹8,600 each” depends on train or flight, hostel or villa.</p></div>
+          <div><span>3</span><p><b>The same question showed up in four places</b>, and organiser and friend screens were mixed together.</p></div>
+          <div><span>4</span><p><b>Twelve budget modes.</b> Powerful on paper, paralysing in practice.</p></div>
+        </div>
+      </div>
+      <div class="rv" style="--d:2">
+        <h3>Then a full UX audit</h3>
+        <div class="grid g2" style="margin-top:12px">
+          <div class="stat"><b><span data-count="31">0</span></b><span>issues found</span><small>3 critical, 9 high, 9 medium, 10 low</small></div>
+          <div class="stat"><b><span data-count="42">0</span></b><span>controls that did nothing</span><small>Down to 14 after fixes</small></div>
+        </div>
+        <div class="note" style="margin-top:14px"><b>Worst finding:</b> “Maybe” and “Can’t make it” were dead ends, and a friend who said yes landed on “Everyone’s in · 8 of 8” when only 6 were in. Usability went from about <b>5 to 7.5 out of 10</b> after the fixes, judged against Nielsen’s heuristics.</div>
+      </div>
+    </div>
+    <div class="spl"></div>
+    <div class="hscroll rv" tabindex="0" aria-label="Version 1 organiser screens, scroll sideways"><img src="img/v1_organiser.webp" alt="Version 1 organiser setup screens in Figma" width="2200" height="670" loading="lazy"></div>
+    <p class="cap">Version 1 in Figma: 61 screens, 13 prototype flows, every screen tagged Organiser, Friend, Partner or Everyone. Scroll sideways.</p>
+  </div>
+</section>
+
+<!-- ============ 05 PIVOT ============ -->
+<section class="band bg-sun curve" id="pivot" data-chap="05 · The honest pivot">
+  <div class="wrap">
+    <div class="read">
+      <div class="over rv"><i>05</i> The honest pivot</div>
+      <p class="quote rv" style="color:#fff;font-size:clamp(30px,4.6vw,52px)">“We are not even solving a problem.”</p>
+      <p class="lead rv" style="--d:2;margin-top:16px">That was my own review of version 1, and it was right. The app was polished, but if you asked “what does it do?”, the answer took a paragraph. A good product answers in one line.</p>
+    </div>
+    <div class="spl"></div>
+    <div class="grid g2" style="align-items:start">
+      <div class="rv">
+        <h3>So I asked one question</h3>
+        <p style="color:rgba(255,255,255,.9)">What is the single moment where a friends’ trip lives or dies? It’s not choosing a place or splitting a bill. It’s the moment everyone has to <b>actually commit</b>.</p>
+        <div class="card" style="color:var(--ink);margin-top:14px"><div class="over">The new one job</div><p style="font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1.25;margin:0">Friends pay their share to say yes. The trip locks when enough are in. If not, everyone is refunded.</p></div>
+      </div>
+      <div class="rv" style="--d:2">
+        <h3>What I cut, and what stayed</h3>
+        <div class="cuts" style="margin-top:12px">
+          <span class="strike" style="--d:1">Place vote</span><span class="strike" style="--d:2">In-app booking</span><span class="strike" style="--d:3">Plan tab</span><span class="strike" style="--d:4">Live map</span><span class="strike" style="--d:5">Swipe vote</span><span class="strike" style="--d:6">12 budget modes</span><span class="strike" style="--d:7">“See your friend’s phone”</span><span class="strike" style="--d:8">Trip Wrapped (for later)</span>
+          <span class="keep">Pay to say yes</span><span class="keep">Lock at N people</span><span class="keep">Auto refunds</span><span class="keep">Money always visible</span>
+        </div>
+        <p class="cap" style="color:rgba(255,255,255,.85);margin-top:14px">The test for every feature became: <b>does it help the group commit, pay fairly or remember?</b> If not, it’s out.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 SOLUTION ============ -->
+<section class="band" id="solution" data-chap="06 · The solution">
+  <div class="wrap">
+    <div class="read">
+      <div class="over rv"><i>06</i> The solution</div>
+      <h2 class="kh" data-k>Your money is your “yes”.</h2>
+      <p class="lead rv">Paying a share is the clearest commitment there is, and it solves the organiser’s real pain: she no longer fronts money or chases replies.</p>
+    </div>
+    <div class="steps">
+      <div class="card rv" style="--d:1"><h3>Set the share</h3><p style="margin:0;color:var(--muted)">E.g. ₹5,000 each, usually enough for the stay. Pick the dates and how many must be in.</p></div>
+      <div class="card rv" style="--d:2"><h3>Friends pay to say yes</h3><p style="margin:0;color:var(--muted)">One WhatsApp link. The money is held by a licensed payment partner, not by the organiser or us.</p></div>
+      <div class="card rv" style="--d:3"><h3>Enough in? It locks</h3><p style="margin:0;color:var(--muted)">The money goes to the organisers to book anywhere. The home screen switches to “37 days to go”.</p></div>
+      <div class="card rv" style="--d:4"><h3>Not enough? Refunds</h3><p style="margin:0;color:var(--muted)">By the last date to join, everyone gets a full refund automatically. Nobody has to ask.</p></div>
+    </div>
+    <div class="spl"></div>
+    <div class="grid g2" style="align-items:center">
+      <div class="demo rv" id="demo">
+        <div class="top2"><div><div class="over" style="color:var(--mint);margin:0">Try it · Goa, 12–15 Dec</div><div class="big"><span id="dn">1</span><span style="font-size:30px;letter-spacing:-.01em;margin-left:6px">of 8 in</span></div><div style="font-weight:600" id="dsub">5 more to lock the trip</div></div><div style="text-align:right"><div class="over" style="color:var(--mint);margin:0">Collected</div><div style="font-size:30px;font-weight:800;letter-spacing:-.03em" id="dcol">₹5,000</div></div></div>
+        <div class="seats" id="dseats"></div>
+        <div class="row2"><button class="btn white" id="dpay" type="button">A friend pays ₹5,000</button><button class="chip" id="dreset" type="button" style="background:rgba(255,255,255,.15);color:#fff">Reset</button></div>
+        <div class="stamp" id="dstamp">%%TICKET60%%<span style="margin-top:4px">LOCKED</span></div>
+        <div class="confetti" id="dconf"></div>
+      </div>
+      <div class="read rv" style="--d:2">
+        <h3>Play with it</h3>
+        <p>This is the core loop of the app. Each seat fills when a friend pays. At 6 of 8, the trip locks.</p>
+        <p>I designed the seats so the <b>lock line</b> is always visible. Everyone sees how close the group is, which does the nudging for the organiser.</p>
+        <p class="cap">Payments are simulated in the prototype. In production they run through an RBI-licensed payment aggregator, with refunds back to the source.</p>
+      </div>
+    </div>
+    <div class="spl"></div>
+    <h3 class="rv">After the lock, the app changes with the trip</h3>
+    <div class="prow rv">
+      <figure><img src="img/v3_count.webp" alt="" width="480" height="817" loading="lazy"><figcaption>Days to go<small>The first thing after the lock</small></figcaption></figure>
+      <figure><img src="img/v4_live.webp" alt="" width="480" height="817" loading="lazy"><figcaption>Trip mode<small>Trip cam first, perks unlocked</small></figcaption></figure>
+      <figure><img src="img/v3_perks.webp" alt="" width="480" height="817" loading="lazy"><figcaption>Perks tab<small>Only during the trip</small></figcaption></figure>
+      <figure><img src="img/v4_swipe.webp" alt="" width="480" height="817" loading="lazy"><figcaption>Swipe to end the trip<small>A deliberate gesture</small></figcaption></figure>
+      <figure><img src="img/v4_wrap.webp" alt="" width="480" height="817" loading="lazy"><figcaption>That’s a wrap<small>Then settle up</small></figcaption></figure>
+      <figure><img src="img/v3_square.webp" alt="" width="480" height="817" loading="lazy"><figcaption>All square<small>Zero chasing</small></figcaption></figure>
+    </div>
+    <div class="spl"></div>
+    <h3 class="rv">When things go wrong (designed, not ignored)</h3>
+    <div class="grid g4" style="margin-top:12px">
+      <div class="card rv" style="--d:1"><div style="font-size:30px">🏃</div><h3>A friend drops out</h3><p style="margin:0;color:var(--muted);font-size:15.5px">Their seat is offered to the gang. Whoever takes it pays, and the dropout is refunded. Nobody else pays more.</p></div>
+      <div class="card rv" style="--d:2"><div style="font-size:30px">🤒</div><h3>The organiser can’t</h3><p style="margin:0;color:var(--muted);font-size:15.5px">“Hand over the trip”: money, bookings and nudges move to a new organiser. Anyone can be made an organiser.</p></div>
+      <div class="card rv" style="--d:3"><div style="font-size:30px">🛑</div><h3>Cancel everything</h3><p style="margin:0;color:var(--muted);font-size:15.5px">After the lock, one person can’t cancel alone. A majority must agree within 24 hours.</p></div>
+      <div class="card rv" style="--d:4"><div style="font-size:30px">⏳</div><h3>Not enough by the date</h3><p style="margin:0;color:var(--muted);font-size:15.5px">Automatic full refunds to the same UPI. Late joiners can still take a seat until it’s full.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 BRAND ============ -->
+<section class="band bg-tang curve" id="brand" data-chap="07 · Brand strategy">
+  <div class="wrap">
+    <div class="read">
+      <div class="over rv" style="color:var(--ink)"><i>07</i> Brand strategy</div>
+      <h2 class="kh" data-k>Paying your share is your ticket in.</h2>
+      <p class="lead rv" style="color:rgba(16,38,46,.82)">I put on the brand strategist hat before drawing anything. Who is this for, what should it feel like, and what one object already means “I’m going”?</p>
+    </div>
+    <div class="grid g3">
+      <div class="card rv" style="--d:1"><div class="over">Positioning</div><p style="margin:0">For Indian friend groups who keep saying “this time for sure”, All In is the app where a yes means something, because <b>you pay to say it</b>.</p></div>
+      <div class="card rv" style="--d:2"><div class="over">Name</div><p style="margin:0">“All in” is what friends already say when they commit. It doubles as the action: going All In = paying your share.</p></div>
+      <div class="card rv" style="--d:3"><div class="over">Voice</div><p style="margin:0">Short, warm, a little cheeky. <b>“Stop chasing. Lock the trip.”</b> “0 reminders from Neha.” Never bank-speak.</p></div>
+    </div>
+    <div class="spl"></div>
+    <h3 class="rv">Four logo routes</h3>
+    <div class="routes" style="margin-top:12px">
+      <div class="route win rv" style="--d:1"><span class="tag">Chosen</span><div class="glyph">🎟️</div><h3>The ticket stub</h3><p style="margin:0;color:var(--muted);font-size:15px">The invite is a ticket. The tear line sits between “all” and “in”. Reads at 20 px.</p></div>
+      <div class="route rv" style="--d:2"><div class="glyph">🫂</div><h3>A huddle</h3><p style="margin:0;color:var(--muted);font-size:15px">Warm, but generic. Every social app has a group of heads.</p></div>
+      <div class="route rv" style="--d:3"><div class="glyph">📍</div><h3>Pin with a tick</h3><p style="margin:0;color:var(--muted);font-size:15px">Says “maps”, the opposite of what we do.</p></div>
+      <div class="route rv" style="--d:4"><div class="glyph">🛂</div><h3>Passport stamp</h3><p style="margin:0;color:var(--muted);font-size:15px">Great as a moment, too busy as an icon. It became the LOCKED stamp instead.</p></div>
+    </div>
+    <p class="cap rv" style="color:rgba(16,38,46,.75)">Also rejected: an “AI” monogram. The initials read as artificial intelligence, the wrong promise for a friends app.</p>
+    <div class="spl"></div>
+    <div class="grid g2" style="align-items:center">
+      <div class="rv">
+        <h3>The ticket, redrawn twice</h3>
+        <p>Version 1’s Stub used railway-signboard type and hard ink outlines. When the product changed its job, the brand changed its voice: in the final version the ticket became <b>glossy, tilted and rounded</b>, to match a friendlier, poppier app.</p>
+        <p>The dot on the “i” is a tiny ticket, so the wordmark carries the idea even without the icon.</p>
+        <div class="wideimg" style="margin-top:14px"><img src="img/v1_logo.webp" alt="Version 1 Stub logo in four colourways with railway-style type" width="1240" height="220" loading="lazy"></div>
+        <p class="cap" style="color:rgba(16,38,46,.75)">Before: the v1 Stub. After: the pop ticket on the right.</p>
+      </div>
+      <div class="logostage rv" style="--d:2;background:#fff" id="logostage"><button class="chip replay" type="button" id="lreplay">↻ Replay</button><div id="logoin"></div></div>
+    </div>
+    <div class="spl"></div>
+    <h3 class="rv">Colour with a job</h3>
+    <div class="swatches" style="margin-top:12px">
+      <div class="sw rv" style="--d:1"><div style="background:#FFA45D;box-shadow:inset 0 0 0 3px #fff"></div><p><b>Tangerine</b>Brand, welcome, energy</p></div>
+      <div class="sw rv" style="--d:2"><div style="background:#016A6D"></div><p><b>Pine</b>The only action colour</p></div>
+      <div class="sw rv" style="--d:3"><div style="background:#10262E"></div><p><b>Ink</b>Text, the app icon</p></div>
+      <div class="sw rv" style="--d:4"><div style="background:#1C9290"></div><p><b>Sea</b>Trips, wrap moments</p></div>
+      <div class="sw rv" style="--d:5"><div style="background:#E16A3D"></div><p><b>Sunset</b>Paid, settled, alerts</p></div>
+      <div class="sw rv" style="--d:6"><div style="background:#043E52"></div><p><b>Nile</b>The one dark screen</p></div>
+      <div class="sw rv" style="--d:7"><div style="background:#F6F2EC"></div><p><b>Cream</b>Every other screen</p></div>
+    </div>
+    <div class="sp"></div>
+    <div class="grid g3">
+      <div class="card rv" style="--d:1"><div class="over">Type</div><p style="margin:0">Outfit, rounded and bold, sentence case. Friendly at 44 px, readable at 12.</p></div>
+      <div class="card rv" style="--d:2"><div class="over">Surfaces</div><p style="margin:0">Flat pop colour per screen, soft lifted cards with a little gloss. No gradients, except the one spotlight on the lock moment.</p></div>
+      <div class="card rv" style="--d:3"><div class="over">Motion</div><p style="margin:0">Borrowed from Spotify Wrapped: headlines reveal word by word, cards drop in, stamps slam, numbers roll like odometers.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08 UI PROBLEMS ============ -->
+<section class="band" id="ui" data-chap="08 · UI problems">
+  <div class="wrap">
+    <div class="read">
+      <div class="over rv"><i>08</i> UI problems I had to solve</div>
+      <h2 class="kh" data-k>The small things people actually notice.</h2>
+      <p class="lead rv">Each of these came from testing the live app on a real phone or from feedback. Here is what broke and how I fixed it.</p>
+    </div>
+    <div class="grid" style="gap:18px">
+      <div class="prob rv">
+        <div class="imgs"><figure><span>BEFORE</span><img src="img/v2_welcome.webp" alt="Earlier welcome screen with a chat of maybes" width="480" height="817" loading="lazy"></figure><figure class="after"><span>AFTER</span><img src="img/v4_w1.webp" alt="Final welcome with rotating animated banners" width="480" height="817" loading="lazy"></figure></div>
+        <div><div class="tags"><b>Welcome</b><b>Brand</b></div><h3>“It looks AI.”</h3><p>A sticker-and-odometer banner felt generated, not designed. I tried a photo banner, then rebuilt the screen in the pop style: <strong>four rotating scenes</strong> that each tell one step of the story (pay → lock → perks → settle), with the headline staying put.</p></div>
+      </div>
+      <div class="prob rv">
+        <div class="imgs"><figure><span>BEFORE</span><img src="img/v2_locked.webp" alt="Static locked screen" width="480" height="817" loading="lazy"></figure><figure class="after"><span>AFTER</span><img src="img/v2m_locked.webp" alt="Locked screen with ribbon and stamp" width="480" height="817" loading="lazy"></figure></div>
+        <div><div class="tags"><b>Motion</b></div><h3>“The animations look very normal.”</h3><p>Fade-ins didn’t feel like a brand. I brought back the Wrapped-style motion kit: <strong>kinetic headlines, a ribbon, a LOCKED stamp that slams, odometer numbers</strong>, and kept it in every later version.</p></div>
+      </div>
+      <div class="prob rv">
+        <div class="imgs"><figure class="after"><span>NEW</span><img src="img/v4_cal.webp" alt="Custom range calendar sheet" width="480" height="817" loading="lazy"></figure><figure class="after"><span>RESULT</span><img src="img/v4_create.webp" alt="Create screen with a date card" width="480" height="817" loading="lazy"></figure></div>
+        <div><div class="tags"><b>Forms</b><b>Bug</b></div><h3>The calendar wouldn’t open</h3><p>The phone’s native date picker doesn’t open inside some app frames, so “last date to join” was a dead tap. I designed a <strong>custom calendar sheet</strong>, then reused it for trip dates as a range picker (tap first day, tap last day), with quick picks like “New Year”.</p></div>
+      </div>
+      <div class="prob rv">
+        <div class="imgs"><figure class="after"><span>AFTER</span><img src="img/v4_swipe.webp" alt="Swipe to end the trip control" width="480" height="817" loading="lazy"></figure></div>
+        <div><div class="tags"><b>Interaction</b></div><h3>Ending a trip shouldn’t be a tap</h3><p>Ending the trip changes the app for all 7 people, so a button was too easy to hit by accident. I used a <strong>swipe-to-end slider</strong> whose handle is the ticket. A short swipe springs back, and a full swipe opens the “That’s a wrap” moment. Keyboard users can press Enter.</p></div>
+      </div>
+      <div class="prob rv">
+        <div class="imgs"><figure class="after"><span>AFTER</span><img src="img/v2_create.webp" alt="Create screen with members stepper" width="480" height="817" loading="lazy"></figure></div>
+        <div><div class="tags"><b>Copy</b><b>Clarity</b></div><h3>“6” of what?</h3><p>The stepper said “Trip is on when · 6”, and nobody knew what 6 meant. It now reads <strong>“Trip locks when this many members have paid”</strong>, with “members” under the number and a live line: “Locks when 7 of 8 members have paid. Not by the last date? Everyone gets it back.”</p></div>
+      </div>
+      <div class="grid g3">
+        <div class="card rv" style="--d:1"><div class="tags" style="display:flex;gap:6px;margin-bottom:8px"><b style="font-size:12px;background:var(--mint);color:var(--pine);padding:3px 10px;border-radius:999px">Icon</b></div><h3>An unreadable scooter</h3><p style="margin:0;color:var(--muted);font-size:15.5px">The travel icon read as a blob. I redrew it side-on, then removed its circle outline so it read at 20 px.</p></div>
+        <div class="card rv" style="--d:2"><div class="tags" style="display:flex;gap:6px;margin-bottom:8px"><b style="font-size:12px;background:var(--mint);color:var(--pine);padding:3px 10px;border-radius:999px">Layout</b></div><h3>A logo on the headline</h3><p style="margin:0;color:var(--muted);font-size:15.5px">The new icon’s shine effect shared a class name with an old animation and jumped onto the headline. Renamed, and the icon moved next to the wordmark.</p></div>
+        <div class="card rv" style="--d:3"><div class="tags" style="display:flex;gap:6px;margin-bottom:8px"><b style="font-size:12px;background:var(--mint);color:var(--pine);padding:3px 10px;border-radius:999px">Spacing</b></div><h3>A canyon above the button</h3><p style="margin:0;color:var(--muted);font-size:15.5px">On tall phones the spare space piled up above “Start a trip”. Now the banner absorbs it, and the button always sits 30 px under the text.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 09 VERSIONS ============ -->
+<section class="band bg-nile curve" id="versions" data-chap="09 · Every version">
+  <div class="wrap">
+    <div class="read">
+      <div class="over rv"><i>09</i> Every version</div>
+      <h2 class="kh" data-k>Five versions in three days.</h2>
+      <p class="lead rv">Tap through how the product, and the way it looks, got to the final version, and why each step happened.</p>
+    </div>
+    <div class="vtabs rv" role="tablist" id="vtabs"></div>
+    <div class="vtime" id="vtime" aria-hidden="true"></div>
+    <div class="vpanel rv" id="vpanel" role="tabpanel"></div>
+  </div>
+</section>
+
+<!-- ============ 10 REALITY ============ -->
+<section class="band bg-white" id="reality" data-chap="10 · Reality check">
+  <div class="wrap">
+    <div class="read">
+      <div class="over rv"><i>10</i> Reality check</div>
+      <h2 class="kh" data-k>Could this actually ship?</h2>
+      <p class="lead rv">Every feature passed a feasibility check before it stayed in. Here is the money, the photos and the business.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card rv" style="--d:1"><div class="over">Money</div><h3>We never hold it</h3><p style="margin:0;color:var(--muted);font-size:15.5px">Shares sit with an RBI-licensed payment aggregator (escrow) until the trip locks. Refunds go back to the source. 18+ only, built for India’s DPDP rules.</p></div>
+      <div class="card rv" style="--d:2"><div class="over">Photos</div><h3>About ₹1 per trip a month</h3><p style="margin:0;color:var(--muted);font-size:15.5px">Phones compress photos to ~0.5 MB and strip location. One trip ≈ 1,250 photos ≈ 0.6 GB on Cloudflare R2 ($0.015/GB-month, free egress). Signed links, trip members only.</p></div>
+      <div class="card rv" style="--d:3"><div class="over">Business</div><h3>Free to plan, we earn when it happens</h3><p style="margin:0;color:var(--muted);font-size:15.5px">Gang perks: venues pay ~5% on bills paid through us, for quiet-slot group tables. Stay referrals at 2–6%. An optional organiser plan later.</p></div>
+    </div>
+    <div class="sp"></div>
+    <div class="note rv"><b>A lesson from 2022:</b> India’s restaurant association pushed back on deep dine-out discounts that venues paid for. In All In, the venue sets its own discount and hours, gets a guaranteed big table, and pays only on bills paid through us. Launch plan: Goa, about 30 venues.</div>
+    <div class="spl"></div>
+    <div class="wideimg rv"><img src="img/v1_lifecycle.webp" alt="Trip lifecycle diagram with failure paths for drop-outs, missed deadlines, cancelled stays and refused perks" width="1200" height="914" loading="lazy"></div>
+    <p class="cap">The trip lifecycle and where it can fail. Orange branches have a designed screen; the red ones (a cancelled stay, a cancelled trip, a refused perk, 6 of 8 paid at the deadline) are next on the list.</p>
+  </div>
+</section>
+
+<!-- ============ 11 DECISION LOG ============ -->
+<section class="band" id="log" data-chap="11 · Decision log">
+  <div class="wrap">
+    <div class="read">
+      <div class="over rv"><i>11</i> Decision log</div>
+      <h2 class="kh" data-k>Every call, and why I made it.</h2>
+      <p class="lead rv">I kept a log from day one, so every cut had a reason. Filter by area and tap a row to see the trade-off.</p>
+    </div>
+    <div class="dfilter rv" id="dfilter"></div>
+    <p class="dcount" id="dcount"></p>
+    <div class="dlog" id="dlog"></div>
+  </div>
+</section>
+
+<!-- ============ 12 TESTING & LEARNINGS ============ -->
+<section class="band bg-white" id="next" data-chap="12 · Testing & learnings">
+  <div class="wrap">
+    <div class="read">
+      <div class="over rv"><i>12</i> Measuring it</div>
+      <h2 class="kh" data-k>What success looks like.</h2>
+    </div>
+    <div class="grid g2" style="align-items:start">
+      <div class="rv">
+        <div class="card" style="background:var(--pine);color:#fff"><div class="over" style="color:var(--tang)">North Star</div><p style="font-size:28px;font-weight:800;letter-spacing:-.03em;line-height:1.15;margin:0">Locked trips: ideas that reach “enough are in” before the last date to join.</p></div>
+        <ul class="nodot" style="margin-top:14px">
+          <li>⏱️ Time from creating a trip to locking it</li>
+          <li>📣 Nudges the organiser sends herself (should go down)</li>
+          <li>💸 Trips settled within 7 days of ending</li>
+          <li>🔁 Groups that start a second trip</li>
+        </ul>
+      </div>
+      <div class="rv" style="--d:2">
+        <h3>Usability test plan</h3>
+        <p style="color:var(--muted)">Five people aged 21–28 who planned or joined a trip in the last year: three organisers and two “maybe” friends, on their own phones.</p>
+        <table class="t">
+          <tr><th>Task</th><th>Pass bar</th></tr>
+          <tr><td>Create a Goa trip and share the link</td><td>Under 1 min</td></tr>
+          <tr><td>From the link, pay your share</td><td>Under 30 s</td></tr>
+          <tr><td>Explain what happens if not enough people pay</td><td>Correct, in own words</td></tr>
+          <tr><td>End the trip and settle up</td><td>3 taps or fewer</td></tr>
+        </table>
+        <p class="cap">Success: 4 of 5 finish each task without help, and a SUS score of 75+. An India survey and five organiser interviews will replace the US statistics first.</p>
+      </div>
+    </div>
+    <div class="spl"></div>
+    <div class="over rv">What I learned</div>
+    <div class="grid g3">
+      <div class="card rv" style="--d:1"><h3>Cutting is design</h3><p style="margin:0;color:var(--muted)">The most impressive-looking features (travel pricing, a live map) were the ones making the product confusing.</p></div>
+      <div class="card rv" style="--d:2"><h3>One line or it’s not done</h3><p style="margin:0;color:var(--muted)">If I can’t say what the app does in one sentence, the user can’t either. “Pay your share to say yes” fixed every screen after it.</p></div>
+      <div class="card rv" style="--d:3"><h3>Design the failure paths</h3><p style="margin:0;color:var(--muted)">Drop-outs, refunds and hand-overs are what make people trust the happy path with real money.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ END ============ -->
+<section class="band bg-sea" id="end" data-chap="That’s a wrap">
+  <div class="wrap" style="text-align:center">
+    <div class="dr" style="display:inline-block;--r:-6deg">%%TICKETBIG%%</div>
+    <h2 class="kh" data-k style="color:#fff;margin-top:20px">That’s a wrap.</h2>
+    <p class="lead rv" style="margin:0 auto 26px">The app is live. Open it on your phone and lock a trip with a gang of pretend friends.</p>
+    <div class="metas rv" style="justify-content:center"><a class="btn white" href="https://allin-app-sandy.vercel.app/" target="_blank" rel="noopener">Open the live app →</a><a class="btn" style="background:var(--ink)" href="https://www.figma.com/design/VPzG8UZfNVYZNJTg6Xlior" target="_blank" rel="noopener">See the Figma file</a></div>
+    <div class="spl"></div>
+    <div class="swipe rv" id="endswipe" style="margin:0 auto" role="group" aria-label="Swipe to see more work"><span class="sfill"></span><span class="slab">Swipe for more work →</span><button class="thumb" type="button" aria-label="Swipe to see more work. Press Enter to go.">%%TICKET44%%</button></div>
+  </div>
+</section>
+</main>
+<footer><div class="wrap">All In is a self-initiated case study by Parth Dake, designed in Figma and built as a working prototype with Claude as a coding partner. Payments in the prototype are simulated. Some photos were generated for illustration.</div></footer>
+
+<script>
+(() => {
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const inFrame = window.parent !== window;
+/* nav back to the portfolio */
+document.querySelectorAll('[data-nav]').forEach(a => a.addEventListener('click', e => { if (inFrame) { e.preventDefault(); parent.postMessage({ pd: 'nav', hash: a.dataset.nav }, '*'); } }));
+addEventListener('keydown', e => { if (e.key === 'Escape' && inFrame) parent.postMessage({ pd: 'nav', hash: 'work' }, '*'); });
+
+/* kinetic headlines */
+document.querySelectorAll('[data-k]').forEach(h => { let i = 0; const walk = n => { [...n.childNodes].forEach(c => { if (c.nodeType === 3) { const f = document.createDocumentFragment(); c.textContent.split(/(\s+)/).forEach(w => { if (!w) return; if (/^\s+$/.test(w)) f.appendChild(document.createTextNode(w)); else { const s = document.createElement('span'); s.className = 'k'; s.style.animationDelay = (i++ * 70 + 60) + 'ms'; s.textContent = w; f.appendChild(s); } }); c.replaceWith(f); } else if (c.nodeType === 1 && c.tagName !== 'BR') walk(c); }); }; walk(h); h.classList.add('kh'); });
+
+/* count up */
+const countUp = el => { const to = +el.dataset.count; if (reduce) { el.textContent = to; return; } let st = null; const step = t => { if (!st) st = t; const k = Math.min(1, (t - st) / 1100); el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(step); }; requestAnimationFrame(step); };
+
+/* reveal on scroll */
+const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; const t = e.target; t.classList.add('in'); t.querySelectorAll('[data-count]').forEach(countUp); if (t.matches('[data-count]')) countUp(t); io.unobserve(t); }), { threshold: .14, rootMargin: '0px 0px -6% 0px' });
+document.querySelectorAll('.rv:not(.in),.dr:not(.in),.sl:not(.in),.kh:not(.in),.stat,.cuts').forEach(el => io.observe(el));
+
+/* top bar: solid after hero, progress, chapter name */
+const top = document.getElementById('top'), prog = document.getElementById('prog'), chap = document.getElementById('chap');
+const secs = [...document.querySelectorAll('section[data-chap]')];
+const onScroll = () => { const y = scrollY; top.classList.toggle('solid', y > innerHeight * .6); prog.style.width = (y / (document.documentElement.scrollHeight - innerHeight) * 100) + '%';
+  let cur = secs[0]; secs.forEach(s => { if (s.getBoundingClientRect().top < 120) cur = s; }); if (chap.textContent !== cur.dataset.chap) chap.textContent = cur.dataset.chap; };
+addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+/* hero phones hover after landing */
+setTimeout(() => { if (!reduce) document.querySelectorAll('.hero .phone').forEach((p, i) => { p.classList.add('hov'); p.style.animationDelay = (-i * 2) + 's'; }); }, 1500);
+
+/* seat demo */
+const names = [['Neha','#FFA45D'],['Aman','#E16A3D'],['Priya','#fff'],['Karan','#1C9290'],['Rahul','#DDF0EE'],['Sana','#FFA45D'],['Vikram','#fff'],['Ishaan','#DDF0EE']];
+const dseats = document.getElementById('dseats'), dn = document.getElementById('dn'), dsub = document.getElementById('dsub'), dcol = document.getElementById('dcol'), dpay = document.getElementById('dpay'), dstamp = document.getElementById('dstamp'), dconf = document.getElementById('dconf'), demo = document.getElementById('demo');
+let inN = 1;
+const drawSeats = () => { dseats.innerHTML = names.map(([n, c], i) => i < inN ? `<div class="seat in" style="animation:none"><span class="a" style="background:${c};color:${c === '#1C9290' ? '#fff' : '#10262E'}">${n[0]}</span>${n}</div>` : `<div class="seat"><b>${n[0]}</b>${n}</div>`).join('') + '<i class="lockline" style="display:block"></i><span class="flag">LOCKS AT 6</span>';
+  const ln = dseats.querySelector('.lockline'), fl = dseats.querySelector('.flag'); const s6 = dseats.children[5], s7 = dseats.children[6];
+  const place = () => { const r = dseats.getBoundingClientRect(), a = s6.getBoundingClientRect(); const x = a.right - r.left + 3.5; ln.style.left = x + 'px'; ln.style.top = (a.top - r.top - 6) + 'px'; ln.style.bottom = (r.bottom - a.bottom - 6) + 'px'; fl.style.left = x + 'px'; fl.style.top = (a.top - r.top - 16) + 'px'; }; requestAnimationFrame(place); };
+const upd = () => { dn.textContent = inN; dcol.textContent = '₹' + (inN * 5000).toLocaleString('en-IN'); dsub.textContent = inN >= 6 ? 'Trip locked. It’s happening! 🎉' : `${6 - inN} more to lock the trip`; dpay.disabled = inN >= 8; dpay.textContent = inN >= 8 ? 'Everyone’s in' : 'A friend pays ₹5,000'; };
+const confetti = () => { if (reduce) return; dconf.innerHTML = Array.from({ length: 40 }, (_, i) => `<i style="left:${Math.random() * 100}%;background:${['#FFA45D','#fff','#E16A3D','#DDF0EE'][i % 4]};animation-delay:${Math.random() * .4}s"></i>`).join(''); setTimeout(() => dconf.innerHTML = '', 2200); };
+dpay.onclick = () => { if (inN >= 8) return; inN++; drawSeats(); const s = dseats.children[inN - 1]; s.style.animation = ''; upd();
+  const f = document.createElement('span'); f.className = 'fly'; f.textContent = '+₹5,000'; demo.appendChild(f); setTimeout(() => f.remove(), 1400);
+  if (inN === 6) { dstamp.classList.remove('go'); void dstamp.offsetWidth; dstamp.style.setProperty('--r', '-12deg'); dstamp.classList.add('go'); confetti(); } };
+document.getElementById('dreset').onclick = () => { inN = 1; dstamp.classList.remove('go'); drawSeats(); upd(); };
+drawSeats(); upd(); addEventListener('resize', drawSeats);
+
+/* logo stage */
+const lin = document.getElementById('logoin');
+const logo = () => { lin.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;gap:20px"><div class="dr in" style="--d:0">%%ICON130%%</div><div class="dr in" style="--d:3">%%WORD54%%</div><div class="rv in" style="--d:6;font-weight:700">Stop chasing. Lock the trip.</div></div>`; };
+const lio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { logo(); lio.disconnect(); } }), { threshold: .3 }); lio.observe(document.getElementById('logostage'));
+document.getElementById('lreplay').onclick = logo;
+
+/* versions */
+const V = [
+  { t: 'V0 · StayShield', k: 'Day 1 · dropped', h: 'A helper for failed hotel check-ins', img: ['v1_research', 'v1_lifecycle'], wide: true, why: ['Built from 111 complaints and 780 OYO reviews.', 'Failed three of my four tests: rare, outcome controlled by the hotel, weak business.', 'Kept the method: review mining, affinity mapping, the Figma setup.'] },
+  { t: 'V1 · Everything app', k: 'Day 1–2 · 58 → 61 screens', h: 'Before, during and after the trip', img: ['v1_home', 'v1_map', 'v1_wrapped'], why: ['Votes, budgets, ₹500 token, live map, perks, expenses, Trip Wrapped.', 'Ink outlines, hard shadows, railway-signboard type, the Stub logo.', 'A crit and a 31-issue audit showed it told no story.'] },
+  { t: 'V2 · One job', k: 'Day 2 · the pivot', h: 'Pay your share to say yes', img: ['v2_home', 'v2_book', 'v2m_count'], why: ['“We are not even solving a problem.” Cut the vote, booking, Plan tab, map.', 'Added seats with a lock line, optional bookings, any member as organiser, edge cases.', 'Days-to-go after the lock, trip cam and perks during the trip.'] },
+  { t: 'V3 · Pop', k: 'Day 3 · new look', h: 'The same flow, a friendlier skin', img: ['v3_welcome', 'v3_home', 'v3_locked'], why: ['Moved to a pop visual identity from a reference: flat colour per screen, gloss, rounded type.', 'Pine stays the only action colour; one dark screen with a spotlight for the lock.', 'Kept every Wrapped-style animation, just restyled.'] },
+  { t: 'V4 · Final', k: 'Day 3 · shipped', h: 'Brand everywhere, every detail fixed', img: ['v4_w2', 'v4_cal', 'v4_wrap'], why: ['Logo redrawn in the pop style and used on every screen, alert and stamp.', 'Range calendar, swipe to end the trip, the “That’s a wrap” moment.', 'Rotating welcome banners, “members” label, spacing fixes, live on Vercel.'] }
+];
+const vt = document.getElementById('vtabs'), vp = document.getElementById('vpanel'), vtime = document.getElementById('vtime');
+vt.innerHTML = V.map((v, i) => `<button role="tab" type="button" data-i="${i}">${v.t}</button>`).join('');
+const showV = i => { vt.querySelectorAll('button').forEach((b, k) => { b.classList.toggle('on', k === i); b.setAttribute('aria-selected', k === i); });
+  vtime.innerHTML = V.map((_, k) => `<b class="${k <= i ? 'done' : ''}"></b>${k < V.length - 1 ? `<i class="${k < i ? 'done' : ''}"></i>` : ''}`).join('');
+  const v = V[i]; vp.innerHTML = `<div class="vph">${v.wide ? v.img.map(s => `<img src="img/${s}.webp" alt="" style="width:48%;border-radius:18px" loading="lazy">`).join('') : v.img.map(s => `<img src="img/${s}.webp" alt="" loading="lazy">`).join('')}</div><div class="vtxt"><div class="k2">${v.k}</div><h3>${v.h}</h3><ul>${v.why.map(w => `<li>${w}</li>`).join('')}</ul><button class="chip" type="button" id="vnext">${i < V.length - 1 ? 'Next version →' : 'Back to V0 ↺'}</button></div>`;
+  vp.querySelector('#vnext').onclick = () => showV((i + 1) % V.length); };
+vt.querySelectorAll('button').forEach(b => b.onclick = () => showV(+b.dataset.i)); showV(4);
+
+/* decision log */
+const D = [
+  ['3 Nov','Product','Drop StayShield','Rare per person, and the hotel controls the outcome.','Lost a full research phase. Kept the method.'],
+  ['3 Nov','Product','Focus on Indian friend groups’ trips','Happens 3+ times a year, we can drive the outcome, WhatsApp-first.','Survey data is US-based; needs an India survey.'],
+  ['3 Nov','UX','One screen, one job, one main button','Ten simplicity rules so power lives in the system, not the UI.','Some options hide behind “More”.'],
+  ['3 Nov','Product','Write non-goals down','No own chat, no booking engine, no maps, no wallet.','Less to demo, far less to break.'],
+  ['4 Nov','UX','Remove travel pricing','Prices without a place or travel mode were guesses.','Friends work out their own travel.'],
+  ['4 Nov','UX','Payments public, budgets private','Visible money builds trust; budgets stay personal.','“Too pricey?” goes privately to the organiser.'],
+  ['4 Nov','Brand','The ticket metaphor and the Stub logo','The invite is a ticket; the tear line splits “all” and “in”.','Dropped the huddle, pin and stamp routes.'],
+  ['4 Nov','Brand','No “AI” monogram','The initials read as artificial intelligence.','A less compact mark.'],
+  ['4 Nov','Business','Venues pay for Gang perks (~5%)','We earn only when the trip happens; venues set their own deals.','Needs a local venue team at launch.'],
+  ['4 Nov','Tech','Money via an RBI-licensed aggregator','We never hold money; refunds go back to the source.','Depends on partner escrow support.'],
+  ['4 Nov','UX','Fix the dead ends first','The audit’s 3 critical issues were “Maybe”, “Can’t” and a wrong next screen.','Toasts and share sheets left for later.'],
+  ['4 Nov','Product','One job: pay your share to say yes','V1 couldn’t be explained in a line. Commitment is where trips die.','Cut the vote, booking, Plan tab, map and Wrapped.'],
+  ['4 Nov','UX','Bookings are optional and organiser-only','Book anywhere, add the cost, split among chosen people.','No in-app booking revenue at first.'],
+  ['4 Nov','UX','Any member can be made organiser','Real groups share the load.','More roles to explain.'],
+  ['5 Nov','UX','“Last date to join” is a real date','Deadlines move people; a date is clearer than “in 2 weeks”.','Needed a custom calendar.'],
+  ['5 Nov','UX','After the lock, home leads with days to go','The question changes from “who’s in?” to “when do we leave?”.','Bookings move one card down.'],
+  ['5 Nov','UX','Memories first during the trip','Photos matter more than planning once you’re there.','Perks tab appears only in trip mode.'],
+  ['5 Nov','Product','Design the drop-out, hand-over and cancel rules','Trust with real money needs clear rules for bad days.','Majority vote adds a 24-hour wait.'],
+  ['5 Nov','Tech','Photos on Cloudflare R2, compressed','About ₹1 per trip per month, free egress.','Originals stay on phones.'],
+  ['5 Nov','Brand','Move to the pop visual style','Friendlier and more premium than hard ink outlines.','Rebuilt every component.'],
+  ['5 Nov','UI','Keep the Wrapped-style motion everywhere','Plain fades read as a template, not a brand.','More motion to keep accessible (reduced motion respected).'],
+  ['5 Nov','Brand','Redraw the logo and put it on every screen','The brand only showed up in onboarding.','A wordmark row on every main screen.'],
+  ['5 Nov','UX','Swipe to end the trip','It changes the app for everyone; a tap is too easy.','Keyboard fallback needed.'],
+  ['5 Nov','UI','Rotating welcome banners','One static scene couldn’t tell the whole story.','Auto-advance every 4 s; swipe and dots to control.'],
+  ['5 Nov','UI','Label the stepper “members”','“Trip is on when 6” was unclear.','One more line of text.']
+];
+const AREAS = ['All', 'Product', 'UX', 'UI', 'Brand', 'Tech', 'Business'];
+const df = document.getElementById('dfilter'), dl = document.getElementById('dlog'), dc = document.getElementById('dcount'); let area = 'All';
+df.innerHTML = AREAS.map(a => `<button class="chip ${a === 'All' ? 'on' : ''}" type="button" data-a="${a}">${a}${a === 'All' ? '' : ' · ' + D.filter(d => d[1] === a).length}</button>`).join('');
+const drawD = () => { const rows = D.filter(d => area === 'All' || d[1] === area); dc.textContent = `${rows.length} decision${rows.length === 1 ? '' : 's'}${area === 'All' ? '' : ' in ' + area}`;
+  dl.innerHTML = rows.map((d, i) => `<div class="drow rv in" style="--d:${Math.min(i, 8)}" tabindex="0" role="button" aria-expanded="false"><span class="dt">${d[0]}</span><span class="ar ${d[1]}">${d[1]}</span><div class="dd"><b>${d[2]}</b><div class="why">${d[3]} <em>Trade-off:</em> ${d[4]}</div></div></div>`).join('');
+  dl.querySelectorAll('.drow').forEach(r => { const t = () => { r.classList.toggle('open'); r.setAttribute('aria-expanded', r.classList.contains('open')); }; r.onclick = t; r.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); t(); } }; }); };
+df.querySelectorAll('button').forEach(b => b.onclick = () => { area = b.dataset.a; df.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); drawD(); }); drawD();
+
+/* swipe to finish */
+const tr = document.getElementById('endswipe'), th = tr.querySelector('.thumb'), fill = tr.querySelector('.sfill'), lab = tr.querySelector('.slab');
+let x0 = null, dx = 0, max = 0;
+const set = v => { th.style.transform = `translateX(${v}px) rotate(${-10 + v / Math.max(1, max) * 10}deg)`; fill.style.width = (v + 70) + 'px'; lab.style.opacity = Math.max(0, 1 - v / (max * .6)); };
+const go = () => { if (inFrame) parent.postMessage({ pd: 'nav', hash: 'work' }, '*'); else location.href = '../#work'; };
+const down = e => { max = tr.clientWidth - th.offsetWidth - 10; x0 = (e.touches ? e.touches[0] : e).clientX - dx; th.style.transition = fill.style.transition = 'none'; e.preventDefault(); };
+const move = e => { if (x0 === null) return; dx = Math.max(0, Math.min(max, (e.touches ? e.touches[0] : e).clientX - x0)); set(dx); };
+const up = () => { if (x0 === null) return; x0 = null; if (dx > max * .85) { set(max); tr.classList.add('done'); lab.textContent = 'See you there!'; lab.style.opacity = 1; setTimeout(go, 500); } else { th.style.transition = fill.style.transition = 'transform .5s cubic-bezier(.3,1.5,.5,1), width .5s cubic-bezier(.3,1.5,.5,1)'; dx = 0; set(0); } };
+th.addEventListener('mousedown', down); th.addEventListener('touchstart', down, { passive: false });
+addEventListener('mousemove', move); addEventListener('touchmove', move, { passive: true });
+addEventListener('mouseup', up); addEventListener('touchend', up);
+th.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+})();
+</script>
+</body>
+</html>

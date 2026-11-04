@@ -1688,6 +1688,7 @@
   const DECK = {{DECK}};   // full-bleed portrait image + client logo per project
   // type: client = worked on, pitch = pitch project, college = college project
   const CARDS = [
+    { id: 'allin',       sub: 'Group trips · Mobile app', href: 'allin-case-study.html', page: 'allinCase', name: 'All In',                       type: 'Self-initiated', x: 820,  y: 1150, r: 8 },
     { id: 'tata',        sub: 'Customer Smile · Mobile app', href: 'tata-case-study.html', page: 'tataCase', name: 'Tata Power',                   type: 'Client project',     x: 539,  y: 1218, r: -16 },
     { id: 'casagrand',   sub: 'Homepage redesign · Website', href: 'casagrand-case-study.html', page: 'casaCase', name: 'Casagrand',                    type: 'Pitch project',   x: 1270, y: 1180, r: -9 },
     { id: 'ica',         sub: 'Premium website · Website', href: 'ica-case-study.html', page: 'icaCase', name: 'ICA – Italian Wood Finishes',  type: 'Client project',     x: 701,  y: 1099, r: 15.7 },
@@ -1702,8 +1703,8 @@
 
   // Project names under the heading (highlight when that card is hovered)
   const names = document.getElementById('names');
-  const GROUPS = [['Client work', ['tata', 'ica']], ['Pitch', ['casagrand', 'amin']], ['College', ['anchor']]];
-  const short = { ica: 'ICA', tata: 'Tata Power', casagrand: 'Casagrand', amin: 'AMIN Worldwide', anchor: 'Anchor' };
+  const GROUPS = [['Product', ['allin']], ['Client work', ['tata', 'ica']], ['Pitch', ['casagrand', 'amin']], ['College', ['anchor']]];
+  const short = { allin: 'All In', ica: 'ICA', tata: 'Tata Power', casagrand: 'Casagrand', amin: 'AMIN Worldwide', anchor: 'Anchor' };
   let k = 0;
   names.innerHTML = GROUPS.map(([g, ids]) => `<span class="grp" style="--i:${k++}">${g}</span>` +
       ids.map(id => `<span data-id="${id}" style="--i:${k++}">${short[id]}</span>`).join('<span class="dot">·</span>')).join('<span class="sep">/</span>');
@@ -1990,7 +1991,7 @@
     else if (h === '#about' || h === '#contact') document.getElementById(h.slice(1)).scrollIntoView({ behavior: 'auto' });
   };
   window.__jump = jump;
-  if (location.hash && !['#amin', '#anchor', '#ica', '#tatapower', '#casagrand'].includes(location.hash)) setTimeout(jump, 60);
+  if (location.hash && !['#amin', '#anchor', '#ica', '#tatapower', '#casagrand', '#allin'].includes(location.hash)) setTimeout(jump, 60);
 })();
 </script>
 <script>
@@ -2309,6 +2310,7 @@
     tataProto:   { el: make('Customer Smile working prototype', '← Back to the case study') },
     casaCase:    { el: make('Casagrand case study'), hash: '#casagrand' },
     casaProto:   { el: make('Casagrand homepage prototype', '← Back to the case study') },
+    allinCase:   { el: make('All In case study'), hash: '#allin' },
 
     proto:       { el: make('AMIN member portal prototype', '← Back to the case study') },
     anchorProto: { el: make('Anchor trading journal prototype', '← Back to the case study') }
