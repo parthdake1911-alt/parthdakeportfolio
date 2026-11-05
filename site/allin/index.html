@@ -384,14 +384,14 @@ footer{padding:40px 0 60px;font-size:14px;color:var(--muted)}
 .x-grain{position:absolute;inset:0;opacity:.18;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='120' height='120' filter='url(%23n)'/></svg>")}
 @keyframes spotPulse{50%{opacity:.78}}
 .x-cone{transform-origin:50% 0}
-.el.go .x-cone{animation:tSwing 2.8s cubic-bezier(.45,0,.25,1) both}
+.x-cone{transform:translateX(-50%) rotate(var(--sa,0deg))!important}
 @keyframes tSwing{0%{transform:translateX(-50%) rotate(34deg);opacity:.55}42%{transform:translateX(-50%) rotate(-32deg)}66%{transform:translateX(-50%) rotate(6deg)}76%{transform:translateX(-50%) rotate(-3deg)}86%{transform:translateX(-50%) rotate(1deg)}100%{transform:translateX(-50%) rotate(0);opacity:1}}
 @keyframes coneIn{from{opacity:0;transform:translate(-50%,-30px) scaleY(.6)}to{opacity:1;transform:translateX(-50%)}}
 .x-spot-t{position:relative;color:#fff;font-size:28px;letter-spacing:-.03em}
 .el.go .x-spot{animation:tGlow 2.8s cubic-bezier(.45,0,.25,1) both,spotPulse 5s ease-in-out infinite 2.8s}
 @keyframes tGlow{0%{transform:translateX(-95%);opacity:.55}42%{transform:translateX(-5%)}66%{transform:translateX(-54%)}76%{transform:translateX(-47%)}86%{transform:translateX(-51%)}100%{transform:translateX(-50%);opacity:1}}
 @keyframes spotIn{from{opacity:0;transform:translate(-50%,-40px)}to{opacity:1;transform:translateX(-50%)}}
-.el.go .x-spot-t{animation:tText 2.8s cubic-bezier(.45,0,.25,1) both}
+
 @keyframes tText{0%{opacity:.07}20%{opacity:.28}38%{opacity:.08}63%{opacity:.14}70%{opacity:1;text-shadow:0 0 30px rgba(255,236,214,.8)}80%{opacity:.82}88%{opacity:1}100%{opacity:1;text-shadow:0 0 0 rgba(255,236,214,0)}}
 /* swipe */
 .el[data-a=swipe] .el-stage{background:#F6F2EC}
@@ -846,8 +846,8 @@ footer{padding:40px 0 60px;font-size:14px;color:var(--muted)}
         <b>Seal + chip</b><span>The only two sticker shapes for perks: a round seal for the number, a pill for the reason.</span>
       </button>
       <button class="el" type="button" data-a="spot" style="--bg:#043E52">
-        <div class="el-stage x-spotst"><div class="x-spot"></div><div class="x-cone"></div><div class="x-grain"></div><b class="x-spot-t">Goa is locked.</b></div>
-        <b>The spotlight</b><span>The beam swings left to right, jerks, and stops in the middle. Only then does the headline light up. Used on the lock and the settle-up, the only gradient in the app.</span>
+        <div class="el-stage x-spotst"><div class="x-cone"></div><div class="x-grain"></div><b class="x-spot-t">Goa is locked.</b></div>
+        <b>The spotlight</b><span>The beam swings left to right, jerks, and stops in the middle. Only the words inside the beam show while it moves; the whole headline lights up when it stops. Used on the lock and the settle-up, the only gradient in the app.</span>
       </button>
       <button class="el" type="button" data-a="swipe" style="--bg:#fff">
         <div class="el-stage"><div class="x-sw"><i class="x-swf"></i><span class="x-swt"><svg class="br-ticket" width="38" viewBox="-6 -6 212 122" role="img" aria-label="All In"><defs><clipPath id="bt8"><path d="M20 4H118a14 14 0 0 0 28 0H180a16 16 0 0 1 16 16V90a16 16 0 0 1-16 16H146a14 14 0 0 0-28 0H20A16 16 0 0 1 4 90V20A16 16 0 0 1 20 4Z"/></clipPath></defs><g transform="rotate(0 100 55)"><path d="M20 4H118a14 14 0 0 0 28 0H180a16 16 0 0 1 16 16V90a16 16 0 0 1-16 16H146a14 14 0 0 0-28 0H20A16 16 0 0 1 4 90V20A16 16 0 0 1 20 4Z" fill="#FFA45D"/><g clip-path="url(#bt8)"><rect width="200" height="40" fill="#fff" opacity=".22"/><rect y="98" width="200" height="12" fill="#10262E" opacity=".10"/></g><line x1="132" y1="24" x2="132" y2="86" stroke="#10262E" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 10" opacity=".85"/></g></svg></span><b>Swipe to end the trip</b></div></div>
@@ -1119,6 +1119,30 @@ const drawD = () => { const rows = D.filter(d => area === 'All' || d[1] === area
   dl.querySelectorAll('.drow').forEach(r => { const t = () => { r.classList.toggle('open'); r.setAttribute('aria-expanded', r.classList.contains('open')); }; r.onclick = t; r.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); t(); } }; }); };
 df.querySelectorAll('button').forEach(b => b.onclick = () => { area = b.dataset.a; df.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); drawD(); }); drawD();
 
+/* spotlight sweep: the beam swings left to right, overshoots, settles in the middle.
+   While it moves, only the part of the headline inside the beam is visible. */
+function spotSweep(root, text, geo, setAngle, done){
+  const T = [0, .42, .66, .76, .86, 1], A = [34, -32, 6, -3, 1, 0], dur = 2800, delay = 250;
+  const ease = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  const ang = p => { for (let i = 0; i < T.length - 1; i++) if (p <= T[i + 1]) { const k = (p - T[i]) / (T[i + 1] - T[i]); return A[i] + (A[i + 1] - A[i]) * ease(k); } return 0; };
+  const clear = () => { text.style.webkitMaskImage = text.style.maskImage = ''; };
+  const mask = (a, out) => { const r = root.getBoundingClientRect(), t = text.getBoundingClientRect(); if (!r.width || !t.width) return;
+    const px = r.left + r.width / 2 - t.left, py = r.top - t.top, yc = Math.max(40, t.top + t.height / 2 - r.top);
+    const slope = geo.slope * r.width / r.height, half = Math.atan((geo.top * r.width + yc * slope) / yc) * 180 / Math.PI, c = 180 + a;
+    const m = `conic-gradient(from 0deg at ${px.toFixed(1)}px ${py.toFixed(1)}px, rgba(0,0,0,${out}) ${(c - half - 4).toFixed(2)}deg, #000 ${(c - half + 3).toFixed(2)}deg, #000 ${(c + half - 3).toFixed(2)}deg, rgba(0,0,0,${out}) ${(c + half + 4).toFixed(2)}deg)`;
+    text.style.webkitMaskImage = text.style.maskImage = m; };
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { setAngle(0); clear(); done && done(); return; }
+  if (text._sweep) cancelAnimationFrame(text._sweep);
+  const t0 = performance.now() + delay;
+  setAngle(A[0]); mask(A[0], .03);
+  const frame = now => { if (!root.isConnected) return; const p = (now - t0) / dur;
+    if (p < 1) { const a = p < 0 ? A[0] : ang(p); setAngle(a); mask(a, .03); text._sweep = requestAnimationFrame(frame); return; }
+    setAngle(0); const f0 = now;
+    const flash = n => { const k = Math.min(1, (n - f0) / 320); mask(0, .03 + .97 * k); if (k < 1) text._sweep = requestAnimationFrame(flash); else { clear(); text._sweep = null; done && done(); } };
+    text._sweep = requestAnimationFrame(flash); };
+  text._sweep = requestAnimationFrame(frame);
+}
+
 /* brand elements: replay on tap, play all when the kit comes into view */
 const elg = document.getElementById('elgrid');
 if (elg) {
@@ -1126,7 +1150,8 @@ if (elg) {
   const confBurst = el => { const c = el.querySelector('.x-conf'); if (!c || reduce) return; c.innerHTML = Array.from({ length: 34 }, (_, i) => `<i style="left:${Math.random() * 100}%;background:${['#016A6D','#fff','#E16A3D','#10262E'][i % 4]};animation-delay:${Math.random() * .35}s"></i>`).join(''); setTimeout(() => c.innerHTML = '', 2300); };
   const play = el => { el.classList.remove('go'); odoSet(el, false); void el.offsetWidth; el.classList.add('go');
     if (el.dataset.a === 'odo') setTimeout(() => odoSet(el, true), reduce ? 0 : 120);
-    if (el.dataset.a === 'conf') confBurst(el); };
+    if (el.dataset.a === 'conf') confBurst(el);
+    if (el.dataset.a === 'spot') { const st = el.querySelector('.el-stage'), tx = el.querySelector('.x-spot-t'); spotSweep(st, tx, {top: .062, slope: .248 / .96}, a => st.style.setProperty('--sa', a.toFixed(2) + 'deg'), () => tx.animate([{textShadow:'0 0 30px rgba(255,236,214,.8)'},{textShadow:'0 0 0 rgba(255,236,214,0)'}], {duration:700})); } };
   const els = [...elg.querySelectorAll('.el')];
   els.forEach(el => el.addEventListener('click', () => play(el)));
   const playAll = () => els.forEach((el, i) => setTimeout(() => play(el), reduce ? 0 : i * 140));
