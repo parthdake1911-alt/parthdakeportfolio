@@ -27,6 +27,8 @@ rep = {
     '%%TICKET60%%': ticket('#fff', '#10262E', 64, 0), '%%TICKETBIG%%': ticket('#fff', '#10262E', 200, -6),
     '%%TICKET44%%': ticket('#FFA45D', '#10262E', 48, 0, False),
     '%%ICON130%%': icon(130), '%%WORD54%%': word(54),
+    '%%TICKETEL%%': ticket('#fff', '#10262E', 190, 0), '%%TICKETST%%': ticket('#FFA45D', '#10262E', 64, 0),
+    '%%TICKETSW%%': ticket('#FFA45D', '#10262E', 38, 0, False),
 }
 s = open(f'{H}/case_src.html').read()
 for k, v in rep.items():

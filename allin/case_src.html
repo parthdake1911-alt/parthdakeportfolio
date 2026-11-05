@@ -304,6 +304,112 @@ footer{padding:40px 0 60px;font-size:14px;color:var(--muted)}
 .note b{color:#A8461F}
 .sp{height:22px}
 .spl{height:40px}
+/* brand elements kit */
+.el-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.el-head span{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--tang)}
+.elgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:16px}
+.el{all:unset;box-sizing:border-box;display:flex;flex-direction:column;background:#fff;color:var(--ink);border-radius:26px;overflow:hidden;box-shadow:var(--float),var(--gloss);cursor:pointer;transition:transform .2s;text-align:left}
+.el:hover{transform:translateY(-4px) rotate(-.6deg)}
+.el:focus-visible{outline:3px solid var(--tang);outline-offset:3px}
+.el-stage{position:relative;height:178px;background:var(--bg);display:flex;align-items:center;justify-content:center;gap:10px;overflow:hidden}
+.el>b{display:block;font-size:18px;letter-spacing:-.02em;padding:14px 18px 2px}
+.el>span{display:block;font-size:14.5px;line-height:1.45;color:var(--muted);padding:0 18px 18px}
+.el>span::after{content:"↻ tap to replay";display:block;margin-top:8px;font-size:12px;font-weight:700;color:var(--pine)}
+@keyframes elDrop{0%{opacity:0;transform:translateY(-130px) rotate(-24deg)}60%{opacity:1;transform:translateY(8px) rotate(calc(var(--r,0deg) + 4deg))}80%{transform:translateY(-3px) rotate(var(--r,0deg))}100%{opacity:1;transform:rotate(var(--r,0deg))}}
+@keyframes elSlam{0%{opacity:0;transform:scale(2.4) rotate(-30deg)}70%{opacity:1;transform:scale(.94) rotate(var(--r,-12deg))}100%{opacity:1;transform:scale(1) rotate(var(--r,-12deg))}}
+@keyframes elTear{0%,100%{transform:none}30%{transform:rotate(-7deg) translateX(-3px)}60%{transform:rotate(4deg)}}
+@keyframes elFloat{50%{translate:0 -6px}}
+/* ticket */
+.x-tk{--r:-6deg;transform:rotate(-6deg)}
+.el.go .x-tk{animation:elDrop .8s cubic-bezier(.3,1.3,.5,1) both}
+.el.go .x-tk svg{animation:elTear .9s ease-in-out .85s}
+/* stamp */
+.x-stamp{--r:-12deg;width:118px;height:118px;border-radius:50%;border:4px solid #FFA45D;color:#FFA45D;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;transform:rotate(-12deg);font-weight:800;letter-spacing:.06em}
+.el.go .x-stamp{animation:elSlam .45s cubic-bezier(.3,1.6,.5,1) both .1s}
+/* paid card */
+.x-card{--r:-4deg;display:flex;align-items:center;gap:10px;width:210px;height:62px;padding:0 12px;border-radius:20px;background:#fff;box-shadow:var(--float),var(--gloss);transform:rotate(-4deg);font-weight:700}
+.el-stage .x-card{background:#fff}
+.el[data-a=pill] .el-stage{background:#F6F2EC}
+.x-card span{flex:1;line-height:1.1}.x-card small{display:block;font-weight:600;font-size:12px;opacity:.7}
+.av2{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;font-style:normal;font-weight:800;box-shadow:var(--gloss)}
+.x-pill{--r:-12deg;font-style:normal;font-size:13px;font-weight:800;background:#E16A3D;color:#fff;padding:5px 12px;border-radius:999px;transform:rotate(-12deg);box-shadow:var(--gloss)}
+.el.go .x-card{animation:elDrop .7s cubic-bezier(.3,1.3,.5,1) both}
+.el.go .x-pill{animation:elSlam .42s cubic-bezier(.3,1.6,.5,1) both .75s}
+/* strike */
+.x-maybe{position:relative;font-size:38px;font-weight:800;color:#fff;letter-spacing:-.03em}
+.x-maybe i{position:absolute;left:-4px;right:-4px;top:54%;height:5px;border-radius:3px;background:#FFA45D;transform-origin:left;transform:scaleX(1)}
+.x-yes{font-size:15px;font-weight:800;background:#fff;color:#016A6D;padding:7px 14px;border-radius:999px;transform:rotate(-8deg);box-shadow:var(--float)}
+.el.go .x-maybe i{animation:strk .5s cubic-bezier(.6,0,.2,1) both .3s}
+@keyframes strk{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.el.go .x-yes{--r:-8deg;animation:elSlam .42s cubic-bezier(.3,1.6,.5,1) both .9s}
+/* odometer */
+.el[data-a=odo] .el-stage{flex-direction:row}
+.x-odo{display:flex;gap:6px}
+.x-odo span{width:58px;height:82px;border-radius:14px;background:#FFA45D;overflow:hidden;box-shadow:var(--gloss);position:relative}
+.x-odo span::after{content:"";position:absolute;left:0;right:0;top:50%;height:1.5px;background:#fff;opacity:.4}
+.x-odo i{display:flex;flex-direction:column;font-style:normal;font-size:64px;font-weight:800;line-height:82px;text-align:center;color:#10262E;width:58px;display:block;transition:transform 1.4s cubic-bezier(.2,.8,.2,1)}
+.x-odo-l{color:#fff;font-size:26px;line-height:.95;letter-spacing:-.03em;width:70px}
+/* fly-up */
+.x-seat{width:66px;height:70px;border-radius:16px;border:2px dashed rgba(255,255,255,.55);display:grid;place-items:center;color:#fff;font-weight:800;font-size:20px}
+.x-seat:first-child{background:#fff;color:#10262E;border:0;box-shadow:var(--gloss)}
+.x-seat.on{background:#fff;color:#10262E;border:0;box-shadow:var(--soft),var(--gloss)}
+.el.go .x-seat.on{animation:seatPop .55s cubic-bezier(.3,1.6,.5,1) both .1s}
+@keyframes seatPop{from{transform:scale(.3) rotate(-12deg);opacity:0}to{transform:none;opacity:1}}
+.x-fly{position:absolute;right:20px;top:26px;font-style:normal;font-weight:800;font-size:19px;background:#FFA45D;color:#10262E;padding:3px 12px;border-radius:999px;box-shadow:var(--float);opacity:0}
+.el.go .x-fly{animation:fly 1.4s cubic-bezier(.2,.9,.3,1) both .35s}
+/* ribbon */
+.x-rib{width:110%;height:auto;filter:drop-shadow(0 8px 10px rgba(0,0,0,.18))}
+.el.go .x-rib{animation:elDrop .7s cubic-bezier(.3,1.3,.5,1) both}
+/* confetti */
+.x-conf{position:absolute;inset:0;pointer-events:none}
+.x-conf i{position:absolute;top:-14px;width:9px;height:14px;border-radius:2px;animation:conf2 1.7s cubic-bezier(.2,.6,.4,1) forwards}
+@keyframes conf2{to{transform:translateY(220px) rotate(560deg);opacity:0}}
+.x-conf-t{font-size:28px;letter-spacing:-.03em;color:#10262E}
+.el.go .x-conf-t{--r:0deg;animation:elSlam .45s cubic-bezier(.3,1.6,.5,1) both}
+/* stickers */
+.x-st{position:absolute;width:74px;height:74px;transform:rotate(var(--r));filter:drop-shadow(0 8px 8px rgba(16,38,46,.3));animation:elFloat 4.5s ease-in-out infinite}
+.x-st:nth-child(2){animation-delay:-1s}.x-st:nth-child(3){animation-delay:-2s}.x-st:nth-child(4){animation-delay:-3s}
+.el.go .x-st{animation:elDrop .7s cubic-bezier(.3,1.3,.5,1) both,elFloat 4.5s ease-in-out infinite .8s}
+.el.go .x-st:nth-child(2){animation-delay:.12s,.9s}.el.go .x-st:nth-child(3){animation-delay:.24s,1s}.el.go .x-st:nth-child(4){animation-delay:.36s,1.1s}
+/* seal + chip */
+.el[data-a=seal] .el-stage{flex-direction:column;gap:12px}
+.x-seal{width:78px;height:78px;border-radius:50%;background:#FFA45D;display:grid;place-items:center;font-weight:800;font-size:22px;transform:rotate(-10deg);box-shadow:var(--gloss),var(--float)}
+.x-chip{font-size:13px;font-weight:800;background:#016A6D;color:#fff;padding:6px 13px;border-radius:999px;transform:rotate(4deg);box-shadow:var(--float)}
+.el.go .x-seal{--r:-10deg;animation:elSlam .45s cubic-bezier(.3,1.6,.5,1) both}
+.el.go .x-chip{--r:4deg;animation:elDrop .6s cubic-bezier(.3,1.3,.5,1) both .45s}
+/* spotlight */
+.x-spot{position:absolute;left:50%;top:-60px;width:160%;height:100%;transform:translateX(-50%);background:radial-gradient(ellipse 40% 70% at 50% 0%,rgba(255,236,214,.5),rgba(255,236,214,.1) 55%,transparent 75%)}
+.x-spot-t{position:relative;color:#fff;font-size:28px;letter-spacing:-.03em}
+.el.go .x-spot{animation:spotIn 1.2s ease both}
+@keyframes spotIn{from{opacity:0;transform:translate(-50%,-40px)}to{opacity:1;transform:translateX(-50%)}}
+.el.go .x-spot-t{animation:kin .6s cubic-bezier(.2,1.2,.4,1) both .5s}
+/* swipe */
+.el[data-a=swipe] .el-stage{background:#F6F2EC}
+.x-sw{position:relative;width:224px;height:58px;border-radius:999px;background:#fff;box-shadow:inset 0 2px 6px rgba(16,38,46,.12);overflow:hidden}
+.x-sw b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;padding-left:40px}
+.x-swf{position:absolute;left:0;top:0;bottom:0;width:54px;border-radius:999px;background:#E16A3D}
+.x-swt{position:absolute;left:4px;top:4px;width:50px;height:50px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:var(--float);transform:rotate(-10deg);z-index:2}
+.el.go .x-swt{animation:swT 2s cubic-bezier(.5,0,.3,1) both .2s}
+.el.go .x-swf{animation:swF 2s cubic-bezier(.5,0,.3,1) both .2s}
+@keyframes swT{45%,60%{transform:translateX(166px) rotate(0)}100%{transform:none rotate(-10deg)}}
+@keyframes swF{45%,60%{width:224px}100%{width:54px}}
+/* motion cards */
+.mcard{background:rgba(255,255,255,.08);border-radius:22px;padding:18px;color:#fff}
+.mcard b{display:block;font-size:18px;margin-top:10px}
+.mcard code{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:var(--tang)}
+.mcard p{margin:6px 0 0;font-size:14.5px;color:rgba(255,255,255,.78)}
+.mv{height:90px;border-radius:16px;background:rgba(255,255,255,.08);display:grid;place-items:center;overflow:hidden}
+.mv i.m-drop,.mv i.m-slam,.mv i.m-hov{width:44px;height:44px;border-radius:14px;background:var(--tang);box-shadow:var(--gloss)}
+.m-drop{animation:mDrop 2.4s cubic-bezier(.3,1.3,.5,1) infinite}
+@keyframes mDrop{0%{transform:translateY(-80px) rotate(-24deg);opacity:0}35%{transform:rotate(-6deg);opacity:1}85%{transform:rotate(-6deg);opacity:1}100%{opacity:0}}
+.m-slam{animation:mSlam 2.4s cubic-bezier(.3,1.6,.5,1) infinite;border-radius:50%!important}
+@keyframes mSlam{0%{transform:scale(2.4) rotate(-30deg);opacity:0}18%{transform:scale(1) rotate(-12deg);opacity:1}85%{opacity:1;transform:rotate(-12deg)}100%{opacity:0}}
+.m-hov{animation:elFloat 2.2s ease-in-out infinite}
+.m-kin{font-weight:800;font-size:24px;letter-spacing:-.03em}
+.m-kin i{font-style:normal;display:inline-block;animation:mKin 2.4s cubic-bezier(.2,1.2,.4,1) infinite}
+.m-kin i:nth-child(2){animation-delay:.07s}.m-kin i:nth-child(3){animation-delay:.14s}
+@keyframes mKin{0%{opacity:0;transform:translateY(60%) rotate(4deg)}25%,85%{opacity:1;transform:none}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.el *,.mv *{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -358,11 +464,12 @@ footer{padding:40px 0 60px;font-size:14px;color:var(--muted)}
       <a href="#pivot"><b>Stop 05</b><span>The honest pivot</span></a>
       <a href="#solution"><b>Stop 06</b><span>The solution</span></a>
       <a href="#brand"><b>Stop 07</b><span>Brand strategy</span></a>
-      <a href="#ui"><b>Stop 08</b><span>UI problems</span></a>
-      <a href="#versions"><b>Stop 09</b><span>Every version</span></a>
-      <a href="#reality"><b>Stop 10</b><span>Reality check</span></a>
-      <a href="#log"><b>Stop 11</b><span>Decision log</span></a>
-      <a href="#next"><b>Stop 12</b><span>Testing & learnings</span></a>
+      <a href="#elements"><b>Stop 08</b><span>Brand elements</span></a>
+      <a href="#ui"><b>Stop 09</b><span>UI problems</span></a>
+      <a href="#versions"><b>Stop 10</b><span>Every version</span></a>
+      <a href="#reality"><b>Stop 11</b><span>Reality check</span></a>
+      <a href="#log"><b>Stop 12</b><span>Decision log</span></a>
+      <a href="#next"><b>Stop 13</b><span>Testing & learnings</span></a>
     </nav>
   </div>
 </section>
@@ -677,11 +784,94 @@ footer{padding:40px 0 60px;font-size:14px;color:var(--muted)}
   </div>
 </section>
 
-<!-- ============ 08 UI PROBLEMS ============ -->
-<section class="band" id="ui" data-chap="08 · UI problems">
+<!-- ============ 08 BRAND ELEMENTS ============ -->
+<section class="band bg-ink curve" id="elements" data-chap="08 · Brand elements">
   <div class="wrap">
     <div class="read">
-      <div class="over rv"><i>08</i> UI problems I had to solve</div>
+      <div class="over rv"><i>08</i> Brand elements</div>
+      <h2 class="kh" data-k>A sticker box for every big moment.</h2>
+      <p class="lead rv">A logo isn’t a brand. The brand is the stuff that shows up when something happens: a stamp when the trip locks, a ribbon when you settle up, a number that rolls instead of just changing. I designed these as a kit, each with one job and one way of moving. <b style="color:#fff">Tap any tile to replay it.</b></p>
+    </div>
+    <div class="sp"></div>
+    <div class="el-head rv"><span>Objects</span><button class="chip" type="button" id="elplay">▶ Play all</button></div>
+    <div class="elgrid" id="elgrid">
+      <button class="el" type="button" data-a="tk" style="--bg:#FFA45D">
+        <div class="el-stage"><div class="x-tk">%%TICKETEL%%</div></div>
+        <b>The ticket</b><span>The logo and the invite. Drops in, then the “in” side wiggles like it’s being torn.</span>
+      </button>
+      <button class="el" type="button" data-a="stamp" style="--bg:#043E52">
+        <div class="el-stage"><div class="x-stamp"><span>%%TICKETST%%</span><b>LOCKED</b></div></div>
+        <b>The stamp</b><span>Borrowed from passports. Slams down when a trip locks or a bill is settled.</span>
+      </button>
+      <button class="el" type="button" data-a="pill" style="--bg:#fff">
+        <div class="el-stage"><div class="x-card"><i class="av2" style="background:#1C9290;color:#fff">A</i><span>Aman<small>₹5,000</small></span><em class="x-pill">Paid</em></div></div>
+        <b>The “Paid” pill</b><span>Sunset, tilted, one word. Lands on a friend’s card the moment they pay.</span>
+      </button>
+      <button class="el" type="button" data-a="strike" style="--bg:#1C9290">
+        <div class="el-stage"><div class="x-maybe">maybe<i></i></div><div class="x-yes">I’m in</div></div>
+        <b>The strike-through</b><span>A “maybe” gets crossed out in sunset ink. The whole product in one gesture.</span>
+      </button>
+      <button class="el" type="button" data-a="odo" style="--bg:#10262E">
+        <div class="el-stage"><div class="x-odo"><span><i>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</i></span><span><i>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</i></span></div><b class="x-odo-l">days to go</b></div>
+        <b>The odometer</b><span>Numbers roll into place, like a departure board. Used for days to go and amounts.</span>
+      </button>
+      <button class="el" type="button" data-a="fly" style="--bg:#016A6D">
+        <div class="el-stage"><div class="x-seat">N</div><div class="x-seat on">A</div><em class="x-fly">+₹5,000</em></div>
+        <b>The fly-up</b><span>When a seat fills, the money floats up and fades. Progress you can feel.</span>
+      </button>
+      <button class="el" type="button" data-a="ribbon" style="--bg:#E16A3D">
+        <div class="el-stage"><svg class="x-rib" viewBox="0 0 300 150" aria-hidden="true"><defs><path id="ribp" d="M-20 110 C 60 30, 140 150, 220 70 S 330 30, 340 60"/></defs><use href="#ribp" stroke="#FFF6EE" stroke-width="30" fill="none" stroke-linecap="round"/><text font-family="Outfit, sans-serif" font-weight="800" font-size="15" fill="#10262E" letter-spacing="1"><textPath href="#ribp" startOffset="0%">SETTLED ✦ ALL SQUARE ✦ SETTLED ✦ ALL SQUARE ✦ SETTLED ✦ ALL SQUARE ✦<animate attributeName="startOffset" from="0%" to="-60%" dur="9s" repeatCount="indefinite"/></textPath></text></svg></div>
+        <b>The ribbon</b><span>Text running along a curve, straight out of Spotify Wrapped. Only for “all square”.</span>
+      </button>
+      <button class="el" type="button" data-a="conf" style="--bg:#FFA45D">
+        <div class="el-stage"><div class="x-conf"></div><b class="x-conf-t">It’s happening!</b></div>
+        <b>Confetti</b><span>Brand colours only, a short burst, never on a loop. Reserved for lock, wrap and settle.</span>
+      </button>
+      <button class="el" type="button" data-a="stick" style="--bg:#DDF0EE">
+        <div class="el-stage"><img class="x-st" src="img/st_thali.webp" alt="" style="--r:-12deg;left:14%;top:18%"><img class="x-st" src="img/st_scoot.webp" alt="" style="--r:10deg;right:12%;top:12%"><img class="x-st" src="img/st_beach.webp" alt="" style="--r:6deg;left:28%;bottom:8%"><img class="x-st" src="img/st_fire.webp" alt="" style="--r:-8deg;right:22%;bottom:12%"></div>
+        <b>Die-cut stickers</b><span>Thali, scooter, beach, bonfire: Goa trip things with a white border, like a laptop sticker.</span>
+      </button>
+      <button class="el" type="button" data-a="seal" style="--bg:#FFE4CC">
+        <div class="el-stage"><span class="x-seal">40%</span><span class="x-chip">7 of you went All In</span></div>
+        <b>Seal + chip</b><span>The only two sticker shapes for perks: a round seal for the number, a pill for the reason.</span>
+      </button>
+      <button class="el" type="button" data-a="spot" style="--bg:#043E52">
+        <div class="el-stage x-spotst"><div class="x-spot"></div><b class="x-spot-t">Goa is locked.</b></div>
+        <b>The spotlight</b><span>Light from above on the one dark screen. The only gradient in the whole app.</span>
+      </button>
+      <button class="el" type="button" data-a="swipe" style="--bg:#fff">
+        <div class="el-stage"><div class="x-sw"><i class="x-swf"></i><span class="x-swt">%%TICKETSW%%</span><b>Swipe to end the trip</b></div></div>
+        <b>The swipe ticket</b><span>The ticket becomes a handle. Ending a trip is a gesture, not a tap.</span>
+      </button>
+    </div>
+
+    <div class="spl"></div>
+    <div class="el-head rv"><span>How things move</span></div>
+    <div class="grid g4">
+      <div class="mcard rv" style="--d:1"><div class="mv"><i class="m-drop"></i></div><b>Drop</b><code>0.6–0.8 s · overshoot</code><p>Cards and photos fall in at a slight angle, bounce once, and settle tilted.</p></div>
+      <div class="mcard rv" style="--d:2"><div class="mv"><i class="m-slam"></i></div><b>Slam</b><code>0.42 s · 2.4× → 1×</code><p>Stamps and pills hit hard, rotating from −30° to −12°.</p></div>
+      <div class="mcard rv" style="--d:3"><div class="mv"><span class="m-kin"><i>Lock</i> <i>the</i> <i>trip.</i></span></div><b>Kinetic type</b><code>70 ms per word</code><p>Big headlines rise word by word, like a story card.</p></div>
+      <div class="mcard rv" style="--d:4"><div class="mv"><i class="m-hov"></i></div><b>Hover</b><code>5.5 s · ±6 px</code><p>Once landed, floating cards breathe gently so screens never feel frozen.</p></div>
+    </div>
+    <div class="sp"></div>
+    <div class="grid g3">
+      <div class="card rv" style="--d:1;color:var(--ink)"><div class="over">Rule 1</div><p style="margin:0"><b>One job each.</b> The stamp means “done”, the pill means “paid”, confetti means “celebrate”. They never swap.</p></div>
+      <div class="card rv" style="--d:2;color:var(--ink)"><div class="over">Rule 2</div><p style="margin:0"><b>One sticker per card</b>, never on top of text. My first perks pass was cluttered, so I cut it to the seal and the pill.</p></div>
+      <div class="card rv" style="--d:3;color:var(--ink)"><div class="over">Rule 3</div><p style="margin:0"><b>Motion is optional.</b> With reduced motion on, everything appears in place, and no moment depends on animation to make sense.</p></div>
+    </div>
+    <div class="spl"></div>
+    <div class="grid g2" style="align-items:start">
+      <div class="rv"><div class="hscroll" style="background:#fff"><img src="img/v1_perks.webp" alt="Version 1 perks screens with seal and pill stickers" width="2000" height="844" loading="lazy"></div><p class="cap">Where the seal and the pill came from: version 1’s Gang perks screens.</p></div>
+      <div class="rv" style="--d:2"><div class="wideimg"><img src="img/v1_wrappedcards.webp" alt="Trip Wrapped story cards: photos, kilometres, settle-up and who you were on the trip" width="1500" height="550" loading="lazy"></div><p class="cap">Trip Wrapped story cards, the original source of the motion language.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 09 UI PROBLEMS ============ -->
+<section class="band" id="ui" data-chap="09 · UI problems">
+  <div class="wrap">
+    <div class="read">
+      <div class="over rv"><i>09</i> UI problems I had to solve</div>
       <h2 class="kh" data-k>The small things people actually notice.</h2>
       <p class="lead rv">Each of these came from testing the live app on a real phone or from feedback. Here is what broke and how I fixed it.</p>
     </div>
@@ -715,11 +905,11 @@ footer{padding:40px 0 60px;font-size:14px;color:var(--muted)}
   </div>
 </section>
 
-<!-- ============ 09 VERSIONS ============ -->
-<section class="band bg-nile curve" id="versions" data-chap="09 · Every version">
+<!-- ============ 10 VERSIONS ============ -->
+<section class="band bg-nile curve" id="versions" data-chap="10 · Every version">
   <div class="wrap">
     <div class="read">
-      <div class="over rv"><i>09</i> Every version</div>
+      <div class="over rv"><i>10</i> Every version</div>
       <h2 class="kh" data-k>Five versions in three days.</h2>
       <p class="lead rv">Tap through how the product, and the way it looks, got to the final version, and why each step happened.</p>
     </div>
@@ -729,11 +919,11 @@ footer{padding:40px 0 60px;font-size:14px;color:var(--muted)}
   </div>
 </section>
 
-<!-- ============ 10 REALITY ============ -->
-<section class="band bg-white" id="reality" data-chap="10 · Reality check">
+<!-- ============ 11 REALITY ============ -->
+<section class="band bg-white" id="reality" data-chap="11 · Reality check">
   <div class="wrap">
     <div class="read">
-      <div class="over rv"><i>10</i> Reality check</div>
+      <div class="over rv"><i>11</i> Reality check</div>
       <h2 class="kh" data-k>Could this actually ship?</h2>
       <p class="lead rv">Every feature passed a feasibility check before it stayed in. Here is the money, the photos and the business.</p>
     </div>
@@ -750,11 +940,11 @@ footer{padding:40px 0 60px;font-size:14px;color:var(--muted)}
   </div>
 </section>
 
-<!-- ============ 11 DECISION LOG ============ -->
-<section class="band" id="log" data-chap="11 · Decision log">
+<!-- ============ 12 DECISION LOG ============ -->
+<section class="band" id="log" data-chap="12 · Decision log">
   <div class="wrap">
     <div class="read">
-      <div class="over rv"><i>11</i> Decision log</div>
+      <div class="over rv"><i>12</i> Decision log</div>
       <h2 class="kh" data-k>Every call, and why I made it.</h2>
       <p class="lead rv">I kept a log from day one, so every cut had a reason. Filter by area and tap a row to see the trade-off.</p>
     </div>
@@ -764,11 +954,11 @@ footer{padding:40px 0 60px;font-size:14px;color:var(--muted)}
   </div>
 </section>
 
-<!-- ============ 12 TESTING & LEARNINGS ============ -->
-<section class="band bg-white" id="next" data-chap="12 · Testing & learnings">
+<!-- ============ 13 TESTING & LEARNINGS ============ -->
+<section class="band bg-white" id="next" data-chap="13 · Testing & learnings">
   <div class="wrap">
     <div class="read">
-      <div class="over rv"><i>12</i> Measuring it</div>
+      <div class="over rv"><i>13</i> Measuring it</div>
       <h2 class="kh" data-k>What success looks like.</h2>
     </div>
     <div class="grid g2" style="align-items:start">
@@ -918,6 +1108,23 @@ const drawD = () => { const rows = D.filter(d => area === 'All' || d[1] === area
   dl.innerHTML = rows.map((d, i) => `<div class="drow rv in" style="--d:${Math.min(i, 8)}" tabindex="0" role="button" aria-expanded="false"><span class="dt">${d[0]}</span><span class="ar ${d[1]}">${d[1]}</span><div class="dd"><b>${d[2]}</b><div class="why">${d[3]} <em>Trade-off:</em> ${d[4]}</div></div></div>`).join('');
   dl.querySelectorAll('.drow').forEach(r => { const t = () => { r.classList.toggle('open'); r.setAttribute('aria-expanded', r.classList.contains('open')); }; r.onclick = t; r.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); t(); } }; }); };
 df.querySelectorAll('button').forEach(b => b.onclick = () => { area = b.dataset.a; df.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); drawD(); }); drawD();
+
+/* brand elements: replay on tap, play all when the kit comes into view */
+const elg = document.getElementById('elgrid');
+if (elg) {
+  const odoSet = (el, on) => el.querySelectorAll('.x-odo i').forEach((c, k) => { const d = on ? [3, 7][k] : 0; c.style.transform = `translateY(-${d * 82}px)`; });
+  const confBurst = el => { const c = el.querySelector('.x-conf'); if (!c || reduce) return; c.innerHTML = Array.from({ length: 34 }, (_, i) => `<i style="left:${Math.random() * 100}%;background:${['#016A6D','#fff','#E16A3D','#10262E'][i % 4]};animation-delay:${Math.random() * .35}s"></i>`).join(''); setTimeout(() => c.innerHTML = '', 2300); };
+  const play = el => { el.classList.remove('go'); odoSet(el, false); void el.offsetWidth; el.classList.add('go');
+    if (el.dataset.a === 'odo') setTimeout(() => odoSet(el, true), reduce ? 0 : 120);
+    if (el.dataset.a === 'conf') confBurst(el); };
+  const els = [...elg.querySelectorAll('.el')];
+  els.forEach(el => el.addEventListener('click', () => play(el)));
+  const playAll = () => els.forEach((el, i) => setTimeout(() => play(el), reduce ? 0 : i * 140));
+  document.getElementById('elplay').onclick = playAll;
+  const eio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { playAll(); eio.disconnect(); } }), { threshold: .2 });
+  eio.observe(elg);
+  els.forEach(el => { if (el.dataset.a === 'odo') odoSet(el, true); });
+}
 
 /* swipe to finish */
 const tr = document.getElementById('endswipe'), th = tr.querySelector('.thumb'), fill = tr.querySelector('.sfill'), lab = tr.querySelector('.slab');
