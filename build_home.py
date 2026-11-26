@@ -24,6 +24,9 @@ rep = {
     '{{BCW_AVIF}}': 'images/bcw.avif', '{{BCW}}': 'images/bcw.webp',
     '{{LOGO}}': 'images/logo.webp', '{{PAGES}}': json.dumps(pages),
 }
+os.makedirs(f'{OUT}/images/clients', exist_ok=True)
+for f in os.listdir(f'{H}/logos/clients'):
+    shutil.copy(f'{H}/logos/clients/{f}', f'{OUT}/images/clients/{f}')
 t = open(f'{H}/template.html').read()
 for k, v in rep.items():
     t = t.replace(k, v)

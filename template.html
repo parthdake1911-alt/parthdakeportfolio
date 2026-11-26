@@ -1281,6 +1281,37 @@
     .bt.anchor .d1 { --w: 440px; } .bt.amin .d1 { --w: 420px; right: -60px; }
   }
   @media (prefers-reduced-motion: reduce) { .bt { opacity: 1; transform: none; transition: none; } .dv { transition: none; } }
+
+  /* ================= Clients: logo wall ================= */
+  .clients-sec { background: #f6f2ec; color: #0b0a09; padding: 0 0 clamp(80px, 9vw, 150px); }
+  .cl-head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); align-items: end; padding-top: clamp(56px, 6vw, 96px); border-top: 1px solid rgba(11,10,9,.1); margin-bottom: clamp(28px, 3.5vw, 48px); }
+  .cl-num { display: flex; align-items: flex-start; line-height: .8; }
+  .cl-num b { font-weight: 500; letter-spacing: -0.07em; font-size: clamp(110px, 14vw, 220px); font-variant-numeric: tabular-nums; }
+  .cl-num i { font-style: normal; font-weight: 500; font-size: clamp(110px, 14vw, 220px); letter-spacing: -0.07em; color: var(--accent); }
+  .cl-copy .bk { font-size: 15px; font-weight: 500; color: rgba(11,10,9,.45); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  .cl-copy .bk::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  .cl-copy h2 { font-weight: 500; letter-spacing: -0.05em; line-height: 1; font-size: clamp(36px, 4.2vw, 64px); margin-bottom: 14px; }
+  .cl-copy p { max-width: 520px; font-size: 17px; line-height: 1.55; color: rgba(11,10,9,.6); }
+  .cl-grid { list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+  .lg { position: relative; height: 150px; border-radius: 22px; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden;
+        box-shadow: 0 1px 0 rgba(11,10,9,.04), 0 18px 36px -30px rgba(60,35,10,.4); opacity: 0; transform: translateY(18px);
+        transition: opacity .7s ease calc(var(--i) * 40ms), transform .8s var(--out) calc(var(--i) * 40ms), box-shadow .35s ease; }
+  .cl-grid.in .lg { opacity: 1; transform: none; }
+  .lg img { max-width: 66%; max-height: 54px; width: auto; height: auto; object-fit: contain; transition: transform .5s var(--out); }
+  .lg.sq img { max-height: 78px; }
+  .lg span { position: absolute; left: 0; right: 0; bottom: 12px; text-align: center; font-size: 12.5px; font-weight: 500; color: rgba(11,10,9,.5); opacity: 0; transform: translateY(6px); transition: opacity .3s ease, transform .4s var(--out); }
+  .lg:hover { box-shadow: 0 1px 0 rgba(11,10,9,.04), 0 28px 48px -30px rgba(60,35,10,.55); }
+  .lg:hover img { transform: translateY(-10px) scale(1.04); }
+  .lg:hover span { opacity: 1; transform: none; }
+  @media (max-width: 1180px) { .cl-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  @media (max-width: 900px), (orientation: portrait) and (max-width: 1180px) {
+    .cl-head { grid-template-columns: minmax(0, 1fr); align-items: start; gap: 8px; }
+    .cl-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .lg { height: 110px; border-radius: 18px; } .lg img { max-height: 40px; max-width: 72%; } .lg.sq img { max-height: 58px; }
+    .lg span { display: none; }
+  }
+  @media (max-width: 420px) { .lg { height: 92px; } .lg img { max-height: 32px; } .lg.sq img { max-height: 48px; } }
+  @media (prefers-reduced-motion: reduce) { .lg { opacity: 1; transform: none; transition: none; } }
 </style>
 </head>
 <body>
@@ -1438,6 +1469,20 @@
       <p class="bsub">Brand systems, client apps and product ideas, each with a working prototype. Pick one to open the case study.</p>
     </div>
     <div class="bento" id="bento"></div>
+  </div>
+</section>
+
+<section class="clients-sec" id="clients" aria-labelledby="clientsTitle">
+  <div class="bento-in">
+    <div class="cl-head">
+      <div class="cl-num" aria-hidden="true"><b data-to="15">15</b><i aria-hidden="true">.</i></div>
+      <div class="cl-copy">
+        <p class="bk">Clients</p>
+        <h2 id="clientsTitle">Brands I’ve designed for</h2>
+        <p>Companies I’ve worked with or pitched to at BC Webwise, across energy, cement, real estate, finance and consumer goods.</p>
+      </div>
+    </div>
+    <ul class="cl-grid" id="clGrid"><li class="lg sq" style="--i:0"><img src="images/clients/tata-power.webp" alt="Tata Power" loading="lazy" decoding="async"><span>Tata Power</span></li><li class="lg sq" style="--i:1"><img src="images/clients/shell.webp" alt="Shell" loading="lazy" decoding="async"><span>Shell</span></li><li class="lg sq" style="--i:2"><img src="images/clients/ultratech.webp" alt="UltraTech Cement" loading="lazy" decoding="async"><span>UltraTech Cement</span></li><li class="lg" style="--i:3"><img src="images/clients/jio-payments-bank.webp" alt="Jio Payments Bank" loading="lazy" decoding="async"><span>Jio Payments Bank</span></li><li class="lg sq" style="--i:4"><img src="images/clients/shapoorji-pallonji.webp" alt="Shapoorji Pallonji" loading="lazy" decoding="async"><span>Shapoorji Pallonji</span></li><li class="lg" style="--i:5"><img src="images/clients/singer.webp" alt="Singer" loading="lazy" decoding="async"><span>Singer</span></li><li class="lg sq" style="--i:6"><img src="images/clients/birla-estates.webp" alt="Birla Estates" loading="lazy" decoding="async"><span>Birla Estates</span></li><li class="lg sq" style="--i:7"><img src="images/clients/somany.webp" alt="Somany Ceramics" loading="lazy" decoding="async"><span>Somany Ceramics</span></li><li class="lg" style="--i:8"><img src="images/clients/jk-lakshmi.webp" alt="JK Lakshmi Cement" loading="lazy" decoding="async"><span>JK Lakshmi Cement</span></li><li class="lg" style="--i:9"><img src="images/clients/microtek.webp" alt="Microtek" loading="lazy" decoding="async"><span>Microtek</span></li><li class="lg" style="--i:10"><img src="images/clients/careedge.webp" alt="CareEdge Global Ratings" loading="lazy" decoding="async"><span>CareEdge Global Ratings</span></li><li class="lg" style="--i:11"><img src="images/clients/casagrand.webp" alt="Casagrand" loading="lazy" decoding="async"><span>Casagrand</span></li><li class="lg sq" style="--i:12"><img src="images/clients/ica.webp" alt="ICA Italian Wood Finishes" loading="lazy" decoding="async"><span>ICA Italian Wood Finishes</span></li><li class="lg" style="--i:13"><img src="images/clients/amin.webp" alt="AMIN Worldwide" loading="lazy" decoding="async"><span>AMIN Worldwide</span></li><li class="lg" style="--i:14"><img src="images/clients/ellenbarrie.webp" alt="Ellenbarrie Industrial Gases" loading="lazy" decoding="async"><span>Ellenbarrie Industrial Gases</span></li></ul>
   </div>
 </section>
 
@@ -1893,6 +1938,12 @@
     bento.appendChild(a);
   });
   new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { bento.classList.add('in'); o.disconnect(); } }), { rootMargin: '0px 0px -12% 0px' }).observe(bento);
+  /* clients: reveal + count up */
+  (() => { const g = document.getElementById('clGrid'), b = document.querySelector('.cl-num b'); if (!g) return;
+    new IntersectionObserver((es, o) => es.forEach(e => { if (!e.isIntersecting) return; o.disconnect(); g.classList.add('in');
+      if (reduce) return; const to = +b.dataset.to, t0 = performance.now();
+      const step = t => { const k = Math.min(1, (t - t0) / 1200); b.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(step); }; requestAnimationFrame(step);
+    }), { rootMargin: '0px 0px -15% 0px' }).observe(g); })();
 
   /* ---------- Per-frame motion: scroll + cursor ---------- */
   const scroller = document.getElementById('scroller');

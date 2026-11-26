@@ -63,6 +63,9 @@ for d in ['img', 'proto']:
     shutil.copytree(f'{H}/padaav/{d}', f'{OUT}/padaav/{d}', dirs_exist_ok=True)
 for f in ['index.html', 'prototype.html']:
     shutil.copy(f'{H}/padaav/{f}', f'{OUT}/padaav/{f}')
+os.makedirs(f'{OUT}/images/clients', exist_ok=True)
+for f in os.listdir(f'{H}/logos/clients'):   # client logo wall on the homepage
+    cp(f'{H}/logos/clients/{f}', f'images/clients/{f}')
 cp(f'{OPT}/resume/Parth-Dake-Resume.pdf', 'resume/Parth-Dake-Resume.pdf')
 cp(f'{OPT}/jquery-3.7.1.min.js', 'assets/jquery-3.7.1.min.js')
 
