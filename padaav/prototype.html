@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Padaav · Live prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,500&display=swap">
+<style>
+/*
+VOICE: calm, warm hospitality product; a working app, not a poster.
+IDEA: a travel journal with three stamped stops: one system, four brands, switched live.
+PICTURE: the phone running the real booking flow; the route line + halt dot is the only illustration.
+COLOUR and TYPE: Padaav tokens + per-house action/accent/tint; one display family (Newsreader) with a per-house style, Hanken Grotesk for UI.
+LAYOUT: left control panel (brand switcher + live tokens), phone on the right; on phones the app is full-screen with a compact switcher.
+*/
+:root{color-scheme:light;
+  --paper:#f7f2ea;--ink:#1e1a16;--muted:#6b6259;--line:#ddd3c6;--halt:#d9962b;--raised:#fff;--success:#2f6b45;--error:#a3302a;--scrim:rgba(30,26,22,.48);
+  --ui:"Hanken Grotesk",system-ui,sans-serif}
+[data-brand=padaav]{--action:#2a2420;--action-hover:#3a322d;--accent:#d9962b;--tint:#efe7db;--radius:4px;--dur:320ms;--ease:cubic-bezier(.33,0,.2,1);--display:"Newsreader",Georgia,serif;--dw:400;--ds:normal}
+[data-brand=dhundh]{--action:#34483c;--action-hover:#2a3b31;--accent:#8fa39a;--tint:#e6ebe6;--radius:10px;--dur:420ms;--ease:cubic-bezier(.22,.61,.36,1);--display:"Newsreader",Georgia,serif;--dw:300;--ds:normal}
+[data-brand=jharokha]{--action:#2b3567;--action-hover:#232b54;--accent:#b08a3e;--tint:#ece7da;--radius:2px;--dur:300ms;--ease:cubic-bezier(.65,0,.35,1);--display:"Newsreader",Georgia,serif;--dw:500;--ds:italic}
+[data-brand=lehar]{--action:#a8452a;--action-hover:#893822;--accent:#4fa0a6;--tint:#f6e9da;--radius:20px;--dur:220ms;--ease:cubic-bezier(.34,1.56,.64,1);--display:"Newsreader",Georgia,serif;--dw:600;--ds:normal}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0;height:100%}
+body{background:#ebe6de;color:var(--ink);font:16px/1.5 var(--ui);overflow-x:clip}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.shell{min-height:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(24px,4vw,72px);align-items:center;max-width:1240px;margin:0 auto;padding:clamp(24px,4vw,56px) max(4vw,16px)}
+/* panel */
+.panel h1{font:400 clamp(44px,6vw,76px)/1 "Newsreader",serif;margin:0 0 8px;letter-spacing:-.01em}
+.panel h1 i{display:inline-block;width:.16em;height:.16em;border-radius:50%;background:var(--halt);font-style:normal;margin-left:.04em}
+.panel .lead{font-size:17px;color:var(--muted);max-width:52ch;margin:0 0 28px}
+.switch{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:24px}
+.sw{border:1px solid var(--line);background:var(--raised);border-radius:12px;padding:12px 10px;text-align:left;min-height:44px;transition:transform .2s,border-color .2s}
+.sw:hover{transform:translateY(-2px)}
+.sw[aria-pressed=true]{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.sw b{display:block;font-weight:400;font-size:22px;line-height:1.1}
+.sw small{font-size:12px;color:var(--muted)}
+.sw .dots{display:flex;gap:4px;margin-top:8px}.sw .dots span{width:14px;height:14px;border-radius:50%}
+.tokens{background:var(--raised);border:1px solid var(--line);border-radius:12px;padding:6px 16px;margin-bottom:20px}
+.tok{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.tok:last-child{border:0}
+.tok span{color:var(--muted)}
+.tok code{font:600 13px/1.2 ui-monospace,Menlo,monospace;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.chip{width:16px;height:16px;border-radius:4px;border:1px solid rgba(0,0,0,.1)}
+.hint{font-size:14px;color:var(--muted);margin:0 0 6px}
+.note{font-size:13px;color:var(--muted);margin-top:18px}
+/* phone */
+.phone{width:390px;height:min(844px,calc(100vh - 48px));min-height:640px;border-radius:44px;background:var(--ink);padding:10px;box-shadow:0 40px 80px -30px rgba(30,26,22,.45)}
+.screen{position:relative;width:100%;height:100%;border-radius:36px;overflow:hidden;background:var(--paper)}
+.scroll{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.view{animation:enter var(--dur) var(--ease) both;min-height:100%;display:flex;flex-direction:column}
+@keyframes enter{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.view,.sheet,.scrimbg{animation:none!important}}
+/* app chrome */
+.fam{background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;gap:8px;font-size:12px;padding:6px 12px}
+.fam b{font:400 15px "Newsreader",serif}.fam i{width:5px;height:5px;border-radius:50%;background:var(--halt)}
+.fam button{background:none;border:0;color:var(--paper);font-size:12px;text-decoration:underline;padding:0 0 0 6px}
+.top{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:5}
+.icon{width:40px;height:40px;border-radius:50%;border:0;background:none;display:grid;place-items:center;flex:none}
+.icon svg{width:22px;height:22px;stroke:var(--ink);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.logo{flex:1;display:flex;flex-direction:column;line-height:1}
+.logo b{font:var(--ds) var(--dw) 26px/1 var(--display);display:flex;align-items:flex-end;gap:3px}
+.logo b i{width:7px;height:7px;border-radius:50%;background:var(--halt);margin-bottom:4px}
+.logo small{font-size:11px;font-weight:600;color:var(--muted);margin-top:3px;letter-spacing:.02em}
+.d{font-family:var(--display);font-weight:var(--dw);font-style:var(--ds);line-height:1.04;margin:0;text-wrap:balance}
+.pad{padding:20px 16px}
+.stack>*+*{margin-top:16px}
+.muted{color:var(--muted)}.small{font-size:14px}.label{font-size:13px;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 24px;border-radius:var(--radius);border:1.5px solid var(--action);background:var(--action);color:#fff;font-weight:600;transition:background var(--dur) var(--ease),transform var(--dur) var(--ease)}
+.btn:hover{background:var(--action-hover)}.btn:active{transform:scale(.98)}
+.btn.sec{background:var(--raised);color:var(--action)}.btn.sec:hover{background:var(--tint)}
+.btn.ghost{background:none;border-color:transparent;color:var(--action);padding:8px 4px;min-height:44px}
+.btn.full{width:100%}
+.btn[disabled]{background:var(--line);border-color:var(--line);color:var(--muted);cursor:not-allowed}
+.art{position:relative;background:var(--accent);overflow:hidden;transition:background var(--dur) var(--ease)}
+.art svg{position:absolute;inset:0;width:100%;height:100%}
+.ph{background:var(--accent) center/cover no-repeat;transition:border-radius var(--dur) var(--ease)}
+.card{background:var(--raised);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:border-radius var(--dur) var(--ease)}
+.tintbox{background:var(--tint);border-radius:var(--radius);padding:16px;transition:background var(--dur) var(--ease),border-radius var(--dur) var(--ease)}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--tint)}
+.badge.halt{background:var(--halt)}.badge.ok{background:var(--raised);color:var(--success);border:1px solid var(--success)}
+.field{display:block}.field>span{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+.inp{width:100%;min-height:48px;display:flex;align-items:center;gap:8px;padding:12px 16px;border:1px solid var(--muted);border-radius:var(--radius);background:var(--raised);font:16px var(--ui);color:var(--ink);text-align:left}
+.inp:focus{outline:none;border:2px solid var(--ink);padding:11px 15px}
+.inp.err{border:2px solid var(--error);padding:11px 15px}
+.errmsg{color:var(--error);font-size:14px;margin-top:6px;display:flex;gap:6px;align-items:center}
+.help{color:var(--muted);font-size:14px;margin-top:6px}
+.row{display:flex;align-items:center;gap:12px}
+.between{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.room .art{height:190px}
+.room .body{padding:16px}
+.rate{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;padding:16px;border:1px solid var(--line);border-radius:var(--radius);background:var(--raised)}
+.rate[aria-checked=true]{border:2px solid var(--action);background:var(--tint);padding:15px}
+.radio{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--muted);flex:none;margin-top:2px;display:grid;place-items:center}
+[aria-checked=true] .radio{border:0;background:var(--action)}[aria-checked=true] .radio::after{content:"";width:8px;height:8px;border-radius:50%;background:#fff}
+.box{width:20px;height:20px;border-radius:4px;border:1.5px solid var(--muted);flex:none;display:grid;place-items:center;margin-top:2px}
+[aria-checked=true] .box{background:var(--action);border-color:var(--action)}
+[aria-checked=true] .box::after{content:"";width:10px;height:5px;border:2px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.steps{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--muted)}
+.steps i{width:10px;height:10px;border-radius:50%;background:var(--line);display:inline-block}
+.steps .done{color:var(--ink)}.steps .done i{background:var(--action)}.steps .cur{color:var(--ink)}.steps .cur i{background:var(--halt)}
+.steps hr{flex:1;border:0;height:1.5px;background:var(--line);margin:0}.steps hr.done{background:var(--action)}
+.sum{background:var(--tint);border-radius:var(--radius);padding:20px}
+.sum .between{padding:4px 0;font-size:15px}.sum .tot{border-top:1px solid var(--line);margin-top:10px;padding-top:12px;font-weight:600}
+.sum .tot strong{font-size:22px}
+.price{font-size:22px;font-weight:600;white-space:nowrap}
+.sticky{position:sticky;bottom:0;background:var(--raised);border-top:1px solid var(--line);padding:12px 16px;display:flex;align-items:center;gap:16px;margin-top:auto}
+.houses{display:grid;gap:24px}
+.house{display:block;width:100%;text-align:left;border:0;padding:0;background:none}
+.house .art{height:180px;border-radius:var(--radius)}
+.house h3{font-size:34px;margin:12px 0 2px}
+.pass{background:var(--tint);padding:28px 16px}
+/* sheet */
+.scrimbg{position:absolute;inset:0;background:var(--scrim);animation:fade .2s both;z-index:20}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:var(--raised);border-radius:24px 24px 0 0;padding:8px 16px 24px;z-index:21;animation:up var(--dur) var(--ease) both;max-height:92%;overflow:auto}
+@keyframes up{from{transform:translateY(100%)}to{transform:none}}@keyframes fade{from{opacity:0}}
+.grab{width:36px;height:4px;border-radius:2px;background:var(--line);margin:0 auto 12px}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));text-align:center;gap:2px 0}
+.cal .wd{font-size:12px;font-weight:600;color:var(--muted);padding:6px 0}
+.day{height:44px;border:0;background:none;font-size:14px;position:relative;border-radius:0}
+.day.un{color:var(--muted);text-decoration:line-through;cursor:not-allowed}
+.day.today{box-shadow:inset 0 0 0 1px var(--ink);border-radius:var(--radius)}
+.day.in{background:var(--tint)}
+.day.s,.day.e{background:var(--action);color:#fff;font-weight:600;border-radius:var(--radius)}
+.day.s::after,.day.e::after{content:"";position:absolute;left:50%;bottom:6px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--halt)}
+.ctr{display:flex;align-items:center;gap:12px}
+.ctr button{width:36px;height:36px;border-radius:50%;border:1px solid var(--muted);background:none;font-size:18px;line-height:1}
+.ctr button[disabled]{opacity:.35;cursor:not-allowed}
+.grow{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.loader{width:64px;height:64px;border-radius:50%;border:4px solid var(--line);border-top-color:var(--action);animation:spin 1s linear infinite;position:relative}
+.loader::after{content:"";position:absolute;inset:23px;border-radius:50%;background:var(--halt)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.mobile-switch{display:none}
+@media(max-width:900px){
+  body{background:var(--paper)}
+  .shell{display:block;padding:0}
+  .panel{display:none}
+  .phone{width:100%;height:auto;min-height:100vh;border-radius:0;padding:0;box-shadow:none;background:none}
+  .screen{border-radius:0;min-height:100vh}
+  .scroll{position:relative;inset:auto;overflow:visible}
+  .mobile-switch{display:flex;gap:6px;overflow-x:auto;padding:10px 12px;background:#ebe6de;position:sticky;top:0;z-index:30}
+  .mobile-switch button{flex:none;min-height:36px;padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:14px;font-weight:600}
+  .mobile-switch button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .sheet,.scrimbg{position:fixed}
+}
+</style>
+</head>
+<body data-brand="padaav">
+<div class="mobile-switch" id="mswitch" role="group" aria-label="Brand"></div>
+<main class="shell">
+  <section class="panel" aria-label="About this prototype">
+    <h1>Padaav<i></i></h1>
+    <p class="lead">One design system, four brands. Book a stay, then switch the brand at any step: colour, type, corners, motion and voice all change, and the flow keeps going.</p>
+    <div class="switch" id="switch" role="group" aria-label="Brand"></div>
+    <div class="tokens" id="tokens" aria-live="polite"></div>
+    <p class="hint">Try it: open a house → View room → Reserve → pay → confirmation. Switch brand midway.</p>
+    <p class="note">Self-initiated concept project. Padaav and its houses are fictional. Built from the same tokens as the Figma library (35 components, 304 screens). Photography from Pexels (Beladiya Nikunj, Forest Hills at Tala, Bertelli Fotografia, Anand Raj, Navlakha, Michael D Beckwith, Mographe, Teju, Vindhya, Davison Joseph, Aksinfo7, RPNickson, Scenehaus, Saveurs Secretes, Sabina Kallari and others), used for a concept.</p>
+  </section>
+  <div class="phone"><div class="screen" id="screen"><div class="scroll" id="scroll"><div id="app"></div></div><div id="layer"></div></div></div>
+</main>
+<script>
+{
+const B = {
+  padaav:{label:'Padaav',sub:'The collective',dots:['#2a2420','#d9962b','#efe7db'],tokens:{action:'#2a2420',accent:'#d9962b',tint:'#efe7db',radius:'4px',dur:'320ms',ease:'calm ease-out',face:'Newsreader Regular'}},
+  dhundh:{label:'Dhundh',sub:'Himalayas',dots:['#34483c','#8fa39a','#e6ebe6'],tokens:{action:'#34483c',accent:'#8fa39a',tint:'#e6ebe6',radius:'10px',dur:'420ms',ease:'soft settle',face:'Newsreader Light'},
+    tagline:'A place to go quiet.',exp:'Forest walks to the Jalori Pass with Raju, who grew up in the valley.',food:'Siddu, Tirthan trout and saffron kahwa, cooked by Kamla in the old kitchen.',loc:'Jibhi, Himachal Pradesh',code:'DH',host:'Kamla',confirm:'You’re booked. The fire will be lit.',
+    desc:'Nine rooms in a restored kath-kuni house above the Tirthan valley. No televisions, slow breakfasts, a fire every evening, and the forest a two-minute walk away.',
+    rooms:[['Deodar Room','King bed · Sleeps 2 · 32 m² · Valley view','Cedar-panelled, with a window seat facing the valley and a fireplace lit at dusk.',14500,'Only 2 left'],['Attic Loft','Queen bed · Sleeps 2 · 26 m² · Skylight','Under the eaves, with a skylight over the bed for stargazing.',11800],['River Room','Twin beds · Sleeps 2 · 28 m² · River view','Fall asleep to the Tirthan river, twenty metres below your window.',12900]],
+    amen:['King bed, wool blankets, down pillows','Wood fireplace, lit at dusk','Window seat facing the valley','Himalayan herbal toiletries'],
+    addons:[['Airport transfer from Bhuntar','A driver meets you at arrivals. 2 hours, scenic.',3200,true],['Pahadi dinner for two','Siddu, rajma and trout, cooked by Kamla-ji.',2400],['Guided Jalori Pass walk','Half day, packed lunch included. Price for two.',3600],['Late check-out','Keep the room until 3 pm on your last day.',2000]]},
+  jharokha:{label:'Jharokha',sub:'Jaipur',dots:['#2b3567','#b08a3e','#ece7da'],tokens:{action:'#2b3567',accent:'#b08a3e',tint:'#ece7da',radius:'2px',dur:'300ms',ease:'door-like in-out',face:'Newsreader Medium Italic'},
+    tagline:'Every wall has a story.',exp:'Block-printing with the Chhipa family in Sanganer, and the old city at dawn.',food:'Laal maas, ker sangri and ghevar, served on the roof as the city lights up.',loc:'Jaipur, Rajasthan',code:'JH',host:'Imran',confirm:'Your room has been waiting since 1847.',
+    desc:'Twelve rooms around two courtyards in an 1840s haveli in Jaipur’s old city. Indigo walls, slow breakfasts on the roof, and the bazaars a five-minute walk away.',
+    rooms:[['Chandni Suite','King bed · Sleeps 2 · 38 m² · Courtyard view','Lime-plastered walls, a carved jharokha over the courtyard and block-printed linen.',16800,'Only 2 left'],['Zenana Room','Queen bed · Sleeps 2 · 24 m² · Jharokha window','Once the women’s quarters, now the quietest room in the house, behind a stone jaali.',13200],['Sheesh Mahal Suite','King bed · Sleeps 3 · 52 m² · Mirror-work ceiling','A ceiling of tiny mirrors, restored by the family who made it in 1847.',22000]],
+    amen:['King bed, block-printed cotton linen','Jharokha window seat over the courtyard','Brass bathtub','Vetiver and rose toiletries'],
+    addons:[['Airport pick-up in a vintage Ambassador','35 minutes from Jaipur airport, with a marigold garland.',3200,true],['Rooftop dinner for two','Laal maas and ker sangri under the stars.',2400],['Old city walk at dawn','Two hours with Imran, chai at Johari Bazaar. For two.',2400],['Late check-out','Keep the room until 3 pm on your last day.',2000]]},
+  lehar:{label:'Lehar',sub:'Konkan coast',dots:['#a8452a','#4fa0a6','#f6e9da'],tokens:{action:'#a8452a',accent:'#4fa0a6',tint:'#f6e9da',radius:'20px',dur:'220ms',ease:'wave overshoot',face:'Newsreader SemiBold'},
+    tagline:'Slow days, long tables.',exp:'Sunset kayaking on the Karli with Anil, all levels welcome.',food:'Surmai fry, kolambi masala and solkadhi, under the coconut palms.',loc:'Devbag, Konkan coast',code:'LH',host:'Santosh',confirm:'Done! Bring your appetite.',
+    desc:'Eight cottages and a bunk house where the Karli river meets the sea. Long lunches, kayaks at sunset, and the beach a two-minute walk through the coconut grove.',
+    rooms:[['Creek Cottage','King bed · Sleeps 2 · 34 m² · Creek view','A tiled cottage on stilts over the creek, with a hammock and the tide under your feet.',12600,'Only 2 left'],['Net Loft','Queen bed · Sleeps 2 · 22 m² · Sea breeze','Up under the Mangalore tiles where the nets used to dry. Small, breezy, perfect for two.',9800],['Laterite Suite','King bed · Sleeps 3 · 44 m² · Outdoor shower','Built from red laterite, cool all afternoon, with an outdoor shower in a walled garden.',16900]],
+    amen:['King bed, cotton mulmul linen','Hammock deck over the creek','Outdoor rain shower','Kokum and coconut toiletries'],
+    addons:[['Pick-up from Mopa airport','90 minutes along the coast road, tender coconut on the way.',3200,true],['Malvani thali on the beach','Surmai fry, kombdi vade and solkadhi.',2400],['Sunset kayak on the Karli','Two hours with Anil, all levels. For two.',3000],['Late check-out','Keep the cottage until 3 pm on your last day.',2000]]}
+};
+const HOUSES = ['dhundh','jharokha','lehar'];
+const UNAVAIL = [1,2,20,21];
+const S = { brand:'padaav', view:'home', room:0, rate:0, start:12, end:15, adults:2, children:0, addons:null, email:'aditi.rao@example.com', name:'Aditi Rao', emailErr:false, pay:'full', sheet:null, tmpStart:null };
+const $ = s => document.querySelector(s);
+const inr = n => '₹' + Math.round(n).toLocaleString('en-IN');
+const ico = { back:'<path d="M14.5 6l-6 6 6 6"/>', menu:'<path d="M4 7h16M4 12h16M4 17h16"/>', user:'<circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c1.2-3.6 3.8-5.5 7-5.5s5.8 1.9 7 5.5"/>', cal:'<rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/>', pin:'<path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0113 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.2"/>', close:'<path d="M6 6l12 12M18 6L6 18"/>', check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>', alert:'<path d="M12 4l9 16H3z"/><path d="M12 10v4.5M12 17v.2"/>', key:'<circle cx="8" cy="14" r="4"/><path d="M11 11l8.5-8.5M16 6l2.5 2.5"/>' };
+const svg = (k, size = 22, col) => `<svg viewBox="0 0 24 24" width="${size}" height="${size}" aria-hidden="true" style="stroke:${col || 'var(--ink)'};fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round">${ico[k]}</svg>`;
+const art = (h, extra = '') => `<div class="art" style="height:${h}px;${extra}"><svg viewBox="0 0 400 200" preserveAspectRatio="none" aria-hidden="true"><path d="M0 128 C80 92 128 144 200 112 C264 84 320 124 400 100" stroke="var(--paper)" stroke-width="2" fill="none" vector-effect="non-scaling-stroke"/></svg><span style="position:absolute;left:50%;top:56%;width:16px;height:16px;margin:-8px;border-radius:50%;background:var(--halt);box-shadow:0 0 0 3px var(--paper)"></span></div>`;
+const photo = (h, kind, ht, extra = '', pos = 'center') => `<div class="ph" role="img" aria-label="${B[h].label} ${kind}" style="height:${ht}px;background-image:url(proto/${h}-${kind}.webp);background-position:${pos};${extra}"></div>`;
+const roomPhoto = (i, ht, extra = '') => photo(S.brand, 'room-' + (i + 1), ht, extra);
+const house = () => B[S.brand];
+const isHouse = () => S.brand !== 'padaav';
+const nights = () => S.end - S.start;
+const room = () => house().rooms[S.room];
+const rates = () => { const p = room()[3]; return [['Flexible rate','Breakfast included · Free cancellation until 3 Dec', p], ['Pay now, save 11%','Breakfast included · Non-refundable', Math.round(p * .89 / 100) * 100], ['Half board','Breakfast and dinner · Free cancellation until 3 Dec', p + 3300]]; };
+const nightly = () => rates()[S.rate][2];
+const addonsSel = () => { if (!S.addons) S.addons = house().addons.map(a => !!a[3]); return S.addons; };
+const totals = () => { const r = nightly() * nights(); const ex = house().addons.reduce((s, a, i) => s + (addonsSel()[i] ? a[2] : 0), 0); const tax = Math.round((r + ex) * .12); return { r, ex, tax, total: r + ex + tax }; };
+const dateLabel = () => `${S.start} – ${S.end} Dec · ${nights()} night${nights() > 1 ? 's' : ''}`;
+const guestLabel = () => `${S.adults} adult${S.adults > 1 ? 's' : ''}${S.children ? ` · ${S.children} child${S.children > 1 ? 'ren' : ''}` : ''}`;
+
+function chrome(back) {
+  const fam = isHouse() ? `<div class="fam"><b>Padaav</b><i></i><span>Three houses across India</span><button data-go="collective">See all</button></div>` : '';
+  const left = back ? `<button class="icon" data-back aria-label="Back">${svg('back')}</button>` : `<button class="icon" aria-label="Menu">${svg('menu')}</button>`;
+  return `${fam}<header class="top">${left}<div class="logo"><b>${house().label}<i></i></b>${isHouse() ? '<small>a Padaav house</small>' : ''}</div><button class="icon" aria-label="Account">${svg('user')}</button></header>`;
+}
+function steps(n) { const names = ['Stay','Details','Payment','Done']; return `<div class="steps" aria-label="Step ${n} of 4">${names.map((x, i) => `${i ? `<hr class="${i < n ? 'done' : ''}">` : ''}<span class="${i + 1 < n ? 'done' : i + 1 === n ? 'cur' : ''}"><i></i> ${x}</span>`).join('')}</div>`; }
+function summary() { const t = totals(); return `<div class="sum"><div class="label" style="font-size:18px;margin-bottom:8px">Price details</div><div class="between muted"><span>${inr(nightly())} × ${nights()} nights</span><span style="color:var(--ink)">${inr(t.r)}</span></div>${t.ex ? `<div class="between muted"><span>Extras</span><span style="color:var(--ink)">${inr(t.ex)}</span></div>` : ''}<div class="between muted"><span>Taxes (12%)</span><span style="color:var(--ink)">${inr(t.tax)}</span></div><div class="between tot"><span>Total</span><strong>${inr(t.total)}</strong></div></div>`; }
+
+const V = {
+  collective: () => `${chrome(false)}<div class="pad stack" style="padding-top:28px"><h1 class="d" style="font-size:52px">Different places.<br>Same welcome.</h1><p class="muted">Three small houses in the Himalayas, Rajasthan and the Konkan coast. Each one shaped by its place, all of them looked after the same way.</p></div>
+    <div class="pad"><h2 class="d" style="font-size:30px;margin-bottom:16px">Three houses</h2><div class="houses">${HOUSES.map(h => `<button class="house" data-house="${h}" data-brand="${h}" aria-label="Open ${B[h].label}">${photo(h, 'house', 200, 'border-radius:var(--radius)')}<h3 class="d">${B[h].label}</h3><div>${B[h].tagline}</div><div class="small muted row" style="gap:6px;margin-top:4px">${svg('pin', 16, 'var(--muted)')} ${B[h].loc}</div><div class="label" style="margin-top:6px">From ${inr(Math.min(...B[h].rooms.map(r => r[3])))} a night</div></button>`).join('')}</div></div>
+    <div class="pass stack"><span class="badge halt">Padaav Passport</span><h2 class="d" style="font-size:32px">Collect the stops</h2><p>Stay at all three houses and your next night is on us. Every visit adds a stamp.</p></div>`,
+  home: () => `${chrome(false)}${photo(S.brand, 'house', 280)}<div class="pad stack"><h1 class="d" style="font-size:48px">${house().label}</h1><div style="font-size:20px;font-weight:600">${house().tagline}</div><div class="small muted row" style="gap:6px">${svg('pin', 16, 'var(--muted)')} ${house().loc}</div><p>${house().desc}</p>
+    <div class="tintbox stack"><div class="field"><span>Dates</span><button class="inp" data-sheet="dates">${svg('cal', 20, 'var(--muted)')} ${dateLabel()}</button></div><div class="field"><span>Guests</span><button class="inp" data-sheet="guests">${svg('user', 20, 'var(--muted)')} ${guestLabel()}</button></div><button class="btn full" data-go="detail" data-room="0">Check rates</button></div>
+    <h2 class="d" style="font-size:28px;padding-top:8px">From the kitchen</h2>${photo(S.brand, 'food', 200, 'border-radius:var(--radius)')}<p class="muted small" style="margin-top:8px">${house().food}</p><h2 class="d" style="font-size:28px;padding-top:8px">Things to do</h2>${photo(S.brand, 'experience', 200, 'border-radius:var(--radius)')}<p class="muted small" style="margin-top:8px">${house().exp}</p><h2 class="d" style="font-size:28px;padding-top:8px">Rooms</h2>${house().rooms.map((r, i) => `<article class="card room">${roomPhoto(i, 200)}<div class="body stack" style="--gap:10px">${r[4] ? `<span class="badge">${r[4]}</span>` : ''}<h3 class="d" style="font-size:28px">${r[0]}</h3><div class="small muted">${r[1]}</div><p style="margin:8px 0 0">${r[2]}</p><div class="between"><div><div class="price">${inr(r[3])}</div><div class="small muted">per night, before taxes</div></div><button class="btn sec" data-go="detail" data-room="${i}">View room</button></div></div></article>`).join('')}</div>`,
+  detail: () => `${chrome(true)}${roomPhoto(S.room, 260)}<div class="pad stack"><span class="badge">${room()[4] || 'Available'}</span><h1 class="d" style="font-size:40px">${room()[0]}</h1><div class="small muted">${room()[1]}</div><p>${room()[2]}</p><div class="label" style="font-size:18px">In the room</div><div>${house().amen.map(a => `<div class="row" style="padding:6px 0">${svg('check', 18, 'var(--action)')} ${a}</div>`).join('')}</div>
+    <div class="label" style="font-size:18px">Choose a rate</div><div role="radiogroup" aria-label="Rate" class="stack">${rates().map((r, i) => `<button class="rate" role="radio" aria-checked="${S.rate === i}" data-rate="${i}"><span class="radio"></span><span style="flex:1"><b>${r[0]}</b><br><span class="small muted">${r[1]}</span></span><b>${inr(r[2])}</b></button>`).join('')}</div>
+    <p class="small muted">Check-in from 2 pm · Check-out by 11 am · ${dateLabel()}</p></div><div class="sticky"><div style="flex:1"><div class="price">${inr(nightly())}</div><div class="small muted">per night · ${S.start}–${S.end} Dec</div></div><button class="btn" data-go="review">Reserve</button></div>`,
+  review: () => `${chrome(true)}<div class="pad stack">${steps(1)}<h1 class="d" style="font-size:36px">Review your stay</h1>
+    <div class="card row" style="padding:16px">${roomPhoto(S.room, 80, 'width:80px;border-radius:6px;flex:none')}<div><div class="d" style="font-size:22px">${room()[0]}</div><div class="small muted">${rates()[S.rate][0]}</div><div class="small">${dateLabel()} · ${guestLabel()}</div></div></div>
+    ${[['Dates', dateLabel(), 'dates'], ['Guests', guestLabel(), 'guests'], ['Rate', rates()[S.rate][0], null]].map(([l, v, sh]) => `<div class="between" style="padding:12px 0;border-bottom:1px solid var(--line)"><div><div class="label muted">${l}</div><div>${v}</div></div>${sh ? `<button class="btn ghost" data-sheet="${sh}">Edit</button>` : ''}</div>`).join('')}
+    ${summary()}<button class="btn full" data-go="details">Continue</button></div>`,
+  details: () => `${chrome(true)}<form class="pad stack" id="detailsForm" novalidate>${steps(2)}<h1 class="d" style="font-size:36px">Your details</h1><p class="muted" style="margin:4px 0 0">We’ll send your confirmation here.</p>
+    <label class="field"><span>Full name</span><input class="inp" id="fname" value="${S.name}" autocomplete="name"></label>
+    <label class="field"><span>Email</span><input class="inp ${S.emailErr ? 'err' : ''}" id="femail" type="email" value="${S.email}" autocomplete="email" aria-describedby="emailMsg" aria-invalid="${S.emailErr}">${S.emailErr ? `<div class="errmsg" id="emailMsg">${svg('alert', 16, 'var(--error)')} Enter a valid email address.</div>` : `<div class="help" id="emailMsg">Try clearing it to see the error state.</div>`}</label>
+    <label class="field"><span>Anything we should know?</span><input class="inp" value="Celebrating an anniversary"></label>
+    <button class="btn full" type="submit">Continue to add-ons</button></form>`,
+  addons: () => `${chrome(true)}<div class="pad stack">${steps(2)}<h1 class="d" style="font-size:36px">Make it easier</h1><p class="muted" style="margin:4px 0 0">Optional extras. The total updates as you choose.</p>
+    ${house().addons.map((a, i) => `<button class="rate" role="checkbox" aria-checked="${addonsSel()[i]}" data-addon="${i}"><span class="box"></span><span style="flex:1"><b>${a[0]}</b><br><span class="small muted">${a[1]}</span></span><b class="small">${inr(a[2])}</b></button>`).join('')}
+    ${summary()}<button class="btn full" data-go="payment">Continue to payment</button></div>`,
+  payment: () => { const t = totals(); const now = S.pay === 'full' ? t.total : Math.round(t.total * .3); return `${chrome(true)}<div class="pad stack">${steps(3)}<h1 class="d" style="font-size:36px">Payment</h1>
+    <label class="field"><span>UPI ID</span><input class="inp" value="aditi.rao@okaxis"><div class="help">You’ll get a request in your UPI app.</div></label>
+    <div class="label" style="font-size:18px">How much now?</div><div role="radiogroup" class="stack">${[['full', `Pay in full now · ${inr(t.total)}`], ['part', `Pay 30% now · ${inr(Math.round(t.total * .3))}, rest at check-in`]].map(([k, l]) => `<button class="rate" role="radio" aria-checked="${S.pay === k}" data-pay="${k}"><span class="radio"></span><span>${l}</span></button>`).join('')}</div>
+    ${summary()}<button class="btn full" data-go="processing">Pay ${inr(now)}</button><div class="row small muted">${svg('key', 16, 'var(--muted)')} Payments are encrypted. We never see your UPI PIN.</div></div>`; },
+  processing: () => `${chrome(false)}<div class="pad" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:20px;padding-top:120px">${steps(3)}<div class="loader" role="status" aria-label="Processing payment"></div><h1 class="d" style="font-size:32px">Confirming with your bank</h1><p class="muted">Please keep this page open.</p></div>`,
+  confirm: () => { const t = totals(); return `${chrome(false)}<div class="pad stack">${steps(4)}${photo(S.brand, 'food', 220, 'border-radius:var(--radius)')}<span class="badge halt">Padaav Passport stamp: ${house().label}</span><h1 class="d" style="font-size:42px">${house().confirm}</h1><p class="muted">Booking PDV-${house().code}-48213 · ${room()[0]} · ${dateLabel()} · ${S.pay === 'full' ? 'Paid' : 'Part paid'} ${inr(S.pay === 'full' ? t.total : t.total * .3)}</p>
+    <button class="btn full" data-go="home">View my trip</button><button class="btn sec full" data-go="collective">Explore the other houses</button>
+    <div class="label" style="font-size:18px;padding-top:8px">What happens next</div>${['7 days before: a short pre-arrival checklist', `1 day before: your driver’s name, from ${house().host}`, 'On arrival: your digital key, no queue'].map(x => `<div class="row" style="padding:4px 0">${svg('check', 18, 'var(--action)')} ${x}</div>`).join('')}</div>`; }
+};
+const history = [];
+function render(push = true, prev) {
+  document.body.dataset.brand = S.brand;
+  if (push && prev && prev !== S.view) history.push(prev);
+  $('#app').innerHTML = `<div class="view" data-v="${S.view}">${V[S.view]()}</div>`;
+  if (push) { const sc = $('#scroll'); sc.scrollTop = 0; window.scrollTo(0, 0); }
+  renderPanel(); renderSheet();
+}
+function go(view) { const prev = S.view; if (view === 'collective') { S.brand = 'padaav'; } if (view === 'home' && !isHouse()) view = 'collective'; S.view = view; render(true, prev);
+  if (view === 'processing') setTimeout(() => { if (S.view === 'processing') { S.view = 'confirm'; render(true); } }, 1600); }
+function setBrand(b) { if (b === S.brand) return; const wasHouse = isHouse(); S.brand = b; if (b !== 'padaav') { S.addons = null; if (!wasHouse || S.view === 'collective') S.view = 'home'; } else S.view = 'collective'; render(false); }
+function renderPanel() {
+  const opts = Object.entries(B).map(([k, v]) => `<button class="sw" data-set="${k}" aria-pressed="${S.brand === k}" data-brand="${k}"><b style="font-family:var(--display);font-weight:var(--dw);font-style:var(--ds)">${v.label}</b><small>${v.sub}</small><span class="dots">${v.dots.map(c => `<span style="background:${c}"></span>`).join('')}</span></button>`).join('');
+  $('#switch').innerHTML = opts;
+  $('#mswitch').innerHTML = Object.entries(B).map(([k, v]) => `<button data-set="${k}" aria-pressed="${S.brand === k}">${v.label}</button>`).join('');
+  const t = B[S.brand].tokens;
+  $('#tokens').innerHTML = [['color/action', `<span class="chip" style="background:${t.action}"></span>${t.action}`], ['color/accent', `<span class="chip" style="background:${t.accent}"></span>${t.accent}`], ['color/surface/tint', `<span class="chip" style="background:${t.tint}"></span>${t.tint}`], ['radius/component', t.radius], ['motion/duration', `${t.dur} · ${t.ease}`], ['type/display', t.face], ['brand/is-house', isHouse() ? 'true · family bar on' : 'false']].map(([k, v]) => `<div class="tok"><span>${k}</span><code>${v}</code></div>`).join('');
+}
+function renderSheet() {
+  const L = $('#layer'); if (!S.sheet) { L.innerHTML = ''; return; }
+  let body = '';
+  if (S.sheet === 'dates') {
+    const first = 1; // Dec 2026 starts on Tuesday (Mon-first grid offset 1)
+    let cells = ['M','T','W','T','F','S','S'].map(d => `<div class="wd">${d}</div>`).join('') + '<div></div>'.repeat(first);
+    const st = S.tmpStart ?? S.start, en = S.tmpStart != null ? null : S.end;
+    for (let d = 1; d <= 31; d++) { const un = UNAVAIL.includes(d); const c = un ? 'un' : d === st ? 's' : d === en ? 'e' : (en && d > st && d < en) ? 'in' : d === 3 ? 'today' : ''; cells += `<button class="day ${c}" data-day="${d}" ${un ? 'disabled aria-disabled="true"' : ''} aria-label="${d} December${un ? ', unavailable' : ''}">${d}</button>`; }
+    body = `<div class="between"><h2 class="label" style="font-size:20px;margin:0">When are you coming?</h2><button class="icon" data-close aria-label="Close">${svg('close')}</button></div><div class="label" style="text-align:center;font-size:18px;margin:12px 0 4px">December 2026</div><div class="cal">${cells}</div><p class="small muted" style="margin:12px 0">${S.tmpStart != null ? 'Now pick your check-out day.' : dateLabel()}</p><button class="btn full" data-close ${S.tmpStart != null ? 'disabled' : ''}>Check rates</button>`;
+  } else {
+    const row = (k, l, h, min) => `<div class="grow"><div><div>${l}</div><div class="small muted">${h}</div></div><div class="ctr"><button data-ctr="${k}" data-d="-1" aria-label="Fewer ${l}" ${S[k] <= min ? 'disabled' : ''}>−</button><b aria-live="polite">${S[k]}</b><button data-ctr="${k}" data-d="1" aria-label="More ${l}" ${S.adults + S.children >= 3 ? 'disabled' : ''}>+</button></div></div>`;
+    body = `<div class="between"><h2 class="label" style="font-size:20px;margin:0">Who’s coming?</h2><button class="icon" data-close aria-label="Close">${svg('close')}</button></div>${row('adults', 'Adults', 'Ages 13 or above', 1)}${row('children', 'Children', 'Ages 2–12', 0)}<p class="small muted">Up to 3 guests per room.</p><button class="btn full" data-close>Done</button>`;
+  }
+  L.innerHTML = `<div class="scrimbg" data-close></div><div class="sheet" role="dialog" aria-modal="true" aria-label="${S.sheet === 'dates' ? 'Choose dates' : 'Choose guests'}"><div class="grab"></div>${body}</div>`;
+}
+document.addEventListener('click', e => {
+  const t = e.target.closest('button,[data-close]'); if (!t) return;
+  if (t.dataset.set) return setBrand(t.dataset.set);
+  if (t.dataset.house) { S.brand = t.dataset.house; S.addons = null; const prev = S.view; S.view = 'home'; return render(true, prev); }
+  if (t.hasAttribute('data-back')) { S.view = history.pop() || (isHouse() ? 'home' : 'collective'); if (S.view === 'collective') S.brand = 'padaav'; return render(false); }
+  if (t.dataset.room !== undefined) { S.room = +t.dataset.room; S.rate = 0; }
+  if (t.dataset.go) return go(t.dataset.go);
+  if (t.dataset.rate !== undefined) { S.rate = +t.dataset.rate; return render(false); }
+  if (t.dataset.addon !== undefined) { addonsSel()[+t.dataset.addon] = !addonsSel()[+t.dataset.addon]; return render(false); }
+  if (t.dataset.pay) { S.pay = t.dataset.pay; return render(false); }
+  if (t.dataset.sheet) { S.sheet = t.dataset.sheet; S.tmpStart = null; return renderSheet(); }
+  if (t.dataset.day) { const d = +t.dataset.day; if (S.tmpStart == null) { S.tmpStart = d; } else if (d > S.tmpStart && !UNAVAIL.some(u => u > S.tmpStart && u < d)) { S.start = S.tmpStart; S.end = d; S.tmpStart = null; render(false); return; } else { S.tmpStart = d; } return renderSheet(); }
+  if (t.dataset.ctr) { const k = t.dataset.ctr; S[k] = Math.max(k === 'adults' ? 1 : 0, S[k] + +t.dataset.d); return render(false); }
+  if (t.hasAttribute('data-close')) { if (t.disabled) return; S.sheet = null; S.tmpStart = null; return render(false); }
+});
+document.addEventListener('submit', e => { if (e.target.id !== 'detailsForm') return; e.preventDefault(); S.name = $('#fname').value; S.email = $('#femail').value.trim(); S.emailErr = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(S.email); if (S.emailErr) { render(false); $('#femail').focus(); } else go('addons'); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && S.sheet) { S.sheet = null; S.tmpStart = null; render(false); } });
+S.view = 'collective'; render(false);
+}
+</script>
+</body>
+</html>

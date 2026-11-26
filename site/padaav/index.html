@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Padaav – Case Study · Parth Dake</title>
+<meta name="description" content="Padaav: a collective of three boutique stays in India, one brand system. Strategy, identity, a tokenised Figma design system and 304 screens in ten days. A case study by Parth Dake.">
+<meta name="theme-color" content="#f7f2ea">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,500&display=swap">
+<style>
+/*
+VOICE: an editorial case study: calm, confident, specific; a senior designer explaining decisions.
+IDEA: a travel journal for a brand: three stops, one route; the halt dot marks each chapter.
+PICTURE: real Figma exports (three houses side by side) as the hero, then the system proofs.
+COLOUR and TYPE: Padaav tokens (paper, ink, halt ochre, house accents); Newsreader display, Hanken Grotesk text.
+LAYOUT: one reading column (≤ 720px) for text, wide figures breaking out to 1240px; section links bar.
+*/
+:root{color-scheme:light;--paper:#f7f2ea;--ink:#1e1a16;--muted:#6b6259;--line:#ddd3c6;--halt:#d9962b;--tint:#efe7db;--dh:#34483c;--jh:#2b3567;--lh:#a8452a}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:124px}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.65 "Hanken Grotesk",system-ui,sans-serif;overflow-x:clip}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding:0 max(5vw,16px)}
+.col{max-width:720px}
+h1,h2,h3{font-family:"Newsreader",Georgia,serif;font-weight:400;margin:0;text-wrap:balance}
+h1{font-size:clamp(52px,9vw,120px);line-height:.95;letter-spacing:-.01em}
+h1 i{display:inline-block;width:.12em;height:.12em;border-radius:50%;background:var(--halt);vertical-align:.05em;margin-left:.04em}
+h2{font-size:clamp(32px,4.4vw,52px);line-height:1.05;margin-bottom:20px}
+h3{font-size:24px;line-height:1.2;margin-bottom:6px}
+p{margin:0 0 16px}
+.lead{font-size:clamp(19px,2vw,22px);line-height:1.5;color:var(--ink);max-width:40ch}
+.muted{color:var(--muted)}
+.label{font-size:13px;font-weight:600;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.label::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--halt)}
+header.hero{padding:calc(62px + clamp(32px,6vw,80px)) 0 0}
+.top{position:fixed;left:0;right:0;top:0;z-index:20;height:62px;background:rgba(247,242,234,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .bar{max-width:1240px;margin:0 auto;padding:0 max(5vw,16px);height:100%;display:flex;align-items:center;gap:14px}
+.top .me img{height:30px;width:auto}
+.top .chap{font:400 20px/1 "Newsreader",serif}
+.top .back{margin-left:auto;font-weight:600;font-size:15px;text-decoration:none;border:1.5px solid var(--ink);border-radius:4px;padding:8px 14px}
+.top .back:hover{background:var(--ink);color:var(--paper)}
+.note{font-size:13px;color:var(--muted);margin-top:10px}
+.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:40px 0 0;padding:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.meta div{font-size:14px}.meta b{display:block;font-size:13px;color:var(--muted);font-weight:600;margin-bottom:2px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:12px 22px;border-radius:4px;background:var(--ink);color:var(--paper);text-decoration:none;font-weight:600}
+.btn.sec{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.btn:focus-visible{outline:2px solid var(--halt);outline-offset:3px}
+.fig{margin:48px 0 0;border-radius:12px;overflow:hidden;background:var(--tint)}
+.fig.bleed{margin-left:calc(-1 * max(5vw,16px));margin-right:calc(-1 * max(5vw,16px));border-radius:0}
+figcaption{font-size:14px;color:var(--muted);padding:12px 0 0}
+nav.toc{position:sticky;top:62px;z-index:10;background:rgba(247,242,234,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);margin-top:64px}
+nav.toc .scroll{display:flex;gap:24px;overflow-x:auto;padding:14px max(5vw,16px);max-width:1240px;margin:0 auto;scrollbar-width:none}
+nav.toc a{flex:none;font-size:14px;font-weight:600;color:var(--muted);text-decoration:none;min-height:24px}
+nav.toc a:hover{color:var(--ink)}
+section{padding:clamp(56px,8vw,112px) 0 0}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:32px 0 0}
+.stat{background:#fff;border:1px solid var(--line);border-radius:10px;padding:20px}
+.stat b{display:block;font:400 clamp(36px,4vw,52px)/1 "Newsreader",serif;margin-bottom:6px}
+.stat span{font-size:14px;color:var(--muted)}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:32px}
+.house{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.house img{aspect-ratio:3/2;object-fit:cover;width:100%}
+.house div{padding:18px 20px 20px}
+.house h3{display:flex;align-items:center;gap:8px}
+.house h3 i{width:10px;height:10px;border-radius:50%}
+.house p{font-size:15px;margin:0;color:var(--muted)}
+.table{width:100%;border-collapse:collapse;margin-top:24px;font-size:15px}
+.table th,.table td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.table th{font-size:13px;color:var(--muted);font-weight:600}
+.arch{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:32px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.arch div{padding:20px;border-right:1px solid var(--line);position:relative}
+.arch div:last-child{border-right:0}
+.arch b{display:block;font:400 22px/1.2 "Newsreader",serif;margin-bottom:6px}
+.arch span{font-size:14px;color:var(--muted)}
+.arch div+div::before{content:"→";position:absolute;left:-9px;top:22px;background:#fff;color:var(--halt);font-weight:600;padding:0 2px}
+.log{display:grid;gap:12px;margin-top:24px}
+.log div{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;padding:16px 18px;background:#fff;border:1px solid var(--line);border-radius:10px;font-size:15px}
+.log b{font-size:13px;font-weight:600;padding:3px 10px;border-radius:999px;align-self:start;text-align:center}
+.kept{background:#e5efe8;color:#2f6b45}.changed{background:#f6ead6;color:#7a4f10}.rejected{background:#f6e0dc;color:#a3302a}
+blockquote{margin:32px 0 0;padding:0 0 0 24px;border-left:3px solid var(--halt);font:400 clamp(24px,3vw,32px)/1.25 "Newsreader",serif}
+footer{margin-top:120px;padding:48px 0 64px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
+@media(max-width:800px){
+  .meta,.stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .three{grid-template-columns:minmax(0,1fr)}
+  .arch{grid-template-columns:minmax(0,1fr)}
+  .arch div{border-right:0;border-bottom:1px solid var(--line)}
+  .arch div+div::before{content:"↓";left:20px;top:-12px}
+  .log div{grid-template-columns:minmax(0,1fr)}
+  .log b{justify-self:start}
+  .table{font-size:14px}
+}
+@media(max-width:600px){.table thead{display:none}.table tr{display:grid;padding:10px 0;border-bottom:1px solid var(--line)}.table td{border:0;padding:3px 0}.table td::before{content:attr(data-l);display:block;font-size:12px;font-weight:600;color:var(--muted)}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="top"><div class="bar"><a class="me" href="../" data-nav="home" aria-label="Parth Dake, home"><img src="../images/logo.webp" alt="Parth Dake" width="60" height="30"></a><span class="chap">Padaav</span><a class="back" href="../#work" data-nav="work">← All work</a></div></header>
+<div class="hero wrap" style="padding-top:calc(62px + clamp(32px,6vw,80px))">
+  <div class="label">Case study · Brand strategy, identity &amp; design system</div>
+  <h1>Padaav<i></i></h1>
+  <p class="lead" style="margin-top:20px">Three boutique stays in India, one design system. A brand built from strategy to 304 screens in ten days, with AI doing the heavy lifting and judgement doing the deciding.</p>
+  <div class="cta"><a class="btn" href="prototype.html" data-proto>Try the live prototype →</a><a class="btn sec" href="https://www.figma.com/design/BWVADBjC35xOdjTiFQuhfy" target="_blank" rel="noopener">Open the Figma file</a></div>
+  <div class="meta"><div><b>Role</b>Brand strategy, identity, product &amp; system design</div><div><b>Timeline</b>10 days, Nov 2026</div><div><b>Tools</b>Figma (variables, MCP), Claude, HTML/CSS/JS</div><div><b>Type</b>Self-initiated concept. Padaav is fictional.</div></div>
+  <figure class="fig" style="margin-top:40px"><img src="img/hero-three-houses.webp" width="1426" height="1004" alt="Three mobile home screens side by side: Dhundh, Jharokha and Lehar. Same layout and components, each in its own colours, type style and photography, all carrying the Padaav family bar."></figure>
+  <figcaption>One template, three houses. The only thing that changes between these screens is the Brand mode.</figcaption>
+</div>
+
+<nav class="toc" aria-label="Sections"><div class="scroll"><a href="#problem">Problem</a><a href="#strategy">Strategy</a><a href="#identity">Identity</a><a href="#system">System</a><a href="#screens">Screens</a><a href="#ai">How I used AI</a><a href="#learned">What I learned</a></div></nav>
+
+<main class="wrap">
+<section id="problem" class="col">
+  <div class="label">01 · The problem</div>
+  <h2>Three good houses that didn’t feel like a family</h2>
+  <p>Padaav runs three small properties: a kath-kuni mountain house in Himachal, an 1840s haveli in Jaipur and creek-side cottages on the Konkan coast. Each one is loved locally, but guests who stay at one rarely know the others exist.</p>
+  <p>The brief: make each house feel unmistakably of its place, make all three feel unmistakably Padaav, and do it with one system the team can run without rebuilding everything three times.</p>
+</section>
+
+<section id="strategy">
+  <div class="col">
+    <div class="label">02 · Strategy</div>
+    <h2>Distinct by place, connected by craft</h2>
+    <p>Indian boutique groups tend to pick an extreme: one look everywhere (great recognition, flattened places) or every hotel on its own (local, but no family). I chose an <b>endorsed brand architecture</b>. Each house leads with its own name, and is always “a Padaav house”.</p>
+    <p>The persona that justifies the whole system is <b>the Collector</b>: a guest who stays at one house, loves it, and wants the same care somewhere new. The <b>Padaav Passport</b> (stamp all three, get a night free) turns that into a product feature.</p>
+  </div>
+  <div class="three">
+    <article class="house"><img src="img/dhundh-house.webp" width="900" height="600" loading="lazy" alt="A traditional Himachali wooden house among pine trees on a hillside"><div><h3><i style="background:var(--dh)"></i>Dhundh</h3><p>Himalayas. “A place to go quiet.” Slow, earthy, warm wood and mist.</p></div></article>
+    <article class="house"><img src="img/jharokha-experience.webp" width="900" height="600" loading="lazy" alt="A block-printer pressing a carved wooden block onto indigo cloth"><div><h3><i style="background:var(--jh)"></i>Jharokha</h3><p>Jaipur. “Every wall has a story.” Refined, storied, indigo and brass.</p></div></article>
+    <article class="house"><img src="img/lehar-experience.webp" width="900" height="600" loading="lazy" alt="Kayakers on calm water at sunset off the Konkan coast"><div><h3><i style="background:var(--lh)"></i>Lehar</h3><p>Konkan coast. “Slow days, long tables.” Sunny, social, laterite and sea.</p></div></article>
+  </div>
+</section>
+
+<section id="identity">
+  <div class="col">
+    <div class="label">03 · Identity</div>
+    <h2>A halt on a journey</h2>
+    <p><i>Padaav</i> means a halt on a long journey. The identity takes that literally: a <b>route line</b> that travels and pauses at an ochre <b>halt dot</b>. The dot is the one thing that never changes. It marks your stay dates in the date picker, your current step in booking and arrivals on the staff room board.</p>
+    <p>Each house flexes four things, mapped from its personality sliders: colour, corner radius (2 to 20px), motion speed (220 to 420ms) and display type style. Paper, ink, the UI typeface and the halt dot stay shared.</p>
+  </div>
+  <figure class="fig"><img src="img/brand-specimen.webp" width="1664" height="520" loading="lazy" alt="One booking card shown in four brand modes: Padaav, Dhundh, Jharokha and Lehar, each with its own colour, radius, heading style and confirmation line."></figure>
+  <figcaption>The same card in four modes, with zero overrides. Copy is a token too: “The fire will be lit” / “waiting since 1847” / “Bring your appetite”.</figcaption>
+</section>
+
+<section id="system">
+  <div class="col">
+    <div class="label">04 · The system</div>
+    <h2>Build it once, re-skin it with one setting</h2>
+    <p>Everything a brand can change lives in a single Figma variable collection with four modes. Components never hold a raw colour, radius or font; screens never hold a raw component style. Switch a frame’s mode and the whole screen becomes another house.</p>
+  </div>
+  <div class="arch">
+    <div><b>Primitives</b><span>~45 raw values: colours, spacing, radii, durations. Hidden from designers.</span></div>
+    <div><b>Brand modes</b><span>23 tokens × 4 modes: colour, radius, motion, type style, brand copy, “is-house”.</span></div>
+    <div><b>Components</b><span>35 components, ~120 variants, every property bound to a token, with usage notes.</span></div>
+    <div><b>Screens</b><span>304 screens built only from instances. No detached layers.</span></div>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>304</b><span>screens across 4 brands</span></div>
+    <div class="stat"><b>35</b><span>components with states and docs</span></div>
+    <div class="stat"><b>2</b><span>typefaces for the whole family</span></div>
+    <div class="stat"><b>AA</b><span>contrast checked on every brand</span></div>
+  </div>
+</section>
+
+<section id="screens">
+  <div class="col">
+    <div class="label">05 · Screens</div>
+    <h2>The full guest journey, three times over</h2>
+    <p>Discover, book, stay and come back: collective home, search with a map, compare houses, rooms, a nine-step booking flow with UPI and part-payment, digital key, concierge chat, bill, review, Passport and gifting. Plus 66 loading, empty and error states, a 12-screen staff console and emails in four brands.</p>
+    <p>Each house variant has its own rooms, prices, food, people and arrival details, so the screens read as product work, not recoloured copies.</p>
+  </div>
+  <figure class="fig bleed"><img src="img/three-desktops.webp" width="2000" height="606" loading="lazy" alt="Three desktop property pages side by side for Dhundh, Jharokha and Lehar, each with a five-photo gallery, booking card and room list."></figure>
+  <figure class="fig"><img src="img/three-confirmations.webp" width="1426" height="920" loading="lazy" alt="Three booking confirmation screens, each with the house's food photo, its own headline and its own button colour."></figure>
+  <figcaption>The moment of truth, in three voices. Same component, same flow, different personality.</figcaption>
+  <div class="col" style="margin-top:32px">
+    <h3>Details I cared about</h3>
+    <table class="table">
+      <thead><tr><th>Detail</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td data-l="Detail">Prices always show their basis and taxes before payment</td><td data-l="Why">Indian travellers are used to surprise charges at checkout. Trust is the product.</td></tr>
+        <tr><td data-l="Detail">OTP-first sign in, UPI first at payment</td><td data-l="Why">That’s how people in India actually log in and pay.</td></tr>
+        <tr><td data-l="Detail">Cancel flow offers “change dates instead”, keeps “Keep my booking” primary</td><td data-l="Why">Retention without dark patterns: the refund is shown before you commit.</td></tr>
+        <tr><td data-l="Detail">Errors use icon + text + border</td><td data-l="Why">Never colour alone. Every state says what happened and what to do next.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="ai" class="col">
+  <div class="label">06 · How I used AI</div>
+  <h2>AI built the volume. I made the calls.</h2>
+  <p>I used Claude with the Figma MCP to research the market, draft strategy, generate token JSON and build components and screens programmatically in my Figma file. That’s how a 304-screen system fits in ten days. Every decision went through review, and a lot of AI output was changed or thrown away.</p>
+  <div class="log">
+    <div><b class="changed">Changed</b><span><b style="all:unset;font-weight:600">Typography.</b> AI gave each house its own display typeface: six fonts in total. On collective screens it looked busy. I consolidated to one family (Newsreader) with a style per house. Because type was tokenised, the change took minutes.</span></div>
+    <div><b class="rejected">Rejected</b><span><b style="all:unset;font-weight:600">AI photography.</b> Generated photos made the whole product feel synthetic. I replaced all of them with 48 real photographs and mapped each to its room, dish or experience.</span></div>
+    <div><b class="changed">Changed</b><span><b style="all:unset;font-weight:600">The parent brand was invisible.</b> House screens didn’t show Padaav. I added a family bar and an “a Padaav house” lock-up, driven by one boolean token, so all screens updated at once.</span></div>
+    <div><b class="changed">Changed</b><span><b style="all:unset;font-weight:600">Colour.</b> A rust-and-cream palette is the boutique cliché; I moved the master to ink-brown so the ochre halt dot is the only warm signature. Lehar’s teal failed contrast and was lightened.</span></div>
+    <div><b class="kept">Kept</b><span><b style="all:unset;font-weight:600">Naming.</b> 40 options in five routes; “Padaav” kept because the name itself tells the brand architecture: three stops on one journey.</span></div>
+  </div>
+  <blockquote>The speed came from AI. The taste, the edits and the reasons are mine.</blockquote>
+</section>
+
+<section id="learned" class="col">
+  <div class="label">07 · What I learned</div>
+  <h2>Systems make restraint cheap</h2>
+  <p>When every visual decision is a token, changing your mind costs minutes, not days. That made it easy to take risks early (four typefaces, AI imagery) and pull them back once they didn’t work.</p>
+  <p>Next I’d test the booking flow with five real travellers, hand-draw the final wordmark, and add a “Journeys” product: multi-house trips booked in one go, the natural next step for the Collector.</p>
+  <div class="cta"><a class="btn" href="prototype.html" data-proto>Try the live prototype →</a><a class="btn sec" href="https://www.figma.com/design/BWVADBjC35xOdjTiFQuhfy" target="_blank" rel="noopener">Open the Figma file</a></div>
+</section>
+</main>
+<footer class="wrap"><div class="row"><span>Padaav is a self-initiated concept; the houses are fictional.</span><span>Photography from Pexels, used for a concept.</span></div></footer>
+<script>
+(() => {
+const inFrame = window.parent !== window;
+document.querySelectorAll('[data-nav]').forEach(a => a.addEventListener('click', e => { if (inFrame) { e.preventDefault(); parent.postMessage({ pd: 'nav', hash: a.dataset.nav }, '*'); } }));
+document.querySelectorAll('[data-proto]').forEach(a => a.addEventListener('click', e => { if (inFrame) { e.preventDefault(); parent.postMessage({ pd: 'proto', key: 'padaavProto' }, '*'); } }));
+addEventListener('keydown', e => { if (e.key === 'Escape' && inFrame) parent.postMessage({ pd: 'nav', hash: 'work' }, '*'); });
+})();
+</script>
+</body>
+</html>

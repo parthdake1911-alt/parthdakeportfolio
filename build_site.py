@@ -56,6 +56,13 @@ covers['allin'] = cp(f'{H}/cards/allin.webp', 'images/cards/allin.webp')
 DECK['allin'] = {'img': cp(f'{H}/cards/deck/allin.webp', 'images/deck/allin.webp'), 'logo': 'images/deck/allin.webp'}
 shutil.copytree(f'{H}/allin/img', f'{OUT}/allin/img', dirs_exist_ok=True)
 shutil.copy(f'{H}/allin/index.html', f'{OUT}/allin/index.html')
+# Padaav: self-initiated hotel brand system (case page, images and live prototype live in padaav/)
+covers['padaav'] = cp(f'{H}/cards/padaav.webp', 'images/cards/padaav.webp')
+DECK['padaav'] = {'img': cp(f'{H}/cards/deck/padaav.webp', 'images/deck/padaav.webp'), 'logo': 'images/deck/padaav.webp'}
+for d in ['img', 'proto']:
+    shutil.copytree(f'{H}/padaav/{d}', f'{OUT}/padaav/{d}', dirs_exist_ok=True)
+for f in ['index.html', 'prototype.html']:
+    shutil.copy(f'{H}/padaav/{f}', f'{OUT}/padaav/{f}')
 cp(f'{OPT}/resume/Parth-Dake-Resume.pdf', 'resume/Parth-Dake-Resume.pdf')
 cp(f'{OPT}/jquery-3.7.1.min.js', 'assets/jquery-3.7.1.min.js')
 
@@ -63,7 +70,7 @@ cp(f'{OPT}/jquery-3.7.1.min.js', 'assets/jquery-3.7.1.min.js')
 t = open(f'{H}/template.html').read()
 pages = {'case': 'amin/', 'proto': 'amin/prototype.html', 'anchorCase': 'anchor/', 'anchorProto': 'anchor/prototype.html',
          'icaCase': 'ica/', 'icaProto': 'ica/prototype.html', 'tataCase': 'tatapower/', 'tataProto': 'tatapower/prototype.html',
-         'casaCase': 'casagrand/', 'casaProto': 'casagrand/prototype.html', 'allinCase': 'allin/'}
+         'casaCase': 'casagrand/', 'casaProto': 'casagrand/prototype.html', 'allinCase': 'allin/', 'padaavCase': 'padaav/', 'padaavProto': 'padaav/prototype.html'}
 # The Doorway scene (made by make_scene.py from Parth's generated images)
 for f in ['door-d.webp', 'door-m.webp', 'studio-d.webp', 'studio-m.webp']:
     cp(f'{H}/scene/{f}', f'images/{f}')
@@ -89,7 +96,7 @@ rep = {
 }
 for k, v in rep.items():
     t = t.replace(k, v)
-for a, b in [('amin', 'amin'), ('anchor', 'anchor'), ('ica', 'ica'), ('tata', 'tatapower'), ('casagrand', 'casagrand'), ('allin', 'allin')]:
+for a, b in [('amin', 'amin'), ('anchor', 'anchor'), ('ica', 'ica'), ('tata', 'tatapower'), ('casagrand', 'casagrand'), ('allin', 'allin'), ('padaav', 'padaav')]:
     t = t.replace(f"href: '{a}-case-study.html'", f"href: '{b}/'")
 old = "f.srcdoc = P[key];"
 assert old in t
