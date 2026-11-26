@@ -1199,53 +1199,88 @@
   /* ================= Selected work: bento grid (replaces the scroll deck) ================= */
   .scroller { height: 150vh !important; }
   #cards, #workHead, #hint, .mhud, .mcap, .snap { display: none !important; }
-  .bento-sec { position: relative; background: linear-gradient(180deg, #f3ebe2 0%, #f7f3ee 100%); color: #0b0a09; padding: clamp(72px, 9vw, 140px) 0 clamp(72px, 9vw, 130px); }
-  .bento-in { max-width: 1320px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 56px); }
-  .bento-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: clamp(28px, 3.5vw, 48px); flex-wrap: wrap; }
-  .bento-head .bk { font-size: 15px; font-weight: 500; color: rgba(11,10,9,.45); margin-bottom: 10px; }
-  .bento-head h2 { font-weight: 500; letter-spacing: -0.05em; line-height: 1; font-size: clamp(42px, 5.6vw, 84px); }
-  .bento-head .bsub { max-width: 380px; font-size: 16px; line-height: 1.5; color: rgba(11,10,9,.62); }
-  .bento-head .bsub span { display: block; color: rgba(11,10,9,.42); margin-top: 4px; }
-  .bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: clamp(420px, 44vw, 600px) clamp(340px, 34vw, 460px); gap: clamp(12px, 1.3vw, 18px); }
-  .bt { position: relative; display: block; border-radius: 24px; overflow: hidden; background: #e7ddd2; isolation: isolate; cursor: pointer;
-        box-shadow: 0 1px 0 rgba(255,255,255,.6) inset, 0 24px 48px -32px rgba(60,35,10,.45); transform: translateY(24px); opacity: 0;
-        transition: transform .9s var(--out), opacity .9s ease, box-shadow .4s ease; }
-  .bento.in .bt { transform: none; opacity: 1; }
-  .bento.in .bt:nth-child(2) { transition-delay: .08s; } .bento.in .bt:nth-child(3) { transition-delay: .16s; } .bento.in .bt:nth-child(4) { transition-delay: .24s; } .bento.in .bt:nth-child(5) { transition-delay: .32s; }
-  .bt img.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--out); z-index: -1; }
-  .bt:hover img.bg, .bt:focus-visible img.bg { transform: scale(1.045); }
-  .bt:hover { box-shadow: 0 1px 0 rgba(255,255,255,.6) inset, 0 40px 70px -36px rgba(60,35,10,.6); }
-  .bt:focus-visible { outline: 3px solid #0b0a09; outline-offset: 3px; }
-  .bt .tp { position: absolute; top: 16px; right: 16px; font-size: 12.5px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.78); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: #0b0a09; }
-  .bt .tp.new { background: #0b0a09; color: #fff; }
-  .bt .ft { position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; align-items: center; gap: 14px; padding: 14px 14px 14px 18px; border-radius: 16px;
-            background: rgba(255,255,255,.82); backdrop-filter: blur(14px) saturate(1.4); -webkit-backdrop-filter: blur(14px) saturate(1.4); }
-  .bt .ft .mt { flex: 1; min-width: 0; }
-  .bt .ft b { display: block; font-size: clamp(18px, 1.5vw, 24px); font-weight: 500; letter-spacing: -0.03em; line-height: 1.15; color: #0b0a09; }
-  .bt .ft i { display: block; font-style: normal; font-size: 14px; color: rgba(11,10,9,.58); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .bt .ft p { font-size: 14px; line-height: 1.45; color: rgba(11,10,9,.7); margin-top: 8px; max-width: 46ch; }
-  .bt .go { flex: none; width: 44px; height: 44px; border-radius: 50%; background: #0b0a09; display: flex; align-items: center; justify-content: center; transition: transform .45s var(--spring); }
-  .bt .go svg { width: 18px; height: 18px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .bt:hover .go { transform: rotate(45deg) scale(1.06); }
-  .bt.padaav { grid-column: 1 / span 6; grid-row: 1; } .bt.allin { grid-column: 7 / span 3; grid-row: 1; } .bt.tata { grid-column: 10 / span 3; grid-row: 1; }
-  .bt.anchor { grid-column: 1 / span 5; grid-row: 2; } .bt.amin { grid-column: 6 / span 7; grid-row: 2; }
-  .bt.padaav img.bg { object-position: center 40%; } .bt.anchor img.bg, .bt.amin img.bg { object-position: center 72%; }
-  .bt.allin .ft p, .bt.tata .ft p { display: none; }
+  .bento-sec { position: relative; background: #f6f2ec; color: #0b0a09; padding: clamp(80px, 9vw, 150px) 0 clamp(80px, 9vw, 140px); }
+  .bento-in { max-width: 1360px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 56px); }
+  .bento-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px; margin-bottom: clamp(32px, 4vw, 56px); }
+  .bento-head .bk { font-size: 15px; font-weight: 500; color: rgba(11,10,9,.45); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  .bento-head .bk::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  .bento-head h2 { font-weight: 500; letter-spacing: -0.055em; line-height: .95; font-size: clamp(48px, 6.4vw, 104px); }
+  .bento-head h2 sup { font-size: .26em; letter-spacing: 0; vertical-align: top; position: relative; top: .5em; margin-left: .2em; color: rgba(11,10,9,.4); font-weight: 500; }
+  .bento-head .bsub { max-width: 330px; font-size: 16px; line-height: 1.55; color: rgba(11,10,9,.6); padding-bottom: 8px; }
+
+  .bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: 580px 500px; gap: 16px; }
+  .bt { --bg: #eee; --fg: #0b0a09; --mu: rgba(11,10,9,.6); position: relative; display: block; border-radius: 28px; overflow: hidden; isolation: isolate; cursor: pointer;
+        background: var(--bg); color: var(--fg); padding: 30px 32px; opacity: 0; transform: translateY(30px);
+        transition: transform .9s var(--out), opacity .9s ease; }
+  .bento.in .bt { opacity: 1; transform: none; }
+  .bento.in .bt:nth-child(2) { transition-delay: .07s; } .bento.in .bt:nth-child(3) { transition-delay: .14s; } .bento.in .bt:nth-child(4) { transition-delay: .21s; } .bento.in .bt:nth-child(5) { transition-delay: .28s; }
+  .bt:focus-visible { outline: 3px solid #0b0a09; outline-offset: 4px; }
+  /* one anatomy for every tile: eyebrow, title, one line, arrow */
+  .bt .tx { position: relative; z-index: 3; max-width: min(420px, calc(100% - 64px)); }
+  .bt .eb { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; font-size: 13px; font-weight: 500; color: var(--mu); margin-bottom: 14px; }
+  .bt .eb b { font-weight: 500; color: var(--fg); padding: 5px 11px; border-radius: 999px; background: color-mix(in srgb, var(--fg) 10%, transparent); }
+  .bt h3 { font-size: 36px; font-weight: 500; letter-spacing: -0.045em; line-height: 1; margin-bottom: 10px; }
+  .bt .ln { font-size: 16px; line-height: 1.45; color: var(--mu); }
+  .bt .ar { position: absolute; top: 26px; right: 26px; z-index: 4; width: 48px; height: 48px; border-radius: 50%; background: var(--fg); display: flex; align-items: center; justify-content: center; transition: transform .5s var(--spring); }
+  .bt .ar svg { width: 18px; height: 18px; fill: none; stroke: var(--bg); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .bt:hover .ar, .bt:focus-visible .ar { transform: rotate(45deg) scale(1.08); }
+  /* art: real screens in device frames, bleeding off the bottom */
+  .bt .art { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+  .dv { position: absolute; transition: transform .9s var(--out); will-change: transform; }
+  .dv img { display: block; width: 100%; }
+  .dv.ph { width: var(--w); aspect-ratio: 9 / 19; padding: 5px; border-radius: calc(var(--w) * .16); background: #101010; box-shadow: 0 30px 60px -20px rgba(0,0,0,.45), inset 0 0 0 1.5px #3a3a3a; }
+  .dv.ph img { height: 100%; object-fit: cover; object-position: top; border-radius: calc(var(--w) * .13); }
+  .dv.br { width: var(--w); border-radius: 12px; overflow: hidden; background: #fff; box-shadow: 0 30px 70px -24px rgba(0,0,0,.5); }
+  .dv.br::before { content: ""; display: block; height: 26px; background: #ececec radial-gradient(circle at 16px 13px, #ff5f57 4px, transparent 4.5px), radial-gradient(circle at 30px 13px, #febc2e 4px, transparent 4.5px); }
+  .dv.br i { position: absolute; left: 44px; top: 13px; width: 26px; height: 4px; }
+  .dv.br::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 26px; background: radial-gradient(circle at 44px 13px, #28c840 4px, transparent 4.5px); }
+  /* per-tile colour + art placement */
+  .bt.padaav { grid-column: 1 / span 6; grid-row: 1; --bg: #ebe0cf; --fg: #1e1a16; --mu: rgba(30,26,22,.62); }
+  .bt.padaav .d1 { --w: 200px; left: 30%; bottom: -110px; transform: rotate(-8deg); }
+  .bt.padaav .d2 { --w: 214px; left: 50%; bottom: -60px; transform: rotate(0deg); z-index: 2; }
+  .bt.padaav .d3 { --w: 200px; left: 70%; bottom: -120px; transform: rotate(8deg); }
+  .bt.padaav:hover .d1 { transform: rotate(-12deg) translate(-26px, -16px); } .bt.padaav:hover .d2 { transform: translateY(-22px); } .bt.padaav:hover .d3 { transform: rotate(12deg) translate(26px, -16px); }
+  .bt.allin { grid-column: 7 / span 3; grid-row: 1; --bg: #ffa45d; --fg: #10262e; --mu: rgba(16,38,46,.7); }
+  .bt.allin .d1 { --w: 176px; left: 10%; bottom: -70px; transform: rotate(-7deg); }
+  .bt.allin .d2 { --w: 176px; left: 44%; bottom: -120px; transform: rotate(6deg); z-index: 2; }
+  .bt.allin:hover .d1 { transform: rotate(-10deg) translate(-10px, -18px); } .bt.allin:hover .d2 { transform: rotate(9deg) translate(10px, -26px); }
+  .bt.tata { grid-column: 10 / span 3; grid-row: 1; --bg: #0b4ea2; --fg: #ffffff; --mu: rgba(255,255,255,.72); background: radial-gradient(120% 80% at 100% 100%, #2fb2e8 0%, #0b4ea2 55%, #08377a 100%); }
+  .bt.tata .d1 { --w: 196px; left: 50%; margin-left: -98px; bottom: -96px; }
+  .bt.tata:hover .d1 { transform: translateY(-24px); }
+  .bt.anchor { grid-column: 1 / span 5; grid-row: 2; --bg: #111418; --fg: #f4f5f7; --mu: rgba(244,245,247,.62); background: radial-gradient(90% 90% at 90% 110%, #1f3b2e 0%, #111418 60%); }
+  .bt.anchor .d1 { --w: 700px; left: 56px; bottom: -120px; transform: rotate(-3deg); }
+  .bt.anchor:hover .d1 { transform: rotate(-2deg) translate(-8px, -22px); }
+  .bt.amin { grid-column: 6 / span 7; grid-row: 2; --bg: #17123a; --fg: #ffffff; --mu: rgba(255,255,255,.65); background: radial-gradient(80% 100% at 85% 100%, #5a3fd6 0%, #17123a 62%); }
+  .bt.amin .d1 { --w: 640px; right: -60px; bottom: -90px; transform: rotate(-2deg); }
+  .bt.amin:hover .d1 { transform: rotate(-1deg) translate(-12px, -22px); }
+
+  @media (max-width: 1180px) {
+    .bento { grid-template-rows: 540px 480px; }
+    .bt h3 { font-size: 32px; }
+    .bt.allin .d1, .bt.allin .d2 { --w: 150px; } .bt.tata .d1 { --w: 170px; margin-left: -85px; }
+    .bt.anchor .d1 { --w: 580px; } .bt.amin .d1 { --w: 560px; }
+  }
   @media (max-width: 900px), (orientation: portrait) and (max-width: 1180px) {
     .scroller { height: auto !important; }
-    .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; grid-auto-rows: auto; }
-    .bt { grid-column: auto !important; grid-row: auto !important; aspect-ratio: 3 / 4; }
-    .bt.padaav { grid-column: 1 / -1 !important; aspect-ratio: 4 / 4.2; }
-    .bt.amin { grid-column: 1 / -1 !important; aspect-ratio: 4 / 4; }
-    .bt.anchor { grid-column: 1 / -1 !important; aspect-ratio: 4 / 4; }
-    .bt .ft p { display: none; }
+    .bento-head { grid-template-columns: minmax(0, 1fr); }
+    .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; grid-auto-rows: 500px; gap: 12px; }
+    .bt { grid-column: auto !important; grid-row: auto !important; padding: 24px; border-radius: 24px; }
+    .bt.padaav, .bt.anchor, .bt.amin { grid-column: 1 / -1 !important; }
+    .bt .ar { top: 20px; right: 20px; width: 44px; height: 44px; }
+    .bt .tx { max-width: calc(100% - 52px); }
+    .bt.padaav .d1, .bt.padaav .d3 { --w: 170px; } .bt.padaav .d2 { --w: 184px; }
+    .bt.padaav .d1 { left: 14%; bottom: -170px; } .bt.padaav .d2 { left: 50%; margin-left: -92px; bottom: -130px; } .bt.padaav .d3 { left: auto; right: 10%; bottom: -175px; }
+    .bt.tata .d1 { --w: 210px; margin-left: -105px; }
+    .bt.anchor .d1 { --w: 520px; left: 24px; } .bt.amin .d1 { --w: 480px; }
   }
   @media (max-width: 560px) {
-    .bento { grid-template-columns: minmax(0, 1fr); }
-    .bt, .bt.padaav, .bt.amin, .bt.anchor { aspect-ratio: 4 / 4.6; }
-    .bt { border-radius: 20px; }
+    .bento { grid-template-columns: minmax(0, 1fr); grid-auto-rows: 460px; }
+    .bt h3 { font-size: 30px; } .bt .ln { font-size: 15px; }
+    .bt.padaav .d1 { left: -6%; } .bt.padaav .d3 { right: -6%; }
+    .bt.allin .d1, .bt.allin .d2 { --w: 160px; } .bt.allin .d1 { left: 12%; } .bt.allin .d2 { left: 46%; }
+    .bt.anchor .d1 { --w: 440px; } .bt.amin .d1 { --w: 420px; right: -60px; }
   }
-  @media (prefers-reduced-motion: reduce) { .bt { transform: none; opacity: 1; transition: none; } .bt img.bg, .bt .go { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .bt { opacity: 1; transform: none; transition: none; } .dv { transition: none; } }
 </style>
 </head>
 <body>
@@ -1399,8 +1434,8 @@
 <section class="bento-sec" id="work" aria-labelledby="bentoTitle">
   <div class="bento-in">
     <div class="bento-head">
-      <div><p class="bk">Work</p><h2 id="bentoTitle">Selected work</h2></div>
-      <p class="bsub">Five projects, from a full hotel brand system to client apps. <span>Click any project to open its case study.</span></p>
+      <div><p class="bk">Work</p><h2 id="bentoTitle">Selected work<sup>(05)</sup></h2></div>
+      <p class="bsub">Brand systems, client apps and product ideas, each with a working prototype. Pick one to open the case study.</p>
     </div>
     <div class="bento" id="bento"></div>
   </div>
@@ -1823,23 +1858,32 @@
   requestAnimationFrame(() => document.body.classList.add('ready'));
 
   /* ---------- Selected work: bento grid ---------- */
+  const ph = (src, cls) => `<span class="dv ph ${cls}"><img src="${src}" alt="" decoding="async"></span>`;
+  const br = (src, cls) => `<span class="dv br ${cls}"><img src="${src}" alt="" decoding="async"></span>`;
   const BENTO = [
-    { id: 'padaav', name: 'Padaav', sub: 'Hotel brand system · Web & app', type: 'Self-initiated', page: 'padaavCase', href: 'padaav-case-study.html', isNew: true,
-      blurb: 'One parent brand, three boutique houses: strategy, identity, a tokenised design system and 304 screens in ten days.' },
-    { id: 'allin', name: 'All In', sub: 'Group trips · Mobile app', type: 'Self-initiated', page: 'allinCase', href: 'allin-case-study.html' },
-    { id: 'tata', name: 'Tata Power', sub: 'Customer Smile · Mobile app', type: 'Client project', page: 'tataCase', href: 'tata-case-study.html' },
-    { id: 'anchor', name: 'Anchor', sub: 'Trading journal · Desktop app', type: 'College project', page: 'anchorCase', href: 'anchor-case-study.html',
-      blurb: 'A calm trading journal that helps new traders review their decisions, not just their profit.' },
-    { id: 'amin', name: 'AMIN Worldwide', sub: 'Member portal · Web app', type: 'Pitch project', page: 'case', href: 'amin-case-study.html',
-      blurb: 'A member portal for a global network of independent agencies, from finding partners to sharing work.' }
+    { id: 'padaav', name: 'Padaav', eb: 'Self-initiated', pl: 'Brand system · Web & app', page: 'padaavCase', href: 'padaav-case-study.html',
+      line: 'One parent brand, three boutique hotels, 304 screens in ten days.',
+      art: ph('padaav/img/s/home-dhundh.webp', 'd1') + ph('padaav/img/s/home-jharokha.webp', 'd2') + ph('padaav/img/s/home-lehar.webp', 'd3') },
+    { id: 'allin', name: 'All In', eb: 'Self-initiated', pl: 'Mobile app', page: 'allinCase', href: 'allin-case-study.html',
+      line: 'Friends pay their share to say yes, and the trip locks.',
+      art: ph('allin/img/v2_home.webp', 'd1') + ph('allin/img/v2_locked.webp', 'd2') },
+    { id: 'tata', name: 'Tata Power', eb: 'Client project', pl: 'Mobile app', page: 'tataCase', href: 'tata-case-study.html',
+      line: 'Customer Smile: colleagues recognise great service.',
+      art: ph('tatapower/img/t_home.webp', 'd1') },
+    { id: 'anchor', name: 'Anchor', eb: 'College project', pl: 'Desktop app', page: 'anchorCase', href: 'anchor-case-study.html',
+      line: 'A trading journal that reviews decisions, not just profit.',
+      art: br('anchor/img/a_dash.webp', 'd1') },
+    { id: 'amin', name: 'AMIN Worldwide', eb: 'Pitch project', pl: 'Web app', page: 'case', href: 'amin-case-study.html',
+      line: 'A member portal for a global network of agencies.',
+      art: br('amin/img/a_dash.webp', 'd1') }
   ];
   const bento = document.getElementById('bento');
   BENTO.forEach(c => {
     const a = document.createElement('a');
-    a.className = 'bt ' + c.id; a.href = c.href; a.setAttribute('aria-label', `${c.name}, ${c.type}: view case study`);
-    a.innerHTML = `<img class="bg" src="${DECK[c.id].img}" alt="" loading="eager" decoding="async">`
-      + `<span class="tp${c.isNew ? ' new' : ''}">${c.isNew ? 'New · ' : ''}${c.type}</span>`
-      + `<span class="ft"><span class="mt"><b>${c.name}</b><i>${c.sub}</i>${c.blurb ? `<p>${c.blurb}</p>` : ''}</span><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span></span>`;
+    a.className = 'bt ' + c.id; a.href = c.href; a.setAttribute('aria-label', `${c.name}, ${c.eb}: view case study`);
+    a.innerHTML = `<span class="art" aria-hidden="true">${c.art}</span>`
+      + `<span class="tx"><span class="eb"><b>${c.eb}</b>${c.pl}</span><h3>${c.name}</h3><span class="ln">${c.line}</span></span>`
+      + `<span class="ar" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>`;
     a.addEventListener('click', e => { if (window.__openPage) { e.preventDefault(); window.__openPage(c.page); } });
     ['pointerenter', 'focus', 'touchstart'].forEach(ev => a.addEventListener(ev, () => {
       const u = window.__PAGES && window.__PAGES[c.page];
