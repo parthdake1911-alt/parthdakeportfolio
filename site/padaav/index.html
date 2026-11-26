@@ -2,221 +2,847 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Padaav – Case Study · Parth Dake</title>
 <meta name="description" content="Padaav: a collective of three boutique stays in India, one brand system. Strategy, identity, a tokenised Figma design system and 304 screens in ten days. A case study by Parth Dake.">
-<meta name="theme-color" content="#f7f2ea">
+<meta name="theme-color" content="#1e1a16">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,500&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Instrument+Serif&family=Gloock&family=Familjen+Grotesk:wght@600&family=Tiro+Devanagari+Hindi&display=swap">
 <style>
 /*
-VOICE: an editorial case study: calm, confident, specific; a senior designer explaining decisions.
-IDEA: a travel journal for a brand: three stops, one route; the halt dot marks each chapter.
-PICTURE: real Figma exports (three houses side by side) as the hero, then the system proofs.
-COLOUR and TYPE: Padaav tokens (paper, ink, halt ochre, house accents); Newsreader display, Hanken Grotesk text.
-LAYOUT: one reading column (≤ 720px) for text, wide figures breaking out to 1240px; section links bar.
+VOICE: an editorial case study by a senior designer; specific, visual, short paragraphs.
+IDEA: "a halt on a journey": the page is a route with stops; every stop is shown, not told.
+PICTURE: real Figma exports everywhere: phones, browsers, the console, emails, the states wall.
+COLOUR and TYPE: Padaav tokens (paper, ink, ochre halt dot, house accents); Newsreader display, Hanken Grotesk text.
 */
-:root{color-scheme:light;--paper:#f7f2ea;--ink:#1e1a16;--muted:#6b6259;--line:#ddd3c6;--halt:#d9962b;--tint:#efe7db;--dh:#34483c;--jh:#2b3567;--lh:#a8452a}
+:root{color-scheme:light;--paper:#f7f2ea;--paper2:#efe7db;--ink:#1e1a16;--ink2:#2a2420;--muted:#6b6259;--line:#ddd3c6;--halt:#d9962b;
+--dh:#34483c;--jh:#2b3567;--lh:#a8452a;--dh-t:#e6ebe6;--jh-t:#ece7da;--lh-t:#f6e9da;--top:62px}
 *{box-sizing:border-box;min-width:0}
-html{scroll-behavior:smooth;scroll-padding-top:124px}
-body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.65 "Hanken Grotesk",system-ui,sans-serif;overflow-x:clip}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--top) + 56px)}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.65 "Hanken Grotesk",system-ui,sans-serif;overflow-x:clip;-webkit-font-smoothing:antialiased}
 img{display:block;max-width:100%;height:auto}
 a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--halt);outline-offset:3px}
 .wrap{max-width:1240px;margin:0 auto;padding:0 max(5vw,16px)}
-.col{max-width:720px}
-h1,h2,h3{font-family:"Newsreader",Georgia,serif;font-weight:400;margin:0;text-wrap:balance}
-h1{font-size:clamp(52px,9vw,120px);line-height:.95;letter-spacing:-.01em}
-h1 i{display:inline-block;width:.12em;height:.12em;border-radius:50%;background:var(--halt);vertical-align:.05em;margin-left:.04em}
-h2{font-size:clamp(32px,4.4vw,52px);line-height:1.05;margin-bottom:20px}
+.col{max-width:700px}
+h1,h2,h3,.serif{font-family:"Newsreader",Georgia,serif;font-weight:400;margin:0;text-wrap:balance}
+h2{font-size:clamp(34px,4.6vw,58px);line-height:1.04;letter-spacing:-.01em;margin-bottom:18px}
 h3{font-size:24px;line-height:1.2;margin-bottom:6px}
-p{margin:0 0 16px}
-.lead{font-size:clamp(19px,2vw,22px);line-height:1.5;color:var(--ink);max-width:40ch}
+p{margin:0 0 14px}
+.lead{font-size:clamp(18px,1.8vw,21px);line-height:1.55;max-width:58ch}
 .muted{color:var(--muted)}
-.label{font-size:13px;font-weight:600;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.label::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--halt)}
-header.hero{padding:calc(62px + clamp(32px,6vw,80px)) 0 0}
-.top{position:fixed;left:0;right:0;top:0;z-index:20;height:62px;background:rgba(247,242,234,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.label{font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.label::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--halt);flex:none}
+.label b{color:var(--ink);font-weight:600}
+section{padding:clamp(72px,9vw,128px) 0 0}
+section.wrap{padding-top:clamp(72px,9vw,128px)}
+.dark{background:var(--ink);color:var(--paper);padding-bottom:clamp(72px,9vw,128px);margin-top:clamp(72px,9vw,128px)}
+.dark .label,.dark .muted{color:#b9ad9f}.dark .label b{color:var(--paper)}
+.tint{background:var(--paper2);padding-bottom:clamp(72px,9vw,128px);margin-top:clamp(72px,9vw,128px)}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:12px 22px;border-radius:4px;background:var(--ink);color:var(--paper);text-decoration:none;font-weight:600;border:0}
+.btn.sec{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.hero .btn.sec{background:transparent;color:var(--paper);border-color:#6b6259}.hero .btn.sec:hover{border-color:var(--paper)}
+.dark .btn{background:var(--paper);color:var(--ink)}.dark .btn.sec{background:transparent;color:var(--paper);border-color:var(--paper)}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+figcaption,.cap{font-size:14px;color:var(--muted);margin-top:12px}
+.dark figcaption,.dark .cap{color:#b9ad9f}
+
+/* top bar */
+.top{position:fixed;left:0;right:0;top:0;z-index:40;height:var(--top);background:rgba(247,242,234,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);transition:background .3s}
 .top .bar{max-width:1240px;margin:0 auto;padding:0 max(5vw,16px);height:100%;display:flex;align-items:center;gap:14px}
 .top .me img{height:30px;width:auto}
-.top .chap{font:400 20px/1 "Newsreader",serif}
-.top .back{margin-left:auto;font-weight:600;font-size:15px;text-decoration:none;border:1.5px solid var(--ink);border-radius:4px;padding:8px 14px}
+.top .chap{font:400 20px/1 "Newsreader",serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top .back{margin-left:auto;font-weight:600;font-size:15px;text-decoration:none;border:1.5px solid var(--ink);border-radius:4px;padding:8px 14px;white-space:nowrap}
 .top .back:hover{background:var(--ink);color:var(--paper)}
-.note{font-size:13px;color:var(--muted);margin-top:10px}
-.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:40px 0 0;padding:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.meta div{font-size:14px}.meta b{display:block;font-size:13px;color:var(--muted);font-weight:600;margin-bottom:2px}
-.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
-.btn{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:12px 22px;border-radius:4px;background:var(--ink);color:var(--paper);text-decoration:none;font-weight:600}
-.btn.sec{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
-.btn:focus-visible{outline:2px solid var(--halt);outline-offset:3px}
-.fig{margin:48px 0 0;border-radius:12px;overflow:hidden;background:var(--tint)}
-.fig.bleed{margin-left:calc(-1 * max(5vw,16px));margin-right:calc(-1 * max(5vw,16px));border-radius:0}
-figcaption{font-size:14px;color:var(--muted);padding:12px 0 0}
-nav.toc{position:sticky;top:62px;z-index:10;background:rgba(247,242,234,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);margin-top:64px}
-nav.toc .scroll{display:flex;gap:24px;overflow-x:auto;padding:14px max(5vw,16px);max-width:1240px;margin:0 auto;scrollbar-width:none}
-nav.toc a{flex:none;font-size:14px;font-weight:600;color:var(--muted);text-decoration:none;min-height:24px}
-nav.toc a:hover{color:var(--ink)}
-section{padding:clamp(56px,8vw,112px) 0 0}
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:32px 0 0}
-.stat{background:#fff;border:1px solid var(--line);border-radius:10px;padding:20px}
-.stat b{display:block;font:400 clamp(36px,4vw,52px)/1 "Newsreader",serif;margin-bottom:6px}
-.stat span{font-size:14px;color:var(--muted)}
-.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:32px}
-.house{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.house img{aspect-ratio:3/2;object-fit:cover;width:100%}
-.house div{padding:18px 20px 20px}
-.house h3{display:flex;align-items:center;gap:8px}
-.house h3 i{width:10px;height:10px;border-radius:50%}
-.house p{font-size:15px;margin:0;color:var(--muted)}
-.table{width:100%;border-collapse:collapse;margin-top:24px;font-size:15px}
-.table th,.table td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top}
-.table th{font-size:13px;color:var(--muted);font-weight:600}
-.arch{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:32px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
-.arch div{padding:20px;border-right:1px solid var(--line);position:relative}
-.arch div:last-child{border-right:0}
-.arch b{display:block;font:400 22px/1.2 "Newsreader",serif;margin-bottom:6px}
-.arch span{font-size:14px;color:var(--muted)}
-.arch div+div::before{content:"→";position:absolute;left:-9px;top:22px;background:#fff;color:var(--halt);font-weight:600;padding:0 2px}
-.log{display:grid;gap:12px;margin-top:24px}
-.log div{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;padding:16px 18px;background:#fff;border:1px solid var(--line);border-radius:10px;font-size:15px}
-.log b{font-size:13px;font-weight:600;padding:3px 10px;border-radius:999px;align-self:start;text-align:center}
+.prog{position:absolute;left:0;bottom:-1px;height:2px;background:var(--halt);width:0}
+
+/* hero */
+.hero{background:var(--ink);color:var(--paper);padding:calc(var(--top) + clamp(40px,6vw,88px)) 0 0;overflow:hidden;position:relative}
+.hero .kick{font-size:13px;font-weight:600;color:#b9ad9f;display:flex;gap:10px;align-items:center}
+.hero .kick::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--halt)}
+.hero h1{font-size:clamp(64px,13vw,184px);line-height:.88;letter-spacing:-.02em;margin:18px 0 0}
+.hero h1 i{display:inline-block;width:.13em;height:.13em;border-radius:50%;background:var(--halt);margin-left:.03em;vertical-align:.02em;animation:pulse 2.6s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.25)}}
+.hero .sub{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;align-items:end;margin-top:28px}
+.hero .lead{color:#e9e1d4}
+.houses{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.houses span{display:inline-flex;align-items:center;gap:8px;border:1px solid #4a423a;border-radius:999px;padding:6px 14px 6px 10px;font-size:14px}
+.houses span i{width:10px;height:10px;border-radius:50%}
+.marquee{margin-top:clamp(40px,6vw,72px);display:grid;gap:18px;padding-bottom:clamp(40px,5vw,64px);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.track{display:flex;gap:18px;width:max-content;animation:slide 80s linear infinite}
+.track.rev{animation-direction:reverse;animation-duration:95s}
+.marquee:hover .track{animation-play-state:paused}
+@keyframes slide{to{transform:translateX(-50%)}}
+.track .m{width:200px;aspect-ratio:390/600;border-radius:16px;overflow:hidden;flex:none;background:#2a2420;box-shadow:0 20px 40px -20px #000}
+.track .m img{width:100%;height:100%;object-fit:cover;object-position:top}
+.track .m.wide{width:390px;aspect-ratio:1440/960}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #3b342d}
+.stats div{padding:22px 0 26px;border-right:1px solid #3b342d;padding-left:20px}
+.stats div:first-child{padding-left:0}.stats div:last-child{border-right:0}
+.stats b{display:block;font:400 clamp(40px,5vw,64px)/1 "Newsreader",serif}
+.stats span{font-size:14px;color:#b9ad9f}
+
+/* at a glance */
+.glance{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:36px}
+.tile{display:block;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
+.tile:hover{transform:translateY(-4px);box-shadow:0 24px 40px -24px rgba(30,26,22,.45)}
+.tile .pic{height:200px;background:var(--paper2);overflow:hidden;position:relative}
+.tile .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .6s}
+.tile:hover .pic img{transform:scale(1.04)}
+.tile div.t{padding:16px 18px 18px}
+.tile b{font:400 22px/1.2 "Newsreader",serif;display:block}
+.tile span{font-size:14px;color:var(--muted)}
+
+/* devices */
+.phone{--w:250px;width:var(--w);flex:none;aspect-ratio:390/844;border-radius:calc(var(--w)*.13);padding:calc(var(--w)*.03);background:var(--ink);box-shadow:0 30px 50px -28px rgba(30,26,22,.55),inset 0 0 0 1px #3a332c;position:relative}
+.phone .scr{position:relative;width:100%;height:100%;border-radius:calc(var(--w)*.1);overflow:hidden;background:var(--paper)}
+.phone .scr img{width:100%;height:auto;transition:transform var(--t,4s) cubic-bezier(.45,0,.3,1)}
+.phone[data-zoom],.zoom{cursor:zoom-in}
+.phone .hint{position:absolute;right:10px;bottom:10px;z-index:2;background:rgba(30,26,22,.82);color:#fff;font-size:11px;font-weight:600;padding:4px 8px;border-radius:999px;opacity:0;transition:opacity .2s}
+.phone.long:hover .hint{opacity:1}
+.browser{border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 30px 60px -32px rgba(30,26,22,.55);border:1px solid var(--line)}
+.browser .bb{height:34px;display:flex;align-items:center;gap:6px;padding:0 12px;background:#ebe3d6;border-bottom:1px solid var(--line)}
+.browser .bb i{width:10px;height:10px;border-radius:50%;background:#d5cabb}
+.browser .bb span{margin-left:12px;flex:1;max-width:360px;height:20px;border-radius:5px;background:#f7f2ea;font-size:11px;color:var(--muted);display:flex;align-items:center;padding:0 10px}
+.browser .view{position:relative;overflow:hidden;aspect-ratio:1440/900}
+.browser .view img{width:100%;transition:transform var(--t,6s) cubic-bezier(.45,0,.3,1)}
+.dark .browser{border-color:#3b342d}
+
+/* strips */
+.strip{display:flex;gap:28px;overflow-x:auto;scroll-snap-type:x mandatory;padding:12px max(5vw,16px) 28px;margin:0 calc(-1 * max(5vw,16px));scrollbar-width:thin}
+.strip>figure{margin:0;scroll-snap-align:start;flex:none;width:250px}
+.strip figcaption{margin-top:14px;color:var(--ink);font-size:15px}
+.strip figcaption b{display:block;font-weight:600}
+.strip figcaption span{color:var(--muted);font-size:14px}
+.strip figcaption em{font-style:normal;display:inline-flex;width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--paper);font-size:12px;font-weight:700;align-items:center;justify-content:center;margin-right:8px;vertical-align:1px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:28px 0 8px}
+.tabs button{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:9px 18px;font-weight:600;font-size:15px;min-height:44px;transition:background .2s,border-color .2s}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.dark .tabs button{background:transparent;border-color:#4a423a;color:var(--paper)}
+.dark .tabs button[aria-selected=true]{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.scrollhint{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px}
+
+/* problem */
+.places{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:14px;margin-top:40px;height:min(56vw,520px)}
+.place{position:relative;border-radius:14px;overflow:hidden;color:#fff}
+.place img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.place:hover img{transform:scale(1.05)}
+.place::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(20,16,12,.78))}
+.place div{position:absolute;left:20px;right:20px;bottom:18px;z-index:1}
+.place b{font:400 34px/1 "Newsreader",serif;display:block;margin-bottom:6px}
+.place span{font-size:14px;opacity:.9}
+.quote{font:400 clamp(26px,3.2vw,40px)/1.2 "Newsreader",serif;max-width:24ch;margin:0}
+.quote em{color:var(--halt);font-style:normal}
+
+/* architecture */
+.arch2{margin-top:44px;display:grid;justify-items:center}
+.parent{background:var(--ink);color:var(--paper);border-radius:14px;padding:22px 34px;text-align:center}
+.parent b{font:400 44px/1 "Newsreader",serif}.parent b i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--halt);margin-left:3px}
+.parent span{display:block;font-size:13px;color:#b9ad9f;margin-top:6px}
+.lines{width:min(760px,100%);height:56px}
+.kids{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;width:min(900px,100%)}
+.kid{border-radius:14px;padding:22px;text-align:center;border:1px solid var(--line);background:#fff}
+.kid b{font:400 38px/1 "Newsreader",serif;display:block}
+.kid small{display:block;font-size:12px;color:var(--muted);margin-top:4px}
+.kid p{font-size:14px;color:var(--muted);margin:12px 0 0}
+.lockups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:40px}
+.lockups figure{margin:0}
+.lockups .crop{border-radius:12px;overflow:hidden;border:1px solid var(--line);aspect-ratio:390/92;background:#fff}
+.lockups .crop img{width:100%}
+
+/* brand switcher */
+.switch{--act:#2a2420;--acc:#d9962b;--tnt:#efe7db;--rad:4px;--dur:320ms;--fw:400;--fs:normal;display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:center;margin-top:40px}
+.switch .phone{--w:300px}
+.switch .scr img{transition:opacity .35s}
+.panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:clamp(20px,3vw,32px);transition:background var(--dur)}
+.bswitch{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:24px}
+.bswitch button{border:1.5px solid var(--line);background:var(--paper);border-radius:10px;padding:10px 8px;text-align:left;min-height:64px}
+.bswitch button b{display:block;font:400 21px/1.1 "Newsreader",serif}
+.bswitch button span{font-size:12px;color:var(--muted)}
+.bswitch button[aria-pressed=true]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.spec{background:var(--tnt);border-radius:var(--rad);padding:22px;transition:background var(--dur),border-radius var(--dur)}
+.spec .nm{font-family:"Newsreader",serif;font-size:clamp(40px,5vw,58px);line-height:1;font-weight:var(--fw);font-style:var(--fs)}
+.spec .nm i{display:inline-block;width:.14em;height:.14em;border-radius:50%;background:var(--halt);margin-left:.04em}
+.spec .vo{font-family:"Newsreader",serif;font-size:22px;font-weight:var(--fw);font-style:var(--fs);margin:14px 0 18px;line-height:1.25}
+.spec .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.spec .demo{background:var(--act);color:#fff;border-radius:var(--rad);padding:12px 20px;font-weight:600;border:0;min-height:46px;transition:border-radius var(--dur),background var(--dur)}
+.spec .chipx{border:1.5px solid var(--act);color:var(--act);border-radius:var(--rad);padding:10px 16px;font-weight:600;font-size:14px;transition:all var(--dur)}
+.track2{position:relative;height:28px;flex:1;min-width:120px}
+.track2::before{content:"";position:absolute;left:0;right:0;top:13px;height:2px;background:var(--act);opacity:.35}
+.track2 i{position:absolute;left:0;top:6px;width:16px;height:16px;border-radius:50%;background:var(--halt);transition:left var(--dur) var(--ease,cubic-bezier(.3,.7,.2,1))}
+.track2.go i{left:calc(100% - 16px)}
+.toks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px;margin-top:20px;font-size:14px}
+.toks div{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
+.toks span{color:var(--muted)}
+.toks code{font:600 13px/1.4 ui-monospace,Menlo,monospace;display:flex;align-items:center;gap:6px}
+.toks code i{width:14px;height:14px;border-radius:3px;border:1px solid rgba(0,0,0,.1)}
+
+/* halt dot */
+.dots3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:40px}
+.dots3 figure{margin:0;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.dots3 .crop{height:250px;overflow:hidden;position:relative;background:var(--paper)}
+.dots3 .crop img{position:absolute;max-width:none}
+.dots3 figcaption{padding:14px 18px 18px;margin:0;color:var(--ink)}
+.dots3 figcaption b{display:block;font-weight:600}
+.dots3 figcaption span{color:var(--muted)}
+.ring{position:absolute;width:46px;height:46px;border-radius:50%;border:2px solid var(--halt);transform:translate(-50%,-50%);animation:ring 2.4s ease-out infinite;pointer-events:none}
+@keyframes ring{0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}30%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1.5)}}
+
+/* system */
+.layers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:36px;border:1px solid #3b342d;border-radius:14px;overflow:hidden}
+.layers div{padding:22px;border-right:1px solid #3b342d;position:relative}
+.layers div:last-child{border-right:0}
+.layers b{display:block;font:400 26px/1.1 "Newsreader",serif;margin-bottom:6px}
+.layers em{font-style:normal;font:400 46px/1 "Newsreader",serif;color:var(--halt);display:block;margin-bottom:10px}
+.layers span{font-size:14px;color:#b9ad9f}
+.layers div+div::before{content:"→";position:absolute;left:-10px;top:24px;background:var(--ink);color:var(--halt);padding:0 3px}
+.sysgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:18px}
+.card{background:#fff;border-radius:14px;overflow:hidden;color:var(--ink)}
+.card .ci{background:var(--paper)}
+.card .ct{padding:14px 18px 18px;font-size:14px;color:var(--muted)}
+.card .ct b{display:block;color:var(--ink);font-size:16px}
+
+/* compare */
+.trio{display:flex;justify-content:center;gap:clamp(14px,3vw,40px);margin-top:28px;flex-wrap:nowrap}
+.trio figure{margin:0;text-align:center}
+.trio .phone{--w:clamp(200px,24vw,290px)}
+.trio figcaption{margin-top:14px;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--ink);font-weight:600}
+.trio figcaption i{width:10px;height:10px;border-radius:50%}
+.trio .scr img{transition:opacity .3s, transform var(--t,4s) cubic-bezier(.45,0,.3,1)}
+
+/* states */
+.statesgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;margin-top:36px}
+.statesgrid figure{margin:0}
+.statesgrid .phone{--w:100%}
+.statesgrid figcaption{color:var(--ink);font-size:14px;margin-top:12px}
+.statesgrid figcaption b{display:block;font-size:15px}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-bottom:6px}
+.t-load{background:#e6ebe6;color:#34483c}.t-empty{background:#ece7da;color:#5b4a1d}.t-err{background:#f6e0dc;color:#a3302a}.t-edge{background:#f6ead6;color:#7a4f10}
+
+/* console */
+.consolewrap{margin-top:28px}
+.consolewrap .browser .view{aspect-ratio:1440/960}
+.consolewrap .browser .view img{position:absolute;inset:0;transition:opacity .35s}
+.ccap{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:16px;font-size:14px}
+.ccap div{color:#b9ad9f;opacity:.55;transition:opacity .2s}
+.ccap div.on{opacity:1;color:var(--paper)}
+.ccap b{display:block;font-weight:600;color:inherit}
+
+/* emails */
+.emails{display:flex;justify-content:center;margin-top:40px;padding:10px 0 30px}
+.emails figure{margin:0 -26px;width:300px;flex:none;border-radius:10px;overflow:hidden;box-shadow:0 30px 50px -26px rgba(30,26,22,.6);transition:transform .45s cubic-bezier(.2,.7,.2,1);background:#fff}
+.emails figure:nth-child(1){transform:rotate(-6deg) translateY(26px)}
+.emails figure:nth-child(2){transform:rotate(-2deg) translateY(6px);z-index:1}
+.emails figure:nth-child(3){transform:rotate(2deg) translateY(6px);z-index:2}
+.emails figure:nth-child(4){transform:rotate(6deg) translateY(26px);z-index:3}
+.emails figure:hover{transform:rotate(0) translateY(-16px) scale(1.04);z-index:5}
+
+/* desktop */
+.deskgrid{display:grid;grid-template-columns:1.25fr 1fr;gap:22px;margin-top:36px;align-items:start}
+.deskgrid .stack{display:grid;gap:22px}
+
+/* type slider */
+.ba{position:relative;margin-top:36px;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff;user-select:none;touch-action:pan-y}
+.ba .side{padding:clamp(22px,4vw,44px);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 32px}
+.ba .after{position:absolute;inset:0;background:var(--paper);clip-path:inset(0 0 0 var(--x,50%))}
+.ba .nm{font-size:clamp(34px,4.6vw,56px);line-height:1.05}
+.ba .side small{display:block;font:600 12px/1.4 "Hanken Grotesk";color:var(--muted);margin-top:6px}
+.ba .knob{position:absolute;top:0;bottom:0;left:var(--x,50%);width:2px;background:var(--ink);z-index:3}
+.ba .knob b{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;font-size:16px}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;z-index:4;margin:0}
+.ba .flag{position:absolute;top:14px;z-index:2;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--ink);color:var(--paper)}
+.ba .flag.l{left:14px;background:#a3302a}.ba .flag.r{right:14px;background:#2f6b45}
+
+/* photos */
+.mosaic{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:150px;gap:10px;margin-top:36px}
+.mosaic figure{margin:0;border-radius:10px;overflow:hidden;position:relative}
+.mosaic img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.mosaic figure:hover img{transform:scale(1.06)}
+.mosaic figure span{position:absolute;left:10px;bottom:8px;font-size:12px;font-weight:600;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.mosaic .a{grid-column:span 2;grid-row:span 2}.mosaic .b{grid-column:span 2}.mosaic .c{grid-row:span 2;grid-column:span 2}
+
+/* prototype */
+.protoframe{margin-top:32px;border-radius:16px;overflow:hidden;border:1px solid #3b342d;background:#efe9df;height:min(820px,90vh)}
+.protoframe iframe{width:100%;height:100%;border:0;display:block}
+.protomob{display:none}
+
+/* AI log */
+.log{display:grid;gap:12px;margin-top:28px}
+.log div{display:grid;grid-template-columns:110px minmax(0,1fr);gap:16px;padding:18px 20px;background:#fff;border:1px solid var(--line);border-radius:12px;font-size:15px}
+.log .pill{font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;align-self:start;text-align:center}
 .kept{background:#e5efe8;color:#2f6b45}.changed{background:#f6ead6;color:#7a4f10}.rejected{background:#f6e0dc;color:#a3302a}
-blockquote{margin:32px 0 0;padding:0 0 0 24px;border-left:3px solid var(--halt);font:400 clamp(24px,3vw,32px)/1.25 "Newsreader",serif}
-footer{margin-top:120px;padding:48px 0 64px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+.log strong{font-weight:600}
+
+/* timeline */
+.days{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin-top:36px;position:relative}
+.days::before{content:"";position:absolute;left:0;right:0;top:11px;height:2px;background:var(--line)}
+.day{position:relative;padding:34px 16px 0 0}
+.day::before{content:"";position:absolute;left:0;top:4px;width:16px;height:16px;border-radius:50%;background:var(--paper);border:2px solid var(--ink)}
+.day.on::before{background:var(--halt);border-color:var(--halt)}
+.day b{display:block;font-size:13px;color:var(--muted);font-weight:600}
+.day strong{display:block;font:400 21px/1.2 "Newsreader",serif;margin:2px 0 6px}
+.day span{font-size:14px;color:var(--muted);display:block}
+
+.end{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:32px}
+.end div{border-top:2px solid var(--ink);padding-top:14px}
+.end b{display:block;font:400 22px/1.2 "Newsreader",serif;margin-bottom:6px}
+.end span{font-size:15px;color:var(--muted)}
+footer{margin-top:120px;padding:40px 0 60px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
 footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
-@media(max-width:800px){
-  .meta,.stats{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .three{grid-template-columns:minmax(0,1fr)}
-  .arch{grid-template-columns:minmax(0,1fr)}
-  .arch div{border-right:0;border-bottom:1px solid var(--line)}
-  .arch div+div::before{content:"↓";left:20px;top:-12px}
-  .log div{grid-template-columns:minmax(0,1fr)}
-  .log b{justify-self:start}
-  .table{font-size:14px}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:100;background:rgba(20,16,12,.94);display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:64px 16px 40px}
+.lb[hidden]{display:none}
+.lb img{max-width:min(100%,1200px);height:auto;border-radius:8px;box-shadow:0 30px 80px #000;margin:auto}
+.lb img.narrow{max-width:min(100%,430px)}
+.lb .x,.lb .nv{position:fixed;z-index:2;background:var(--paper);color:var(--ink);border:0;border-radius:50%;width:48px;height:48px;font-size:22px;display:flex;align-items:center;justify-content:center}
+.lb .x{top:12px;right:12px}
+.lb .nv.p{left:12px;top:50%}.lb .nv.n{right:12px;top:50%}
+.lb .lc{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);color:#e9e1d4;font-size:14px;background:rgba(20,16,12,.8);padding:6px 14px;border-radius:999px;white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis}
+
+@media(max-width:980px){
+  .glance{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .statesgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .deskgrid{grid-template-columns:minmax(0,1fr)}
+  .switch{grid-template-columns:minmax(0,1fr);justify-items:center}
+  .switch .panel{width:100%}
+  .days{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 0}.days::before{display:none}
+  .emails figure{width:230px;margin:0 -30px}
 }
-@media(max-width:600px){.table thead{display:none}.table tr{display:grid;padding:10px 0;border-bottom:1px solid var(--line)}.table td{border:0;padding:3px 0}.table td::before{content:attr(data-l);display:block;font-size:12px;font-weight:600;color:var(--muted)}}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media(max-width:760px){
+  :root{--top:56px}
+  body{font-size:16px}
+  .hero .sub{grid-template-columns:minmax(0,1fr);gap:8px}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stats div{padding-left:0;border-right:0;border-bottom:1px solid #3b342d}
+  .glance{grid-template-columns:minmax(0,1fr)}
+  .tile .pic{height:170px}
+  .places{grid-template-columns:minmax(0,1fr);height:auto}
+  .place{height:240px}
+  .kids,.lockups,.dots3,.end{grid-template-columns:minmax(0,1fr)}
+  .lines{display:none}.kids{margin-top:14px}
+  .bswitch{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .switch .phone{--w:250px}
+  .toks{grid-template-columns:minmax(0,1fr)}
+  .layers{grid-template-columns:minmax(0,1fr)}
+  .layers div{border-right:0;border-bottom:1px solid #3b342d}
+  .layers div+div::before{content:"↓";left:22px;top:-13px}
+  .sysgrid{grid-template-columns:minmax(0,1fr)}
+  .trio{justify-content:flex-start;overflow-x:auto;padding-bottom:16px;scroll-snap-type:x mandatory;margin:0 calc(-1 * max(5vw,16px));padding-left:max(5vw,16px);padding-right:max(5vw,16px)}
+  .trio figure{scroll-snap-align:center}
+  .trio .phone{--w:230px}
+  .statesgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .ccap{grid-template-columns:minmax(0,1fr)}.ccap div:not(.on){display:none}
+  .emails{justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;margin:30px calc(-1 * max(5vw,16px)) 0;padding:10px max(5vw,16px) 30px;gap:14px}
+  .emails figure{margin:0;transform:none!important;width:250px;scroll-snap-align:start}
+  .ba .side{grid-template-columns:minmax(0,1fr);gap:14px}
+  .mosaic{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:130px}
+  .mosaic .a,.mosaic .c{grid-column:span 2;grid-row:span 2}.mosaic .b{grid-column:span 2}
+  .protoframe{display:none}.protomob{display:block;margin-top:24px}
+  .log div{grid-template-columns:minmax(0,1fr)}.log .pill{justify-self:start}
+  .days{grid-template-columns:minmax(0,1fr)}
+  .top .chap{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .track,.hero h1 i,.ring{animation:none}
+  .rv{opacity:1;transform:none;transition:none}
+}
 </style>
 </head>
 <body>
-<header class="top"><div class="bar"><a class="me" href="../" data-nav="home" aria-label="Parth Dake, home"><img src="../images/logo.webp" alt="Parth Dake" width="60" height="30"></a><span class="chap">Padaav</span><a class="back" href="../#work" data-nav="work">← All work</a></div></header>
-<div class="hero wrap" style="padding-top:calc(62px + clamp(32px,6vw,80px))">
-  <div class="label">Case study · Brand strategy, identity &amp; design system</div>
-  <h1>Padaav<i></i></h1>
-  <p class="lead" style="margin-top:20px">Three boutique stays in India, one design system. A brand built from strategy to 304 screens in ten days, with AI doing the heavy lifting and judgement doing the deciding.</p>
-  <div class="cta"><a class="btn" href="prototype.html" data-proto>Try the live prototype →</a><a class="btn sec" href="https://www.figma.com/design/BWVADBjC35xOdjTiFQuhfy" target="_blank" rel="noopener">Open the Figma file</a></div>
-  <div class="meta"><div><b>Role</b>Brand strategy, identity, product &amp; system design</div><div><b>Timeline</b>10 days, Nov 2026</div><div><b>Tools</b>Figma (variables, MCP), Claude, HTML/CSS/JS</div><div><b>Type</b>Self-initiated concept. Padaav is fictional.</div></div>
-  <figure class="fig" style="margin-top:40px"><img src="img/hero-three-houses.webp" width="1426" height="1004" alt="Three mobile home screens side by side: Dhundh, Jharokha and Lehar. Same layout and components, each in its own colours, type style and photography, all carrying the Padaav family bar."></figure>
-  <figcaption>One template, three houses. The only thing that changes between these screens is the Brand mode.</figcaption>
+<header class="top"><div class="bar"><a class="me" href="../" data-nav="home" aria-label="Parth Dake, home"><img src="../images/logo.webp" alt="Parth Dake" width="60" height="30"></a><span class="chap" id="chap">Padaav</span><a class="back" href="../#work" data-nav="work">← All work</a></div><span class="prog" id="prog" aria-hidden="true"></span></header>
+
+<!-- HERO -->
+<div class="hero" data-chap="Padaav">
+  <div class="wrap">
+    <div class="kick">Case study · Brand strategy, identity, design system &amp; product</div>
+    <h1>Padaav<i></i></h1>
+    <div class="sub">
+      <div>
+        <p class="lead">A collective of three boutique stays in India, built as one brand system: from the name to 304 screens, a staff console and emails, in ten days.</p>
+        <div class="houses"><span><i style="background:#8fa39a"></i>Dhundh · Himalayas</span><span><i style="background:#6a76b8"></i>Jharokha · Jaipur</span><span><i style="background:#d0683f"></i>Lehar · Konkan coast</span></div>
+      </div>
+      <div class="cta" style="justify-content:flex-end"><a class="btn" href="prototype.html" data-proto style="background:var(--halt);color:var(--ink)">Try the live prototype →</a><a class="btn sec" href="#glance">See what I built ↓</a></div>
+    </div>
+  </div>
+  <div class="marquee" aria-hidden="true">
+    <div class="track" id="mq1"></div>
+    <div class="track rev" id="mq2"></div>
+  </div>
+  <div class="wrap"><div class="stats">
+    <div><b data-count="304">304</b><span>screens, mobile and desktop</span></div>
+    <div><b>1 + 3</b><span>a parent brand and three houses</span></div>
+    <div><b data-count="35">35</b><span>components with every state</span></div>
+    <div><b data-count="10">10</b><span>days, start to finish</span></div>
+  </div></div>
 </div>
 
-<nav class="toc" aria-label="Sections"><div class="scroll"><a href="#problem">Problem</a><a href="#strategy">Strategy</a><a href="#identity">Identity</a><a href="#system">System</a><a href="#screens">Screens</a><a href="#ai">How I used AI</a><a href="#learned">What I learned</a></div></nav>
-
-<main class="wrap">
-<section id="problem" class="col">
-  <div class="label">01 · The problem</div>
-  <h2>Three good houses that didn’t feel like a family</h2>
-  <p>Padaav runs three small properties: a kath-kuni mountain house in Himachal, an 1840s haveli in Jaipur and creek-side cottages on the Konkan coast. Each one is loved locally, but guests who stay at one rarely know the others exist.</p>
-  <p>The brief: make each house feel unmistakably of its place, make all three feel unmistakably Padaav, and do it with one system the team can run without rebuilding everything three times.</p>
+<main>
+<!-- AT A GLANCE -->
+<section id="glance" class="wrap" data-chap="What I built">
+  <div class="label"><b>00</b> At a glance</div>
+  <h2 class="rv">Not a few hero screens. A whole product family.</h2>
+  <p class="lead muted rv">Everything a small hotel group needs, designed in one Figma file from one set of tokens. Tap a tile to jump there.</p>
+  <div class="glance">
+    <a class="tile rv" href="#journey"><div class="pic"><img src="img/s/home-jharokha.webp" alt="" loading="lazy"></div><div class="t"><b>Guest app</b><span>Discover, book, stay, come back. Mobile and desktop.</span></div></a>
+    <a class="tile rv" href="#switch"><div class="pic"><img src="img/s/comp-brandcheck.webp" alt="" loading="lazy" style="object-position:center"></div><div class="t"><b>Brand system</b><span>One template, four brands, switched by a single setting.</span></div></a>
+    <a class="tile rv" href="#compare"><div class="pic"><img src="img/s/key-lehar.webp" alt="" loading="lazy" style="object-position:center 30%"></div><div class="t"><b>In-stay tools</b><span>Digital key, in-room dining, host chat, bill.</span></div></a>
+    <a class="tile rv" href="#console"><div class="pic"><img src="img/s/c-roomboard.webp" alt="" loading="lazy"></div><div class="t"><b>Staff console</b><span>Arrivals, room board, housekeeping, reports.</span></div></a>
+    <a class="tile rv" href="#states"><div class="pic"><img src="img/s/states-wall.webp" alt="" loading="lazy"></div><div class="t"><b>66 edge states</b><span>Loading, empty, error and “what if” screens.</span></div></a>
+    <a class="tile rv" href="#emails"><div class="pic"><img src="img/s/email-jharokha.webp" alt="" loading="lazy"></div><div class="t"><b>Emails</b><span>4 templates, each in 4 brand voices.</span></div></a>
+  </div>
 </section>
 
-<section id="strategy">
+<!-- PROBLEM -->
+<section id="problem" class="wrap" data-chap="The problem">
+  <div class="label"><b>01</b> The problem</div>
   <div class="col">
-    <div class="label">02 · Strategy</div>
-    <h2>Distinct by place, connected by craft</h2>
-    <p>Indian boutique groups tend to pick an extreme: one look everywhere (great recognition, flattened places) or every hotel on its own (local, but no family). I chose an <b>endorsed brand architecture</b>. Each house leads with its own name, and is always “a Padaav house”.</p>
-    <p>The persona that justifies the whole system is <b>the Collector</b>: a guest who stays at one house, loves it, and wants the same care somewhere new. The <b>Padaav Passport</b> (stamp all three, get a night free) turns that into a product feature.</p>
+    <h2 class="rv">Three loved houses that didn’t feel like a family</h2>
+    <p class="rv">Padaav runs three small properties: a kath-kuni mountain house in Himachal, an 1840s haveli in Jaipur and creek-side cottages on the Konkan coast. Guests who loved one rarely knew the others existed, and each house had its own look, its own booking page and its own emails.</p>
+    <p class="rv muted">The brief I set: make each house unmistakably of its place, make all three unmistakably Padaav, and run it all on one system that a small team can maintain.</p>
   </div>
-  <div class="three">
-    <article class="house"><img src="img/dhundh-house.webp" width="900" height="600" loading="lazy" alt="A traditional Himachali wooden house among pine trees on a hillside"><div><h3><i style="background:var(--dh)"></i>Dhundh</h3><p>Himalayas. “A place to go quiet.” Slow, earthy, warm wood and mist.</p></div></article>
-    <article class="house"><img src="img/jharokha-experience.webp" width="900" height="600" loading="lazy" alt="A block-printer pressing a carved wooden block onto indigo cloth"><div><h3><i style="background:var(--jh)"></i>Jharokha</h3><p>Jaipur. “Every wall has a story.” Refined, storied, indigo and brass.</p></div></article>
-    <article class="house"><img src="img/lehar-experience.webp" width="900" height="600" loading="lazy" alt="Kayakers on calm water at sunset off the Konkan coast"><div><h3><i style="background:var(--lh)"></i>Lehar</h3><p>Konkan coast. “Slow days, long tables.” Sunny, social, laterite and sea.</p></div></article>
+  <div class="places">
+    <figure class="place rv zoom" style="margin:0" data-zoom="proto/dhundh-landscape.webp" data-g="places" data-cap="Dhundh, Jibhi, Himachal Pradesh"><img src="proto/dhundh-landscape.webp" alt="Pine forest and terraced fields in the Tirthan valley" loading="lazy"><div><b>Dhundh</b><span>Mountains · 9 rooms · “A place to go quiet.”</span></div></figure>
+    <figure class="place rv zoom" style="margin:0" data-zoom="proto/jharokha-house.webp" data-g="places" data-cap="Jharokha, Jaipur, Rajasthan"><img src="proto/jharokha-house.webp" alt="Carved sandstone facade of an old haveli" loading="lazy"><div><b>Jharokha</b><span>Haveli · 12 rooms · “Every wall has a story.”</span></div></figure>
+    <figure class="place rv zoom" style="margin:0" data-zoom="proto/lehar-landscape.webp" data-g="places" data-cap="Lehar, Devbag, Konkan coast"><img src="proto/lehar-landscape.webp" alt="Palm-lined beach on the Konkan coast" loading="lazy"><div><b>Lehar</b><span>Coast · 8 cottages · “Slow days, long tables.”</span></div></figure>
   </div>
 </section>
 
-<section id="identity">
+<!-- STRATEGY -->
+<section id="strategy" class="wrap" data-chap="Strategy">
+  <div class="label"><b>02</b> Strategy</div>
   <div class="col">
-    <div class="label">03 · Identity</div>
-    <h2>A halt on a journey</h2>
-    <p><i>Padaav</i> means a halt on a long journey. The identity takes that literally: a <b>route line</b> that travels and pauses at an ochre <b>halt dot</b>. The dot is the one thing that never changes. It marks your stay dates in the date picker, your current step in booking and arrivals on the staff room board.</p>
-    <p>Each house flexes four things, mapped from its personality sliders: colour, corner radius (2 to 20px), motion speed (220 to 420ms) and display type style. Paper, ink, the UI typeface and the halt dot stay shared.</p>
+    <h2 class="rv">Distinct by place, connected by craft</h2>
+    <p class="rv">Indian boutique groups usually pick an extreme: one look everywhere (strong recognition, flattened places) or every hotel on its own (local, but no family). I chose an <b>endorsed brand architecture</b>: each house leads with its own name and is always “a Padaav house”.</p>
   </div>
-  <figure class="fig"><img src="img/brand-specimen.webp" width="1664" height="520" loading="lazy" alt="One booking card shown in four brand modes: Padaav, Dhundh, Jharokha and Lehar, each with its own colour, radius, heading style and confirmation line."></figure>
-  <figcaption>The same card in four modes, with zero overrides. Copy is a token too: “The fire will be lit” / “waiting since 1847” / “Bring your appetite”.</figcaption>
+  <div class="arch2 rv">
+    <div class="parent"><b>Padaav<i></i></b><span>The parent. Owns trust, booking, Passport and the halt dot.</span></div>
+    <svg class="lines" viewBox="0 0 760 56" preserveAspectRatio="none" aria-hidden="true"><path d="M380 0V22M127 56V22H633V56M380 22V56" fill="none" stroke="#1e1a16" stroke-width="1.5"/></svg>
+    <div class="kids">
+      <div class="kid" style="background:var(--dh-t)"><b style="font-weight:300;color:var(--dh)">Dhundh</b><small>a Padaav house</small><p>Quiet, earthy, slow. Deep pine, mist, wood smoke.</p></div>
+      <div class="kid" style="background:var(--jh-t)"><b style="font-weight:500;font-style:italic;color:var(--jh)">Jharokha</b><small>a Padaav house</small><p>Storied, refined. Indigo, brass, lime plaster.</p></div>
+      <div class="kid" style="background:var(--lh-t)"><b style="font-weight:600;color:var(--lh)">Lehar</b><small>a Padaav house</small><p>Sunny, social. Laterite red, sea teal, long lunches.</p></div>
+    </div>
+  </div>
+  <div class="lockups">
+    <figure class="rv"><div class="crop"><img src="img/s/home-dhundh.webp" alt="Dhundh header with the Padaav family bar above it" loading="lazy"></div><figcaption>The family bar sits above every house screen…</figcaption></figure>
+    <figure class="rv"><div class="crop"><img src="img/s/home-jharokha.webp" alt="Jharokha header with the Padaav family bar" loading="lazy"></div><figcaption>…and the house name always carries “a Padaav house”.</figcaption></figure>
+    <figure class="rv"><div class="crop"><img src="img/s/home-lehar.webp" alt="Lehar header with the Padaav family bar" loading="lazy"></div><figcaption>One boolean token turns this on for all 300 screens.</figcaption></figure>
+  </div>
+  <div class="col" style="margin-top:48px">
+    <p class="quote rv">The persona that justifies the whole system is <em>the Collector</em>: a guest who loved one house and wants the same care somewhere new.</p>
+    <p class="rv muted" style="margin-top:16px">So the parent brand earns its place with a product feature, not a logo: the <b>Padaav Passport</b>. Stay at all three houses and your next night is on us.</p>
+  </div>
 </section>
 
-<section id="system">
+<!-- BRAND SWITCHER -->
+<section id="switch" class="tint" data-chap="One system, four brands">
+  <div class="wrap">
+    <div class="label"><b>03</b> Identity · try it</div>
+    <div class="col">
+      <h2 class="rv">One template. Four brands. One setting.</h2>
+      <p class="rv">Each house flexes the same five things: colour, corner radius, motion, display type style and voice. Paper, ink, the UI typeface and the ochre halt dot stay shared. Pick a brand and watch the screen and the tokens change.</p>
+    </div>
+    <div class="switch" id="sw">
+      <div class="phone long" data-zoom="img/s/collective-home.webp" data-cap="Collective home"><div class="scr"><img id="swImg" src="img/s/collective-home.webp" alt="Padaav collective home screen" width="390" height="3330"></div><span class="hint">Hover to scroll · tap to open</span></div>
+      <div class="panel">
+        <div class="bswitch" role="group" aria-label="Choose a brand">
+          <button type="button" data-b="padaav" aria-pressed="true"><b>Padaav</b><span>The collective</span></button>
+          <button type="button" data-b="dhundh" aria-pressed="false"><b style="font-weight:300">Dhundh</b><span>Himalayas</span></button>
+          <button type="button" data-b="jharokha" aria-pressed="false"><b style="font-style:italic;font-weight:500">Jharokha</b><span>Jaipur</span></button>
+          <button type="button" data-b="lehar" aria-pressed="false"><b style="font-weight:600">Lehar</b><span>Konkan coast</span></button>
+        </div>
+        <div class="spec">
+          <div class="nm" id="swName">Padaav<i></i></div>
+          <div class="vo" id="swVoice">“You’re booked. See you soon.”</div>
+          <div class="row"><button class="demo" type="button" id="swGo">Play motion</button><span class="chipx">Chip</span><div class="track2" id="swTrack"><i></i></div></div>
+        </div>
+        <div class="toks" id="swToks"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HALT DOT -->
+<section id="identity" class="wrap" data-chap="The halt dot">
+  <div class="label"><b>04</b> Identity · the halt dot</div>
   <div class="col">
-    <div class="label">04 · The system</div>
-    <h2>Build it once, re-skin it with one setting</h2>
-    <p>Everything a brand can change lives in a single Figma variable collection with four modes. Components never hold a raw colour, radius or font; screens never hold a raw component style. Switch a frame’s mode and the whole screen becomes another house.</p>
+    <h2 class="rv">A name that becomes a system</h2>
+    <p class="rv"><i>Padaav</i> means a halt on a long journey. The identity takes that literally: a route that pauses at an ochre <b>halt dot</b>. It’s the one element no brand can change, and it does real work in the interface: it marks where you are.</p>
   </div>
-  <div class="arch">
-    <div><b>Primitives</b><span>~45 raw values: colours, spacing, radii, durations. Hidden from designers.</span></div>
-    <div><b>Brand modes</b><span>23 tokens × 4 modes: colour, radius, motion, type style, brand copy, “is-house”.</span></div>
-    <div><b>Components</b><span>35 components, ~120 variants, every property bound to a token, with usage notes.</span></div>
-    <div><b>Screens</b><span>304 screens built only from instances. No detached layers.</span></div>
-  </div>
-  <div class="stats">
-    <div class="stat"><b>304</b><span>screens across 4 brands</span></div>
-    <div class="stat"><b>35</b><span>components with states and docs</span></div>
-    <div class="stat"><b>2</b><span>typefaces for the whole family</span></div>
-    <div class="stat"><b>AA</b><span>contrast checked on every brand</span></div>
+  <div class="dots3">
+    <figure class="rv zoom" data-zoom="img/s/dates-dhundh.webp" data-g="dot" data-cap="Date picker: the dot marks check-in and check-out"><div class="crop"><img src="img/s/dates-dhundh.webp" alt="Date picker with dots under the chosen dates" style="width:560px;left:-110px;top:-640px"><span class="ring" style="left:286px;top:98px"></span></div><figcaption><b>Your stay dates</b><span>Under check-in and check-out in the date picker.</span></figcaption></figure>
+    <figure class="rv zoom" data-zoom="img/s/book-payment.webp" data-g="dot" data-cap="Booking steps: the dot marks your current step"><div class="crop"><img src="img/s/book-payment.webp" alt="Booking steps with the current step marked" style="width:700px;left:-170px;top:-170px"><span class="ring" style="left:218px;top:53px"></span></div><figcaption><b>Your current step</b><span>In the booking progress bar.</span></figcaption></figure>
+    <figure class="rv zoom" data-zoom="img/s/c-roomboard.webp" data-g="dot" data-cap="Staff room board: the dot marks today’s arrivals"><div class="crop"><img src="img/s/c-roomboard.webp" alt="Room board with dots on arrivals" style="width:900px;left:-230px;top:-80px"><span class="ring" style="left:63px;top:37px"></span></div><figcaption><b>Today’s arrivals</b><span>On the staff room board, so the team sees who’s coming.</span></figcaption></figure>
   </div>
 </section>
 
-<section id="screens">
+<!-- TYPE -->
+<section id="type" class="wrap" data-chap="Typography">
+  <div class="label"><b>05</b> A decision · typography</div>
   <div class="col">
-    <div class="label">05 · Screens</div>
-    <h2>The full guest journey, three times over</h2>
-    <p>Discover, book, stay and come back: collective home, search with a map, compare houses, rooms, a nine-step booking flow with UPI and part-payment, digital key, concierge chat, bill, review, Passport and gifting. Plus 66 loading, empty and error states, a 12-screen staff console and emails in four brands.</p>
-    <p>Each house variant has its own rooms, prices, food, people and arrival details, so the screens read as product work, not recoloured copies.</p>
+    <h2 class="rv">From six typefaces to one family</h2>
+    <p class="rv">My first pass gave every house its own display face. On collective screens, where all three houses sit side by side, it looked busy and unsure of itself. I consolidated to <b>Newsreader</b>, with each house using a different style. Drag to compare.</p>
   </div>
-  <figure class="fig bleed"><img src="img/three-desktops.webp" width="2000" height="606" loading="lazy" alt="Three desktop property pages side by side for Dhundh, Jharokha and Lehar, each with a five-photo gallery, booking card and room list."></figure>
-  <figure class="fig"><img src="img/three-confirmations.webp" width="1426" height="920" loading="lazy" alt="Three booking confirmation screens, each with the house's food photo, its own headline and its own button colour."></figure>
-  <figcaption>The moment of truth, in three voices. Same component, same flow, different personality.</figcaption>
-  <div class="col" style="margin-top:32px">
-    <h3>Details I cared about</h3>
-    <table class="table">
-      <thead><tr><th>Detail</th><th>Why</th></tr></thead>
-      <tbody>
-        <tr><td data-l="Detail">Prices always show their basis and taxes before payment</td><td data-l="Why">Indian travellers are used to surprise charges at checkout. Trust is the product.</td></tr>
-        <tr><td data-l="Detail">OTP-first sign in, UPI first at payment</td><td data-l="Why">That’s how people in India actually log in and pay.</td></tr>
-        <tr><td data-l="Detail">Cancel flow offers “change dates instead”, keeps “Keep my booking” primary</td><td data-l="Why">Retention without dark patterns: the refund is shown before you commit.</td></tr>
-        <tr><td data-l="Detail">Errors use icon + text + border</td><td data-l="Why">Never colour alone. Every state says what happened and what to do next.</td></tr>
-      </tbody>
-    </table>
+  <div class="ba rv" id="ba" style="--x:50%">
+    <span class="flag l">Before · 6 typefaces</span><span class="flag r">After · 2 typefaces</span>
+    <div class="side before" style="padding-top:64px">
+      <div><div class="nm" style="font-family:'Instrument Serif'">Padaav</div><small>Instrument Serif</small></div>
+      <div><div class="nm" style="font-family:Newsreader;font-weight:300">Dhundh</div><small>Newsreader Light</small></div>
+      <div><div class="nm" style="font-family:Gloock">Jharokha</div><small>Gloock</small></div>
+      <div><div class="nm" style="font-family:'Familjen Grotesk';font-weight:600">Lehar</div><small>Familjen Grotesk</small></div>
+      <div><div class="nm" style="font-family:'Tiro Devanagari Hindi';font-size:38px">पड़ाव</div><small>Tiro Devanagari</small></div>
+      <div><div class="nm" style="font-family:'Hanken Grotesk';font-size:30px;font-weight:600">Book your stay</div><small>Hanken Grotesk (UI)</small></div>
+    </div>
+    <div class="side after" style="padding-top:64px">
+      <div><div class="nm" style="font-family:Newsreader">Padaav</div><small>Newsreader Regular</small></div>
+      <div><div class="nm" style="font-family:Newsreader;font-weight:300">Dhundh</div><small>Newsreader Light</small></div>
+      <div><div class="nm" style="font-family:Newsreader;font-weight:500;font-style:italic">Jharokha</div><small>Newsreader Medium Italic</small></div>
+      <div><div class="nm" style="font-family:Newsreader;font-weight:600">Lehar</div><small>Newsreader SemiBold</small></div>
+      <div><div class="nm" style="font-family:Newsreader;font-size:38px;color:var(--muted)">Reserve</div><small>Devanagari kept in reserve</small></div>
+      <div><div class="nm" style="font-family:'Hanken Grotesk';font-size:30px;font-weight:600">Book your stay</div><small>Hanken Grotesk (UI)</small></div>
+    </div>
+    <div class="knob"><b>⟷</b></div>
+    <input type="range" min="0" max="100" value="50" aria-label="Compare before and after typography">
+  </div>
+  <p class="cap rv">Because type was a token (<code>type/display/style</code>), the change rolled out to every screen in minutes.</p>
+</section>
+
+<!-- SYSTEM -->
+<section id="system" class="dark" data-chap="Design system">
+  <div class="wrap">
+    <div class="label"><b>06</b> The design system</div>
+    <div class="col">
+      <h2 class="rv">Build it once, re-skin it with one setting</h2>
+      <p class="rv">Everything a brand can change lives in one Figma variable collection with four modes. Components never hold a raw colour, radius or font, and screens are built only from instances. Switch a frame’s mode and the whole screen becomes another house.</p>
+    </div>
+    <div class="layers rv">
+      <div><em>~45</em><b>Primitives</b><span>Raw colours, spacing, radii, durations. Hidden from designers.</span></div>
+      <div><em>23 × 4</em><b>Brand modes</b><span>Colour, radius, motion, type style, brand copy and “is-house”.</span></div>
+      <div><em>35</em><b>Components</b><span>~120 variants, every property bound to a token, with usage notes.</span></div>
+      <div><em>304</em><b>Screens</b><span>Built only from instances. No detached layers.</span></div>
+    </div>
+    <figure class="rv" style="margin:18px 0 0"><div class="card zoom" data-zoom="img/s/comp-brandcheck.webp" data-g="sys" data-cap="Brand check: the same components in all four modes"><div class="ci"><img src="img/s/comp-brandcheck.webp" alt="The same booking steps, room card, rate row and toast shown in four brand modes" loading="lazy" width="1784" height="906"></div><div class="ct"><b>Brand check</b>The same booking steps, room card, rate row and toast in all four modes, with zero overrides.</div></div></figure>
+    <div class="sysgrid">
+      <div class="card rv zoom" data-zoom="img/s/comp-buttons.webp" data-g="sys" data-cap="Button: 3 styles × 2 sizes × 5 states"><div class="ci"><img src="img/s/comp-buttons.webp" alt="Button component variants" loading="lazy" width="1040" height="536"></div><div class="ct"><b>Button</b>3 styles × 2 sizes × 5 states: default, hover, pressed, focus, disabled.</div></div>
+      <div class="card rv zoom" data-zoom="img/s/comp-roomcard.webp" data-g="sys" data-cap="Room card: vertical and horizontal"><div class="ci"><img src="img/s/comp-roomcard.webp" alt="Room card component, vertical and horizontal" loading="lazy" width="1159" height="537"></div><div class="ct"><b>Room card</b>Vertical for mobile, horizontal for desktop lists. Scarcity badge is optional.</div></div>
+    </div>
+    <figure class="rv" style="margin:18px 0 0"><div class="card zoom" data-zoom="img/brand-specimen.webp" data-g="sys" data-cap="Brand specimen: one card, four modes"><div class="ci"><img src="img/brand-specimen.webp" alt="One booking card shown in four brand modes" loading="lazy" width="1664" height="520"></div><div class="ct"><b>Copy is a token too</b>“The fire will be lit” · “waiting since 1847” · “Bring your appetite”. Each house confirms a booking in its own voice.</div></div></figure>
   </div>
 </section>
 
-<section id="ai" class="col">
-  <div class="label">06 · How I used AI</div>
-  <h2>AI built the volume. I made the calls.</h2>
-  <p>I used Claude with the Figma MCP to research the market, draft strategy, generate token JSON and build components and screens programmatically in my Figma file. That’s how a 304-screen system fits in ten days. Every decision went through review, and a lot of AI output was changed or thrown away.</p>
+<!-- JOURNEY -->
+<section id="journey" class="wrap" data-chap="The guest journey">
+  <div class="label"><b>07</b> Screens · the guest journey</div>
+  <div class="col">
+    <h2 class="rv">The full journey, not just the happy path</h2>
+    <p class="rv">Discover, book, stay and come back. Pick a stage, scroll sideways, hover a phone to scroll through it, or tap to open it full size.</p>
+  </div>
+  <div class="tabs" role="tablist" id="jTabs">
+    <button role="tab" aria-selected="true" data-j="book">Book a stay · 10 steps</button>
+    <button role="tab" aria-selected="false" data-j="discover">Discover</button>
+    <button role="tab" aria-selected="false" data-j="stay">During the stay</button>
+    <button role="tab" aria-selected="false" data-j="after">Trips &amp; Passport</button>
+  </div>
+  <div class="scrollhint">Scroll sideways →</div>
+  <div class="strip" id="jStrip"></div>
+</section>
+
+<!-- COMPARE -->
+<section id="compare" class="tint" data-chap="Same screen, three houses">
+  <div class="wrap">
+    <div class="label"><b>08</b> Screens · same screen, three houses</div>
+    <div class="col">
+      <h2 class="rv">Same component. Three personalities.</h2>
+      <p class="rv">Every house variant has its own rooms, prices, food, people and arrival details, so the screens read as real product work, not recoloured copies.</p>
+    </div>
+    <div class="tabs" role="tablist" id="cTabs">
+      <button role="tab" aria-selected="true" data-c="confirm">Booking confirmed</button>
+      <button role="tab" aria-selected="false" data-c="key">Digital key</button>
+      <button role="tab" aria-selected="false" data-c="room">Room detail</button>
+      <button role="tab" aria-selected="false" data-c="home">Property home</button>
+    </div>
+    <div class="trio" id="trio"></div>
+    <p class="cap" id="cCap" style="text-align:center"></p>
+  </div>
+</section>
+
+<!-- DESKTOP -->
+<section id="desktop" class="wrap" data-chap="Desktop">
+  <div class="label"><b>09</b> Screens · desktop</div>
+  <div class="col">
+    <h2 class="rv">Every screen, designed for desktop too</h2>
+    <p class="rv">The same components re-flow into a 12-column desktop layout: wider galleries, a sticky booking card and the price summary always in view.</p>
+  </div>
+  <div class="deskgrid">
+    <div class="browser rv zoom" data-zoom="img/s/d-collective.webp" data-g="desk" data-cap="Collective home, desktop"><div class="bb"><i></i><i></i><i></i><span>padaav.in</span></div><div class="view long"><img src="img/s/d-collective.webp" alt="Padaav collective home page on desktop" loading="lazy" width="1440" height="2008"></div></div>
+    <div class="stack">
+      <div class="browser rv zoom" data-zoom="img/s/d-payment.webp" data-g="desk" data-cap="Payment, desktop (Dhundh)"><div class="bb"><i></i><i></i><i></i><span>padaav.in/dhundh/book</span></div><div class="view"><img src="img/s/d-payment.webp" alt="Payment page for Dhundh on desktop" loading="lazy" width="1440" height="960"></div></div>
+      <div class="browser rv zoom" data-zoom="img/s/d-passport.webp" data-g="desk" data-cap="Padaav Passport, desktop"><div class="bb"><i></i><i></i><i></i><span>padaav.in/passport</span></div><div class="view long"><img src="img/s/d-passport.webp" alt="Padaav Passport page on desktop" loading="lazy" width="1440" height="1449"></div></div>
+    </div>
+  </div>
+  <figure class="rv zoom" style="margin:22px 0 0" data-zoom="img/three-desktops.webp" data-g="desk" data-cap="Three property pages on desktop"><img src="img/three-desktops.webp" alt="Three desktop property pages side by side for Dhundh, Jharokha and Lehar" loading="lazy" width="2000" height="606" style="border-radius:12px"><figcaption>Property pages for the three houses: same layout, different place.</figcaption></figure>
+</section>
+
+<!-- STATES -->
+<section id="states" class="wrap" data-chap="Edge states">
+  <div class="label"><b>10</b> Screens · when things go wrong</div>
+  <div class="col">
+    <h2 class="rv">66 states for the moments that test trust</h2>
+    <p class="rv">Loading, empty, error and the awkward in-betweens: a room sold while you were paying, a price that changed, a key that won’t work without Bluetooth. Each one says what happened and what to do next, and never relies on colour alone.</p>
+  </div>
+  <figure class="rv zoom" style="margin:32px 0 0" data-zoom="img/s/states-wall.webp" data-g="states" data-cap="All 30 mobile states for Dhundh"><img src="img/s/states-wall.webp" alt="A wall of 30 loading, empty and error screens" loading="lazy" width="2000" height="1265" style="border-radius:12px"><figcaption>All 30 mobile states for one house. Jharokha and Lehar have their own, plus desktop.</figcaption></figure>
+  <div class="statesgrid" id="statesGrid"></div>
+</section>
+
+<!-- CONSOLE -->
+<section id="console" class="dark" data-chap="Staff console">
+  <div class="wrap">
+    <div class="label"><b>11</b> Screens · the staff side</div>
+    <div class="col">
+      <h2 class="rv">A console for the people who run the houses</h2>
+      <p class="rv">Guests only see half the product. The staff console uses the same system in the Padaav master brand, with house filters. It answers the questions a front desk asks every morning: who’s arriving, which rooms are ready, and how the season is going.</p>
+    </div>
+    <div class="tabs" role="tablist" id="kTabs"></div>
+    <div class="consolewrap rv">
+      <div class="browser zoom" id="kBrowser"><div class="bb"><i></i><i></i><i></i><span>console.padaav.in</span></div><div class="view" id="kView"></div></div>
+      <div class="ccap" id="kCap"></div>
+    </div>
+  </div>
+</section>
+
+<!-- EMAILS -->
+<section id="emails" class="wrap" data-chap="Emails">
+  <div class="label"><b>12</b> Screens · emails</div>
+  <div class="col">
+    <h2 class="rv">The brand keeps talking after you book</h2>
+    <p class="rv">Booking confirmed, pre-arrival, receipt and review request: four templates, each in four brands, built from the same tokens as the app. Hover one to bring it forward.</p>
+  </div>
+  <div class="emails">
+    <figure class="zoom" data-zoom="img/s/email-padaav.webp" data-g="mail" data-cap="Booking confirmed · Padaav"><img src="img/s/email-padaav.webp" alt="Padaav booking confirmed email" loading="lazy" width="600" height="944"></figure>
+    <figure class="zoom" data-zoom="img/s/email-confirmed-dhundh.webp" data-g="mail" data-cap="Booking confirmed · Dhundh"><img src="img/s/email-confirmed-dhundh.webp" alt="Dhundh booking confirmed email" loading="lazy" width="600" height="1000"></figure>
+    <figure class="zoom" data-zoom="img/s/email-jharokha.webp" data-g="mail" data-cap="Booking confirmed · Jharokha"><img src="img/s/email-jharokha.webp" alt="Jharokha booking confirmed email" loading="lazy" width="600" height="1000"></figure>
+    <figure class="zoom" data-zoom="img/s/email-lehar.webp" data-g="mail" data-cap="Booking confirmed · Lehar"><img src="img/s/email-lehar.webp" alt="Lehar booking confirmed email" loading="lazy" width="600" height="958"></figure>
+  </div>
+</section>
+
+<!-- PHOTOGRAPHY -->
+<section id="photos" class="wrap" data-chap="Photography">
+  <div class="label"><b>13</b> A decision · photography</div>
+  <div class="col">
+    <h2 class="rv">Real places need real photographs</h2>
+    <p class="rv">The first version used AI-generated photos, and the whole product felt synthetic. I replaced every one with real photography and mapped each image to its own room, dish or experience, so Dhundh never shows a beach and Lehar never shows a haveli.</p>
+  </div>
+  <div class="mosaic" id="mosaic"></div>
+</section>
+
+<!-- PROTOTYPE -->
+<section id="prototype" class="dark" data-chap="Live prototype">
+  <div class="wrap">
+    <div class="label"><b>14</b> Try it</div>
+    <div class="col">
+      <h2 class="rv">A working prototype, not a click-through</h2>
+      <p class="rv">Book a stay end to end: pick a house, a room and a rate, add extras, pay, and get your confirmation. Switch the brand at any step and the flow keeps going in the new house’s style.</p>
+    </div>
+    <div class="protoframe rv"><iframe src="about:blank" data-src="prototype.html" title="Padaav live prototype" loading="lazy"></iframe></div>
+    <div class="protomob"><a class="btn" href="prototype.html" data-proto>Open the live prototype →</a></div>
+    <figure class="rv zoom" style="margin:28px 0 0" data-zoom="img/s/flow-dhundh.webp" data-g="flow" data-cap="Prototype wiring in Figma: book a stay at Dhundh"><img src="img/s/flow-dhundh.webp" alt="Nine wired mobile screens forming the booking prototype in Figma" loading="lazy" width="2000" height="1416" style="border-radius:12px"><figcaption>The same flow wired in Figma for each house: home, dates, room, review, details, add-ons, payment, processing, confirmed.</figcaption></figure>
+  </div>
+</section>
+
+<!-- PROCESS & AI -->
+<section id="ai" class="wrap" data-chap="How I used AI">
+  <div class="label"><b>15</b> Process · how I used AI</div>
+  <div class="col">
+    <h2 class="rv">AI built the volume. I made the calls.</h2>
+    <p class="rv">I used Claude with the Figma MCP to research the market, draft strategy, generate token JSON and build components and screens programmatically in my Figma file. That’s how a 304-screen system fits in ten days. Every decision went through review, and a lot of AI output was changed or thrown away.</p>
+  </div>
+  <div class="days">
+    <div class="day rv on"><b>Day 1</b><strong>Strategy &amp; name</strong><span>Market scan, positioning, 40 names → Padaav.</span></div>
+    <div class="day rv on"><b>Days 2–3</b><strong>Identity</strong><span>Wordmark, halt dot, palettes, personality sliders.</span></div>
+    <div class="day rv on"><b>Days 4–6</b><strong>Tokens &amp; components</strong><span>4 brand modes, 35 components bound to variables.</span></div>
+    <div class="day rv on"><b>Days 7–8</b><strong>Screens</strong><span>Guest journey × 3 houses, states, console, emails.</span></div>
+    <div class="day rv on"><b>Days 9–10</b><strong>QA &amp; prototype</strong><span>Contrast audit, real photos, live prototype.</span></div>
+  </div>
   <div class="log">
-    <div><b class="changed">Changed</b><span><b style="all:unset;font-weight:600">Typography.</b> AI gave each house its own display typeface: six fonts in total. On collective screens it looked busy. I consolidated to one family (Newsreader) with a style per house. Because type was tokenised, the change took minutes.</span></div>
-    <div><b class="rejected">Rejected</b><span><b style="all:unset;font-weight:600">AI photography.</b> Generated photos made the whole product feel synthetic. I replaced all of them with 48 real photographs and mapped each to its room, dish or experience.</span></div>
-    <div><b class="changed">Changed</b><span><b style="all:unset;font-weight:600">The parent brand was invisible.</b> House screens didn’t show Padaav. I added a family bar and an “a Padaav house” lock-up, driven by one boolean token, so all screens updated at once.</span></div>
-    <div><b class="changed">Changed</b><span><b style="all:unset;font-weight:600">Colour.</b> A rust-and-cream palette is the boutique cliché; I moved the master to ink-brown so the ochre halt dot is the only warm signature. Lehar’s teal failed contrast and was lightened.</span></div>
-    <div><b class="kept">Kept</b><span><b style="all:unset;font-weight:600">Naming.</b> 40 options in five routes; “Padaav” kept because the name itself tells the brand architecture: three stops on one journey.</span></div>
+    <div class="rv"><span class="pill changed">Changed</span><span><strong>Typography.</strong> AI gave each house its own display face: six fonts in total. I consolidated to one family with a style per house.</span></div>
+    <div class="rv"><span class="pill rejected">Rejected</span><span><strong>AI photography.</strong> Generated photos made the product feel synthetic. Replaced with real photographs, each mapped to its room, dish or experience.</span></div>
+    <div class="rv"><span class="pill changed">Changed</span><span><strong>The parent brand was invisible.</strong> House screens didn’t show Padaav. I added the family bar and the “a Padaav house” lock-up, driven by one boolean token.</span></div>
+    <div class="rv"><span class="pill changed">Changed</span><span><strong>Colour.</strong> Rust-and-cream is the boutique cliché. I moved the master to ink-brown so the ochre dot is the only warm signature. Lehar’s teal failed contrast and was fixed.</span></div>
+    <div class="rv"><span class="pill kept">Kept</span><span><strong>The name.</strong> 40 options in five routes. “Padaav” stayed because the name itself explains the architecture: three stops on one journey.</span></div>
   </div>
-  <blockquote>The speed came from AI. The taste, the edits and the reasons are mine.</blockquote>
+  <p class="quote rv" style="margin-top:44px">The speed came from AI. <em>The taste, the edits and the reasons are mine.</em></p>
 </section>
 
-<section id="learned" class="col">
-  <div class="label">07 · What I learned</div>
-  <h2>Systems make restraint cheap</h2>
-  <p>When every visual decision is a token, changing your mind costs minutes, not days. That made it easy to take risks early (four typefaces, AI imagery) and pull them back once they didn’t work.</p>
-  <p>Next I’d test the booking flow with five real travellers, hand-draw the final wordmark, and add a “Journeys” product: multi-house trips booked in one go, the natural next step for the Collector.</p>
-  <div class="cta"><a class="btn" href="prototype.html" data-proto>Try the live prototype →</a><a class="btn sec" href="https://www.figma.com/design/BWVADBjC35xOdjTiFQuhfy" target="_blank" rel="noopener">Open the Figma file</a></div>
+<!-- LEARNED -->
+<section id="learned" class="wrap" data-chap="What I learned">
+  <div class="label"><b>16</b> What I learned</div>
+  <div class="col">
+    <h2 class="rv">Systems make restraint cheap</h2>
+    <p class="rv">When every visual decision is a token, changing your mind costs minutes, not days. That made it easy to take risks early, like six typefaces and AI imagery, and pull them back once they didn’t work.</p>
+  </div>
+  <div class="end">
+    <div class="rv"><b>Test with travellers</b><span>Run the booking flow with five real guests, starting with part-payment and cancellation.</span></div>
+    <div class="rv"><b>Hand-draw the wordmark</b><span>The halt dot deserves custom letterforms, not a typeset name.</span></div>
+    <div class="rv"><b>Add “Journeys”</b><span>Multi-house trips booked in one go: the natural next step for the Collector.</span></div>
+  </div>
+  <div class="cta" style="margin-top:44px"><a class="btn" href="prototype.html" data-proto>Try the live prototype →</a><a class="btn sec" href="https://www.figma.com/design/BWVADBjC35xOdjTiFQuhfy" target="_blank" rel="noopener">Open the Figma file</a><a class="btn sec" href="../#work" data-nav="work">← All work</a></div>
 </section>
 </main>
-<footer class="wrap"><div class="row"><span>Padaav is a self-initiated concept; the houses are fictional.</span><span>Photography from Pexels, used for a concept.</span></div></footer>
+<footer class="wrap"><div class="row"><span>Padaav is a self-initiated concept; the houses are fictional.</span><span>Designed in Figma with Claude as a partner. Photography from Pexels.</span></div></footer>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Image viewer"><button class="x" type="button" aria-label="Close">×</button><button class="nv p" type="button" aria-label="Previous">‹</button><img alt=""><button class="nv n" type="button" aria-label="Next">›</button><span class="lc"></span></div>
+
 <script>
 (() => {
 const inFrame = window.parent !== window;
-document.querySelectorAll('[data-nav]').forEach(a => a.addEventListener('click', e => { if (inFrame) { e.preventDefault(); parent.postMessage({ pd: 'nav', hash: a.dataset.nav }, '*'); } }));
-document.querySelectorAll('[data-proto]').forEach(a => a.addEventListener('click', e => { if (inFrame) { e.preventDefault(); parent.postMessage({ pd: 'proto', key: 'padaavProto' }, '*'); } }));
-addEventListener('keydown', e => { if (e.key === 'Escape' && inFrame) parent.postMessage({ pd: 'nav', hash: 'work' }, '*'); });
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const S = n => 'img/s/' + n + '.webp';
+
+/* portfolio nav */
+$$('[data-nav]').forEach(a => a.addEventListener('click', e => { if (inFrame) { e.preventDefault(); parent.postMessage({ pd: 'nav', hash: a.dataset.nav }, '*'); } }));
+const wireProto = root => root.querySelectorAll('[data-proto]').forEach(a => a.addEventListener('click', e => { if (inFrame) { e.preventDefault(); parent.postMessage({ pd: 'proto', key: 'padaavProto' }, '*'); } }));
+wireProto(document);
+
+/* phone helper: [name, height, title, note] */
+const phone = (n, h, title, w, g) => `<div class="phone${h > 900 ? ' long' : ''}" style="${w ? '--w:' + w : ''}" data-zoom="${S(n)}" data-g="${g || ''}" data-cap="${title}"><div class="scr"><img src="${S(n)}" alt="${title}" loading="lazy" width="390" height="${h}"></div>${h > 900 ? '<span class="hint">Hover to scroll</span>' : ''}</div>`;
+
+/* hero marquee */
+const mq1 = ['home-jharokha','room-dhundh','key-lehar','confirm-jharokha','stay-chat','passport','book-addons','home-lehar','stay-dining','room-lehar'];
+const mq2 = ['collective-home','confirm-lehar','key-jharokha','book-payment','search','trips','home-dhundh','stay-review','gift','confirm-dhundh'];
+const fill = (el, list, wide) => { const html = list.map(n => `<div class="m"><img src="${S(n)}" alt=""></div>`).join(''); el.innerHTML = html + html; };
+fill($('#mq1'), mq1); fill($('#mq2'), mq2);
+
+/* hover-to-scroll for long screens */
+const bindScroll = root => root.querySelectorAll('.phone.long, .view.long').forEach(p => {
+  const img = p.querySelector('img'); const box = p.classList.contains('view') ? p : p.querySelector('.scr');
+  p.addEventListener('mouseenter', () => { const d = img.offsetHeight - box.clientHeight; if (d > 0) { img.style.setProperty('--t', Math.min(9, Math.max(2, d / 300)) + 's'); img.style.transform = `translateY(${-d}px)`; } });
+  p.addEventListener('mouseleave', () => { img.style.setProperty('--t', '1.2s'); img.style.transform = ''; });
+});
+bindScroll(document);
+
+/* brand switcher */
+const BR = {
+  padaav: { name: 'Padaav', img: 'collective-home', h: 3330, voice: '“You’re booked. See you soon.”', act: '#2a2420', acc: '#d9962b', tnt: '#efe7db', rad: '4px', dur: 320, ease: 'calm ease-out', curve: 'cubic-bezier(.2,.7,.2,1)', fw: 400, fs: 'normal', face: 'Newsreader Regular' },
+  dhundh: { name: 'Dhundh', img: 'home-dhundh', h: 2986, voice: '“You’re booked. The fire will be lit.”', act: '#34483c', acc: '#8fa39a', tnt: '#e6ebe6', rad: '10px', dur: 420, ease: 'soft settle', curve: 'cubic-bezier(.25,.8,.25,1)', fw: 300, fs: 'normal', face: 'Newsreader Light' },
+  jharokha: { name: 'Jharokha', img: 'home-jharokha', h: 3010, voice: '“Your room has been waiting since 1847.”', act: '#2b3567', acc: '#b08a3e', tnt: '#ece7da', rad: '2px', dur: 300, ease: 'door-like in-out', curve: 'cubic-bezier(.7,0,.3,1)', fw: 500, fs: 'italic', face: 'Newsreader Medium Italic' },
+  lehar: { name: 'Lehar', img: 'home-lehar', h: 2944, voice: '“Done! Bring your appetite.”', act: '#a8452a', acc: '#4fa0a6', tnt: '#f6e9da', rad: '20px', dur: 220, ease: 'wave overshoot', curve: 'cubic-bezier(.3,1.6,.5,1)', fw: 600, fs: 'normal', face: 'Newsreader SemiBold' }
+};
+const sw = $('#sw'), swImg = $('#swImg'), swPhone = sw.querySelector('.phone');
+const setBrand = k => {
+  const b = BR[k];
+  sw.style.cssText = `--act:${b.act};--acc:${b.acc};--tnt:${b.tnt};--rad:${b.rad};--dur:${b.dur}ms;--fw:${b.fw};--fs:${b.fs};--ease:${b.curve}`;
+  $$('#sw [data-b]').forEach(x => x.setAttribute('aria-pressed', x.dataset.b === k));
+  $('#swName').innerHTML = b.name + '<i></i>'; $('#swVoice').textContent = b.voice;
+  swImg.style.opacity = 0;
+  setTimeout(() => { swImg.src = S(b.img); swImg.height = b.h; swImg.alt = b.name + ' home screen'; swImg.style.transform = ''; swImg.style.opacity = 1; swPhone.dataset.zoom = S(b.img); swPhone.dataset.cap = b.name + ' home'; }, reduce ? 0 : 200);
+  const sq = c => `<i style="background:${c}"></i>${c}`;
+  $('#swToks').innerHTML = [['color/action', sq(b.act)], ['color/accent', sq(b.acc)], ['color/surface/tint', sq(b.tnt)], ['radius/component', b.rad], ['motion/duration', b.dur + 'ms'], ['motion/easing', b.ease], ['type/display', b.face], ['brand/is-house', k === 'padaav' ? 'false' : 'true']]
+    .map(([a, v]) => `<div><span>${a}</span><code>${v}</code></div>`).join('');
+  play();
+};
+const tr = $('#swTrack');
+const play = () => { tr.classList.remove('go'); void tr.offsetWidth; requestAnimationFrame(() => tr.classList.add('go')); };
+$$('#sw [data-b]').forEach(x => x.addEventListener('click', () => setBrand(x.dataset.b)));
+$('#swGo').addEventListener('click', play);
+setBrand('padaav');
+
+/* type slider */
+const ba = $('#ba'), rng = ba.querySelector('input');
+rng.addEventListener('input', () => ba.style.setProperty('--x', rng.value + '%'));
+
+/* journey */
+const J = {
+  book: [['home-dhundh', 2986, 'Property home', 'Dates and guests up front, rooms below.'], ['dates-dhundh', 844, 'Choose dates', 'The halt dot marks check-in and check-out.'], ['room-dhundh', 1511, 'Room detail', 'Honest facts: 18 stairs, no lift.'], ['rate-dhundh', 844, 'Choose a rate', 'Flexible, pay-now or half board.'], ['book-review', 1157, 'Review your stay', 'Every line editable, taxes shown.'], ['book-details', 1349, 'Your details', '“We never call to sell.”'], ['book-addons', 1101, 'Add-ons', 'Optional, written by the house.'], ['book-payment', 1010, 'Payment', 'UPI first, pay 30% now if you like.'], ['book-processing', 844, 'Processing', 'Tells you to keep the page open.'], ['confirm-dhundh', 1394, 'Confirmed', 'What happens next, step by step.']],
+  discover: [['collective-home', 3330, 'Collective home', 'Three houses, one welcome.'], ['search', 2579, 'Search results', 'Availability shown on every card.'], ['compare', 2738, 'Compare houses', 'Which house is for you?'], ['otp', 844, 'Sign in with OTP', 'How people in India actually log in.']],
+  stay: [['stay-prearrival', 992, 'Before you arrive', 'A 3-minute checklist.'], ['key-dhundh', 864, 'Digital key', 'Works offline, shareable.'], ['stay-dining', 1137, 'In-room dining', 'Charged to the room bill.'], ['stay-chat', 844, 'Host chat', 'A real person, with quick replies.'], ['stay-bill', 1057, 'Bill and check-out', 'Pay extras and leave.'], ['stay-review', 928, 'Leave a review', 'Earns your Passport stamp.']],
+  after: [['trips', 1843, 'My trips', 'Upcoming stays across houses.'], ['cancel', 844, 'Cancel, honestly', 'Refund shown before you commit.'], ['passport', 1672, 'Padaav Passport', 'Two stops down, one to go.'], ['gift', 1921, 'Gift a stay', 'With a live card preview.']]
+};
+const jStrip = $('#jStrip');
+const renderJ = k => {
+  jStrip.innerHTML = J[k].map(([n, h, t, c], i) => `<figure>${phone(n, h, t, '250px', 'j')}<figcaption><b><em>${i + 1}</em>${t}</b><span>${c}</span></figcaption></figure>`).join('');
+  jStrip.scrollLeft = 0; bindScroll(jStrip);
+};
+$$('#jTabs button').forEach(b => b.addEventListener('click', () => { $$('#jTabs button').forEach(x => x.setAttribute('aria-selected', x === b)); renderJ(b.dataset.j); }));
+renderJ('book');
+
+/* compare */
+const C = {
+  confirm: { cap: 'One confirmation component. Three headlines, three food photos, three button colours.', items: [['confirm-dhundh', 1394], ['confirm-jharokha', 1394], ['confirm-lehar', 1394]] },
+  key: { cap: 'The digital key keeps its shape; the ring colour and room names belong to each house.', items: [['key-dhundh', 864], ['key-jharokha', 864], ['key-lehar', 864]] },
+  room: { cap: 'Each best room has its own story, amenities and stairs count. Hover to scroll.', items: [['room-dhundh', 1511], ['room-jharokha', 1487], ['room-lehar', 1487]] },
+  home: { cap: 'Property homes: same structure, different place. Hover to scroll the whole page.', items: [['home-dhundh', 2986], ['home-jharokha', 3010], ['home-lehar', 2944]] }
+};
+const HN = [['Dhundh', '#34483c'], ['Jharokha', '#2b3567'], ['Lehar', '#a8452a']];
+const renderC = k => {
+  $('#trio').innerHTML = C[k].items.map(([n, h], i) => `<figure>${phone(n, h, HN[i][0], '', 'c')}<figcaption><i style="background:${HN[i][1]}"></i>${HN[i][0]}</figcaption></figure>`).join('');
+  $('#cCap').textContent = C[k].cap; bindScroll($('#trio'));
+};
+$$('#cTabs button').forEach(b => b.addEventListener('click', () => { $$('#cTabs button').forEach(x => x.setAttribute('aria-selected', x === b)); renderC(b.dataset.c); }));
+renderC('confirm');
+
+/* states */
+const ST = [['st-declined', 't-err', 'Error', 'Payment declined', '“You haven’t been charged.”'], ['st-taken', 't-edge', 'Edge case', 'Room just booked', 'Offers the rooms still free.'], ['st-price', 't-edge', 'Edge case', 'Price changed', 'New total shown before you continue.'], ['st-bluetooth', 't-err', 'Error', 'Bluetooth off', 'Explains why the key needs it.'], ['st-empty', 't-empty', 'Empty', 'No houses free', 'Suggests a few days either side.'], ['st-offline', 't-err', 'Error', 'Offline', 'Your saved trip and key still work.'], ['st-loading', 't-load', 'Loading', 'Search loading', 'Skeletons match the real layout.'], ['otp', 't-load', 'Flow', 'OTP sign in', 'Resend timer, clear focus.']];
+$('#statesGrid').innerHTML = ST.map(([n, c, t, h, d]) => `<figure class="rv">${phone(n, 844, h, '', 'st')}<figcaption><span class="tag ${c}">${t}</span><b>${h}</b>${d}</figcaption></figure>`).join('');
+
+/* console */
+const K = [['c-arrivals', 'Arrivals', 'Who’s coming today, across all houses, with transfers and Passport guests flagged.'], ['c-roomboard', 'Room board', 'Ten days at a glance. The halt dot marks each arrival.'], ['c-booking', 'Booking detail', 'Guest notes and pre-arrival progress in one place.'], ['c-housekeeping', 'Housekeeping', 'Which rooms are ready before 2 pm check-in.'], ['c-reports', 'Reports', 'Revenue by house, and the Passport effect on repeat stays.']];
+$('#kTabs').innerHTML = K.map(([n, t], i) => `<button role="tab" aria-selected="${i === 0}" data-k="${i}">${t}</button>`).join('');
+$('#kView').innerHTML = K.map(([n, t], i) => `<img src="${S(n)}" alt="Staff console: ${t}" loading="lazy" width="1440" height="960" style="opacity:${i ? 0 : 1}">`).join('');
+$('#kCap').innerHTML = K.map(([n, t, d], i) => `<div class="${i ? '' : 'on'}"><b>${t}</b>${d}</div>`).join('');
+let kIdx = 0, kTimer;
+const setK = i => { kIdx = i; $$('#kTabs button').forEach((b, j) => b.setAttribute('aria-selected', j === i)); $$('#kView img').forEach((im, j) => im.style.opacity = j === i ? 1 : 0); $$('#kCap div').forEach((d, j) => d.classList.toggle('on', j === i)); const kb = $('#kBrowser'); kb.dataset.zoom = S(K[i][0]); kb.dataset.cap = 'Staff console · ' + K[i][1]; };
+$$('#kTabs button').forEach(b => b.addEventListener('click', () => { clearInterval(kTimer); setK(+b.dataset.k); }));
+setK(0);
+if (!reduce) kTimer = setInterval(() => setK((kIdx + 1) % K.length), 4200);
+
+/* photo mosaic */
+const P = [['dhundh-room-1', 'a', 'Dhundh · Deodar Room'], ['jharokha-experience', 'b', 'Jharokha · block-printing'], ['lehar-food', '', 'Lehar · Malvani lunch'], ['jharokha-room-1', '', 'Jharokha · Chandni Suite'], ['lehar-room-1', 'c', 'Lehar · Creek Cottage'], ['dhundh-food', '', 'Dhundh · siddu'], ['jharokha-food', '', 'Jharokha · thali'], ['dhundh-experience', 'b', 'Dhundh · forest walks'], ['lehar-experience', '', 'Lehar · sunset kayak'], ['dhundh-room-2', '', 'Dhundh · Attic Loft']];
+$('#mosaic').innerHTML = P.map(([n, c, t]) => `<figure class="${c} zoom rv" data-zoom="proto/${n}.webp" data-g="ph" data-cap="${t}"><img src="proto/${n}.webp" alt="${t}" loading="lazy"><span>${t}</span></figure>`).join('');
+
+/* lazy prototype iframe */
+const pf = $('.protoframe iframe');
+new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { pf.src = pf.dataset.src; o.disconnect(); } }), { rootMargin: '400px' }).observe(pf);
+
+/* reveal */
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+$$('.rv').forEach(el => io.observe(el));
+
+/* chapter + progress */
+const chap = $('#chap'), prog = $('#prog'), secs = $$('[data-chap]');
+const onScroll = () => {
+  const h = document.documentElement; prog.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+  let cur = secs[0]; secs.forEach(s => { if (s.getBoundingClientRect().top < 140) cur = s; });
+  const t = cur.dataset.chap === 'Padaav' ? 'Padaav' : 'Padaav · ' + cur.dataset.chap; if (chap.textContent !== t) chap.textContent = t;
+};
+addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+/* lightbox */
+const lb = $('#lb'), li = lb.querySelector('img'), lc = lb.querySelector('.lc');
+let group = [], gi = 0;
+const show = () => { const el = group[gi]; li.src = el.dataset.zoom; li.alt = el.dataset.cap || ''; lc.textContent = (el.dataset.cap || '') + (group.length > 1 ? `  ·  ${gi + 1} / ${group.length}` : ''); li.classList.toggle('narrow', /\/s\/(?!c-|d-|comp|flow|states|email)/.test(el.dataset.zoom)); lb.scrollTop = 0; lb.querySelectorAll('.nv').forEach(b => b.hidden = group.length < 2); };
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-zoom]'); if (!el || e.target.closest('a,button,input')) return;
+  const g = el.dataset.g; group = g ? $$(`[data-zoom][data-g="${g}"]`) : [el]; gi = Math.max(0, group.indexOf(el));
+  show(); lb.hidden = false; document.documentElement.style.overflow = 'hidden'; lb.querySelector('.x').focus();
+});
+const shut = () => { lb.hidden = true; document.documentElement.style.overflow = ''; };
+lb.querySelector('.x').onclick = shut;
+lb.addEventListener('click', e => { if (e.target === lb) shut(); });
+lb.querySelector('.p').onclick = () => { gi = (gi - 1 + group.length) % group.length; show(); };
+lb.querySelector('.n').onclick = () => { gi = (gi + 1) % group.length; show(); };
+addEventListener('keydown', e => {
+  if (!lb.hidden) { if (e.key === 'Escape') { e.stopImmediatePropagation(); shut(); } if (e.key === 'ArrowRight') lb.querySelector('.n').click(); if (e.key === 'ArrowLeft') lb.querySelector('.p').click(); return; }
+  if (e.key === 'Escape' && inFrame) parent.postMessage({ pd: 'nav', hash: 'work' }, '*');
+}, true);
 })();
 </script>
 </body>
